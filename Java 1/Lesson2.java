@@ -51,7 +51,7 @@ public class Lesson2 {
             System.out.print( mas[ i ] + " ");
         }
         System.out.println();
-        
+
         // finding the maximum and minimum values in an array mas[]
         int max = -2147483648;
         int min = 2147483647;
@@ -64,11 +64,11 @@ public class Lesson2 {
             }
         }
         System.out.println("Max = " + max + " Min = " + min);
-		
+
 		// a simple console calculator
 		calcConsole();
     }
-    
+
     /** a simple console calculator
     */
     static void calcConsole() {
