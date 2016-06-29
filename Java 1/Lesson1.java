@@ -41,7 +41,7 @@ public class Lesson1 {
 
     /** calculating a * (b + (c / d))
     */
-    public static int calcExpr(int a, int b, int c, int d) {
+    static int calcExpr(int a, int b, int c, int d) {
         if (d == 0) {
             System.out.println("Error: Division by zero");
             return -1;
@@ -52,7 +52,7 @@ public class Lesson1 {
 
     /** cheking the summ (a + b) is in the range [10..20]
     */
-    public static boolean checkSumm(int a, int b) {
+    static boolean checkSumm(int a, int b) {
         if ((a + b >= 10) && (a + b <= 20)) {
             return true;
         } else {
@@ -62,7 +62,7 @@ public class Lesson1 {
 
     /** cheking - is the year leap?
     */
-    public static boolean isYearLeap(int y) {
+    static boolean isYearLeap(int y) {
         if (((y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0)) {
             return true;
         } else {
