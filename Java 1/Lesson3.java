@@ -5,6 +5,9 @@
  * 1. The size of the playing field is designed as a constant
  * 2. The game can be interrupted by entering a negative coordinates
  * 3. In checkWin() function used cycles
+ * 4. In turnAI () function to develop a simple version of the AI, which blocks the possible
+ * completion of horizontals, verticals and diagonals of the third element.
+ * However, this AI can deceive, if not put crosses one after another, but in one
  * 
  * @author Sergey Iryupin
  * @version 17 June 2016
@@ -59,7 +62,7 @@ public class Lesson3 {
     /**
      * Initialize the playing field
      */
-    public static void initField() {
+    static void initField() {
         for (int y = 0; y < field_size; y++) {
             for (int x = 0; x < field_size; x++) {
                 field[x][y] = dotEmpty;
@@ -70,7 +73,7 @@ public class Lesson3 {
     /**
      * Displays of the playing field
      */
-    public static void printField() {
+    static void printField() {
        for (int y = 0; y <= field_size; y++) {
            System.out.print(y);
        }
@@ -87,7 +90,7 @@ public class Lesson3 {
     /**
      * Player Turn - Human
      */
-    public static boolean turnHuman() {
+    static boolean turnHuman() {
         int x, y;
         do {
             System.out.print("Your turn X Y (1.."+field_size+")\n>");
@@ -104,19 +107,48 @@ public class Lesson3 {
     /**
      * Player Turn - Computer
      */
-    public static void turnAI() {
-		int x, y;
-        do {
-            x = rand.nextInt(field_size);
-            y = rand.nextInt(field_size);
-        } while (!isCellBusy(x, y, dotEmpty));
-        field[x][y] = dotAI;
+    static void turnAI() {
+        // an attempt to anticipate the possibility of constructing a line + blocking
+        boolean withoutAI = true;
+        for (int y = 0; y < field_size; y++) {
+            for (int x = 0; x < field_size; x++) {
+                if (isCellBusy(x, y, dotHuman) && withoutAI) {
+                    for (int y1 = y - 1; y1 < y + field_size; y1++) {
+                        for (int x1 = x - 1; x1 < x + field_size; x1++) {
+                            if (!((y == y1) && (x == x1))) {
+                                if (isCellBusy(x1, y1, dotHuman)) {
+                                    // blocking continuation forward
+                                    if (isCellBusy(x * 2 - x1, y * 2 - y1, dotEmpty)) {
+                                        field[x * 2 - x1][y * 2 - y1] = dotAI;
+                                        withoutAI = false;
+                                    }
+                                    // blocking continuation back
+                                    if (isCellBusy(x1 * 2 - x, y1 * 2 - y, dotEmpty)) {
+                                        field[x1 * 2 - x][y1 * 2 - y] = dotAI;
+                                        withoutAI = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // if AI doesn't work, select the coordinates randomly
+        int x, y;
+        if (withoutAI) {
+            do {
+                x = rand.nextInt(field_size);
+                y = rand.nextInt(field_size);
+            } while (!isCellBusy(x, y, dotEmpty));
+            field[x][y] = dotAI;
+        }
     }
 
     /**
      * Check - is the cell at coordinates free?
      */
-    public static boolean isCellBusy(int _x, int _y, char _ch) {
+    static boolean isCellBusy(int _x, int _y, char _ch) {
         if(_x < 0 || _y < 0 || _x > (field_size - 1) || _y > (field_size - 1))
             return false;
         if (field[_x][_y] == _ch)
@@ -127,7 +159,7 @@ public class Lesson3 {
     /**
      * Checking for a draw: whole field is filled?
      */
-    public static boolean isFieldFull() {
+    static boolean isFieldFull() {
         for (int y = 0; y < field_size; y++) {
             for (int x = 0; x < field_size; x++) {
                 if (field[x][y] == dotEmpty)
@@ -140,7 +172,7 @@ public class Lesson3 {
     /**
      * Checking victory
      */
-    public static boolean checkWin(char _xo) {
+    static boolean checkWin(char _xo) {
         // checking horizontals / verticals
         for (int i = 0; i < field_size; i++) {
             if (field[i][0] == _xo && field[i][1] == _xo && field[i][2] == _xo) return true;
