@@ -1,0 +1,1 @@
+Java is directly related to both C and C++. Java inherits its syntax from C. Its object model is adapted from C++. Java’s relationship with C and C++ is important for several reasons. First, many programmers are familiar with the C/C++ syntax. This makes it easy for a C/C++ programmer to learn Java and, conversely, for a Java programmer to learn C/C++.
