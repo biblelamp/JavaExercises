@@ -6,12 +6,11 @@ import java.awt.event.ActionListener;
 public class MyWindow extends JFrame {
 
     public MyWindow() {
-        setSize(500, 555);
+        setSize(505, 555);
         setTitle("Tic-Tac-Toe");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(800, 200);
-        //setBounds(800, 200, 400, 400);
+        setLocation(200, 200);
         Map map = new Map(5);
         JPanel jpButtom = new JPanel(new GridLayout());
         add(map, BorderLayout.CENTER);
@@ -22,7 +21,7 @@ public class MyWindow extends JFrame {
         jbEnd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getSource().toString());
+                //System.out.println(e.getSource().toString());
                 System.exit(0);
             }
         });
@@ -33,4 +32,3 @@ public class MyWindow extends JFrame {
         setVisible(true);
     }
 }
-
