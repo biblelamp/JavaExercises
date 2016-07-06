@@ -7,10 +7,12 @@ public class MyWindow extends JFrame{
 
     Map map;
     OptionGame opt;
+    final String hvc = "Human vs Computer";
+    final String hvh = "Human vs Human";
 
     public MyWindow() {
         setSize(500,555);
-        setTitle("Tic Tac Toe");
+        setTitle("Tic Tac Toe: " + hvc);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(800,200);
@@ -45,7 +47,8 @@ public class MyWindow extends JFrame{
 
     }
 
-    public void createMap(int size) {
-        map.startNewGame(size);
+    public void createMap(int size, boolean mode) {
+       setTitle("Tic Tac Toe: " + ((mode) ? hvc : hvh));
+       map.startNewGame(size, mode);
     }
 }

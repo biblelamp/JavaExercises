@@ -21,7 +21,7 @@ public class OptionGame extends JFrame {
         JLabel jb1 = new JLabel("Players");
         jb1.setFont(new Font("Arial",Font.BOLD, 14));
         jb1.setBounds(0,0,200,30);
-        JRadioButton jRadioBut1 = new JRadioButton("Human vs Computer");
+        final JRadioButton jRadioBut1 = new JRadioButton("Human vs Computer");
         jRadioBut1.setSelected(true);
         JRadioButton jRadioBut2 = new JRadioButton("Human vs Human");
         jRadioBut2.setSelected(false);
@@ -54,7 +54,7 @@ public class OptionGame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 owner.setEnabled(true);
-                owner.createMap(slider.getValue());
+                owner.createMap(slider.getValue(), jRadioBut1.isSelected());
                 setVisible(false);
             }
         });
