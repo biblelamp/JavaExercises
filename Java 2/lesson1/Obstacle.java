@@ -13,6 +13,8 @@ public abstract class Obstacle {
     }
 
     protected float size;
+    
+    public abstract String getType();
 
     public abstract void doIt(Animal a);
 }

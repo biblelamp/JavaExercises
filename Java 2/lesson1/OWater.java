@@ -10,6 +10,11 @@ public class OWater extends Obstacle {
     }
 
     @Override
+    public String getType() {
+        return "Water";
+    }
+
+    @Override
     public void doIt(Animal a) {
         if(a instanceof Swimable) {
             ((Swimable) a).swim(size);

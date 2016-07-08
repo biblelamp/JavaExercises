@@ -21,6 +21,10 @@ public class Team {
         return teamName;
     }
 
+    public ArrayList<Animal> getMembers() {
+        return members;
+    }
+
     public void showTeam() {
         System.out.println("\"" + getTeamName() + "\" team members:");
         for (Animal member : members) {
@@ -29,7 +33,7 @@ public class Team {
     }
 
     public void showMembersWhoPassedDistance() {
-        for (Animal member: members) {
+        for (Animal member : members) {
            if (member.isOnDistance()){
                System.out.println(member.getType() + " " + member.getName() + " done it");
            }

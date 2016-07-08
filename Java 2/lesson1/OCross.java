@@ -10,6 +10,11 @@ public class OCross extends Obstacle {
     }
 
     @Override
+    public String getType() {
+        return "Cross";
+    }
+
+    @Override
     public void doIt(Animal a) {
         a.cross(size);
     }

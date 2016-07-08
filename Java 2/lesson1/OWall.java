@@ -10,6 +10,11 @@ public class OWall extends Obstacle {
     }
 
     @Override
+    public String getType() {
+        return "Wall";
+    }
+
+    @Override
     public void doIt(Animal a) {
         if (a instanceof Jumpable){
             ((Jumpable) a).jump(size);
