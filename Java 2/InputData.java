@@ -9,7 +9,7 @@ public class InputData {
     String filename;
     float[][] data;
 
-    public InputData(String filename) throws IllegalArgumentException {
+    public InputData(String filename) throws IllegalArgumentException, FileNotFoundException {
         this.filename = filename;
         data = new float[MATRIX_SIZE][MATRIX_SIZE];
         try {
@@ -28,7 +28,8 @@ public class InputData {
             }
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            throw new FileNotFoundException("File not found or doesn't exist.");
         }
 
     }

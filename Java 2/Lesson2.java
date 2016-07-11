@@ -4,6 +4,7 @@
  *  2. If one of the cells isn't a number (letter/word), then
  *  the calculation will not work, so we throw an exception about
  *  the wrong data in the file;
+ *  3. If the matrix file not found/doesn't exist - to inform the user;
  *
  * @author Sergey Iryupin
  * @version 11 July 2016
@@ -28,8 +29,8 @@ public class Lesson2 {
             InputData id = new InputData(strIn);
             System.out.println("Enter file name for save result");
             strOut = sc.next();
-            calculateAndSave(id, strOut);        
-        } catch (IllegalArgumentException e) {
+            calculateAndSave(id, strOut);
+        } catch (IllegalArgumentException | FileNotFoundException e) {
             System.out.println(e);
         }
     }
