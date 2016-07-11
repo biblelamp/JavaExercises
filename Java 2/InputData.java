@@ -9,7 +9,7 @@ public class InputData {
     String filename;
     float[][] data;
 
-    public InputData(String filename) {
+    public InputData(String filename) throws IllegalArgumentException {
         this.filename = filename;
         data = new float[MATRIX_SIZE][MATRIX_SIZE];
         try {
@@ -18,11 +18,16 @@ public class InputData {
                 String[] s = br.readLine().split(" ");
                 System.out.println(Arrays.toString(s));
                 for (int j = 0; j < 5; j++) {
-                    data[i][j] = Float.valueOf(s[j]);
+                    try {
+                        data[i][j] = Float.valueOf(s[j]);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Wrong number in [" + i + "," + j + "]");
+                        throw new IllegalArgumentException("Wrong number in file, calculation isn't possible.");
+                    }
                 }
             }
             br.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
