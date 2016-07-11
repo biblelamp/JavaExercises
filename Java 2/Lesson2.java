@@ -5,6 +5,8 @@
  *  the calculation will not work, so we throw an exception about
  *  the wrong data in the file;
  *  3. If the matrix file not found/doesn't exist - to inform the user;
+ *  4. If the size of the matrix in the file is less than 5x5 -
+ *  throw an exception on the wrong size of the matrix.
  *
  * @author Sergey Iryupin
  * @version 11 July 2016

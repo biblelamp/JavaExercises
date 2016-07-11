@@ -27,8 +27,9 @@ public class InputData {
                 }
             }
             br.close();
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Wrong size of matrix.");
         } catch (IOException e) {
-            //e.printStackTrace();
             throw new FileNotFoundException("File not found or doesn't exist.");
         }
 
