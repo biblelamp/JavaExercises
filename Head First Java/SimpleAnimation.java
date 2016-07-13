@@ -5,7 +5,12 @@ import java.util.Random;
 public class SimpleAnimation {
 
     int x = 50;
-    int y = 50;
+    int y = 40;
+    int dx = 1;
+    int dy = 1;
+    final int diameter = 40;
+    final int fieldWidth = 400;
+    final int fieldHeight = 300;
 
     public static void main(String[] args) {
         SimpleAnimation gui = new SimpleAnimation();
@@ -19,17 +24,22 @@ public class SimpleAnimation {
         MyDrawPanel drawPanel = new MyDrawPanel();
 
         frame.getContentPane().add(drawPanel);
-        frame.setSize(300, 300);
+        frame.setSize(fieldWidth, fieldHeight);
         frame.setVisible(true);
 
-        for (int i = 0; i < 130; i++) {
+        while (true) {
 
-            x++;
-            y++;
+            if ((x + dx + diameter >= fieldWidth) || (x + dx <= 0))
+                dx = -dx;
+            if ((y + dy + diameter >= fieldHeight) || (y + dy <= 0))
+                dy = -dy;
+
+            x += dx;
+            y += dy;
             drawPanel.repaint();
 
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch(Exception ex) { }
         }
     }
@@ -44,7 +54,7 @@ public class SimpleAnimation {
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             g.setColor(color[rand.nextInt(color.length)]);
-            g.fillOval(x, y, 40, 40);
+            g.fillOval(x, y, diameter, diameter);
         }
     }
 }
