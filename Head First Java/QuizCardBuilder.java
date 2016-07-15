@@ -11,13 +11,14 @@ public class QuizCardBuilder {
 	private JFrame frame;
 
     public static void main(String[] args) {
-        QuizCardBuilder builder= new QuizCardBuilder();
-        builder.go () ;
+        QuizCardBuilder builder = new QuizCardBuilder();
+        builder.go();
     }
 
 	public void go() {
         // build gui
         frame = new JFrame("Quiz Card Builder");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel();
         Font bigFont = new Font("sanserif", Font.BOLD, 24);
         question = new JTextArea(6, 20);
@@ -83,8 +84,10 @@ public class QuizCardBuilder {
             cardList.add(card);
 
             JFileChooser fileSave = new JFileChooser();
-            fileSave.showSaveDialog(frame);
-            saveFile(fileSave.getSelectedFile());
+            int result = fileSave.showSaveDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                saveFile(fileSave.getSelectedFile());
+            }    
         }
     }
 
