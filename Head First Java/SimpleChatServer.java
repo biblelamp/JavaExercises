@@ -33,7 +33,8 @@ public class SimpleChatServer {
     }
 
     public void go() {
-        ArrayList<PrintWriter> clientOutputStreams = new ArrayList<PrintWriter>();
+        //ArrayList<PrintWriter> clientOutputStreams = new ArrayList<PrintWriter>();
+        clientOutputStreams = new ArrayList();
         try {
             ServerSocket serverSock = new ServerSocket(5000);
             while (true) {
