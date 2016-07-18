@@ -3,7 +3,8 @@
  *  1. Create a window for client-side chat (large text field to display
  *  the correspondence, one-line text box for writing messages, to send messages
  *  button). The message should be sent either by pressing a button on the form,
- *  or by pressing the "Enter".
+ *  or by pressing the "Enter". "Sent" message should appear in the top text box.
+ *  2. "Sent" message also should should be duplicated in the text file.
  *
  * @author Sergey Iryupin
  * @version 18 July 2016
@@ -11,6 +12,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class Lesson4 {
 
@@ -49,6 +51,13 @@ public class Lesson4 {
         public void actionPerformed(ActionEvent ev) {
             if (!outgoing.getText().trim().isEmpty()) {
                 incoming.append(outgoing.getText() + "\n");
+                try {
+                    PrintWriter pw = new PrintWriter(new FileWriter("chat.txt", true));
+                    pw.write(outgoing.getText() + "\n");
+                    pw.close();
+                } catch(IOException ex) {
+                    ex.printStackTrace();
+                }
             }
             outgoing.setText("");
         }
