@@ -3,6 +3,14 @@ public class MyRunnable implements Runnable {
         go();
     }
     public void go() {
+
+        // using sleep to make our program m,ore predictable
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
         doMore();
     }
     public void doMore() {
