@@ -1,9 +1,10 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.sound.midi.*;
 import java.util.*;
-import java.awt.event.*;
 import java.io.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class BeatBox {
 
@@ -177,6 +178,8 @@ public class BeatBox {
     public class MySendListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
             JFileChooser save = new JFileChooser();
+            save.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            save.addChoosableFileFilter(new FileNameExtensionFilter("Saved beats (*.sbb)", "sbb"));
             int result = save.showSaveDialog(theFrame);
             if (result == JFileChooser.APPROVE_OPTION) {
                 boolean[] checkboxState = new boolean[256];
@@ -187,7 +190,7 @@ public class BeatBox {
                     }
                 }
                 try {
-                    FileOutputStream fileStream = new FileOutputStream(new File(save.getSelectedFile().getPath()));
+                    FileOutputStream fileStream = new FileOutputStream(new File(save.getSelectedFile().getPath() + (save.getSelectedFile().getPath().endsWith(".sbb")?"":".sbb")));
                     ObjectOutputStream os = new ObjectOutputStream(fileStream);
                     os.writeObject(checkboxState);
                 } catch(Exception e) {
@@ -200,6 +203,8 @@ public class BeatBox {
     public class MyReadInListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
             JFileChooser open = new JFileChooser();
+            open.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            open.addChoosableFileFilter(new FileNameExtensionFilter("Saved beats (*.sbb)", "sbb"));
             int result = open.showOpenDialog(theFrame);
             if (result == JFileChooser.APPROVE_OPTION) {
                 boolean[] checkboxState = null;
