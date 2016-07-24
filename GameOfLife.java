@@ -2,7 +2,7 @@
  * Java. Conway's Game of Life
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 24 July 2016
+ * @version 0.2 dated 24 July 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -20,6 +20,9 @@ public class GameOfLife {
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     int numGeneration = 0;
+    int showDelay = 500;
+    int showDelayStep = 50;
+    boolean goNextGeneration = false;
     Random random = new Random();
     JFrame frame;
 
@@ -41,26 +44,45 @@ public class GameOfLife {
 
         JButton stepButton = new JButton("Step");
         stepButton.addActionListener(new StepButtonListener());
-        /*
+
         JButton goButton = new JButton("Go");
         goButton.addActionListener(new GoButtonListener());
 
+        JButton fasterButton = new JButton("Faster");
+        fasterButton.addActionListener(new FasterButtonListener());
+
+        JButton slowerButton = new JButton("Slower");
+        slowerButton.addActionListener(new SlowerButtonListener());
+        
         JButton stopButton = new JButton("Stop");
         stopButton.addActionListener(new StopButtonListener());
-        */
+
         canvasPanel = new Canvas();
 
         JPanel btnPanel = new JPanel();
         btnPanel.add(fillButton);
         btnPanel.add(stepButton);
-        //btnPanel.add(goButton);
-        //btnPanel.add(stopButton);
+        btnPanel.add(goButton);
+        btnPanel.add(fasterButton);
+        btnPanel.add(slowerButton);
+        btnPanel.add(stopButton);
 
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
         frame.setVisible(true);
+
+        while (true) {
+            if (goNextGeneration) {
+                processOfLife();
+                canvasPanel.repaint();
+                try {
+                    Thread.sleep(showDelay);
+                } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+        }
+        
     }
-    
+
     // count the number of neighbors
     int countNeighbors(int x, int y) {
         int count = 0;
@@ -120,16 +142,35 @@ public class GameOfLife {
         }
     }
 
+    // generation after generation without stopping
     public class GoButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
+            goNextGeneration = true;
         }
     }
 
-    public class StopButtonListener implements ActionListener {
+    // show change of generation faster
+    public class FasterButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
+            showDelay = (showDelay - showDelayStep == 0) ? showDelay: showDelay - showDelayStep;
         }
     }
-    
+
+    // show change of generation slower
+    public class SlowerButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent ev) {
+            showDelay = showDelay + showDelayStep;
+        }
+    }
+
+    // generation after generation without stopping
+    // stop next generation
+    public class StopButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent ev) {
+            goNextGeneration = false;
+        }
+    }
+
     public class Canvas extends JPanel {
 
         public Canvas() {
@@ -142,7 +183,7 @@ public class GameOfLife {
             for (int x = 0; x < LIFE_SIZE; x++) {
                 for (int y = 0; y < LIFE_SIZE; y++) {
                     if (lifeGeneration[x][y]) {
-                        g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, 10, 10);
+                        g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
                     }
                 }
             }
