@@ -2,10 +2,12 @@
  * Java. Conway's Game of Life
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 24 July 2016
+ * @version 0.3 dated 25 July 2016
  */
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class GameOfLife {
     final int LIFE_SIZE = 50;
     final int POINT_RADIUS = 10;
     final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS;
-    final int BTN_PANAL_HEIGHT = 57;
+    final int BTN_PANEL_HEIGHT = 57;
     final int START_LOCATION = 200;
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
@@ -25,7 +27,6 @@ public class GameOfLife {
     boolean goNextGeneration = false;
     Random random = new Random();
     JFrame frame;
-
     Canvas canvasPanel;
 
     public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class GameOfLife {
     void go() {
         frame = new JFrame(nameOfGame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_SIZE, FIELD_SIZE + BTN_PANAL_HEIGHT);
+        frame.setSize(FIELD_SIZE, FIELD_SIZE + BTN_PANEL_HEIGHT);
         frame.setLocation(START_LOCATION, START_LOCATION);
         frame.setResizable(false);
 
@@ -58,7 +59,19 @@ public class GameOfLife {
         stopButton.addActionListener(new StopButtonListener());
 
         canvasPanel = new Canvas();
+        canvasPanel.setBackground(Color.white);
+        canvasPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                int x = e.getX()/POINT_RADIUS;
+                int y = e.getY()/POINT_RADIUS;
+                lifeGeneration[x][y] = !lifeGeneration[x][y];
+                canvasPanel.repaint();
+            }
+        });
 
+        // panel of button: fill/step/go/faster/slower/stop
         JPanel btnPanel = new JPanel();
         btnPanel.add(fillButton);
         btnPanel.add(stepButton);
@@ -71,6 +84,7 @@ public class GameOfLife {
         frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
         frame.setVisible(true);
 
+        // endless loop of life
         while (true) {
             if (goNextGeneration) {
                 processOfLife();
@@ -80,7 +94,6 @@ public class GameOfLife {
                 } catch (InterruptedException e) { e.printStackTrace(); }
             }
         }
-        
     }
 
     // count the number of neighbors
