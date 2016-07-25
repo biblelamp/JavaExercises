@@ -21,7 +21,7 @@ public class GameOfLife {
     final int START_LOCATION = 200;
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
-    int numGeneration = 0;
+    int countGeneration = 0;
     int showDelay = 500;
     int showDelayStep = 50;
     boolean goNextGeneration = false;
@@ -54,7 +54,7 @@ public class GameOfLife {
 
         JButton slowerButton = new JButton("Slower");
         slowerButton.addActionListener(new SlowerButtonListener());
-        
+
         JButton stopButton = new JButton("Stop");
         stopButton.addActionListener(new StopButtonListener());
 
@@ -127,17 +127,15 @@ public class GameOfLife {
             }
         }
         for (int x = 0; x < LIFE_SIZE; x++) {
-            for (int y = 0; y < LIFE_SIZE; y++) {
-                lifeGeneration[x][y] = nextGeneration[x][y];
-            }
+            System.arraycopy(nextGeneration[x], 0, lifeGeneration[x], 0, LIFE_SIZE);
         }
-        numGeneration++;
+        countGeneration++;
     }
 
     // randomly fill cells
     public class FillButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
-            numGeneration = 1;
+            countGeneration = 1;
             for (int x = 0; x < LIFE_SIZE; x++) {
                 for (int y = 0; y < LIFE_SIZE; y++) {
                     lifeGeneration[x][y] = random.nextBoolean();
@@ -200,7 +198,7 @@ public class GameOfLife {
                     }
                 }
             }
-            frame.setTitle(nameOfGame + " : " + numGeneration);
+            frame.setTitle(nameOfGame + " : " + countGeneration);
         }
     }
 }
