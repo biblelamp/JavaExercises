@@ -2,7 +2,7 @@
  * Java. Conway's Game of Life
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 25 July 2016
+ * @version 0.4 dated 26 July 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -25,6 +25,7 @@ public class GameOfLife {
     int showDelay = 500;
     int showDelayStep = 50;
     boolean goNextGeneration = false;
+    boolean useColors = false;
     Random random = new Random();
     JFrame frame;
     Canvas canvasPanel;
@@ -58,6 +59,9 @@ public class GameOfLife {
         JButton stopButton = new JButton("Stop");
         stopButton.addActionListener(new StopButtonListener());
 
+        JButton colorButton = new JButton("Color");
+        colorButton.addActionListener(new ColorButtonListener());
+
         canvasPanel = new Canvas();
         canvasPanel.setBackground(Color.white);
         canvasPanel.addMouseListener(new MouseAdapter() {
@@ -79,6 +83,7 @@ public class GameOfLife {
         btnPanel.add(fasterButton);
         btnPanel.add(slowerButton);
         btnPanel.add(stopButton);
+        btnPanel.add(colorButton);
 
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
@@ -101,17 +106,16 @@ public class GameOfLife {
         int count = 0;
         for (int dx = -1; dx < 2; dx++) {
             for (int dy = -1; dy < 2; dy++) {
-                if (!((dx == 0) && (dy == 0))) {
-                    int nX = x + dx;
-                    int nY = y + dy;
-                    nX = (nX < 0) ? LIFE_SIZE - 1 : nX;
-                    nY = (nY < 0) ? LIFE_SIZE - 1 : nY;
-                    nX = (nX > LIFE_SIZE - 1) ? 0 : nX;
-                    nY = (nY > LIFE_SIZE - 1) ? 0 : nY;
-                    count += (lifeGeneration[nX][nY]) ? 1 : 0;
-                }
+                int nX = x + dx;
+                int nY = y + dy;
+                nX = (nX < 0) ? LIFE_SIZE - 1 : nX;
+                nY = (nY < 0) ? LIFE_SIZE - 1 : nY;
+                nX = (nX > LIFE_SIZE - 1) ? 0 : nX;
+                nY = (nY > LIFE_SIZE - 1) ? 0 : nY;
+                count += (lifeGeneration[nX][nY]) ? 1 : 0;
             }
         }
+        if (lifeGeneration[x][y]) { count--; }
         return count;
     }
 
@@ -123,7 +127,7 @@ public class GameOfLife {
                 // if are 3 live neighbors around empty cells - the cell becomes alive
                 nextGeneration[x][y] = (count == 3) ? true : nextGeneration[x][y];
                 // if cells have 2 or three neighbors - it continues to live
-                nextGeneration[x][y] = ((count == 2) || (count == 3)) ? nextGeneration[x][y] : false;
+                nextGeneration[x][y] = ((count < 2) || (count > 3)) ? false : nextGeneration[x][y];
             }
         }
         for (int x = 0; x < LIFE_SIZE; x++) {
@@ -174,11 +178,17 @@ public class GameOfLife {
         }
     }
 
-    // generation after generation without stopping
     // stop next generation
     public class StopButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent ev) {
             goNextGeneration = false;
+        }
+    }
+
+    // turn on/off colors
+    public class ColorButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent ev) {
+            useColors = !useColors;
         }
     }
 
@@ -194,6 +204,14 @@ public class GameOfLife {
             for (int x = 0; x < LIFE_SIZE; x++) {
                 for (int y = 0; y < LIFE_SIZE; y++) {
                     if (lifeGeneration[x][y]) {
+                        if (useColors) {
+                            int count = countNeighbors(x, y);
+                            if ((count < 2) || (count > 3)) {
+                                g.setColor(Color.red);
+                            } else {
+                                g.setColor(Color.blue);
+                            }
+                        }
                         g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
                     }
                 }
