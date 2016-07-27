@@ -1,7 +1,7 @@
-Pink Moon/Nick Drake
-Somersault/Zero 7
-Shiva Moon/Prem Joshua
-Circles/BT
-Deep Channel/Afro Celts
-Passenger/Headmix
-Listen/Tahiti 80
+Pink Moon/Nick Drake/5/80
+Somersault/Zero 7/7/84
+Shiva Moon/Prem Joshua/6/120
+Circles/BT/5/110
+Deep Channel/Afro Celts/4/120
+Passenger/Headmix/4/100
+Listen/Tahiti 80/5/90
