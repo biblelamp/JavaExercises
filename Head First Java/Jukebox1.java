@@ -12,6 +12,8 @@ public class Jukebox1 {
     public void go() {
         getSongs();
         System.out.println(songList);
+        Collections.sort(songList); // method sort() from the class Collectons
+        System.out.println(songList);
     }
 
     void getSongs() {
