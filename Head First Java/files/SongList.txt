@@ -5,3 +5,6 @@ Circles/BT/5/110
 Deep Channel/Afro Celts/4/120
 Passenger/Headmix/4/100
 Listen/Tahiti 80/5/90
+Listen/Tahiti 80/5/90
+Listen/Tahiti 80/5/90
+Circles/BT/5/110
