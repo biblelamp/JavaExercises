@@ -108,12 +108,12 @@ public class GameSnake {
             if (direction == RIGHT) { x++; }
             if (direction == UP) { y--; }
             if (direction == DOWN) { y++; }
-            if (x > FIELD_WIDTH) { x = 0; }
-            if (x < 0) { x = FIELD_WIDTH; }
-            if (y > FIELD_HEIGHT) { y = 0; }
-            if (y < 0) { y = FIELD_HEIGHT; }
+            if (x > FIELD_WIDTH - 1) { x = 0; }
+            if (x < 0) { x = FIELD_WIDTH - 1; }
+            if (y > FIELD_HEIGHT - 1) { y = 0; }
+            if (y < 0) { y = FIELD_HEIGHT - 1; }
             gameOver = isInsideSnake(x, y); // check game over
-            snake.add(0, new Point(x, y));
+            snake.add(0, new Point(x, y)); // new position for head
             if (isFood(food)) { // check meeting food
                 food.eat();
                 frame.setTitle(nameOfGame + " : " + snake.size());
