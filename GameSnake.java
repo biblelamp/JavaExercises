@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 28 July 2016
+ * @version 0.2 dated 29 July 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -28,10 +28,10 @@ public class GameSnake {
     final int RIGHT = 39;
     final int DOWN = 40;
     final int START_DIRECTION = RIGHT;
+    final Color DEFAULT_COLOR = Color.black;
     final Color FOOD_COLOR = Color.green;
     Snake snake;
-    Point food;
-    int x, y;
+    Food food;
     Random random = new Random();
     JFrame frame;
     Canvas canvasPanel;
@@ -42,7 +42,7 @@ public class GameSnake {
     }
 
     void go() {
-        frame = new JFrame(nameOfGame);
+        frame = new JFrame(nameOfGame + " : " + START_SNAKE_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FIELD_WIDTH * POINT_RADIUS + FIELD_DX, FIELD_HEIGHT * POINT_RADIUS + FIELD_DY);
         frame.setLocation(START_LOCATION, START_LOCATION);
@@ -61,17 +61,13 @@ public class GameSnake {
         frame.setVisible(true);
 
         snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, START_DIRECTION);
-        food = new Point(-1, -1, FOOD_COLOR);
+        food = new Food();
 
         // main loop of game
         while (!gameOver) {
             snake.move();
-            if (food.getX() < 0) {
-                do {
-                    x = random.nextInt(FIELD_WIDTH);
-                    y = random.nextInt(FIELD_HEIGHT);
-                } while (snake.isInsideSnake(x, y));
-                food.setXY(x, y);
+            if (food.isEaten()) {
+                food.next();
             }
             canvasPanel.repaint();
             try {
@@ -119,7 +115,7 @@ public class GameSnake {
             gameOver = isInsideSnake(x, y); // check game over
             snake.add(0, new Point(x, y));
             if (isFood(food)) { // check meeting food
-                food.setXY(-1, -1);
+                food.eat();
                 frame.setTitle(nameOfGame + " : " + snake.size());
             } else {
                 snake.remove(snake.size() - 1);
@@ -141,21 +137,38 @@ public class GameSnake {
         }
     }
 
+    class Food extends Point {
+
+        public Food() {
+            super(-1, -1);
+            this.color = FOOD_COLOR;
+        }
+
+        void eat() {
+            this.setXY(-1, -1);
+        }
+
+        boolean isEaten(){
+            return this.getX() == -1;
+        }
+
+        void next() {
+            int x, y;
+            do {
+                x = random.nextInt(FIELD_WIDTH);
+                y = random.nextInt(FIELD_HEIGHT);
+            } while (snake.isInsideSnake(x, y));
+            this.setXY(x, y);
+        }
+    }
+
     class Point {
         int x;
         int y;
-        Color color;
+        Color color = DEFAULT_COLOR;
 
         public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-            this.color = Color.black;
-        }
-
-        public Point(int x, int y, Color color) {
-            this.x = x;
-            this.y = y;
-            this.color = color;
+            this.setXY(x, y);
         }
 
         void paint(Graphics g) {
@@ -179,11 +192,10 @@ public class GameSnake {
             snake.paint(g);
             food.paint(g);
             if (gameOver) {
+                g.setColor(Color.red);
                 g.setFont(new Font("Arial", Font.BOLD, 40));
                 FontMetrics fm = g.getFontMetrics();
-                int textWidth = fm.stringWidth(gameOverMsg);
-                g.setColor(Color.red);
-                g.drawString(gameOverMsg, (FIELD_WIDTH * POINT_RADIUS + FIELD_DX -textWidth)/2, (FIELD_HEIGHT * POINT_RADIUS + FIELD_DY)/2);
+                g.drawString(gameOverMsg, (FIELD_WIDTH * POINT_RADIUS + FIELD_DX - fm.stringWidth(gameOverMsg))/2, (FIELD_HEIGHT * POINT_RADIUS + FIELD_DY)/2);
             }
         }
     }
