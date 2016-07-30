@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 29 July 2016
+ * @version 0.3 dated 30 July 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -30,8 +30,10 @@ public class GameSnake {
     final int START_DIRECTION = RIGHT;
     final Color DEFAULT_COLOR = Color.black;
     final Color FOOD_COLOR = Color.green;
+    final Color POISON_COLOR = Color.red;
     Snake snake;
     Food food;
+    Poison poison;
     Random random = new Random();
     JFrame frame;
     Canvas canvasPanel;
@@ -62,12 +64,14 @@ public class GameSnake {
 
         snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, START_DIRECTION);
         food = new Food();
+        poison = new Poison();
 
         // main loop of game
         while (!gameOver) {
             snake.move();
             if (food.isEaten()) {
                 food.next();
+                poison.add();
             }
             canvasPanel.repaint();
             try {
@@ -91,7 +95,9 @@ public class GameSnake {
         boolean isInsideSnake(int x, int y) {
             for (Point point : snake) {
                 if ((point.getX() == x) && (point.getY() == y)) {
-                    return true;
+                    if ((snake.get(snake.size() - 1).getX() != x) && (snake.get(snake.size() - 1).getY() != y)) { // to exclude snake's tail
+                        return true;
+                    }
                 }
             }
             return false;
@@ -112,7 +118,7 @@ public class GameSnake {
             if (x < 0) { x = FIELD_WIDTH - 1; }
             if (y > FIELD_HEIGHT - 1) { y = 0; }
             if (y < 0) { y = FIELD_HEIGHT - 1; }
-            gameOver = isInsideSnake(x, y); // check game over
+            gameOver = isInsideSnake(x, y) || poison.isPoison(x, y); // check game over
             snake.add(0, new Point(x, y)); // new position for head
             if (isFood(food)) { // check meeting food
                 food.eat();
@@ -123,8 +129,8 @@ public class GameSnake {
         }
 
         void setDirection(int direction) {
-            if ((direction >= LEFT) && (direction <= DOWN)) { // block bad codes
-                if (Math.abs(this.direction - direction) != 2) { // block back moving
+            if ((direction >= LEFT) && (direction <= DOWN)) { // block wrong codes
+                if (Math.abs(this.direction - direction) != 2) { // block moving back
                     this.direction = direction;
                 }
             }
@@ -152,6 +158,10 @@ public class GameSnake {
             return this.getX() == -1;
         }
 
+        boolean isFood(int x, int y) {
+            return (this.x == x) && (this.y == y);
+        }
+
         void next() {
             int x, y;
             do {
@@ -162,13 +172,46 @@ public class GameSnake {
         }
     }
 
+    class Poison {
+        ArrayList<Point> poison = new ArrayList<Point>();
+        Color color = POISON_COLOR;
+
+        boolean isPoison(int x, int y) {
+            for (Point point : poison) {
+                if ((point.getX() == x) && (point.getY() == y)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void add() {
+            int x, y;
+            do {
+                x = random.nextInt(FIELD_WIDTH);
+                y = random.nextInt(FIELD_HEIGHT);
+            } while (isPoison(x, y) || snake.isInsideSnake(x, y) || food.isFood(x, y));
+            poison.add(new Point(x, y, color));
+        }
+
+        void paint(Graphics g) {
+            for (Point point : poison) {
+                point.paint(g);
+            }
+        }
+    }
+
     class Point {
-        int x;
-        int y;
+        int x, y;
         Color color = DEFAULT_COLOR;
 
         public Point(int x, int y) {
             this.setXY(x, y);
+        }
+
+        public Point(int x, int y, Color color) {
+            this.setXY(x, y);
+            this.color = color;
         }
 
         void paint(Graphics g) {
@@ -191,6 +234,7 @@ public class GameSnake {
             super.paint(g);
             snake.paint(g);
             food.paint(g);
+            poison.paint(g);
             if (gameOver) {
                 g.setColor(Color.red);
                 g.setFont(new Font("Arial", Font.BOLD, 40));
