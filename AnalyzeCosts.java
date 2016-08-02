@@ -15,7 +15,7 @@ import java.io.*;
 import org.jopendocument.dom.spreadsheet.*;
 
 public class AnalyzeCosts {
-    
+
     final String nameOfProgram = "Analyze own costs";
     final String SETTINGS_FILE = "settings.ini";
     final int WINDOW_WIDTH = 500;
@@ -40,15 +40,15 @@ public class AnalyzeCosts {
 
         DateFormatter dateFormatter = new DateFormatter(new SimpleDateFormat("dd.MM.yyyy"));
         dateFormatter.setAllowsInvalid(false);
-        dateFormatter.setOverwriteMode(true);        
-        
+        dateFormatter.setOverwriteMode(true);
+
         startDate = new JFormattedTextField(dateFormatter);
         startDate.setColumns(6);
         startDate.setValue(new Date(116, 0, 1));
 
         endDate = new JFormattedTextField(dateFormatter);
         endDate.setColumns(6);
-        endDate.setValue(new Date(116, 0, 31));
+        endDate.setValue(new Date());
 
         fileName = new JTextField("Click me...", 25);
         fileName.setEditable(false);
@@ -78,17 +78,17 @@ public class AnalyzeCosts {
         upPanel.add(endDate);
         upPanel.add(fileName);
         upPanel.add(getFileName);
-        
+
         textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        
+
         frame.getContentPane().add(BorderLayout.NORTH, upPanel);
         frame.getContentPane().add(BorderLayout.CENTER, new JScrollPane(textArea));
         readSettings();
         frame.setVisible(true);
     }
-    
+
     void readAndAnalize() {
         SpreadSheet spreadSheet;
         Sheet sheet;
@@ -107,7 +107,7 @@ public class AnalyzeCosts {
                 sheet = spreadSheet.getSheet(i);
                 int row = 1;
                 while (true) {
-                    
+
                     // date
                     try {
                         cell = sheet.getCellAt(0, row);
@@ -117,10 +117,10 @@ public class AnalyzeCosts {
                     } catch (IllegalArgumentException e) {
                         //System.out.println("Bad address");
                     }
-                    
+
                     // operation
                     MutableCell operation = sheet.getCellAt(1, row);
-                    
+
                     // sum
                     MutableCell sum = sheet.getCellAt(2, row);
 
@@ -158,7 +158,7 @@ public class AnalyzeCosts {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         // show results
         textArea.setText(null);
         for (Map.Entry<String, Float> o : set) {
@@ -167,27 +167,25 @@ public class AnalyzeCosts {
     }
 
     void readSettings() {
+        Object[] ini = new Object[3];
         try {
             FileInputStream fileIn = new FileInputStream(new File(SETTINGS_FILE));
             ObjectInputStream is = new ObjectInputStream(fileIn);
-            JFormattedTextField start = (JFormattedTextField) is.readObject();
-            JFormattedTextField end = (JFormattedTextField) is.readObject();
-            JTextField fn = (JTextField) is.readObject();
-            startDate.setValue(start.getValue());
-            endDate.setValue(end.getValue());
-            fileName.setText(fn.getText());
+            ini = (Object[]) is.readObject();
+            startDate.setValue((Date)ini[0]);
+            endDate.setValue((Date)ini[1]);
+            fileName.setText((String)ini[2]);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     void saveSettings() {
+        Object[] ini = {startDate.getValue(), endDate.getValue(), fileName.getText()};
         try {
             FileOutputStream fileStream = new FileOutputStream(new File(SETTINGS_FILE));
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
-            os.writeObject(startDate);
-            os.writeObject(endDate);
-            os.writeObject(fileName);
+            os.writeObject(ini);
         } catch(Exception e) {
             e.printStackTrace();
         }
