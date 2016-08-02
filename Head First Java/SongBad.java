@@ -16,11 +16,10 @@ class SongBad implements Comparable <SongBad> {
         return getTitle().equals(s.getTitle());
     }
 
-    //leaving this out makes this a bad form of song.  Uncomment this to get rid of the duplicates
-    /*public int hashCode() {
+    // get rid of the duplicates
+    public int hashCode() {
         return title.hashCode();
     }
-    */
 
     public int compareTo(SongBad s) {
         return title.compareTo(s.getTitle());
