@@ -2,7 +2,7 @@
  * Java. Conway's Game of Life
  *
  * @author Sergey Iryupin
- * @version 0.4 dated 26 July 2016
+ * @version 0.4.1 dated 02 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -41,26 +41,52 @@ public class GameOfLife {
         frame.setLocation(START_LOCATION, START_LOCATION);
         frame.setResizable(false);
 
+        // randomly fill cells
         JButton fillButton = new JButton("Fill");
         fillButton.addActionListener(new FillButtonListener());
 
+        // get the next generation
         JButton stepButton = new JButton("Step");
-        stepButton.addActionListener(new StepButtonListener());
+        stepButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                processOfLife();
+                canvasPanel.repaint();
+            }
+        });
 
+        // generation after generation without stopping
         JButton goButton = new JButton("Go");
-        goButton.addActionListener(new GoButtonListener());
+        goButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                goNextGeneration = !goNextGeneration;
+                goButton.setText(goNextGeneration? "Stop" : "Go");
+            }
+        });
 
+        // show change of generation faster
         JButton fasterButton = new JButton("Faster");
-        fasterButton.addActionListener(new FasterButtonListener());
+        fasterButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showDelay -= (showDelay - showDelayStep == 0) ? 0 : showDelayStep;
+            }
+        });
 
+        // show change of generation slower
         JButton slowerButton = new JButton("Slower");
-        slowerButton.addActionListener(new SlowerButtonListener());
+        slowerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showDelay += showDelay;
+            }
+        });
 
-        JButton stopButton = new JButton("Stop");
-        stopButton.addActionListener(new StopButtonListener());
-
+        // turn on/off colors
         JButton colorButton = new JButton("Color");
-        colorButton.addActionListener(new ColorButtonListener());
+        colorButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                useColors = !useColors;
+                colorButton.setText(useColors? "Mono" : "Color");
+            }
+        });
 
         canvasPanel = new Canvas();
         canvasPanel.setBackground(Color.white);
@@ -82,7 +108,6 @@ public class GameOfLife {
         btnPanel.add(goButton);
         btnPanel.add(fasterButton);
         btnPanel.add(slowerButton);
-        btnPanel.add(stopButton);
         btnPanel.add(colorButton);
 
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
@@ -98,6 +123,19 @@ public class GameOfLife {
                     Thread.sleep(showDelay);
                 } catch (InterruptedException e) { e.printStackTrace(); }
             }
+        }
+    }
+
+    // randomly fill cells
+    public class FillButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent ev) {
+            countGeneration = 1;
+            for (int x = 0; x < LIFE_SIZE; x++) {
+                for (int y = 0; y < LIFE_SIZE; y++) {
+                    lifeGeneration[x][y] = random.nextBoolean();
+                }
+            }
+            canvasPanel.repaint();
         }
     }
 
@@ -136,67 +174,7 @@ public class GameOfLife {
         countGeneration++;
     }
 
-    // randomly fill cells
-    public class FillButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            countGeneration = 1;
-            for (int x = 0; x < LIFE_SIZE; x++) {
-                for (int y = 0; y < LIFE_SIZE; y++) {
-                    lifeGeneration[x][y] = random.nextBoolean();
-                }
-            }
-            canvasPanel.repaint();
-        }
-    }
-
-    // get the next generation
-    public class StepButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            processOfLife();
-            canvasPanel.repaint();
-        }
-    }
-
-    // generation after generation without stopping
-    public class GoButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            goNextGeneration = true;
-        }
-    }
-
-    // show change of generation faster
-    public class FasterButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            showDelay = (showDelay - showDelayStep == 0) ? showDelay: showDelay - showDelayStep;
-        }
-    }
-
-    // show change of generation slower
-    public class SlowerButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            showDelay = showDelay + showDelayStep;
-        }
-    }
-
-    // stop next generation
-    public class StopButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            goNextGeneration = false;
-        }
-    }
-
-    // turn on/off colors
-    public class ColorButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent ev) {
-            useColors = !useColors;
-        }
-    }
-
     public class Canvas extends JPanel {
-
-        public Canvas() {
-            super();
-        }
 
         @Override
         public void paint(Graphics g) {
@@ -206,11 +184,7 @@ public class GameOfLife {
                     if (lifeGeneration[x][y]) {
                         if (useColors) {
                             int count = countNeighbors(x, y);
-                            if ((count < 2) || (count > 3)) {
-                                g.setColor(Color.red);
-                            } else {
-                                g.setColor(Color.blue);
-                            }
+                            g.setColor(((count < 2) || (count > 3))? Color.red : Color.blue);
                         }
                         g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
                     }
