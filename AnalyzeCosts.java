@@ -2,7 +2,7 @@
  * Java. Simply program for analize private costs
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 01 Aug 2016
+ * @version 0.2 dated 02 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -17,6 +17,7 @@ import org.jopendocument.dom.spreadsheet.*;
 public class AnalyzeCosts {
     
     final String nameOfProgram = "Analyze own costs";
+    final String SETTINGS_FILE = "settings.ini";
     final int WINDOW_WIDTH = 500;
     final int WINDOW_HEIGHT = 500;
     final int START_POSITION = 200;
@@ -68,9 +69,10 @@ public class AnalyzeCosts {
         getFileName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 readAndAnalize();
+                saveSettings();
             }
         });
-        
+
         JPanel upPanel = new JPanel();
         upPanel.add(startDate);
         upPanel.add(endDate);
@@ -83,6 +85,7 @@ public class AnalyzeCosts {
         
         frame.getContentPane().add(BorderLayout.NORTH, upPanel);
         frame.getContentPane().add(BorderLayout.CENTER, new JScrollPane(textArea));
+        readSettings();
         frame.setVisible(true);
     }
     
@@ -151,13 +154,42 @@ public class AnalyzeCosts {
                     }
                 }
             }
+            hm.put("Total", total);
         } catch (IOException e) {
             e.printStackTrace();
         }
         
         // show results
+        textArea.setText(null);
         for (Map.Entry<String, Float> o : set) {
             textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", o.getKey(), o.getValue(), o.getValue()/total*100));
+        }
+    }
+
+    void readSettings() {
+        try {
+            FileInputStream fileIn = new FileInputStream(new File(SETTINGS_FILE));
+            ObjectInputStream is = new ObjectInputStream(fileIn);
+            JFormattedTextField start = (JFormattedTextField) is.readObject();
+            JFormattedTextField end = (JFormattedTextField) is.readObject();
+            JTextField fn = (JTextField) is.readObject();
+            startDate.setValue(start.getValue());
+            endDate.setValue(end.getValue());
+            fileName.setText(fn.getText());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void saveSettings() {
+        try {
+            FileOutputStream fileStream = new FileOutputStream(new File(SETTINGS_FILE));
+            ObjectOutputStream os = new ObjectOutputStream(fileStream);
+            os.writeObject(startDate);
+            os.writeObject(endDate);
+            os.writeObject(fileName);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }
