@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 30 July 2016
+ * @version 0.3.1 dated 03 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -95,7 +95,7 @@ public class GameSnake {
         boolean isInsideSnake(int x, int y) {
             for (Point point : snake) {
                 if ((point.getX() == x) && (point.getY() == y)) {
-                    if ((snake.get(snake.size() - 1).getX() != x) && (snake.get(snake.size() - 1).getY() != y)) { // to exclude snake's tail
+                    if (!((snake.get(snake.size() - 1).getX() == x) && (snake.get(snake.size() - 1).getY() == y))) { // to exclude snake's tail
                         return true;
                     }
                 }
