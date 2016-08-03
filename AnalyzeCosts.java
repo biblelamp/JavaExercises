@@ -2,7 +2,7 @@
  * Java. Simply program for analize private costs
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 02 Aug 2016
+ * @version 0.3 dated 03 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -95,8 +95,7 @@ public class AnalyzeCosts {
         MutableCell cell;
         Date date = new Date();
 
-        HashMap<String, Float> hm = new HashMap<String, Float>();
-        Set<Map.Entry<String, Float>> set = hm.entrySet();
+        Map<String, Float> tm = new TreeMap<String, Float>();
         String[] arrayWords;
         float total = 0;
 
@@ -147,22 +146,39 @@ public class AnalyzeCosts {
                         float add = Float.parseFloat(sum.getValue().toString());
                         float value = 0;
                         try {
-                            value = hm.get(arrayWords[0]);
+                            value = tm.get(arrayWords[0]);
                         } catch(NullPointerException e) { }
-                        hm.put(arrayWords[0], value + add);
+                        tm.put(arrayWords[0], value + add);
                         total += add;
                     }
                 }
             }
-            hm.put("Total", total);
+            tm.put("Total", total);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // show results
+        // sort by values
+        ArrayList list = new ArrayList(tm.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry>() {
+            public int compare(Map.Entry o1, Map.Entry o2) {
+                Float v1 = (Float)o1.getValue();
+                Float v2 = (Float)o2.getValue();
+                return v1.compareTo(v2);
+            }
+        });
+
+        // cleat textArea
         textArea.setText(null);
-        for (Map.Entry<String, Float> o : set) {
-            textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", o.getKey(), o.getValue(), o.getValue()/total*100));
+
+        // show results
+        //Iterator i = tm.entrySet().iterator(); // sort by name
+        Iterator i = list.iterator();
+        while (i.hasNext()) {
+            Map.Entry obj = (Map.Entry)i.next();
+            String key = (String) obj.getKey();
+            float value = (float) obj.getValue();
+            textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", key, value, value/total*100));
         }
     }
 
