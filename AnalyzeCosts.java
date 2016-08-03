@@ -13,17 +13,19 @@ import java.text.*;
 import java.util.*;
 import java.io.*;
 import org.jopendocument.dom.spreadsheet.*;
+import com.toedter.calendar.*;
+//https://www.ssec.wisc.edu/mcidas/software/v/javadoc/1.4/edu/wisc/ssec/mcidasv/data/dateChooser/JDateChooser.html
 
 public class AnalyzeCosts {
 
-    final String nameOfProgram = "Analyze own costs";
+    final String nameOfProgram = "Analyze private costs";
     final String SETTINGS_FILE = "settings.ini";
     final int WINDOW_WIDTH = 500;
     final int WINDOW_HEIGHT = 500;
     final int START_POSITION = 200;
     JFrame frame;
-    JFormattedTextField startDate;
-    JFormattedTextField endDate;
+    JDateChooser startDate;
+    JDateChooser endDate;
     JTextField fileName;
     JTextArea textArea;
 
@@ -38,19 +40,14 @@ public class AnalyzeCosts {
         frame.setLocation(START_POSITION, START_POSITION);
         frame.setResizable(false);
 
-        DateFormatter dateFormatter = new DateFormatter(new SimpleDateFormat("dd.MM.yyyy"));
-        dateFormatter.setAllowsInvalid(false);
-        dateFormatter.setOverwriteMode(true);
+        startDate = new JDateChooser();
+        startDate.setDate(new Date(116, 0, 1));
+        //startDate.setDateFormatString("dd.MM.yy");
 
-        startDate = new JFormattedTextField(dateFormatter);
-        startDate.setColumns(6);
-        startDate.setValue(new Date(116, 0, 1));
+        endDate = new JDateChooser();
+        endDate.setDate(new Date());
 
-        endDate = new JFormattedTextField(dateFormatter);
-        endDate.setColumns(6);
-        endDate.setValue(new Date());
-
-        fileName = new JTextField("Click me...", 25);
+        fileName = new JTextField("Click me...", 22);
         fileName.setEditable(false);
         fileName.addMouseListener(new MouseAdapter() {
             @Override
@@ -132,10 +129,10 @@ public class AnalyzeCosts {
                     row++;
 
                     // date range check
-                    if (date.before((Date)startDate.getValue())) {
+                    if (date.before((Date)startDate.getDate())) {
                         continue;
                     }
-                    if (date.after((Date)endDate.getValue())) {
+                    if (date.after((Date)endDate.getDate())) {
                         break;
                     }
 
@@ -188,8 +185,8 @@ public class AnalyzeCosts {
             FileInputStream fileIn = new FileInputStream(new File(SETTINGS_FILE));
             ObjectInputStream is = new ObjectInputStream(fileIn);
             ini = (Object[]) is.readObject();
-            startDate.setValue((Date)ini[0]);
-            endDate.setValue((Date)ini[1]);
+            startDate.setDate((Date)ini[0]);
+            endDate.setDate((Date)ini[1]);
             fileName.setText((String)ini[2]);
         } catch(Exception e) {
             e.printStackTrace();
@@ -197,7 +194,7 @@ public class AnalyzeCosts {
     }
 
     void saveSettings() {
-        Object[] ini = {startDate.getValue(), endDate.getValue(), fileName.getText()};
+        Object[] ini = {startDate.getDate(), endDate.getDate(), fileName.getText()};
         try {
             FileOutputStream fileStream = new FileOutputStream(new File(SETTINGS_FILE));
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
