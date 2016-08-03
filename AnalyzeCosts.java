@@ -13,8 +13,7 @@ import java.text.*;
 import java.util.*;
 import java.io.*;
 import org.jopendocument.dom.spreadsheet.*;
-import com.toedter.calendar.*;
-//https://www.ssec.wisc.edu/mcidas/software/v/javadoc/1.4/edu/wisc/ssec/mcidasv/data/dateChooser/JDateChooser.html
+import com.toedter.calendar.*; //https://www.ssec.wisc.edu/mcidas/software/v/javadoc/1.4/edu/wisc/ssec/mcidasv/data/dateChooser/JDateChooser.html
 
 public class AnalyzeCosts {
 
@@ -40,12 +39,10 @@ public class AnalyzeCosts {
         frame.setLocation(START_POSITION, START_POSITION);
         frame.setResizable(false);
 
-        startDate = new JDateChooser();
-        startDate.setDate(new Date(116, 0, 1));
+        startDate = new JDateChooser(new Date());
         //startDate.setDateFormatString("dd.MM.yy");
 
-        endDate = new JDateChooser();
-        endDate.setDate(new Date());
+        endDate = new JDateChooser(new Date());
 
         fileName = new JTextField("Click me...", 22);
         fileName.setEditable(false);
@@ -89,7 +86,7 @@ public class AnalyzeCosts {
     void readAndAnalize() {
         SpreadSheet spreadSheet;
         Sheet sheet;
-        MutableCell cell;
+        MutableCell<SpreadSheet> cell;
         Date date = new Date();
 
         Map<String, Float> tm = new TreeMap<String, Float>();
@@ -115,10 +112,10 @@ public class AnalyzeCosts {
                     }
 
                     // operation
-                    MutableCell operation = sheet.getCellAt(1, row);
+                    MutableCell<SpreadSheet> operation = sheet.getCellAt(1, row);
 
                     // sum
-                    MutableCell sum = sheet.getCellAt(2, row);
+                    MutableCell<SpreadSheet> sum = sheet.getCellAt(2, row);
 
                     // check EOD on the page
                     if (operation.isEmpty() && (!sum.isEmpty())) {
@@ -129,10 +126,10 @@ public class AnalyzeCosts {
                     row++;
 
                     // date range check
-                    if (date.before((Date)startDate.getDate())) {
+                    if (date.before(startDate.getDate())) {
                         continue;
                     }
-                    if (date.after((Date)endDate.getDate())) {
+                    if (date.after(endDate.getDate())) {
                         break;
                     }
 
@@ -156,24 +153,24 @@ public class AnalyzeCosts {
         }
 
         // sort by values
-        ArrayList list = new ArrayList(tm.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry>() {
-            public int compare(Map.Entry o1, Map.Entry o2) {
-                Float v1 = (Float)o1.getValue();
-                Float v2 = (Float)o2.getValue();
+        ArrayList<Map.Entry<String, Float>> list = new ArrayList<Map.Entry<String, Float>>(tm.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
+            public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
+                Float v1 = o1.getValue();
+                Float v2 = o2.getValue();
                 return v1.compareTo(v2);
             }
         });
 
-        // cleat textArea
+        // clear textArea
         textArea.setText(null);
 
         // show results
         //Iterator i = tm.entrySet().iterator(); // sort by name
-        Iterator i = list.iterator();
+        Iterator<Map.Entry<String, Float>> i = list.iterator();
         while (i.hasNext()) {
-            Map.Entry obj = (Map.Entry)i.next();
-            String key = (String) obj.getKey();
+            Map.Entry<String, Float> obj = i.next();
+            String key = obj.getKey();
             float value = (float) obj.getValue();
             textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", key, value, value/total*100));
         }
