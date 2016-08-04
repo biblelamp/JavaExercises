@@ -2,7 +2,7 @@
  * Java. Simply program for analize private costs
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 03 Aug 2016
+ * @version 0.4 dated 04 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -14,11 +14,17 @@ import java.util.*;
 import java.io.*;
 import org.jopendocument.dom.spreadsheet.*;
 import com.toedter.calendar.*; //https://www.ssec.wisc.edu/mcidas/software/v/javadoc/1.4/edu/wisc/ssec/mcidasv/data/dateChooser/JDateChooser.html
+import org.jfree.chart.*;
+import org.jfree.chart.labels.*;
+import org.jfree.chart.plot.*;
+import org.jfree.data.*;
+import org.jfree.data.general.*;
 
 public class AnalyzeCosts {
 
     final String nameOfProgram = "Analyze private costs";
     final String SETTINGS_FILE = "settings.ini";
+    final String TOTAL_TITLE = "Total";
     final int WINDOW_WIDTH = 500;
     final int WINDOW_HEIGHT = 500;
     final int START_POSITION = 200;
@@ -26,7 +32,11 @@ public class AnalyzeCosts {
     JDateChooser startDate;
     JDateChooser endDate;
     JTextField fileName;
+    JTabbedPane tabbedPane;
     JTextArea textArea;
+    DefaultPieDataset dataset;
+    JFreeChart chart;
+    ChartPanel chartPanel;
 
     public static void main(String[] args) {
         new AnalyzeCosts().go();
@@ -77,8 +87,21 @@ public class AnalyzeCosts {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
+        dataset = new DefaultPieDataset();
+        chart = ChartFactory.createPieChart(
+            "",        // chart title
+            dataset,   // data
+            false,     // include legend
+            true,
+            false);
+        chartPanel = new ChartPanel(chart);
+
+        tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Total", new JScrollPane(textArea));
+        tabbedPane.addTab("Chart", chartPanel);
+
         frame.getContentPane().add(BorderLayout.NORTH, upPanel);
-        frame.getContentPane().add(BorderLayout.CENTER, new JScrollPane(textArea));
+        frame.getContentPane().add(BorderLayout.CENTER, tabbedPane);
         readSettings();
         frame.setVisible(true);
     }
@@ -147,7 +170,7 @@ public class AnalyzeCosts {
                     }
                 }
             }
-            tm.put("Total", total);
+            tm.put(TOTAL_TITLE, total);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,8 +195,21 @@ public class AnalyzeCosts {
             Map.Entry<String, Float> obj = i.next();
             String key = obj.getKey();
             float value = (float) obj.getValue();
+            // for Total panel
             textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", key, value, value/total*100));
+            // for Chart panel
+            if (key != TOTAL_TITLE) {
+                dataset.setValue(key, new Double(value));
+            }
         }
+
+        // draw Chart
+        final PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.white);
+        //plot.setInteriorGap(0.0);
+        //plot.setLabelGenerator(null);
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} {2}"));
+        //plot.setCircular(true);
     }
 
     void readSettings() {
