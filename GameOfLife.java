@@ -1,8 +1,15 @@
 /**
  * Java. Conway's Game of Life
+ *  The Game of Life, also known simply as Life, is a cellular automaton
+ *  devised by the British mathematician John Horton Conway in 1970.
+ *  Rules:
+ *  - Any live cell with fewer than 2 live neighbours dies, as if caused by under-population.
+ *  - Any live cell with more than 3 live neighbours dies, as if by over-population.
+ *  - Any live cell with 2 or 3 live neighbours lives on to the next generation.
+ *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.1 dated 02 Aug 2016
+ * @version 0.4.2 dated 05 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -55,7 +62,7 @@ public class GameOfLife {
         });
 
         // generation after generation without stopping
-        JButton goButton = new JButton("Go");
+        final JButton goButton = new JButton("Go");
         goButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 goNextGeneration = !goNextGeneration;
@@ -80,7 +87,7 @@ public class GameOfLife {
         });
 
         // turn on/off colors
-        JButton colorButton = new JButton("Color");
+        final JButton colorButton = new JButton("Color");
         colorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 useColors = !useColors;
@@ -162,9 +169,10 @@ public class GameOfLife {
         for (int x = 0; x < LIFE_SIZE; x++) {
             for (int y = 0; y < LIFE_SIZE; y++) {
                 int count = countNeighbors(x, y);
+                nextGeneration[x][y] = lifeGeneration[x][y];
                 // if are 3 live neighbors around empty cells - the cell becomes alive
                 nextGeneration[x][y] = (count == 3) ? true : nextGeneration[x][y];
-                // if cells have 2 or three neighbors - it continues to live
+                // if cell has less than 2 or greater than 3 neighbors - it will be die
                 nextGeneration[x][y] = ((count < 2) || (count > 3)) ? false : nextGeneration[x][y];
             }
         }
