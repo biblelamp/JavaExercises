@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jnlp spec="1.0+" сodebase="http://biblelamp.ru/java" href="http://biblelamp.ru/java/GameOfLife.jnlp">
+
+	<information>
+		<title>Conway's Game of Life</title>
+		<vendor>Green Lamp</vendor>
+		<homepage href="http://biblelamp.ru/java/index.thml"/>
+		<description>Game of Life WebStart demo</description>
+		<!--<icon href="/gameoflife.gif"/>-->
+		<offline-allowed/>
+	</information>
+
+	<resources>
+		<j2se version="1.5+"/>
+		<jar href="http://biblelamp.ru/java/GameOfLife.jar"/>
+	</resources>
+
+	<application-desc main-class="GameOfLife"/>
+</jnlp>
