@@ -1,14 +1,15 @@
 /**
- * Java. Simply program for analize private costs
+ * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.4 dated 04 Aug 2016
+ * @version 0.5 dated 08 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.filechooser.*;
+import javax.swing.table.*;
 import java.text.*;
 import java.util.*;
 import java.io.*;
@@ -33,7 +34,7 @@ public class AnalyzeCosts {
     JDateChooser endDate;
     JTextField fileName;
     JTabbedPane tabbedPane;
-    JTextArea textArea;
+    DefaultTableModel model;
     DefaultPieDataset dataset;
     JFreeChart chart;
     ChartPanel chartPanel;
@@ -83,9 +84,11 @@ public class AnalyzeCosts {
         upPanel.add(fileName);
         upPanel.add(getFileName);
 
-        textArea = new JTextArea();
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
+        model = new DefaultTableModel();
+        model.addColumn("Cost type");
+        model.addColumn("Cost sum");
+        model.addColumn("%");
+        JTable table = new JTable(model);
 
         dataset = new DefaultPieDataset();
         chart = ChartFactory.createPieChart(
@@ -97,7 +100,7 @@ public class AnalyzeCosts {
         chartPanel = new ChartPanel(chart);
 
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Total", new JScrollPane(textArea));
+        tabbedPane.addTab("Total", new JScrollPane(table));
         tabbedPane.addTab("Chart", chartPanel);
 
         frame.getContentPane().add(BorderLayout.NORTH, upPanel);
@@ -185,8 +188,8 @@ public class AnalyzeCosts {
             }
         });
 
-        // clear textArea
-        textArea.setText(null);
+        // clear table
+        model.setRowCount(0);
 
         // show results
         //Iterator i = tm.entrySet().iterator(); // sort by name
@@ -196,7 +199,8 @@ public class AnalyzeCosts {
             String key = obj.getKey();
             float value = (float) obj.getValue();
             // for Total panel
-            textArea.append(String.format("%s:\t%,.2f\t%.2f%%\n", key, value, value/total*100));
+            String[] row = {key, String.format("%,.2f", value), String.format("%.2f%%", value/total*100)};
+            model.addRow(row);
             // for Chart panel
             if (key != TOTAL_TITLE) {
                 dataset.setValue(key, new Double(value));
