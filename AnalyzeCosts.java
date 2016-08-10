@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5 dated 08 Aug 2016
+ * @version 0.5.1 dated 10 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -21,14 +21,16 @@ import org.jfree.chart.plot.*;
 import org.jfree.data.*;
 import org.jfree.data.general.*;
 
-public class AnalyzeCosts {
+public class AnalyzeCosts extends JFrame {
 
     final String nameOfProgram = "Analyze private costs";
     final String SETTINGS_FILE = "settings.ini";
     final String TOTAL_TITLE = "Total";
+    final String BOLD_BEGIN = "<html><b>";
+    final String BOLD_END = "</b></html>";
     final int WINDOW_WIDTH = 500;
     final int WINDOW_HEIGHT = 500;
-    final int START_POSITION = 200;
+    final int START_POSITION = 100;
     JFrame frame;
     JDateChooser startDate;
     JDateChooser endDate;
@@ -48,14 +50,13 @@ public class AnalyzeCosts {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setLocation(START_POSITION, START_POSITION);
-        frame.setResizable(false);
+        frame.setResizable(true);
 
         startDate = new JDateChooser(new Date());
-        //startDate.setDateFormatString("dd.MM.yy");
-
         endDate = new JDateChooser(new Date());
 
         fileName = new JTextField("Click me...", 22);
+        fileName.setToolTipText("Click to select the data file *.ods");
         fileName.setEditable(false);
         fileName.addMouseListener(new MouseAdapter() {
             @Override
@@ -70,7 +71,11 @@ public class AnalyzeCosts {
             }
         });
 
-        JButton getFileName = new JButton("Go");
+        ImageIcon icon = new ImageIcon(AnalyzeCosts.class.getResource("go.png"));
+        JButton getFileName = new JButton();
+        getFileName.setPreferredSize(new Dimension(45, 30));
+        getFileName.setIcon(icon);
+        getFileName.setToolTipText("Click to calculate the results");
         getFileName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 readAndAnalize();
@@ -84,7 +89,19 @@ public class AnalyzeCosts {
         upPanel.add(fileName);
         upPanel.add(getFileName);
 
-        model = new DefaultTableModel();
+        model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            @Override
+            public Class getColumnClass(int col) {
+              if (col == 1 || col == 2)
+                 return Integer.class;
+              else
+                 return String.class;
+            }
+        };
         model.addColumn("Cost type");
         model.addColumn("Cost sum");
         model.addColumn("%");
@@ -161,7 +178,7 @@ public class AnalyzeCosts {
 
                     // collect by type of costs
                     if ((!operation.isEmpty()) && (!sum.isEmpty())) {
-                        arrayWords = operation.getTextValue().split(":");
+                        arrayWords = operation.getTextValue().split("[: ]");
                         //System.out.println(arrayWords[0] + ": " + sum.getValue());
                         float add = Float.parseFloat(sum.getValue().toString());
                         float value = 0;
@@ -199,7 +216,15 @@ public class AnalyzeCosts {
             String key = obj.getKey();
             float value = (float) obj.getValue();
             // for Total panel
-            String[] row = {key, String.format("%,.2f", value), String.format("%.2f%%", value/total*100)};
+            String type = key;
+            String strValue = String.format("%,.2f", value);
+            String strPercent = String.format("%.2f%%", value/total*100);
+            if (key == TOTAL_TITLE) {
+                type = BOLD_BEGIN + key + BOLD_END;
+                strValue = BOLD_BEGIN + strValue + BOLD_END;
+                strPercent = "";
+            }
+            String[] row = {type, strValue, strPercent};
             model.addRow(row);
             // for Chart panel
             if (key != TOTAL_TITLE) {
