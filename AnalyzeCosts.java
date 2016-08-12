@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.1 dated 10 Aug 2016
+ * @version 0.5.2 dated 12 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -78,7 +78,7 @@ public class AnalyzeCosts extends JFrame {
         getFileName.setToolTipText("Click to calculate the results");
         getFileName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                readAndAnalize();
+                readAndAnalize("");
                 saveSettings();
             }
         });
@@ -106,6 +106,19 @@ public class AnalyzeCosts extends JFrame {
         model.addColumn("Cost sum");
         model.addColumn("%");
         JTable table = new JTable(model);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if (e.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    int col = table.getSelectedColumn();
+                    if (col == 0)
+                        readAndAnalize((String)table.getValueAt(row, col));
+                        //System.out.println(table.getValueAt(row, col));
+                }
+            }
+        });
 
         dataset = new DefaultPieDataset();
         chart = ChartFactory.createPieChart(
@@ -126,7 +139,7 @@ public class AnalyzeCosts extends JFrame {
         frame.setVisible(true);
     }
 
-    void readAndAnalize() {
+    void readAndAnalize(String typeOfCost) {
         SpreadSheet spreadSheet;
         Sheet sheet;
         MutableCell<SpreadSheet> cell;
@@ -178,15 +191,17 @@ public class AnalyzeCosts extends JFrame {
 
                     // collect by type of costs
                     if ((!operation.isEmpty()) && (!sum.isEmpty())) {
-                        arrayWords = operation.getTextValue().split("[: ]");
-                        //System.out.println(arrayWords[0] + ": " + sum.getValue());
+                        arrayWords = operation.getTextValue().split("(:|,)?( )+");
+                        int idx = typeOfCost.isEmpty()? 0 : 1;
                         float add = Float.parseFloat(sum.getValue().toString());
                         float value = 0;
-                        try {
-                            value = tm.get(arrayWords[0]);
-                        } catch(NullPointerException e) { }
-                        tm.put(arrayWords[0], value + add);
-                        total += add;
+                        if ((idx == 0) || ((idx == 1) && arrayWords[0].equals(typeOfCost))) {
+                            try {
+                                value = tm.get(arrayWords[idx]);
+                            } catch(NullPointerException e) { }
+                            tm.put(arrayWords[idx], value + add);
+                            total += add;
+                        }
                     }
                 }
             }
