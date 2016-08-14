@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.2 dated 05 Aug 2016
+ * @version 0.4.3 dated 14 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -195,6 +195,14 @@ public class GameOfLife {
                             g.setColor(((count < 2) || (count > 3))? Color.red : Color.blue);
                         }
                         g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
+                    } else {
+                        if (useColors) {
+                            int count = countNeighbors(x, y);
+                            if (count == 3) {
+                                g.setColor(new Color(225, 255, 235));
+                                g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
+                            }
+                        }
                     }
                 }
             }
