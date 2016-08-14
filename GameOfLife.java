@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.3 dated 14 Aug 2016
+ * @version 0.4.4 dated 14 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -33,6 +33,7 @@ public class GameOfLife {
     int showDelayStep = 50;
     boolean goNextGeneration = false;
     boolean useColors = false;
+    boolean showGrid = false;
     Random random = new Random();
     JFrame frame;
     Canvas canvasPanel;
@@ -95,6 +96,16 @@ public class GameOfLife {
             }
         });
 
+        // to show/hide the grid
+        final JButton gridButton = new JButton("Grid");
+        gridButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showGrid = !showGrid;
+                gridButton.setText(showGrid? "No grid" : "Grid");
+                canvasPanel.repaint();
+            }
+        });
+
         canvasPanel = new Canvas();
         canvasPanel.setBackground(Color.white);
         canvasPanel.addMouseListener(new MouseAdapter() {
@@ -116,6 +127,7 @@ public class GameOfLife {
         btnPanel.add(fasterButton);
         btnPanel.add(slowerButton);
         btnPanel.add(colorButton);
+        btnPanel.add(gridButton);
 
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
@@ -193,6 +205,8 @@ public class GameOfLife {
                         if (useColors) {
                             int count = countNeighbors(x, y);
                             g.setColor(((count < 2) || (count > 3))? Color.red : Color.blue);
+                        } else {
+                            g.setColor(Color.black);
                         }
                         g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
                     } else {
@@ -203,6 +217,11 @@ public class GameOfLife {
                                 g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
                             }
                         }
+                    }
+                    if (showGrid) {
+                        g.setColor(Color.lightGray);
+                        g.drawLine((x+1)*POINT_RADIUS-1, (y+1)*POINT_RADIUS, (x+1)*POINT_RADIUS+1, (y+1)*POINT_RADIUS);
+                        g.drawLine((x+1)*POINT_RADIUS, (y+1)*POINT_RADIUS-1, (x+1)*POINT_RADIUS, (y+1)*POINT_RADIUS+1);
                     }
                 }
             }
