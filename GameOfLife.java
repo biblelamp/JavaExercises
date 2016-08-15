@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.4 dated 14 Aug 2016
+ * @version 0.4.5 dated 15 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +18,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.*;
 
-public class GameOfLife {
+public class GameOfLife extends JFrame {
 
     final String nameOfGame = "Conway's Game of Life";
     final int LIFE_SIZE = 50;
@@ -35,6 +35,7 @@ public class GameOfLife {
     boolean useColors = false;
     boolean showGrid = false;
     Random random = new Random();
+    Dimension btnDimension = new Dimension(30, 26);
     JFrame frame;
     Canvas canvasPanel;
 
@@ -49,12 +50,29 @@ public class GameOfLife {
         frame.setLocation(START_LOCATION, START_LOCATION);
         frame.setResizable(false);
 
+        // icons for buttons
+        final ImageIcon icoFill = new ImageIcon(GameOfLife.class.getResource("img/btnFill.png"));
+        final ImageIcon icoStep = new ImageIcon(GameOfLife.class.getResource("img/btnStep.png"));
+        final ImageIcon icoGo = new ImageIcon(GameOfLife.class.getResource("img/btnGo.png"));
+        final ImageIcon icoStop = new ImageIcon(GameOfLife.class.getResource("img/btnStop.png"));
+        final ImageIcon icoFaster = new ImageIcon(GameOfLife.class.getResource("img/btnFaster.png"));
+        final ImageIcon icoSlower = new ImageIcon(GameOfLife.class.getResource("img/btnSlower.png"));
+        final ImageIcon icoColor = new ImageIcon(GameOfLife.class.getResource("img/btnColor.png"));
+        final ImageIcon icoNoColor = new ImageIcon(GameOfLife.class.getResource("img/btnNoColor.png"));
+        final ImageIcon icoGrid = new ImageIcon(GameOfLife.class.getResource("img/btnGrid.png"));
+
         // randomly fill cells
-        JButton fillButton = new JButton("Fill");
+        JButton fillButton = new JButton();
+        fillButton.setIcon(icoFill);
+        fillButton.setPreferredSize(btnDimension);
+        fillButton.setToolTipText("Fill randomly");
         fillButton.addActionListener(new FillButtonListener());
 
         // get the next generation
-        JButton stepButton = new JButton("Step");
+        JButton stepButton = new JButton();
+        stepButton.setIcon(icoStep);
+        stepButton.setPreferredSize(btnDimension);
+        stepButton.setToolTipText("Show next generation");
         stepButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 processOfLife();
@@ -63,16 +81,23 @@ public class GameOfLife {
         });
 
         // generation after generation without stopping
-        final JButton goButton = new JButton("Go");
+        final JButton goButton = new JButton();
+        goButton.setIcon(icoGo);
+        goButton.setPreferredSize(btnDimension);
+        goButton.setToolTipText("Go/Stop generation after generation");
         goButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 goNextGeneration = !goNextGeneration;
-                goButton.setText(goNextGeneration? "Stop" : "Go");
+                goButton.setIcon(goNextGeneration? icoStop : icoGo);
+                goButton.setFocusable(false); // as an example to remove the frame
             }
         });
 
         // show change of generation faster
-        JButton fasterButton = new JButton("Faster");
+        JButton fasterButton = new JButton();
+        fasterButton.setIcon(icoFaster);
+        fasterButton.setPreferredSize(btnDimension);
+        fasterButton.setToolTipText("Faster");
         fasterButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showDelay -= (showDelay - showDelayStep == 0) ? 0 : showDelayStep;
@@ -80,7 +105,10 @@ public class GameOfLife {
         });
 
         // show change of generation slower
-        JButton slowerButton = new JButton("Slower");
+        JButton slowerButton = new JButton();
+        slowerButton.setIcon(icoSlower);
+        slowerButton.setPreferredSize(btnDimension);
+        slowerButton.setToolTipText("Slower");
         slowerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showDelay += showDelay;
@@ -88,20 +116,26 @@ public class GameOfLife {
         });
 
         // turn on/off colors
-        final JButton colorButton = new JButton("Color");
+        final JButton colorButton = new JButton();
+        colorButton.setIcon(icoColor);
+        colorButton.setPreferredSize(btnDimension);
+        colorButton.setToolTipText("Turn on/off colors");
         colorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 useColors = !useColors;
-                colorButton.setText(useColors? "Mono" : "Color");
+                colorButton.setIcon(useColors? icoNoColor : icoColor);
+                canvasPanel.repaint();
             }
         });
 
         // to show/hide the grid
-        final JButton gridButton = new JButton("Grid");
+        final JButton gridButton = new JButton();
+        gridButton.setIcon(icoGrid);
+        gridButton.setPreferredSize(btnDimension);
+        gridButton.setToolTipText("Show/hide the grid");
         gridButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showGrid = !showGrid;
-                gridButton.setText(showGrid? "No grid" : "Grid");
                 canvasPanel.repaint();
             }
         });
