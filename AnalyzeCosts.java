@@ -71,7 +71,7 @@ public class AnalyzeCosts extends JFrame {
             }
         });
 
-        ImageIcon icon = new ImageIcon(AnalyzeCosts.class.getResource("go.png"));
+        ImageIcon icon = new ImageIcon(AnalyzeCosts.class.getResource("img/go.png"));
         JButton getFileName = new JButton();
         getFileName.setPreferredSize(new Dimension(45, 30));
         getFileName.setIcon(icon);
