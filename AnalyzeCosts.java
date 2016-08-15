@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.2 dated 12 Aug 2016
+ * @version 0.5.3 dated 15 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -220,8 +220,9 @@ public class AnalyzeCosts extends JFrame {
             }
         });
 
-        // clear table
+        // clear table and dataset
         model.setRowCount(0);
+        dataset.clear();
 
         // show results
         //Iterator i = tm.entrySet().iterator(); // sort by name
@@ -235,7 +236,7 @@ public class AnalyzeCosts extends JFrame {
             String strValue = String.format("%,.2f", value);
             String strPercent = String.format("%.2f%%", value/total*100);
             if (key == TOTAL_TITLE) {
-                type = BOLD_BEGIN + key + BOLD_END;
+                type = BOLD_BEGIN + (typeOfCost.isEmpty()? key : typeOfCost) + BOLD_END;
                 strValue = BOLD_BEGIN + strValue + BOLD_END;
                 strPercent = "";
             }
