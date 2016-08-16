@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.5 dated 15 Aug 2016
+ * @version 0.4.6 dated 16 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -39,6 +39,18 @@ public class GameOfLife extends JFrame {
     JFrame frame;
     Canvas canvasPanel;
 
+    // icons for buttons
+    final ImageIcon icoNew = new ImageIcon(GameOfLife.class.getResource("img/btnNew.png"));
+    final ImageIcon icoFill = new ImageIcon(GameOfLife.class.getResource("img/btnFill.png"));
+    final ImageIcon icoStep = new ImageIcon(GameOfLife.class.getResource("img/btnStep.png"));
+    final ImageIcon icoGo = new ImageIcon(GameOfLife.class.getResource("img/btnGo.png"));
+    final ImageIcon icoStop = new ImageIcon(GameOfLife.class.getResource("img/btnStop.png"));
+    final ImageIcon icoFaster = new ImageIcon(GameOfLife.class.getResource("img/btnFaster.png"));
+    final ImageIcon icoSlower = new ImageIcon(GameOfLife.class.getResource("img/btnSlower.png"));
+    final ImageIcon icoColor = new ImageIcon(GameOfLife.class.getResource("img/btnColor.png"));
+    final ImageIcon icoNoColor = new ImageIcon(GameOfLife.class.getResource("img/btnNoColor.png"));
+    final ImageIcon icoGrid = new ImageIcon(GameOfLife.class.getResource("img/btnGrid.png"));
+
     public static void main(String[] args) {
         new GameOfLife().go();
     }
@@ -50,23 +62,26 @@ public class GameOfLife extends JFrame {
         frame.setLocation(START_LOCATION, START_LOCATION);
         frame.setResizable(false);
 
-        // icons for buttons
-        final ImageIcon icoFill = new ImageIcon(GameOfLife.class.getResource("img/btnFill.png"));
-        final ImageIcon icoStep = new ImageIcon(GameOfLife.class.getResource("img/btnStep.png"));
-        final ImageIcon icoGo = new ImageIcon(GameOfLife.class.getResource("img/btnGo.png"));
-        final ImageIcon icoStop = new ImageIcon(GameOfLife.class.getResource("img/btnStop.png"));
-        final ImageIcon icoFaster = new ImageIcon(GameOfLife.class.getResource("img/btnFaster.png"));
-        final ImageIcon icoSlower = new ImageIcon(GameOfLife.class.getResource("img/btnSlower.png"));
-        final ImageIcon icoColor = new ImageIcon(GameOfLife.class.getResource("img/btnColor.png"));
-        final ImageIcon icoNoColor = new ImageIcon(GameOfLife.class.getResource("img/btnNoColor.png"));
-        final ImageIcon icoGrid = new ImageIcon(GameOfLife.class.getResource("img/btnGrid.png"));
-
         // randomly fill cells
         JButton fillButton = new JButton();
         fillButton.setIcon(icoFill);
         fillButton.setPreferredSize(btnDimension);
         fillButton.setToolTipText("Fill randomly");
         fillButton.addActionListener(new FillButtonListener());
+
+        // clear fields
+        JButton newButton = new JButton();
+        newButton.setIcon(icoNew);
+        newButton.setPreferredSize(btnDimension);
+        newButton.setToolTipText("Clear field");
+        newButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (int x = 0; x < LIFE_SIZE; x++) {
+                    Arrays.fill(lifeGeneration[x], false);
+                }
+                canvasPanel.repaint();
+            }
+        });
 
         // get the next generation
         JButton stepButton = new JButton();
@@ -153,9 +168,10 @@ public class GameOfLife extends JFrame {
             }
         });
 
-        // panel of button: fill/step/go/faster/slower/stop
+        // panel of button: fill/new/step/go/faster/slower/stop/color/grid
         JPanel btnPanel = new JPanel();
         btnPanel.add(fillButton);
+        btnPanel.add(newButton);
         btnPanel.add(stepButton);
         btnPanel.add(goButton);
         btnPanel.add(fasterButton);
