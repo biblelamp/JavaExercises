@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.6 dated 16 Aug 2016
+ * @version 0.4.7 dated 16 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -17,10 +17,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.*;
+import java.io.*;
 
 public class GameOfLife extends JFrame {
 
     final String nameOfGame = "Conway's Game of Life";
+    final String SAVE_FILE_NAME = "GameOfLife.array";
     final int LIFE_SIZE = 50;
     final int POINT_RADIUS = 10;
     final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS;
@@ -40,8 +42,10 @@ public class GameOfLife extends JFrame {
     Canvas canvasPanel;
 
     // icons for buttons
-    final ImageIcon icoNew = new ImageIcon(GameOfLife.class.getResource("img/btnNew.png"));
     final ImageIcon icoFill = new ImageIcon(GameOfLife.class.getResource("img/btnFill.png"));
+    final ImageIcon icoNew = new ImageIcon(GameOfLife.class.getResource("img/btnNew.png"));
+    final ImageIcon icoOpen = new ImageIcon(GameOfLife.class.getResource("img/btnOpen.png"));
+    final ImageIcon icoSave = new ImageIcon(GameOfLife.class.getResource("img/btnSave.png"));
     final ImageIcon icoStep = new ImageIcon(GameOfLife.class.getResource("img/btnStep.png"));
     final ImageIcon icoGo = new ImageIcon(GameOfLife.class.getResource("img/btnGo.png"));
     final ImageIcon icoStop = new ImageIcon(GameOfLife.class.getResource("img/btnStop.png"));
@@ -80,6 +84,41 @@ public class GameOfLife extends JFrame {
                     Arrays.fill(lifeGeneration[x], false);
                 }
                 canvasPanel.repaint();
+            }
+        });
+
+        // open saved file
+        JButton openButton = new JButton();
+        openButton.setIcon(icoOpen);
+        openButton.setPreferredSize(btnDimension);
+        openButton.setToolTipText("Open saved file");
+        openButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileInputStream fileIn = new FileInputStream(new File(SAVE_FILE_NAME));
+                    ObjectInputStream is = new ObjectInputStream(fileIn);
+                    lifeGeneration = (boolean[][]) is.readObject();
+                    canvasPanel.repaint();
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        // save field as file
+        JButton saveButton = new JButton();
+        saveButton.setIcon(icoSave);
+        saveButton.setPreferredSize(btnDimension);
+        saveButton.setToolTipText("Save field as file");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileOutputStream fileStream = new FileOutputStream(new File(SAVE_FILE_NAME));
+                    ObjectOutputStream os = new ObjectOutputStream(fileStream);
+                    os.writeObject(lifeGeneration);
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -168,10 +207,13 @@ public class GameOfLife extends JFrame {
             }
         });
 
-        // panel of button: fill/new/step/go/faster/slower/stop/color/grid
+        // panel of buttons:
+        // fill/new/open/save/step/go/stop/faster/slower/color/grid
         JPanel btnPanel = new JPanel();
         btnPanel.add(fillButton);
         btnPanel.add(newButton);
+        btnPanel.add(openButton);
+        btnPanel.add(saveButton);
         btnPanel.add(stepButton);
         btnPanel.add(goButton);
         btnPanel.add(fasterButton);
