@@ -9,24 +9,25 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.7 dated 16 Aug 2016
+ * @version 0.4.8 dated 17 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
+import javax.swing.filechooser.*;
 import java.util.*;
 import java.io.*;
 
 public class GameOfLife extends JFrame {
 
     final String nameOfGame = "Conway's Game of Life";
-    final String SAVE_FILE_NAME = "GameOfLife.array";
+    final String SAVE_FILE_EXT = "life";
     final int LIFE_SIZE = 50;
     final int POINT_RADIUS = 10;
-    final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS;
-    final int BTN_PANEL_HEIGHT = 57;
+    final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS - 3;
+    final int BTN_PANEL_HEIGHT = 58+4;
     final int START_LOCATION = 200;
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
@@ -94,13 +95,19 @@ public class GameOfLife extends JFrame {
         openButton.setToolTipText("Open saved file");
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    FileInputStream fileIn = new FileInputStream(new File(SAVE_FILE_NAME));
-                    ObjectInputStream is = new ObjectInputStream(fileIn);
-                    lifeGeneration = (boolean[][]) is.readObject();
-                    canvasPanel.repaint();
-                } catch(Exception ex) {
-                    ex.printStackTrace();
+                JFileChooser open = new JFileChooser();
+                open.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                open.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT));
+                int result = open.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        FileInputStream fileIn = new FileInputStream(new File(open.getSelectedFile().getAbsolutePath()));
+                        ObjectInputStream is = new ObjectInputStream(fileIn);
+                        lifeGeneration = (boolean[][]) is.readObject();
+                        canvasPanel.repaint();
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
@@ -112,12 +119,18 @@ public class GameOfLife extends JFrame {
         saveButton.setToolTipText("Save field as file");
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    FileOutputStream fileStream = new FileOutputStream(new File(SAVE_FILE_NAME));
-                    ObjectOutputStream os = new ObjectOutputStream(fileStream);
-                    os.writeObject(lifeGeneration);
-                } catch(Exception ex) {
-                    ex.printStackTrace();
+                JFileChooser save = new JFileChooser();
+                save.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                save.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT));
+                int result = save.showSaveDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        FileOutputStream fileStream = new FileOutputStream(new File(save.getSelectedFile().getAbsolutePath() + (save.getSelectedFile().getAbsolutePath().endsWith("." + SAVE_FILE_EXT)?"":"." + SAVE_FILE_EXT)));
+                        ObjectOutputStream os = new ObjectOutputStream(fileStream);
+                        os.writeObject(lifeGeneration);
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
@@ -137,7 +150,7 @@ public class GameOfLife extends JFrame {
         // generation after generation without stopping
         final JButton goButton = new JButton();
         goButton.setIcon(icoGo);
-        goButton.setPreferredSize(btnDimension);
+        goButton.setPreferredSize(new Dimension(34, 30));
         goButton.setToolTipText("Go/Stop generation after generation");
         goButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
