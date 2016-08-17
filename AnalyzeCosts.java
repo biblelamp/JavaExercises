@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.3 dated 15 Aug 2016
+ * @version 0.5.4 dated 17 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -21,16 +21,16 @@ import org.jfree.chart.plot.*;
 import org.jfree.data.*;
 import org.jfree.data.general.*;
 
-public class AnalyzeCosts extends JFrame {
+public class AnalyzeCosts extends JFrame implements ComponentListener {
 
-    final String nameOfProgram = "Analyze private costs";
+    final static String TITLE_OF_PROGRAM = "Analyze private costs";
+    final static int WINDOW_WIDTH = 500;
+    final static int WINDOW_HEIGHT = 450;
+    final static int START_POSITION = 100;
     final String SETTINGS_FILE = "settings.ini";
     final String TOTAL_TITLE = "Total";
     final String BOLD_BEGIN = "<html><b>";
     final String BOLD_END = "</b></html>";
-    final int WINDOW_WIDTH = 500;
-    final int WINDOW_HEIGHT = 500;
-    final int START_POSITION = 100;
     JFrame frame;
     JDateChooser startDate;
     JDateChooser endDate;
@@ -42,16 +42,16 @@ public class AnalyzeCosts extends JFrame {
     ChartPanel chartPanel;
 
     public static void main(String[] args) {
-        new AnalyzeCosts().go();
+        AnalyzeCosts frame = new AnalyzeCosts();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle(TITLE_OF_PROGRAM);
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        frame.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        frame.setLocation(START_POSITION, START_POSITION);
+        frame.setVisible(true);
     }
 
-    void go() {
-        frame = new JFrame(nameOfProgram);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        frame.setLocation(START_POSITION, START_POSITION);
-        frame.setResizable(true);
-
+    AnalyzeCosts() {
         startDate = new JDateChooser(new Date());
         endDate = new JDateChooser(new Date());
 
@@ -115,7 +115,6 @@ public class AnalyzeCosts extends JFrame {
                     int col = table.getSelectedColumn();
                     if (col == 0)
                         readAndAnalize((String)table.getValueAt(row, col));
-                        //System.out.println(table.getValueAt(row, col));
                 }
             }
         });
@@ -133,11 +132,21 @@ public class AnalyzeCosts extends JFrame {
         tabbedPane.addTab("Total", new JScrollPane(table));
         tabbedPane.addTab("Chart", chartPanel);
 
-        frame.getContentPane().add(BorderLayout.NORTH, upPanel);
-        frame.getContentPane().add(BorderLayout.CENTER, tabbedPane);
+        getContentPane().add(BorderLayout.NORTH, upPanel);
+        getContentPane().add(BorderLayout.CENTER, tabbedPane);
+        getContentPane().addComponentListener(this);
         readSettings();
-        frame.setVisible(true);
     }
+
+    // for override abstract methods
+    public void componentHidden(ComponentEvent ce) {};
+    public void componentShown(ComponentEvent ce) {};
+    public void componentMoved(ComponentEvent ce) {};
+    public void componentResized(ComponentEvent ce) {
+        int height = this.getHeight();
+        int width = this.getWidth();
+        //System.out.println("Size: " + height + "x" + width);
+    };
 
     void readAndAnalize(String typeOfCost) {
         SpreadSheet spreadSheet;
