@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.8 dated 17 Aug 2016
+ * @version 0.4.9 dated 18 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -97,7 +97,7 @@ public class GameOfLife extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser open = new JFileChooser();
                 open.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                open.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT));
+                //open.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT)); // for compatibility with Java 1.5
                 int result = open.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -121,7 +121,7 @@ public class GameOfLife extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser save = new JFileChooser();
                 save.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                save.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT));
+                //save.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT)); // for compatibility with Java 1.5
                 int result = save.showSaveDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
