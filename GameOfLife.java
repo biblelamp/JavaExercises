@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.9 dated 18 Aug 2016
+ * @version 0.4.10 dated 19 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -17,16 +17,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.filechooser.*;
+import javax.swing.filechooser.FileFilter;
 import java.util.*;
 import java.io.*;
 
 public class GameOfLife extends JFrame {
 
-    final String nameOfGame = "Conway's Game of Life";
-    final String SAVE_FILE_EXT = "life";
+    final String NAME_OF_GAME = "Conway's Game of Life";
+    final String SAVE_FILE_EXT = ".life";
     final int LIFE_SIZE = 50;
     final int POINT_RADIUS = 10;
-    final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS - 3;
+    final int FIELD_SIZE = LIFE_SIZE * POINT_RADIUS + 7;
     final int BTN_PANEL_HEIGHT = 58+4;
     final int START_LOCATION = 200;
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
@@ -61,7 +62,7 @@ public class GameOfLife extends JFrame {
     }
 
     void go() {
-        frame = new JFrame(nameOfGame);
+        frame = new JFrame(NAME_OF_GAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FIELD_SIZE, FIELD_SIZE + BTN_PANEL_HEIGHT);
         frame.setLocation(START_LOCATION, START_LOCATION);
@@ -95,9 +96,21 @@ public class GameOfLife extends JFrame {
         openButton.setToolTipText("Open saved file");
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser open = new JFileChooser();
+                JFileChooser open = new JFileChooser(".");
                 open.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                //open.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT)); // for compatibility with Java 1.5
+                open.addChoosableFileFilter(new FileFilter() {
+                    public String getDescription() {
+                        return "Saved GameOfLife files (*" + SAVE_FILE_EXT + ")";
+                    }
+                    public boolean accept(File f) {
+                        if (f.isDirectory()) {
+                            return true;
+                        } else {
+                            return f.getName().toLowerCase().endsWith(SAVE_FILE_EXT);
+                        }
+                    }
+                });
+                open.setAcceptAllFileFilterUsed(true);
                 int result = open.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -107,6 +120,7 @@ public class GameOfLife extends JFrame {
                         canvasPanel.repaint();
                     } catch(Exception ex) {
                         ex.printStackTrace();
+                        JOptionPane.showMessageDialog(frame, "Incorrect file format.", "Error openning file", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -119,13 +133,13 @@ public class GameOfLife extends JFrame {
         saveButton.setToolTipText("Save field as file");
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser save = new JFileChooser();
+                JFileChooser save = new JFileChooser(".");
                 save.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 //save.setFileFilter(new FileNameExtensionFilter("Game Of Life files (*." + SAVE_FILE_EXT + ")", SAVE_FILE_EXT)); // for compatibility with Java 1.5
                 int result = save.showSaveDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
-                        FileOutputStream fileStream = new FileOutputStream(new File(save.getSelectedFile().getAbsolutePath() + (save.getSelectedFile().getAbsolutePath().endsWith("." + SAVE_FILE_EXT)?"":"." + SAVE_FILE_EXT)));
+                        FileOutputStream fileStream = new FileOutputStream(new File(save.getSelectedFile().getAbsolutePath() + (save.getSelectedFile().getAbsolutePath().endsWith(SAVE_FILE_EXT)?"":SAVE_FILE_EXT)));
                         ObjectOutputStream os = new ObjectOutputStream(fileStream);
                         os.writeObject(lifeGeneration);
                     } catch(Exception ex) {
@@ -330,7 +344,7 @@ public class GameOfLife extends JFrame {
                     }
                 }
             }
-            frame.setTitle(nameOfGame + " : " + countGeneration);
+            frame.setTitle(NAME_OF_GAME + " : " + countGeneration);
         }
     }
 }
