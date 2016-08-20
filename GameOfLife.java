@@ -9,7 +9,7 @@
  *  - Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.
  *
  * @author Sergey Iryupin
- * @version 0.4.10 dated 19 Aug 2016
+ * @version 0.4.11 dated 20 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -35,7 +35,7 @@ public class GameOfLife extends JFrame {
     int countGeneration = 0;
     int showDelay = 500;
     int showDelayStep = 50;
-    boolean goNextGeneration = false;
+	volatile boolean goNextGeneration = false; // fixed the problem in 64-bit JVM added volatile
     boolean useColors = false;
     boolean showGrid = false;
     Random random = new Random();
