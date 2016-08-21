@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated 03 Aug 2016
+ * @version 0.3.2 dated 21 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -11,8 +11,8 @@ import java.util.*;
 
 public class GameSnake {
 
-    final String nameOfGame = "Classic Game Snake";
-    final String gameOverMsg = "GAME OVER";
+    final String TITLE_OF_PROGRAM = "Classic Game Snake";
+    final String GAME_OVER_MSG = "GAME OVER";
     final int POINT_RADIUS = 20; // size of one point
     final int FIELD_WIDTH = 30; // in point
     final int FIELD_HEIGHT = 20;
@@ -22,7 +22,7 @@ public class GameSnake {
     final int START_SNAKE_SIZE = 6;
     final int START_SNAKE_X = 10;
     final int START_SNAKE_Y = 10;
-    int showDelay = 150;
+    final int SHOW_DELAY = 150; // delay for animation
     final int LEFT = 37; // key codes
     final int UP = 38;
     final int RIGHT = 39;
@@ -34,9 +34,9 @@ public class GameSnake {
     Snake snake;
     Food food;
     Poison poison;
-    Random random = new Random();
     JFrame frame;
     Canvas canvasPanel;
+    Random random = new Random();
     boolean gameOver = false;
 
     public static void main(String[] args) {
@@ -44,7 +44,7 @@ public class GameSnake {
     }
 
     void go() {
-        frame = new JFrame(nameOfGame + " : " + START_SNAKE_SIZE);
+        frame = new JFrame(TITLE_OF_PROGRAM + " : " + START_SNAKE_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FIELD_WIDTH * POINT_RADIUS + FIELD_DX, FIELD_HEIGHT * POINT_RADIUS + FIELD_DY);
         frame.setLocation(START_LOCATION, START_LOCATION);
@@ -75,7 +75,7 @@ public class GameSnake {
             }
             canvasPanel.repaint();
             try {
-                Thread.sleep(showDelay);
+                Thread.sleep(SHOW_DELAY);
             } catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
@@ -86,8 +86,7 @@ public class GameSnake {
 
         public Snake(int x, int y, int length, int direction) {
             for (int i = 0; i < length; i++) {
-                Point point = new Point(x - i, y);
-                snake.add(point);
+                snake.add(new Point(x - i, y));
             }
             this.direction = direction;
         }
@@ -122,7 +121,7 @@ public class GameSnake {
             snake.add(0, new Point(x, y)); // new position for head
             if (isFood(food)) { // check meeting food
                 food.eat();
-                frame.setTitle(nameOfGame + " : " + snake.size());
+                frame.setTitle(TITLE_OF_PROGRAM + " : " + snake.size());
             } else {
                 snake.remove(snake.size() - 1);
             }
@@ -167,14 +166,13 @@ public class GameSnake {
             do {
                 x = random.nextInt(FIELD_WIDTH);
                 y = random.nextInt(FIELD_HEIGHT);
-            } while (snake.isInsideSnake(x, y));
+            } while (snake.isInsideSnake(x, y) || poison.isPoison(x, y));
             this.setXY(x, y);
         }
     }
 
     class Poison {
         ArrayList<Point> poison = new ArrayList<Point>();
-        Color color = POISON_COLOR;
 
         boolean isPoison(int x, int y) {
             for (Point point : poison) {
@@ -191,7 +189,7 @@ public class GameSnake {
                 x = random.nextInt(FIELD_WIDTH);
                 y = random.nextInt(FIELD_HEIGHT);
             } while (isPoison(x, y) || snake.isInsideSnake(x, y) || food.isFood(x, y));
-            poison.add(new Point(x, y, color));
+            poison.add(new Point(x, y, POISON_COLOR));
         }
 
         void paint(Graphics g) {
@@ -214,16 +212,16 @@ public class GameSnake {
             this.color = color;
         }
 
-        void paint(Graphics g) {
-            g.setColor(color);
-            g.fillOval(getX()*POINT_RADIUS, getY()*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
-        }
-
         int getX() { return x; }
         int getY() { return y; }
         void setXY(int x, int y) {
             this.x = x;
             this.y = y;
+        }
+
+        void paint(Graphics g) {
+            g.setColor(color);
+            g.fillOval(getX()*POINT_RADIUS, getY()*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
         }
     }
 
@@ -239,7 +237,7 @@ public class GameSnake {
                 g.setColor(Color.red);
                 g.setFont(new Font("Arial", Font.BOLD, 40));
                 FontMetrics fm = g.getFontMetrics();
-                g.drawString(gameOverMsg, (FIELD_WIDTH * POINT_RADIUS + FIELD_DX - fm.stringWidth(gameOverMsg))/2, (FIELD_HEIGHT * POINT_RADIUS + FIELD_DY)/2);
+                g.drawString(GAME_OVER_MSG, (FIELD_WIDTH * POINT_RADIUS + FIELD_DX - fm.stringWidth(GAME_OVER_MSG))/2, (FIELD_HEIGHT * POINT_RADIUS + FIELD_DY)/2);
             }
         }
     }
