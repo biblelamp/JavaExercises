@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 23 Aug 2016
+ * @version 0.2.1 dated 24 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -72,7 +72,6 @@ public class GameTetris {
                 canvasPanel.repaint();
             }
         });
-
         frame.setVisible(true);
 
         // create a ground for mines
@@ -155,7 +154,10 @@ public class GameTetris {
 
         boolean isTouchWall(int direction) {
             for (Block block : figure) {
-                if (((block.getX() == 0) && (direction == LEFT)) || ((block.getX() == FIELD_WIDTH - 1) && (direction == RIGHT))) {
+                if ((direction == LEFT) && (((block.getX() == 0) || (mine[block.getY()][block.getX() - 1])))) {
+                    return true;
+                }
+                if ((direction == RIGHT) && (((block.getX() == FIELD_WIDTH - 1) || (mine[block.getY()][block.getX() + 1])))) {
                     return true;
                 }
             }
@@ -226,7 +228,6 @@ public class GameTetris {
 
         int getX() { return x; }
         int getY() { return y; }
-
         void setX(int x) { this.x = x; }
         void setY(int y) { this.y = y; }
 
