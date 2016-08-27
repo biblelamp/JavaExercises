@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 26 Aug 2016
+ * @version 0.1.1 dated 27 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -23,7 +23,57 @@ public class GameSpaceInvaders {
     final int RIGHT = 39;
     final int FIRE = 32;
     final int SHOW_DELAY = 25;
-    Cannon cannon;
+	final int[][][][] PATTERN_OF_ALIENS = {
+	  {{{0,0,0,0,1,1,1,1,0,0,0,0}, // alien 1
+		{0,1,1,1,1,1,1,1,1,1,1,0},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,1,1,0,0,1,1,0,0,1,1,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{0,0,1,1,1,0,0,1,1,1,0,0},
+		{0,1,1,0,0,1,1,0,0,1,1,0},
+		{0,0,1,1,0,0,0,0,1,1,0,0}, {12, 8}},
+	   {{0,0,0,0,1,1,1,1,0,0,0,0},
+		{0,1,1,1,1,1,1,1,1,1,1,0},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,1,1,0,0,1,1,0,0,1,1,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{0,0,0,1,1,0,0,1,1,0,0,0},
+		{0,0,1,1,0,1,1,0,1,1,0,0},
+		{1,1,0,0,0,0,0,0,0,0,1,1}}},
+	  {{{0,0,1,0,0,0,0,0,1,0,0,0}, // alien 2
+		{0,0,0,1,0,0,0,1,0,0,0,0},
+		{0,0,1,1,1,1,1,1,1,0,0,0},
+		{0,1,1,0,1,1,1,0,1,1,0,0},
+		{1,1,1,1,1,1,1,1,1,1,1,0},
+		{1,0,1,1,1,1,1,1,1,0,1,0},
+		{1,0,1,0,0,0,0,0,1,0,1,0},
+		{0,0,0,1,1,0,1,1,0,0,0,0}, {11, 8}},
+	   {{0,0,1,0,0,0,0,0,1,0,0,0},
+		{1,0,0,1,0,0,0,1,0,0,1,0},
+		{1,0,1,1,1,1,1,1,1,0,1,0},
+		{1,1,1,0,1,1,1,0,1,1,1,0},
+		{1,1,1,1,1,1,1,1,1,1,1,0},
+		{0,1,1,1,1,1,1,1,1,1,0,0},
+		{0,0,1,0,0,0,0,0,1,0,0,0},
+		{0,1,0,0,0,0,0,0,0,1,0,0}}},
+	  {{{0,0,0,1,1,0,0,0,0,0,0,0}, // alien 3
+		{0,0,1,1,1,1,0,0,0,0,0,0},
+		{0,1,1,1,1,1,1,0,0,0,0,0},
+		{1,1,0,1,1,0,1,1,0,0,0,0},
+		{1,1,1,1,1,1,1,1,0,0,0,0},
+		{0,0,1,0,0,1,0,0,0,0,0,0},
+		{0,1,0,1,1,0,1,0,0,0,0,0},
+		{1,0,1,0,0,1,0,1,0,0,0,0}, {8, 8}},
+	   {{0,0,0,1,1,0,0,0,0,0,0,0},
+		{0,0,1,1,1,1,0,0,0,0,0,0},
+		{0,1,1,1,1,1,1,0,0,0,0,0},
+		{1,1,0,1,1,0,1,1,0,0,0,0},
+		{1,1,1,1,1,1,1,1,0,0,0,0},
+		{0,1,0,1,1,0,1,0,0,0,0,0},
+		{1,0,0,0,0,0,0,1,0,0,0,0},
+		{0,1,0,0,0,0,1,0,0,0,0,0}}}
+	};
+	Cannon cannon;
     Ray ray;
     Alien alien;
     JFrame frame;
@@ -62,14 +112,14 @@ public class GameSpaceInvaders {
 
         cannon = new Cannon();
         ray = new Ray();
-        alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100));
+        alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100), 2);
 
         // main loop of game
         while (!gameOver) {
             ray.fly();
             alien.nextView();
             if (alien.isTouchRay()) {
-                alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100));
+                alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100), random.nextInt(2));
             }
             canvasPanel.repaint();
             try {
@@ -80,33 +130,35 @@ public class GameSpaceInvaders {
 
     class Ray { // from laser cannon
         int x, y;
+		boolean exists;
         final int width = 2;
         final int height = 8;
         final int dy = 8;
 
         public Ray() {
-            x = -1;
-            y = -1;
+            exists = false;
         }
 
         void start(int x, int y) {
-            if (this.y < 0) {
+            if (!exists) {
+				exists = true;
                 this.x = x;
                 this.y = y;
             }
         }
 
         void fly() {
-            if (y + height > -1) {
+            if (exists) {
                 y -= dy;
+				exists = (y + dy) > 0;
             }
         }
 
         int getX() { return x; }
         int getY() { return y; }
-        
+
         void paint(Graphics g) {
-            if (x > 0) {
+            if (exists) {
                 g.fillRect(x, y, width, height);
             }
         }
@@ -148,36 +200,24 @@ public class GameSpaceInvaders {
 
     class Alien { // experimental model
         int x, y;
-        int view = 0;
+        int view;
+		int type;
+		int width, height;
         int countFrame = 0;
-        final int numFrames = 10;
-        final int[][][] shape = {
-           {{0,0,0,0,1,1,1,1,0,0,0,0},
-            {0,1,1,1,1,1,1,1,1,1,1,0},
-            {1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,0,0,1,1,0,0,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1},
-            {0,0,1,1,1,0,0,1,1,1,0,0},
-            {0,1,1,0,0,1,1,0,0,1,1,0},
-            {0,0,1,1,0,0,0,0,1,1,0,0}},
-           {{0,0,0,0,1,1,1,1,0,0,0,0},
-            {0,1,1,1,1,1,1,1,1,1,1,0},
-            {1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,0,0,1,1,0,0,1,1,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1},
-            {0,0,0,1,1,0,0,1,1,0,0,0},
-            {0,0,1,1,0,1,1,0,1,1,0,0},
-            {1,1,0,0,0,0,0,0,0,0,1,1}}
-        };
+        final int numFrames = 20;
 
-        Alien(int x, int y) {
+        Alien(int x, int y, int type) {
             this.x = x;
             this.y = y;
+			this.type = type;
+			view = 0;
+			width = PATTERN_OF_ALIENS[type][view][8][0];
+			height = PATTERN_OF_ALIENS[type][view][8][1];
         }
 
         boolean isTouchRay() {
-            if ((ray.getX() >= x) && (ray.getX() <= x + 12*POINT_SCALE)) {
-                if (ray.getY() < y + 8*POINT_SCALE) {
+            if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE)) {
+                if (ray.getY() < y + height*POINT_SCALE) {
                     return true;
                 }
             }
@@ -197,9 +237,9 @@ public class GameSpaceInvaders {
 
         void paint(Graphics g) {
             g.setColor(Color.white);
-            for (int col = 0; col <12; col++) {
-                for (int row = 0; row < 8; row++) {
-                    if (shape[view][row][col] == 1) {
+            for (int col = 0; col < width; col++) {
+                for (int row = 0; row < height; row++) {
+                    if (PATTERN_OF_ALIENS[type][view][row][col] == 1) {
                         g.fillRect(col*POINT_SCALE + x, row*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
                     }
                 }
