@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated 27 Aug 2016
+ * @version 0.2 dated 28 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -15,10 +15,11 @@ public class GameSpaceInvaders {
     final String GAME_OVER_MSG = "GAME OVER";
     final int POINT_SCALE = 2;
     final int FIELD_WIDTH = 436;
-    final int FIELD_HEIGHT = 436;
+    final int FIELD_HEIGHT = 446;
     final int START_LOCATION = 150;
     final int FIELD_DX = 6; // determined experimentally
     final int FIELD_DY = 28;
+	final int STEP_X = 5;
     final int LEFT = 37; // key codes
     final int RIGHT = 39;
     final int FIRE = 32;
@@ -71,10 +72,10 @@ public class GameSpaceInvaders {
 		{1,1,1,1,1,1,1,1,0,0,0,0},
 		{0,1,0,1,1,0,1,0,0,0,0,0},
 		{1,0,0,0,0,0,0,1,0,0,0,0},
-		{0,1,0,0,0,0,1,0,0,0,0,0}}}
-	};
-	Cannon cannon;
-    Ray ray;
+		{0,1,0,0,0,0,1,0,0,0,0,0}}}};
+	Cannon cannon = new Cannon();
+    Ray ray = new Ray();
+	Wave wave = new Wave();
     Alien alien;
     JFrame frame;
     Canvas canvasPanel;
@@ -110,17 +111,11 @@ public class GameSpaceInvaders {
         });
         frame.setVisible(true);
 
-        cannon = new Cannon();
-        ray = new Ray();
-        alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100), 2);
-
         // main loop of game
         while (!gameOver) {
             ray.fly();
-            alien.nextView();
-            if (alien.isTouchRay()) {
-                alien = new Alien(random.nextInt(FIELD_WIDTH - 12*2), random.nextInt(FIELD_HEIGHT - 100), random.nextInt(2));
-            }
+            wave.nextStep();
+			wave.checkHit();
             canvasPanel.repaint();
             try {
                 Thread.sleep(SHOW_DELAY);
@@ -153,6 +148,10 @@ public class GameSpaceInvaders {
 				exists = (y + dy) > 0;
             }
         }
+
+		void disable() {
+			exists = false;
+		}
 
         int getX() { return x; }
         int getY() { return y; }
@@ -198,7 +197,7 @@ public class GameSpaceInvaders {
         }
     }
 
-    class Alien { // experimental model
+    class Alien { // for attacking wave
         int x, y;
         int view;
 		int type;
@@ -218,34 +217,76 @@ public class GameSpaceInvaders {
         boolean isTouchRay() {
             if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE)) {
                 if (ray.getY() < y + height*POINT_SCALE) {
+					ray.disable();
                     return true;
                 }
             }
             return false;
         }
         
-        void nextView() {
+        void nextStep(int direction) {
             if (countFrame == numFrames) {
                 view = 1 - view;
                 countFrame = 0;
+				if (direction == RIGHT) {
+					x += STEP_X;
+				}
             } else { countFrame++; }
-        }
-
-        void move() {
-            
         }
 
         void paint(Graphics g) {
             g.setColor(Color.white);
             for (int col = 0; col < width; col++) {
                 for (int row = 0; row < height; row++) {
-                    if (PATTERN_OF_ALIENS[type][view][row][col] == 1) {
-                        g.fillRect(col*POINT_SCALE + x, row*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
+					if (PATTERN_OF_ALIENS[type][view][row][col] == 1) {
+						g.fillRect(col*POINT_SCALE + x, row*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
                     }
                 }
             }
         }
     }
+
+	class Wave { // attacking wave of aliens
+		final int startX = 10;
+		final int startY = 20;
+		final int[][] PATTERN = {
+			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+		ArrayList<Alien> wave = new ArrayList<Alien>();
+		int direction = RIGHT;
+
+		Wave() {
+			for (int y = 0; y < 5; y++) {
+				for (int x = 0; x < 11; x++) {
+					wave.add(new Alien(startX + x*POINT_SCALE*16, startY + y*POINT_SCALE*16, PATTERN[y][x]));
+				}
+			}
+		}
+
+		void nextStep() {
+			for (Alien alien : wave) {
+                alien.nextStep(direction);
+			}
+		}
+
+		void checkHit() {
+			for (Alien alien : wave) {
+                if (alien.isTouchRay()) {
+					wave.remove(alien);
+					break;
+				}
+            }
+		}
+
+		void paint(Graphics g) {
+			for (Alien alien : wave) {
+                alien.paint(g);
+            }
+		}
+	}
 
     public class Canvas extends JPanel {
 
@@ -256,7 +297,7 @@ public class GameSpaceInvaders {
             g.fillRect(10, FIELD_HEIGHT - 30, FIELD_WIDTH - 20, 2);
             cannon.paint(g);
             ray.paint(g);
-            alien.paint(g);
+            wave.paint(g);
         }
     }
 }
