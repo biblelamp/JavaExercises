@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated 29 Aug 2016
+ * @version 0.2.2 dated 29 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -75,13 +75,14 @@ public class GameSpaceInvaders {
 		{0,1,0,1,1,0,1,0,0,0,0,0},
 		{1,0,0,0,0,0,0,1,0,0,0,0},
 		{0,1,0,0,0,0,1,0,0,0,0,0}}}};
+	final int[] arrayScore = {10, 20, 40};
 	Cannon cannon = new Cannon();
     Ray ray = new Ray();
 	Wave wave = new Wave();
-    Alien alien;
     JFrame frame;
     Canvas canvasPanel;
     Random random = new Random();
+	int countScore = 0, countLives = 3;
     boolean gameOver = false;
 
     public static void main(String[] args) {
@@ -89,7 +90,7 @@ public class GameSpaceInvaders {
     }
 
     void go() {
-        frame = new JFrame(TITLE_OF_PROGRAM);
+        frame = new JFrame(TITLE_OF_PROGRAM + " // Score " + countScore + " // Live " + countLives);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FIELD_WIDTH + FIELD_DX, FIELD_HEIGHT + FIELD_DY);
         frame.setLocation(START_LOCATION, START_LOCATION);
@@ -217,6 +218,10 @@ public class GameSpaceInvaders {
 			width = PATTERN_OF_ALIENS[type][view][8][0];
 			height = PATTERN_OF_ALIENS[type][view][8][1];
         }
+		
+		int getType() {
+			return type;
+		}
 
         boolean isTouchRay() {
             if (ray.isEnable()) {
@@ -304,6 +309,8 @@ public class GameSpaceInvaders {
 		void checkHit() {
 			for (Alien alien : wave) {
                 if (alien.isTouchRay()) {
+					countScore += arrayScore[alien.getType()];
+					frame.setTitle(TITLE_OF_PROGRAM + " // Score " + countScore + " // Live " + countLives);
 					wave.remove(alien);
 					break;
 				}
