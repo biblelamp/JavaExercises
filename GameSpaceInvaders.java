@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 28 Aug 2016
+ * @version 0.2.1 dated 29 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -19,9 +19,11 @@ public class GameSpaceInvaders {
     final int START_LOCATION = 150;
     final int FIELD_DX = 6; // determined experimentally
     final int FIELD_DY = 28;
-	final int STEP_X = 5;
+	final int STEP_X = 5; // wave step left-right
+	final int STEP_Y = 15; // wave step down
     final int LEFT = 37; // key codes
     final int RIGHT = 39;
+    final int DOWN = 40;
     final int FIRE = 32;
     final int SHOW_DELAY = 25;
 	final int[][][][] PATTERN_OF_ALIENS = {
@@ -153,6 +155,10 @@ public class GameSpaceInvaders {
 			exists = false;
 		}
 
+        boolean isEnable() {
+            return exists;
+        }
+
         int getX() { return x; }
         int getY() { return y; }
 
@@ -202,8 +208,6 @@ public class GameSpaceInvaders {
         int view;
 		int type;
 		int width, height;
-        int countFrame = 0;
-        final int numFrames = 20;
 
         Alien(int x, int y, int type) {
             this.x = x;
@@ -215,23 +219,26 @@ public class GameSpaceInvaders {
         }
 
         boolean isTouchRay() {
-            if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE)) {
-                if (ray.getY() < y + height*POINT_SCALE) {
-					ray.disable();
-                    return true;
+            if (ray.isEnable()) {
+                if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE)) {
+                    if (ray.getY() < y + height*POINT_SCALE) {
+                        ray.disable();
+                        return true;
+                    }
                 }
             }
             return false;
         }
-        
+
         void nextStep(int direction) {
-            if (countFrame == numFrames) {
                 view = 1 - view;
-                countFrame = 0;
 				if (direction == RIGHT) {
 					x += STEP_X;
-				}
-            } else { countFrame++; }
+				} else if (direction == LEFT) {
+                    x -= STEP_X;
+                } else if (direction == DOWN) {
+                    y += STEP_Y;
+                }
         }
 
         void paint(Graphics g) {
@@ -247,8 +254,8 @@ public class GameSpaceInvaders {
     }
 
 	class Wave { // attacking wave of aliens
-		final int startX = 10;
-		final int startY = 20;
+		int startX = 40;
+		int startY = 60;
 		final int[][] PATTERN = {
 			{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -256,7 +263,10 @@ public class GameSpaceInvaders {
 			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 		ArrayList<Alien> wave = new ArrayList<Alien>();
+        final int numFrames = 20; // sets the speed of the wave
+        int countFrames = 0;
 		int direction = RIGHT;
+        boolean stepDown = false;
 
 		Wave() {
 			for (int y = 0; y < 5; y++) {
@@ -267,9 +277,28 @@ public class GameSpaceInvaders {
 		}
 
 		void nextStep() {
-			for (Alien alien : wave) {
-                alien.nextStep(direction);
-			}
+            if (countFrames == numFrames) {
+                if ((startX == 10) || (startX == 10 + 14*STEP_X)) { // time to change direction
+                    if (!stepDown) {
+                        direction = DOWN;
+                    } else {
+                        direction = (startX == 10)? RIGHT : LEFT;
+                        stepDown = false;
+                    }
+                }
+                for (Alien alien : wave) { // move wave
+                    alien.nextStep(direction);
+                }
+                if (direction == DOWN) {
+                    startY += STEP_Y;
+                    stepDown = true;
+                } else {
+                    startX += (direction == RIGHT)? STEP_X : -STEP_X;
+                }
+                countFrames = 0;
+            } else {
+                countFrames++;
+            }
 		}
 
 		void checkHit() {
