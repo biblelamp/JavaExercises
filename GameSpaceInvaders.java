@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 30 Aug 2016
+ * @version 0.3.1 dated 30 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -83,7 +83,7 @@ public class GameSpaceInvaders {
 	Wave wave = new Wave();
 	AlienRays rays = new AlienRays();
     JFrame frame;
-    Canvas canvasPanel;
+    Canvas canvasPanel = new Canvas();
     Random random = new Random();
 	int countScore = 0, countLives = 3;
     boolean gameOver = false;
@@ -99,29 +99,28 @@ public class GameSpaceInvaders {
         frame.setLocation(START_LOCATION, START_LOCATION);
         frame.setResizable(false);
 
-        canvasPanel = new Canvas();
-        canvasPanel.setBackground(Color.black);
+		canvasPanel.setBackground(Color.black);
 
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT)) {
                     cannon.move(e.getKeyCode());
-                    canvasPanel.repaint();
                 }
                 if (e.getKeyCode() == FIRE) {
                     ray.start(cannon.getX() + 12, cannon.getY() - 8);
-                    canvasPanel.repaint();
                 }
+				canvasPanel.repaint();
             }
         });
         frame.setVisible(true);
-		
+
         // main loop of game
         while (!gameOver) {
             ray.fly();
 			rays.fly();
 			rays.checkGround();
+			rays.checkHit();
             wave.nextStep();
 			wave.checkHit();
             canvasPanel.repaint();
@@ -208,7 +207,7 @@ public class GameSpaceInvaders {
             g.fillRect(x + 12, y, 2, 2);
         }
     }
-	
+
 	class AlienRay { // from one alien
 		int x, y;
 		final int width = 6;
@@ -223,9 +222,18 @@ public class GameSpaceInvaders {
 		void fly() {
 			y += dy;
 		}
-		
+
 		boolean hitGround() {
 			return y + height > GROUND_Y;
+		}
+
+		boolean hitCannon() {
+			if (y + height > cannon.getY()) {
+				if (x > cannon.getX() && x < cannon.getX() + 26) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		void paint(Graphics g) {
@@ -237,7 +245,6 @@ public class GameSpaceInvaders {
 
 	class AlienRays { // a few rays from alien
 		ArrayList<AlienRay> rays = new ArrayList<AlienRay>();
-		final int maxRays = 5;
 
 		void add(int x, int y) {
 			rays.add(new AlienRay(x, y));
@@ -252,6 +259,19 @@ public class GameSpaceInvaders {
 		void checkGround() {
 			for (AlienRay ray : rays) {
 				if (ray.hitGround()) {
+					rays.remove(ray);
+					break;
+				}
+			}
+		}
+
+		void checkHit() {
+			for (AlienRay ray : rays) {
+				if (ray.hitCannon()) {
+					countLives--;
+					cannon = new Cannon();
+					gameOver = countLives == 0;
+					frame.setTitle(TITLE_OF_PROGRAM + " // Score " + countScore + " // Live " + countLives);
 					rays.remove(ray);
 					break;
 				}
@@ -283,7 +303,7 @@ public class GameSpaceInvaders {
 			width = PATTERN_OF_ALIENS[type][view][8][0];
 			height = PATTERN_OF_ALIENS[type][view][8][1];
         }
-		
+
 		int getType() {
 			return type;
 		}
@@ -409,6 +429,12 @@ public class GameSpaceInvaders {
             ray.paint(g);
             wave.paint(g);
 			rays.paint(g);
+			if (gameOver) {
+                g.setColor(Color.green);
+                g.setFont(new Font("Arial", Font.BOLD, 40));
+                FontMetrics fm = g.getFontMetrics();
+                g.drawString(GAME_OVER_MSG, (FIELD_WIDTH - fm.stringWidth(GAME_OVER_MSG))/2, FIELD_HEIGHT/2);
+            }
         }
     }
 }
