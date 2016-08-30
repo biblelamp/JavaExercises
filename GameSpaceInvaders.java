@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated 29 Aug 2016
+ * @version 0.3 dated 30 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -21,11 +21,13 @@ public class GameSpaceInvaders {
     final int FIELD_DY = 28;
 	final int STEP_X = 5; // wave step left-right
 	final int STEP_Y = 15; // wave step down
+	final int GROUND_Y = FIELD_HEIGHT - 30;
     final int LEFT = 37; // key codes
     final int RIGHT = 39;
     final int DOWN = 40;
     final int FIRE = 32;
     final int SHOW_DELAY = 25;
+	final int MAX_ALIEN_RAYS = 2;
 	final int[][][][] PATTERN_OF_ALIENS = {
 	  {{{0,0,0,0,1,1,1,1,0,0,0,0}, // alien 1
 		{0,1,1,1,1,1,1,1,1,1,1,0},
@@ -75,10 +77,11 @@ public class GameSpaceInvaders {
 		{0,1,0,1,1,0,1,0,0,0,0,0},
 		{1,0,0,0,0,0,0,1,0,0,0,0},
 		{0,1,0,0,0,0,1,0,0,0,0,0}}}};
-	final int[] arrayScore = {10, 20, 40};
+	final int[] ARRAY_SCORES = {10, 20, 40};
 	Cannon cannon = new Cannon();
     Ray ray = new Ray();
 	Wave wave = new Wave();
+	AlienRays rays = new AlienRays();
     JFrame frame;
     Canvas canvasPanel;
     Random random = new Random();
@@ -113,10 +116,12 @@ public class GameSpaceInvaders {
             }
         });
         frame.setVisible(true);
-
+		
         // main loop of game
         while (!gameOver) {
             ray.fly();
+			rays.fly();
+			rays.checkGround();
             wave.nextStep();
 			wave.checkHit();
             canvasPanel.repaint();
@@ -203,6 +208,66 @@ public class GameSpaceInvaders {
             g.fillRect(x + 12, y, 2, 2);
         }
     }
+	
+	class AlienRay { // from one alien
+		int x, y;
+		final int width = 6;
+		final int height = 14;
+		final int dy = 8;
+
+		AlienRay(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		void fly() {
+			y += dy;
+		}
+		
+		boolean hitGround() {
+			return y + height > GROUND_Y;
+		}
+
+		void paint(Graphics g) {
+			g.setColor(Color.white);
+			g.fillRect(x + 2, y, 2, height);
+			g.fillRect(x, y + 10, width, 2);
+		}
+	}
+
+	class AlienRays { // a few rays from alien
+		ArrayList<AlienRay> rays = new ArrayList<AlienRay>();
+		final int maxRays = 5;
+
+		void add(int x, int y) {
+			rays.add(new AlienRay(x, y));
+		}
+
+		void fly() {
+			for (AlienRay ray : rays) {
+                ray.fly();
+			}
+		}
+
+		void checkGround() {
+			for (AlienRay ray : rays) {
+				if (ray.hitGround()) {
+					rays.remove(ray);
+					break;
+				}
+			}
+		}
+
+		int getSize() {
+			return rays.size();
+		}
+
+		void paint(Graphics g) {
+			for (AlienRay ray : rays) {
+                ray.paint(g);
+            }
+		}
+	}
 
     class Alien { // for attacking wave
         int x, y;
@@ -245,6 +310,10 @@ public class GameSpaceInvaders {
                     y += STEP_Y;
                 }
         }
+
+		void shot() {
+			rays.add(x + width/2, y + height);
+		}
 
         void paint(Graphics g) {
             g.setColor(Color.white);
@@ -291,8 +360,13 @@ public class GameSpaceInvaders {
                         stepDown = false;
                     }
                 }
-                for (Alien alien : wave) { // move wave
+                for (Alien alien : wave) { // wave moves and shots
                     alien.nextStep(direction);
+					if (random.nextInt(10) == 9) {
+						if (rays.getSize() < MAX_ALIEN_RAYS) {
+							alien.shot();
+						}
+					}
                 }
                 if (direction == DOWN) {
                     startY += STEP_Y;
@@ -309,7 +383,7 @@ public class GameSpaceInvaders {
 		void checkHit() {
 			for (Alien alien : wave) {
                 if (alien.isTouchRay()) {
-					countScore += arrayScore[alien.getType()];
+					countScore += ARRAY_SCORES[alien.getType()];
 					frame.setTitle(TITLE_OF_PROGRAM + " // Score " + countScore + " // Live " + countLives);
 					wave.remove(alien);
 					break;
@@ -330,10 +404,11 @@ public class GameSpaceInvaders {
         public void paint(Graphics g) {
             super.paint(g);
             g.setColor(Color.green);
-            g.fillRect(10, FIELD_HEIGHT - 30, FIELD_WIDTH - 20, 2);
+            g.fillRect(10, GROUND_Y, FIELD_WIDTH - 20, 2);
             cannon.paint(g);
             ray.paint(g);
             wave.paint(g);
+			rays.paint(g);
         }
     }
 }
