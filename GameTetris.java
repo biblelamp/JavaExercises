@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated 30 Aug 2016
+ * @version 0.2.3 dated 31 Aug 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,6 @@ import java.util.*;
 public class GameTetris {
 
     final String TITLE_OF_PROGRAM = "Tetris";
-    final String GAME_OVER_MSG = "GAME OVER";
     final int BLOCK_SIZE = 25; // size of one block
     final int ARC_RADIUS = 6;
     final int FIELD_WIDTH = 10; // size game field in block
@@ -42,6 +41,20 @@ public class GameTetris {
     Random random = new Random();
     Figure figure = new Figure();
     boolean gameOver = false;
+    final int[][] GAME_OVER_MSG = {
+		{0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0},
+		{1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,1},
+		{1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1},
+		{1,0,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0},
+		{0,1,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,1,1,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,1,1,0,0,1,0,0,1,0,0,1,1,0,0,1,1,1,0,0},
+		{1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0},
+		{1,0,0,1,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0},
+		{1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0},
+		{0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}
+	};
 
     public static void main(String[] args) {
         new GameTetris().go();
@@ -244,10 +257,10 @@ public class GameTetris {
             }
             figure.paint(g);
             if (gameOver) {
-                g.setColor(Color.red);
-                g.setFont(new Font("Arial", Font.BOLD, 36));
-                FontMetrics fm = g.getFontMetrics();
-                g.drawString(GAME_OVER_MSG, (FIELD_WIDTH * BLOCK_SIZE + FIELD_DX - fm.stringWidth(GAME_OVER_MSG))/2, (FIELD_HEIGHT * BLOCK_SIZE + FIELD_DY)/2);
+				g.setColor(Color.magenta);
+				for (int x = 0; x < 20; x++)
+					for (int y = 0; y < 12; y++)
+						if (GAME_OVER_MSG[y][x] == 1) g.fill3DRect(x*10+25, y*10+200, 9, 9, true);
             }
         }
     }
