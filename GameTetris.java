@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated 01 Sep 2016
+ * @version 0.3.2 dated 01 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -178,6 +178,17 @@ public class GameTetris {
             while (!isTouchGround()) stepDown();
         }
 
+		boolean isWrongPosition() {
+			for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
+                    if (shapes[type][y][x] == 1) {
+						if (y + this.y < 0) return true;
+						if (x + this.x < 0 || x + this.x > FIELD_WIDTH - 1) return true;
+						if (mine[y + this.y][x + this.x] > 0) return true;
+					}
+			return false;
+		}
+
         void rotate() {
             for (int i = 0; i < size/2; i++)
                 for (int j = i; j < size-1-i; j++) {
@@ -187,8 +198,10 @@ public class GameTetris {
                     shapes[type][j][size-1-i] = shapes[type][i][j];
                     shapes[type][i][j] = tmp;
                 }
-			figure.clear();
-			createFromShape();
+			if (!isWrongPosition()) {
+				figure.clear();
+				createFromShape();
+			}
         }
 
         void paint(Graphics g) {
