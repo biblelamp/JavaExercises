@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 31 Aug 2016
+ * @version 0.3.1 dated 01 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -16,7 +16,7 @@ public class GameTetris {
     final int ARC_RADIUS = 6;
     final int FIELD_WIDTH = 10; // size game field in block
     final int FIELD_HEIGHT = 18;
-    final int START_LOCATION = 200;
+    final int START_LOCATION = 180;
     final int FIELD_DX = 7; // determined experimentally
     final int FIELD_DY = 26;
     final int LEFT = 37; // key codes
@@ -53,8 +53,7 @@ public class GameTetris {
 		{1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0},
 		{1,0,0,1,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0},
 		{1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0},
-		{0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}
-	};
+		{0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}};
 
     public static void main(String[] args) {
         new GameTetris().go();
@@ -74,8 +73,7 @@ public class GameTetris {
 				if (!gameOver) {
 					if (e.getKeyCode() == DOWN) figure.drop();
 					if (e.getKeyCode() == UP) figure.rotate();
-					if (e.getKeyCode() == LEFT || e.getKeyCode() == RIGHT)
-						figure.move(e.getKeyCode());
+					if (e.getKeyCode() == LEFT || e.getKeyCode() == RIGHT) figure.move(e.getKeyCode());
                 }
                 canvasPanel.repaint();
             }
@@ -87,15 +85,15 @@ public class GameTetris {
 
         // main loop of game
         while (!gameOver) {
+			canvasPanel.repaint();
             if (figure.isTouchGround()) {
                 figure.leaveOnTheGround();
+				checkFilling();
 				figure = new Figure();
 				gameOver = figure.isTouchGround();
             } else {
                 figure.stepDown();
             }
-            checkFilling();
-            canvasPanel.repaint();
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (InterruptedException e) { e.printStackTrace(); }
@@ -111,8 +109,7 @@ public class GameTetris {
                 filled *= Integer.signum(mine[row][col]);
             if (filled > 0) {
                 countFillRows++;
-                for (int i = row; i>0; i--)
-                    System.arraycopy(mine[i-1], 0, mine[i], 0, FIELD_WIDTH);
+                for (int i = row; i > 0; i--) System.arraycopy(mine[i-1], 0, mine[i], 0, FIELD_WIDTH);
             } else {
                 row--;
             }
@@ -126,10 +123,11 @@ public class GameTetris {
     class Figure {
         private ArrayList<Block> figure = new ArrayList<Block>();
         private int type, size, color;
-        private int x = 3, y = 0; // starting left up corner
+        private int x = 3, y; // starting left up corner
 
         Figure() {
             type = random.nextInt(shapes.length);
+			y = (type == 0 || type == 1)? -1 : 0;
             size = shapes[type][4][0];
 			color = shapes[type][4][1];
             createFromShape();
@@ -144,7 +142,7 @@ public class GameTetris {
 
         boolean isTouchGround() {
             for (Block block : figure)
-                if (mine[block.getY() + 1][block.getX()] > 0) return true;
+				if (mine[block.getY() + 1][block.getX()] > 0) return true;
             return false;
         }
 
@@ -189,8 +187,8 @@ public class GameTetris {
                     shapes[type][j][size-1-i] = shapes[type][i][j];
                     shapes[type][i][j] = tmp;
                 }
-            figure.clear();
-            createFromShape();
+			figure.clear();
+			createFromShape();
         }
 
         void paint(Graphics g) {
@@ -206,11 +204,11 @@ public class GameTetris {
             setY(y);
         }
 
-        int getX() { return x; }
-        int getY() { return y; }
-
         void setX(int x) { this.x = x; }
         void setY(int y) { this.y = y; }
+
+        int getX() { return x; }
+        int getY() { return y; }
 
         void paint(Graphics g, int color) {
             g.setColor(new Color(color));
@@ -225,9 +223,11 @@ public class GameTetris {
             super.paint(g);
             for (int x = 0; x < FIELD_WIDTH; x++)
                 for (int y = 0; y < FIELD_HEIGHT; y++) {
-                    g.setColor(Color.lightGray);
-                    g.drawLine((x+1)*BLOCK_SIZE-2, (y+1)*BLOCK_SIZE, (x+1)*BLOCK_SIZE+2, (y+1)*BLOCK_SIZE);
-                    g.drawLine((x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE-2, (x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE+2);
+					if (x < FIELD_WIDTH - 1 && y < FIELD_HEIGHT - 1) {
+						g.setColor(Color.lightGray);
+						g.drawLine((x+1)*BLOCK_SIZE-2, (y+1)*BLOCK_SIZE, (x+1)*BLOCK_SIZE+2, (y+1)*BLOCK_SIZE);
+						g.drawLine((x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE-2, (x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE+2);
+					}
                     if (mine[y][x] > 0) {
                         g.setColor(new Color(mine[y][x]));
                         g.fill3DRect(x*BLOCK_SIZE+1, y*BLOCK_SIZE+1, BLOCK_SIZE-1, BLOCK_SIZE-1, true);
@@ -235,7 +235,7 @@ public class GameTetris {
                 }
             figure.paint(g);
             if (gameOver) {
-				g.setColor(Color.lightGray);
+				g.setColor(Color.white);
 				for (int x = 0; x < 20; x++)
 					for (int y = 0; y < 12; y++)
 						if (GAME_OVER_MSG[y][x] == 1) g.fill3DRect(x*11+18, y*11+160, 10, 10, true);
