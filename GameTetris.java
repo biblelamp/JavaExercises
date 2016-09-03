@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated 02 Sep 2016
+ * @version 0.3.4 dated 03 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -24,9 +24,7 @@ public class GameTetris {
     final int RIGHT = 39;
     final int DOWN = 40;
     final int SHOW_DELAY = 400; // delay for animation
-    final int[] SCORES = {100, 300, 700, 1500};
-    int gameScore = 0;
-    int[][][] shapes = {
+    final int[][][] SHAPES = {
         {{0,0,0,0}, {1,1,1,1}, {0,0,0,0}, {0,0,0,0}, {4, 0x00f0f0}}, // I
         {{0,0,0,0}, {0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {4, 0xf0f000}}, // O
         {{1,0,0,0}, {1,1,1,0}, {0,0,0,0}, {0,0,0,0}, {3, 0x0000f0}}, // J
@@ -35,6 +33,8 @@ public class GameTetris {
         {{1,1,1,0}, {0,1,0,0}, {0,0,0,0}, {0,0,0,0}, {3, 0xa000f0}}, // T
         {{1,1,0,0}, {0,1,1,0}, {0,0,0,0}, {0,0,0,0}, {3, 0xf00000}}  // Z
     };
+    final int[] SCORES = {100, 300, 700, 1500};
+    int gameScore = 0;
     int[][] mine = new int[FIELD_HEIGHT + 1][FIELD_WIDTH];
     JFrame frame;
     Canvas canvasPanel = new Canvas();
@@ -42,18 +42,18 @@ public class GameTetris {
     Figure figure = new Figure();
     boolean gameOver = false;
     final int[][] GAME_OVER_MSG = {
-		{0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0},
-		{1,0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,1},
-		{1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1},
-		{1,0,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0},
-		{0,1,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,1,1,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,1,1,0,0,1,0,0,1,0,0,1,1,0,0,1,1,1,0,0},
-		{1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0},
-		{1,0,0,1,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0},
-		{1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0},
-		{0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}};
+        {0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0},
+        {1,0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,1},
+        {1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1},
+        {1,0,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0},
+        {0,1,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,1,1,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,1,1,0,0,1,0,0,1,0,0,1,1,0,0,1,1,1,0,0},
+        {1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0},
+        {1,0,0,1,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0},
+        {1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0},
+        {0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}};
 
     public static void main(String[] args) {
         new GameTetris().go();
@@ -70,10 +70,10 @@ public class GameTetris {
 
         frame.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-				if (!gameOver) {
-					if (e.getKeyCode() == DOWN) figure.drop();
-					if (e.getKeyCode() == UP) figure.rotate();
-					if (e.getKeyCode() == LEFT || e.getKeyCode() == RIGHT) figure.move(e.getKeyCode());
+                if (!gameOver) {
+                    if (e.getKeyCode() == DOWN) figure.drop();
+                    if (e.getKeyCode() == UP) figure.rotate();
+                    if (e.getKeyCode() == LEFT || e.getKeyCode() == RIGHT) figure.move(e.getKeyCode());
                 }
                 canvasPanel.repaint();
             }
@@ -88,12 +88,12 @@ public class GameTetris {
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
-			canvasPanel.repaint();
-			if (figure.isTouchGround()) {
+            canvasPanel.repaint();
+            if (figure.isTouchGround()) {
                 figure.leaveOnTheGround();
-				checkFilling();
-				figure = new Figure();
-				gameOver = figure.isTouchGround();
+                checkFilling();
+                figure = new Figure();
+                gameOver = figure.isTouchGround();
             } else {
                 figure.stepDown();
             }
@@ -122,49 +122,50 @@ public class GameTetris {
 
     class Figure {
         private ArrayList<Block> figure = new ArrayList<Block>();
+        int[][] shape = new int[4][4];
         private int type, size, color;
         private int x = 3, y = 0; // starting left up corner
 
         Figure() {
-            type = random.nextInt(shapes.length);
-            size = shapes[type][4][0];
-			color = shapes[type][4][1];
-			if (size == 4) y = -1;
-			if (isWrongPosition()) y = 0; // special for rotated I
+            type = random.nextInt(SHAPES.length);
+            size = SHAPES[type][4][0];
+            color = SHAPES[type][4][1];
+            if (size == 4) y = -1;
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                    shape[i][j] = SHAPES[type][i][j];
             createFromShape();
         }
 
         void createFromShape() {
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    if (shapes[type][y][x] == 1)
+                    if (shape[y][x] == 1)
                         figure.add(new Block(x + this.x, y + this.y));
         }
 
         boolean isTouchGround() {
-            for (Block block : figure)
-				if (mine[block.getY() + 1][block.getX()] > 0) return true;
+            for (Block block : figure) if (mine[block.getY() + 1][block.getX()] > 0) return true;
             return false;
         }
 
         void leaveOnTheGround() {
-            for (Block block : figure)
-                mine[block.getY()][block.getX()] = color;
+            for (Block block : figure) mine[block.getY()][block.getX()] = color;
         }
 
         boolean isTouchWall(int direction) {
             for (Block block : figure) {
                 if (direction == LEFT && (block.getX() == 0 || mine[block.getY()][block.getX() - 1] > 0))
-					return true;
+                    return true;
                 if (direction == RIGHT && (block.getX() == FIELD_WIDTH - 1 || mine[block.getY()][block.getX() + 1] > 0))
-					return true;
+                    return true;
             }
             return false;
         }
 
         void move(int direction) {
             if (!isTouchWall(direction)) {
-                int dx = (direction == LEFT)? -1 : (direction == RIGHT)? 1 : 0;
+                int dx = direction - 38;
                 for (Block block : figure) block.setX(block.getX() + dx);
                 x += dx;
             }
@@ -179,30 +180,30 @@ public class GameTetris {
             while (!isTouchGround()) stepDown();
         }
 
-		boolean isWrongPosition() {
-			for (int x = 0; x < size; x++)
+        boolean isWrongPosition() {
+            for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    if (shapes[type][y][x] == 1) {
-						if (y + this.y < 0) return true;
-						if (x + this.x < 0 || x + this.x > FIELD_WIDTH - 1) return true;
-						if (mine[y + this.y][x + this.x] > 0) return true;
-					}
-			return false;
-		}
+                    if (SHAPES[type][y][x] == 1) {
+                        if (y + this.y < 0) return true;
+                        if (x + this.x < 0 || x + this.x > FIELD_WIDTH - 1) return true;
+                        if (mine[y + this.y][x + this.x] > 0) return true;
+                    }
+            return false;
+        }
 
         void rotate() {
             for (int i = 0; i < size/2; i++)
                 for (int j = i; j < size-1-i; j++) {
-                    int tmp = shapes[type][size-1-j][i];
-                    shapes[type][size-1-j][i] = shapes[type][size-1-i][size-1-j];
-                    shapes[type][size-1-i][size-1-j] = shapes[type][j][size-1-i];
-                    shapes[type][j][size-1-i] = shapes[type][i][j];
-                    shapes[type][i][j] = tmp;
+                    int tmp = shape[size-1-j][i];
+                    shape[size-1-j][i] = shape[size-1-i][size-1-j];
+                    shape[size-1-i][size-1-j] = shape[j][size-1-i];
+                    shape[j][size-1-i] = shape[i][j];
+                    shape[i][j] = tmp;
                 }
-			if (!isWrongPosition()) {
-				figure.clear();
-				createFromShape();
-			}
+            if (!isWrongPosition()) {
+                figure.clear();
+                createFromShape();
+            }
         }
 
         void paint(Graphics g) {
@@ -237,11 +238,11 @@ public class GameTetris {
             super.paint(g);
             for (int x = 0; x < FIELD_WIDTH; x++)
                 for (int y = 0; y < FIELD_HEIGHT; y++) {
-					if (x < FIELD_WIDTH - 1 && y < FIELD_HEIGHT - 1) {
-						g.setColor(Color.lightGray);
-						g.drawLine((x+1)*BLOCK_SIZE-2, (y+1)*BLOCK_SIZE, (x+1)*BLOCK_SIZE+2, (y+1)*BLOCK_SIZE);
-						g.drawLine((x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE-2, (x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE+2);
-					}
+                    if (x < FIELD_WIDTH - 1 && y < FIELD_HEIGHT - 1) {
+                        g.setColor(Color.lightGray);
+                        g.drawLine((x+1)*BLOCK_SIZE-2, (y+1)*BLOCK_SIZE, (x+1)*BLOCK_SIZE+2, (y+1)*BLOCK_SIZE);
+                        g.drawLine((x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE-2, (x+1)*BLOCK_SIZE, (y+1)*BLOCK_SIZE+2);
+                    }
                     if (mine[y][x] > 0) {
                         g.setColor(new Color(mine[y][x]));
                         g.fill3DRect(x*BLOCK_SIZE+1, y*BLOCK_SIZE+1, BLOCK_SIZE-1, BLOCK_SIZE-1, true);
@@ -249,10 +250,10 @@ public class GameTetris {
                 }
             figure.paint(g);
             if (gameOver) {
-				g.setColor(Color.white);
-				for (int x = 0; x < 20; x++)
-					for (int y = 0; y < 12; y++)
-						if (GAME_OVER_MSG[y][x] == 1) g.fill3DRect(x*11+18, y*11+160, 10, 10, true);
+                g.setColor(Color.white);
+                for (int x = 0; x < 20; x++)
+                    for (int y = 0; y < 12; y++)
+                        if (GAME_OVER_MSG[y][x] == 1) g.fill3DRect(x*11+18, y*11+160, 10, 10, true);
             }
         }
     }
