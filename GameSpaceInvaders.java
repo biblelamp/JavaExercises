@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated 06 Sep Aug 2016
+ * @version 0.3.3 dated 06 September 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -95,7 +95,7 @@ public class GameSpaceInvaders {
         while (!gameOver) {
             try {
                 Thread.sleep(SHOW_DELAY);
-            } catch (InterruptedException e) { e.printStackTrace(); }
+            } catch (Exception e) { e.printStackTrace(); }
             canvasPanel.repaint();
             ray.fly();
             rays.fly();
@@ -103,19 +103,19 @@ public class GameSpaceInvaders {
             rays.checkHit();
             wave.nextStep();
             wave.checkHit();
+            if (wave.getSize() == 0) { // if you destroy the whole wave
+                wave = new Wave();
+                countLives++;
+            }
         }
     }
 
     class Ray { // from laser cannon
         int x, y;
-        boolean exists;
+        boolean exists = false;
         final int width = 2;
         final int height = 8;
         final int dy = 8;
-
-        public Ray() {
-            exists = false;
-        }
 
         void start(int x, int y) {
             if (!exists) {
@@ -160,15 +160,8 @@ public class GameSpaceInvaders {
         }
 
         void move(int direction) {
-            if (direction == LEFT) {
-                if (x > 10) {
-                    x -= dx;
-                }
-            } else {
-                if (x < FIELD_WIDTH - width - 12) {
-                    x += dx;
-                }
-            }
+            if (direction == LEFT && x > 10) x -= dx;
+            if (direction == RIGHT && x < FIELD_WIDTH - width - 12) x += dx;
         }
 
         int getX() { return x; }
@@ -183,10 +176,10 @@ public class GameSpaceInvaders {
     }
 
     class AlienRay { // from one alien
-        int x, y;
         final int width = 6;
         final int height = 10;
         final int dy = 6; // define speed of ray
+        int x, y;
 
         AlienRay(int x, int y) {
             this.x = x;
@@ -270,26 +263,20 @@ public class GameSpaceInvaders {
         }
 
         boolean isTouchRay() {
-            if (ray.isEnable()) {
-                if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE)) {
+            if (ray.isEnable())
+                if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE))
                     if (ray.getY() < y + height*POINT_SCALE) {
                         ray.disable();
                         return true;
                     }
-                }
-            }
             return false;
         }
 
         void nextStep(int direction) {
-                view = 1 - view;
-                if (direction == RIGHT) {
-                    x += STEP_X;
-                } else if (direction == LEFT) {
-                    x -= STEP_X;
-                } else if (direction == DOWN) {
-                    y += STEP_Y;
-                }
+            view = 1 - view; // change view each step
+            if (direction == RIGHT) x += STEP_X;
+            else if (direction == LEFT) x -= STEP_X;
+            else if (direction == DOWN) y += STEP_Y;
         }
 
         void shot() {
@@ -359,6 +346,8 @@ public class GameSpaceInvaders {
                 }
         }
 
+        int getSize() { return wave.size(); }
+
         void paint(Graphics g) {
             for (Alien alien : wave) alien.paint(g);
         }
@@ -390,7 +379,7 @@ public class GameSpaceInvaders {
         g.fillRect(10, GROUND_Y, FIELD_WIDTH - 20, 2);
     }
 
-    void paintNumber(Graphics g, int number, int x, int y) { // paint numbers
+    void paintNumber(Graphics g, int number, int x, int y) { // paint numbers (countScore, countLives)
         final int[][][] NUMBERS = {
             {{1,1,1,1,1,1}, {1,0,0,0,0,1}, {1,0,0,0,0,1}, {1,0,0,0,0,1}, {1,1,1,1,1,1}}, // 0
             {{0,0,0,0,0,1}, {0,0,0,0,0,1}, {0,0,0,0,0,1}, {0,0,0,0,0,1}, {0,0,0,0,0,1}}, // 1
