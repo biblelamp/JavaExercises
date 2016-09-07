@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated 06 September 2016
+ * @version 0.3.4 dated 07 September 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -26,37 +26,32 @@ public class GameSpaceInvaders {
     final int RIGHT = 39;
     final int DOWN = 40;
     final int FIRE = 32;
-    final int SHOW_DELAY = 25; // delay for animation
+    final int SHOW_DELAY = 50; // delay for animation
     final int[][][][] PATTERN_OF_ALIENS = {
-      {{{0,0,0,0,1,1,1,1,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0}, // alien 1
-        {1,1,1,1,1,1,1,1,1,1,1,1}, {1,1,1,0,0,1,1,0,0,1,1,1},
-        {1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,1,1,1,0,0,1,1,1,0,0},
+      {{{0,0,0,0,1,1,1,1,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0}, {1,1,1,1,1,1,1,1,1,1,1,1}, // alien 1/1
+        {1,1,1,0,0,1,1,0,0,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,1,1,1,0,0,1,1,1,0,0},
         {0,1,1,0,0,1,1,0,0,1,1,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {12}},
-       {{0,0,0,0,1,1,1,1,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0},
-        {1,1,1,1,1,1,1,1,1,1,1,1}, {1,1,1,0,0,1,1,0,0,1,1,1},
-        {1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,1,1,0,0,1,1,0,0,0},
+       {{0,0,0,0,1,1,1,1,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0}, {1,1,1,1,1,1,1,1,1,1,1,1}, // alien 1/2
+        {1,1,1,0,0,1,1,0,0,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,1,1,0,0,1,1,0,0,0},
         {0,0,1,1,0,1,1,0,1,1,0,0}, {1,1,0,0,0,0,0,0,0,0,1,1}}},
-      {{{0,0,1,0,0,0,0,0,1,0,0,0}, {0,0,0,1,0,0,0,1,0,0,0,0}, // alien 2
-        {0,0,1,1,1,1,1,1,1,0,0,0}, {0,1,1,0,1,1,1,0,1,1,0,0},
-        {1,1,1,1,1,1,1,1,1,1,1,0}, {1,0,1,1,1,1,1,1,1,0,1,0},
+      {{{0,0,1,0,0,0,0,0,1,0,0,0}, {0,0,0,1,0,0,0,1,0,0,0,0}, {0,0,1,1,1,1,1,1,1,0,0,0}, // alien 2/1
+        {0,1,1,0,1,1,1,0,1,1,0,0}, {1,1,1,1,1,1,1,1,1,1,1,0}, {1,0,1,1,1,1,1,1,1,0,1,0},
         {1,0,1,0,0,0,0,0,1,0,1,0}, {0,0,0,1,1,0,1,1,0,0,0,0}, {11}},
-       {{0,0,1,0,0,0,0,0,1,0,0,0}, {1,0,0,1,0,0,0,1,0,0,1,0},
-        {1,0,1,1,1,1,1,1,1,0,1,0}, {1,1,1,0,1,1,1,0,1,1,1,0},
-        {1,1,1,1,1,1,1,1,1,1,1,0}, {0,1,1,1,1,1,1,1,1,1,0,0},
+       {{0,0,1,0,0,0,0,0,1,0,0,0}, {1,0,0,1,0,0,0,1,0,0,1,0}, {1,0,1,1,1,1,1,1,1,0,1,0}, // alien 2/2
+        {1,1,1,0,1,1,1,0,1,1,1,0}, {1,1,1,1,1,1,1,1,1,1,1,0}, {0,1,1,1,1,1,1,1,1,1,0,0},
         {0,0,1,0,0,0,0,0,1,0,0,0}, {0,1,0,0,0,0,0,0,0,1,0,0}}},
-      {{{0,0,0,1,1,0,0,0,0,0,0,0}, {0,0,1,1,1,1,0,0,0,0,0,0}, // alien 3
-        {0,1,1,1,1,1,1,0,0,0,0,0}, {1,1,0,1,1,0,1,1,0,0,0,0},
-        {1,1,1,1,1,1,1,1,0,0,0,0}, {0,0,1,0,0,1,0,0,0,0,0,0},
+      {{{0,0,0,1,1,0,0,0,0,0,0,0}, {0,0,1,1,1,1,0,0,0,0,0,0}, {0,1,1,1,1,1,1,0,0,0,0,0}, // alien 3/1
+        {1,1,0,1,1,0,1,1,0,0,0,0}, {1,1,1,1,1,1,1,1,0,0,0,0}, {0,0,1,0,0,1,0,0,0,0,0,0},
         {0,1,0,1,1,0,1,0,0,0,0,0}, {1,0,1,0,0,1,0,1,0,0,0,0}, {8}},
-       {{0,0,0,1,1,0,0,0,0,0,0,0}, {0,0,1,1,1,1,0,0,0,0,0,0},
-        {0,1,1,1,1,1,1,0,0,0,0,0}, {1,1,0,1,1,0,1,1,0,0,0,0},
-        {1,1,1,1,1,1,1,1,0,0,0,0}, {0,1,0,1,1,0,1,0,0,0,0,0},
+       {{0,0,0,1,1,0,0,0,0,0,0,0}, {0,0,1,1,1,1,0,0,0,0,0,0}, {0,1,1,1,1,1,1,0,0,0,0,0}, // alien 3/2
+        {1,1,0,1,1,0,1,1,0,0,0,0}, {1,1,1,1,1,1,1,1,0,0,0,0}, {0,1,0,1,1,0,1,0,0,0,0,0},
         {1,0,0,0,0,0,0,1,0,0,0,0}, {0,1,0,0,0,0,1,0,0,0,0,0}}}
     };
     final int MAX_ALIEN_RAYS = 2;
     Cannon cannon = new Cannon();
     Ray ray = new Ray();
     Wave wave = new Wave();
+    FlashAlien flash = new FlashAlien();
     AlienRays rays = new AlienRays();
     JFrame frame;
     Canvas canvasPanel = new Canvas();
@@ -97,13 +92,14 @@ public class GameSpaceInvaders {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
             canvasPanel.repaint();
+            flash.disable();
             ray.fly();
             rays.fly();
             rays.checkGround();
             rays.checkHit();
             wave.nextStep();
             wave.checkHit();
-            if (wave.getSize() == 0) { // if you destroy the whole wave
+            if (wave.getSize() == 0) { // if I destroy the whole wave
                 wave = new Wave();
                 countLives++;
             }
@@ -115,7 +111,7 @@ public class GameSpaceInvaders {
         boolean exists = false;
         final int width = 2;
         final int height = 8;
-        final int dy = 8;
+        final int dy = 12;
 
         void start(int x, int y) {
             if (!exists) {
@@ -262,7 +258,7 @@ public class GameSpaceInvaders {
             return type;
         }
 
-        boolean isTouchRay() {
+        boolean isHitRay() {
             if (ray.isEnable())
                 if ((ray.getX() >= x) && (ray.getX() <= x + width*POINT_SCALE))
                     if (ray.getY() < y + height*POINT_SCALE) {
@@ -277,6 +273,10 @@ public class GameSpaceInvaders {
             if (direction == RIGHT) x += STEP_X;
             else if (direction == LEFT) x -= STEP_X;
             else if (direction == DOWN) y += STEP_Y;
+        }
+
+        void bang() { 
+            flash.enable(x, y - 2);
         }
 
         void shot() {
@@ -298,7 +298,7 @@ public class GameSpaceInvaders {
         final int[][] PATTERN = {
             {2,2,2,2,2,2,2,2,2,2,2}, {1,1,1,1,1,1,1,1,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0}};
         ArrayList<Alien> wave = new ArrayList<Alien>();
-        final int NUM_FRAMES = 20; // sets the speed of the wave
+        final int NUM_FRAMES = 10; // sets the speed of the wave
         int countFrames = 0;
         int direction = RIGHT;
         boolean stepDown = false;
@@ -339,8 +339,9 @@ public class GameSpaceInvaders {
 
         void checkHit() {
             for (Alien alien : wave)
-                if (alien.isTouchRay()) {
+                if (alien.isHitRay()) {
                     countScore += (alien.getType() + 1) * 10;
+                    alien.bang();
                     wave.remove(alien);
                     break;
                 }
@@ -350,6 +351,30 @@ public class GameSpaceInvaders {
 
         void paint(Graphics g) {
             for (Alien alien : wave) alien.paint(g);
+        }
+    }
+
+    class FlashAlien {
+        final int[][] BANG = {
+            {0,0,0,0,0,1,0,0,0,0,0,0}, {0,1,0,0,0,1,0,0,1,0,0,0}, {0,0,1,0,0,0,0,0,1,0,0,1}, {0,0,0,1,0,0,0,1,0,0,1,0}, {1,1,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,1,1}, {0,1,0,0,1,0,0,0,1,0,0,0}, {1,0,0,1,0,0,0,0,0,1,0,0}, {0,0,0,1,0,0,1,0,0,0,1,0}, {0,0,0,0,0,0,1,0,0,0,0,0}
+        };
+        int x, y;
+        boolean enable = false;
+
+        void enable(int x, int y) {
+            this.x = x;
+            this.y = y;
+            enable = true;
+        }
+
+        void disable() { enable = false; }
+
+        void paint(Graphics g) {
+            if (enable)
+                for (int i = 0; i < BANG.length; i++)
+                    for (int j = 0; j < BANG[i].length; j++)
+                        if (BANG[i][j] == 1) g.fillRect(j*POINT_SCALE + x, i*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
         }
     }
 
@@ -395,10 +420,10 @@ public class GameSpaceInvaders {
         String numStr = Integer.toString(number);
         g.setColor(Color.green);
         for (int p = 0; p < numStr.length(); p++) {
-            int k = (int) numStr.charAt(p) - 48;
+            int n = (int) numStr.charAt(p) - 48;
             for (int i = 0; i < 5; i++)
                 for (int j = 0; j < 6; j++)
-                    if (NUMBERS[k][i][j] == 1) g.fillRect(x + j*POINT_SCALE + p*14, y + i*POINT_SCALE, POINT_SCALE, POINT_SCALE);
+                    if (NUMBERS[n][i][j] == 1) g.fillRect(x + j*POINT_SCALE + p*14, y + i*POINT_SCALE, POINT_SCALE, POINT_SCALE);
         }
     }
 
@@ -412,6 +437,7 @@ public class GameSpaceInvaders {
             cannon.paint(g);
             ray.paint(g);
             wave.paint(g);
+            flash.paint(g);
             rays.paint(g);
             if (gameOver) {
                 g.setColor(Color.green);
