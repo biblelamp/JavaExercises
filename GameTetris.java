@@ -2,7 +2,7 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated 03 Sep 2016
+ * @version 0.3.5 dated 08 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -23,7 +23,7 @@ public class GameTetris {
     final int UP = 38;
     final int RIGHT = 39;
     final int DOWN = 40;
-    final int SHOW_DELAY = 400; // delay for animation
+    final int SHOW_DELAY = 350; // delay for animation
     final int[][][] SHAPES = {
         {{0,0,0,0}, {1,1,1,1}, {0,0,0,0}, {0,0,0,0}, {4, 0x00f0f0}}, // I
         {{0,0,0,0}, {0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {4, 0xf0f000}}, // O
@@ -93,7 +93,7 @@ public class GameTetris {
                 figure.leaveOnTheGround();
                 checkFilling();
                 figure = new Figure();
-                gameOver = figure.isTouchGround();
+                gameOver = figure.isCrossGround();  // Is there space for a new figure?
             } else {
                 figure.stepDown();
             }
@@ -132,20 +132,23 @@ public class GameTetris {
             color = SHAPES[type][4][1];
             if (size == 4) y = -1;
             for (int i = 0; i < size; i++)
-                for (int j = 0; j < size; j++)
-                    shape[i][j] = SHAPES[type][i][j];
+                System.arraycopy(SHAPES[type][i], 0, shape[i], 0, SHAPES[type][i].length);
             createFromShape();
         }
 
         void createFromShape() {
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    if (shape[y][x] == 1)
-                        figure.add(new Block(x + this.x, y + this.y));
+                    if (shape[y][x] == 1) figure.add(new Block(x + this.x, y + this.y));
         }
 
         boolean isTouchGround() {
             for (Block block : figure) if (mine[block.getY() + 1][block.getX()] > 0) return true;
+            return false;
+        }
+
+        boolean isCrossGround() {
+            for (Block block : figure) if (mine[block.getY()][block.getX()] > 0) return true;
             return false;
         }
 
@@ -155,10 +158,8 @@ public class GameTetris {
 
         boolean isTouchWall(int direction) {
             for (Block block : figure) {
-                if (direction == LEFT && (block.getX() == 0 || mine[block.getY()][block.getX() - 1] > 0))
-                    return true;
-                if (direction == RIGHT && (block.getX() == FIELD_WIDTH - 1 || mine[block.getY()][block.getX() + 1] > 0))
-                    return true;
+                if (direction == LEFT && (block.getX() == 0 || mine[block.getY()][block.getX() - 1] > 0)) return true;
+                if (direction == RIGHT && (block.getX() == FIELD_WIDTH - 1 || mine[block.getY()][block.getX() + 1] > 0)) return true;
             }
             return false;
         }
@@ -183,7 +184,7 @@ public class GameTetris {
         boolean isWrongPosition() {
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    if (SHAPES[type][y][x] == 1) {
+                    if (shape[y][x] == 1) {
                         if (y + this.y < 0) return true;
                         if (x + this.x < 0 || x + this.x > FIELD_WIDTH - 1) return true;
                         if (mine[y + this.y][x + this.x] > 0) return true;
@@ -211,7 +212,7 @@ public class GameTetris {
         }
     }
 
-    class Block {
+    class Block { // building element for Figure
         private int x, y;
 
         public Block(int x, int y) {
@@ -231,8 +232,7 @@ public class GameTetris {
         }
     }
 
-    public class Canvas extends JPanel {
-
+    public class Canvas extends JPanel { // my canvas for painting
         @Override
         public void paint(Graphics g) {
             super.paint(g);
@@ -248,13 +248,13 @@ public class GameTetris {
                         g.fill3DRect(x*BLOCK_SIZE+1, y*BLOCK_SIZE+1, BLOCK_SIZE-1, BLOCK_SIZE-1, true);
                     }
                 }
-            figure.paint(g);
             if (gameOver) {
                 g.setColor(Color.white);
-                for (int x = 0; x < 20; x++)
-                    for (int y = 0; y < 12; y++)
+                for (int y = 0; y < GAME_OVER_MSG.length; y++)
+                    for (int x = 0; x < GAME_OVER_MSG[y].length; x++)
                         if (GAME_OVER_MSG[y][x] == 1) g.fill3DRect(x*11+18, y*11+160, 10, 10, true);
-            }
+            } else
+                figure.paint(g);
         }
     }
 }
