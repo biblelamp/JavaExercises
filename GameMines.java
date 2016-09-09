@@ -2,7 +2,7 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 09 Sep 2016
+ * @version 0.1.1 dated 09 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +16,8 @@ public class GameMines {
     final int FIELD_SIZE = 9; // in blocks
     final int FIELD_DX = 6; // determined experimentally
     final int FIELD_DY = 28;
+    final int MOUSE_BUTTON_LEFT = 1; // for mouse listener
+    final int MOUSE_BUTTON_RIGHT = 3;
     final int START_LOCATION = 200;
     final int NUMBER_OF_MINES = 10;
     final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000};
@@ -45,7 +47,7 @@ public class GameMines {
                 super.mouseReleased(e);
                 int x = e.getX()/BLOCK_SIZE;
                 int y = e.getY()/BLOCK_SIZE;
-                if (!bangMine && !youWon) {
+                if (e.getButton() == MOUSE_BUTTON_LEFT && !bangMine && !youWon) // left button mouse
                     if (field[y][x].isNotOpen()) {
                         field[y][x].open();
                         youWon = countOpenedCells == FIELD_SIZE*FIELD_SIZE - NUMBER_OF_MINES; // winning check
@@ -53,8 +55,8 @@ public class GameMines {
                             bangX = x;
                             bangY = y;
                         }
-                    }
                 }
+                if (e.getButton() == MOUSE_BUTTON_RIGHT) field[y][x].inverseFlag(); // right button mouse
                 canvasPanel.repaint();
             }
         });
@@ -64,13 +66,13 @@ public class GameMines {
     }
 
     void initField() {
-        // create cells for the field
-        for (int x = 0; x < FIELD_SIZE; x++)
-            for (int y = 0; y < FIELD_SIZE; y++)
-                field[y][x] = new Cell();
-        // to mine field
         int countMines = 0;
         int x, y;
+        // create cells for the field
+        for (x = 0; x < FIELD_SIZE; x++)
+            for (y = 0; y < FIELD_SIZE; y++)
+                field[y][x] = new Cell();
+        // to mine field
         while (countMines < NUMBER_OF_MINES) {
             do {
                 x = random.nextInt(FIELD_SIZE);
@@ -99,11 +101,11 @@ public class GameMines {
     }
 
     class Cell {
-        private boolean isOpen, isMine;
+        private boolean isOpen, isMine, isFlag;
         private int countBombNear;
 
         Cell() {
-            isOpen = isMine = false;
+            isOpen = isMine = isFlag = false;
             countBombNear = 0;
         }
 
@@ -124,9 +126,13 @@ public class GameMines {
         boolean isNotOpen() {
             return !isOpen;
         }
-        
+
         boolean isMined() {
             return isMine;
+        }
+
+        void inverseFlag() {
+            isFlag = !isFlag;
         }
 
         void paint(Graphics g, int x, int y) {
@@ -138,6 +144,11 @@ public class GameMines {
                 } else {
                     g.setColor(Color.lightGray);
                     g.fill3DRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, true);
+                    if (isFlag) {
+                        g.setColor(Color.gray);
+                        g.setFont(new Font("", Font.BOLD, BLOCK_SIZE - 4));
+                        g.drawString("?", x*BLOCK_SIZE + 7, y*BLOCK_SIZE + 24);
+                    }
                 }
             } else {
                 g.setColor(Color.lightGray);
