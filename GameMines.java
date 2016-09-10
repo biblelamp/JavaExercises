@@ -2,7 +2,7 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated 09 Sep 2016
+ * @version 0.1.2 dated 10 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +12,7 @@ import java.util.*;
 public class GameMines {
 
     final String TITLE_OF_PROGRAM = "Mines";
+    final String SIGN_OF_FLAG = "?";
     final int BLOCK_SIZE = 30; // size of one block
     final int FIELD_SIZE = 9; // in blocks
     final int FIELD_DX = 6; // determined experimentally
@@ -135,28 +136,33 @@ public class GameMines {
             isFlag = !isFlag;
         }
 
+        void paintBomb(Graphics g, int x, int y, Color color) {
+            g.setColor(color);
+            g.fillRect(x*BLOCK_SIZE + 7, y*BLOCK_SIZE + 10, 18, 10);
+            g.fillRect(x*BLOCK_SIZE + 11, y*BLOCK_SIZE + 6, 10, 18);
+            g.fillRect(x*BLOCK_SIZE + 9, y*BLOCK_SIZE + 8, 14, 14);
+            g.setColor(Color.white);
+            g.fillRect(x*BLOCK_SIZE + 11, y*BLOCK_SIZE + 10, 4, 4);
+        }
+
         void paint(Graphics g, int x, int y) {
+            g.setColor(Color.lightGray);
+            g.drawRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             if (!isOpen) {
                 if ((bangMine || youWon) && isMine) {
-                    g.setColor(Color.black);
-                    g.drawOval(x*BLOCK_SIZE + 5, y*BLOCK_SIZE + 5, BLOCK_SIZE - 10, BLOCK_SIZE - 10);
-                    g.fillOval(x*BLOCK_SIZE + 8, y*BLOCK_SIZE + 8, BLOCK_SIZE - 16, BLOCK_SIZE - 16);
+                    paintBomb(g, x, y, Color.black);
                 } else {
                     g.setColor(Color.lightGray);
                     g.fill3DRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, true);
                     if (isFlag) {
-                        g.setColor(Color.gray);
+                        g.setColor(Color.red);
                         g.setFont(new Font("", Font.BOLD, BLOCK_SIZE - 4));
-                        g.drawString("?", x*BLOCK_SIZE + 7, y*BLOCK_SIZE + 24);
+                        g.drawString(SIGN_OF_FLAG, x*BLOCK_SIZE + 7, y*BLOCK_SIZE + 24);
                     }
                 }
             } else {
-                g.setColor(Color.lightGray);
-                g.drawRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 if (isMine) {
-                    g.setColor(bangMine? Color.red : Color.black);
-                    g.drawOval(x*BLOCK_SIZE + 5, y*BLOCK_SIZE + 5, BLOCK_SIZE - 10, BLOCK_SIZE - 10);
-                    g.fillOval(x*BLOCK_SIZE + 8, y*BLOCK_SIZE + 8, BLOCK_SIZE - 16, BLOCK_SIZE - 16);
+                    paintBomb(g, x, y, bangMine? Color.red : Color.black);
                 } else {
                     if (countBombNear > 0) {
                         g.setColor(new Color(COLOR_OF_NUMBERS[countBombNear - 1]));
