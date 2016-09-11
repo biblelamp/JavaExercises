@@ -3,6 +3,7 @@
  * 1. Write a method that changes the places of the two elements of the array.
  * (Array can be of any reference type)
  * 2. Write method which converts an array in ArrayList
+ * 3. "Big task" about fruit (apple, orange) and baskets (box)
  *
  * @author Sergey Iryupin
  * @version 11 Sep 2016
@@ -26,6 +27,10 @@ public class HomeWork1 {
         ArrayList<Integer> al = new ArrayList<Integer>();
         hw.convertArrayToArrayList(pi, al);
         for (Integer i : al) System.out.println(i);
+
+        // stage 3
+
+        hw.boxes();
     }
 
     void changeTwoElements(int p1, int p2, String[] array) {
@@ -38,4 +43,68 @@ public class HomeWork1 {
         for (int i : array) al.add(i);
     }
 
+    void boxes() {
+        Apple apple = new Apple();
+        Orange orange = new Orange();
+        Box<Apple> abox = new Box<Apple>(apple);
+        Box<Orange> obox = new Box<Orange>(orange);
+        Box<Orange> obox1 = new Box<Orange>(orange);
+        abox.add(30);
+        obox.add(20);
+        obox1.add(10);
+        System.out.println(abox.getWeight());
+        System.out.println(obox.getWeight());
+        System.out.println(obox1.getWeight());
+        System.out.println(obox.compare(abox)); // compare
+        System.out.println(obox.emptyIn(abox)); // empty in fail
+        System.out.println(obox.emptyIn(obox1)); // empty in success
+        System.out.println(obox.getWeight());
+        System.out.println(obox1.getWeight());
+    }
+
+    class Box<T extends Fruit> {
+        T obj;
+        int total = 0;
+
+        public Box(T obj) {
+            this.obj = obj;
+        }
+
+        public T getObj() {
+            return obj;
+        }
+
+        float getWeight() {
+            return total*obj.getWeight();
+        }
+
+        boolean compare(Box box) {
+            return getWeight() == box.getWeight();
+        }
+
+        boolean emptyIn(Box box) {
+            if (getObj() == box.getObj()) {
+                box.add(total);
+                total = 0;
+                return true;
+            } else
+                return false;
+        }
+
+        void add(int number) {
+            total += number;
+        }
+    }
+
+    class Apple extends Fruit {
+        float getWeight() { return 1.0f; }
+    }
+
+    class Orange extends Fruit {
+        float getWeight() { return 1.5f; }
+    }
+
+    abstract class Fruit {
+        abstract float getWeight();
+    }
 }
