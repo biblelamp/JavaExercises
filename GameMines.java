@@ -2,7 +2,7 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.1.2 dated 10 Sep 2016
+ * @version 0.2 dated 11 Sep 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -50,7 +50,7 @@ public class GameMines {
                 int y = e.getY()/BLOCK_SIZE;
                 if (e.getButton() == MOUSE_BUTTON_LEFT && !bangMine && !youWon) // left button mouse
                     if (field[y][x].isNotOpen()) {
-                        field[y][x].open();
+                        openCells(x, y);
                         youWon = countOpenedCells == FIELD_SIZE*FIELD_SIZE - NUMBER_OF_MINES; // winning check
                         if (bangMine) {
                             bangX = x;
@@ -64,6 +64,16 @@ public class GameMines {
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.setVisible(true);
         initField();
+    }
+
+    void openCells(int x, int y) {
+        if (x < 0 || x > FIELD_SIZE - 1 || y < 0 || y > FIELD_SIZE - 1) return;
+        if (!field[y][x].isNotOpen()) return;
+        field[y][x].open();
+        if (field[y][x].getCountBomb() > 0 || bangMine) return;
+        for (int dx = -1; dx < 2; dx++)
+            for (int dy = -1; dy < 2; dy++)
+                if (!(dx == 0 && dy == 0)) openCells(x + dx, y + dy);
     }
 
     void initField() {
@@ -122,6 +132,10 @@ public class GameMines {
 
         void setCountBomb(int count) {
             countBombNear = count;
+        }
+
+        int getCountBomb() {
+            return countBombNear;
         }
 
         boolean isNotOpen() {
