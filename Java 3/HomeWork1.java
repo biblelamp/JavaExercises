@@ -6,7 +6,7 @@
  * 3. "Big task" about fruit (apple, orange) and baskets (box)
  *
  * @author Sergey Iryupin
- * @version 11 Sep 2016
+ * @version 12 Sep 2016
  */
 import java.util.*;
 
@@ -18,12 +18,12 @@ public class HomeWork1 {
         // stage 1
 
         String[] array = {"First", "Second", "Third", "Fourth"};
-        hw.changeTwoElements(0, 2, array);
+        hw.swapTwoElements(0, 2, array);
         for (String str : array) System.out.println(str);
 
         // stage 2
 
-        int[] pi = {3, 1, 4, 1, 5, 9};
+        Integer[] pi = {3, 1, 4, 1, 5, 9};
         ArrayList<Integer> al = new ArrayList<Integer>();
         hw.convertArrayToArrayList(pi, al);
         for (Integer i : al) System.out.println(i);
@@ -33,14 +33,14 @@ public class HomeWork1 {
         hw.boxes();
     }
 
-    void changeTwoElements(int p1, int p2, String[] array) {
-        String tmp = array[p1];
+    <T> void swapTwoElements(int p1, int p2, T[] array) {
+        T tmp = array[p1];
         array[p1] = array[p2];
         array[p2] = tmp;
     }
 
-    void convertArrayToArrayList(int[] array, ArrayList<Integer> al) {
-        for (int i : array) al.add(i);
+    <T> void convertArrayToArrayList(T[] array, ArrayList<T> al) {
+        for (T i : array) al.add(i);
     }
 
     void boxes() {
