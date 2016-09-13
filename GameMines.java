@@ -2,29 +2,27 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 11 Sep 2016
+ * @version 0.2.1 dated September 13, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameMines {
+class GameMines extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Mines";
-    final String SIGN_OF_FLAG = "?";
+    final String SIGN_OF_FLAG = "f";
     final int BLOCK_SIZE = 30; // size of one block
     final int FIELD_SIZE = 9; // in blocks
     final int FIELD_DX = 6; // determined experimentally
     final int FIELD_DY = 28;
+    final int START_LOCATION = 200;
     final int MOUSE_BUTTON_LEFT = 1; // for mouse listener
     final int MOUSE_BUTTON_RIGHT = 3;
-    final int START_LOCATION = 200;
     final int NUMBER_OF_MINES = 10;
     final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000};
     Cell[][] field = new Cell[FIELD_SIZE][FIELD_SIZE];
-    JFrame frame;
-    Canvas canvasPanel = new Canvas();
     Random random = new Random();
     int countOpenedCells = 0;
     boolean youWon = false;
@@ -32,15 +30,15 @@ public class GameMines {
     int bangX, bangY;
 
     public static void main(String[] args) {
-        new GameMines().go();
+        new GameMines();
     }
 
-    void go() {
-        frame = new JFrame(TITLE_OF_PROGRAM);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_SIZE * BLOCK_SIZE + FIELD_DX, FIELD_SIZE * BLOCK_SIZE + FIELD_DY);
-        frame.setLocation(START_LOCATION, START_LOCATION);
-        frame.setResizable(false);
+    GameMines() {
+        setTitle(TITLE_OF_PROGRAM);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(START_LOCATION, START_LOCATION, FIELD_SIZE * BLOCK_SIZE + FIELD_DX, FIELD_SIZE * BLOCK_SIZE + FIELD_DY);
+        setResizable(false);
+        Canvas canvasPanel = new Canvas();
         canvasPanel.setBackground(Color.white);
         canvasPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -61,8 +59,8 @@ public class GameMines {
                 canvasPanel.repaint();
             }
         });
-        frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
-        frame.setVisible(true);
+        getContentPane().add(BorderLayout.CENTER, canvasPanel);
+        setVisible(true);
         initField();
     }
 
@@ -73,7 +71,7 @@ public class GameMines {
         if (field[y][x].getCountBomb() > 0 || bangMine) return;
         for (int dx = -1; dx < 2; dx++)
             for (int dy = -1; dy < 2; dy++)
-                if (!(dx == 0 && dy == 0)) openCells(x + dx, y + dy);
+                openCells(x + dx, y + dy);
     }
 
     void initField() {
@@ -115,40 +113,23 @@ public class GameMines {
         private boolean isOpen, isMine, isFlag;
         private int countBombNear;
 
-        Cell() {
-            isOpen = isMine = isFlag = false;
-            countBombNear = 0;
-        }
-
         void open() {
             isOpen = true;
             bangMine = isMine;
             if (!isMine) countOpenedCells++;
         }
 
-        void mine() {
-            isMine = true;
-        }
+        void mine() { isMine = true; }
 
-        void setCountBomb(int count) {
-            countBombNear = count;
-        }
+        void setCountBomb(int count) { countBombNear = count; }
 
-        int getCountBomb() {
-            return countBombNear;
-        }
+        int getCountBomb() { return countBombNear; }
 
-        boolean isNotOpen() {
-            return !isOpen;
-        }
+        boolean isNotOpen() { return !isOpen; }
 
-        boolean isMined() {
-            return isMine;
-        }
+        boolean isMined() { return isMine; }
 
-        void inverseFlag() {
-            isFlag = !isFlag;
-        }
+        void inverseFlag() { isFlag = !isFlag; }
 
         void paintBomb(Graphics g, int x, int y, Color color) {
             g.setColor(color);
@@ -157,6 +138,12 @@ public class GameMines {
             g.fillRect(x*BLOCK_SIZE + 9, y*BLOCK_SIZE + 8, 14, 14);
             g.setColor(Color.white);
             g.fillRect(x*BLOCK_SIZE + 11, y*BLOCK_SIZE + 10, 4, 4);
+        }
+
+        void paintString(Graphics g, String str, int x, int y, Color color) {
+            g.setColor(color);
+            g.setFont(new Font("", Font.BOLD, BLOCK_SIZE));
+            g.drawString(str, x*BLOCK_SIZE + 8, y*BLOCK_SIZE + 26);
         }
 
         void paint(Graphics g, int x, int y) {
@@ -168,22 +155,15 @@ public class GameMines {
                 } else {
                     g.setColor(Color.lightGray);
                     g.fill3DRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, true);
-                    if (isFlag) {
-                        g.setColor(Color.red);
-                        g.setFont(new Font("", Font.BOLD, BLOCK_SIZE - 4));
-                        g.drawString(SIGN_OF_FLAG, x*BLOCK_SIZE + 7, y*BLOCK_SIZE + 24);
-                    }
+                    if (isFlag)
+                        paintString(g, SIGN_OF_FLAG, x, y, Color.red);
                 }
             } else {
-                if (isMine) {
+                if (isMine)
                     paintBomb(g, x, y, bangMine? Color.red : Color.black);
-                } else {
-                    if (countBombNear > 0) {
-                        g.setColor(new Color(COLOR_OF_NUMBERS[countBombNear - 1]));
-                        g.setFont(new Font("", Font.BOLD, BLOCK_SIZE));
-                        g.drawString(Integer.toString(countBombNear), x*BLOCK_SIZE + 8, y*BLOCK_SIZE + 26);
-                    }
-                }
+                else
+                    if (countBombNear > 0)
+                        paintString(g, Integer.toString(countBombNear), x, y, new Color(COLOR_OF_NUMBERS[countBombNear - 1]));
             }
         }
     }
