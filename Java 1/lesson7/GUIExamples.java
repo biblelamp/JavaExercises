@@ -21,7 +21,7 @@ class GUIExamples {
 class Form extends JFrame { // necessary javax.swing.*
     Form() {
         setTitle("Test Window");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(200, 200, 400, 300); // start x, start y, width, height
         setVisible(true);
     }
@@ -30,18 +30,18 @@ class Form extends JFrame { // necessary javax.swing.*
 class FormBL extends JFrame { // necessary java.awt.*
     FormBL() {
         setTitle("BorderLayout Demo");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(250, 250, 400, 300);
-        
+
         // create buttons
         JButton[] jbs = new JButton[5];
         for (int i = 0; i < 5; i++) {
             jbs[i] = new JButton("#" + i);
         }
-        
+
         // set the layout elements
         setLayout(new BorderLayout());
-        
+
         // adding buttons no the form
         add(jbs[0], BorderLayout.EAST);
         add(jbs[1], BorderLayout.WEST);
@@ -53,11 +53,13 @@ class FormBL extends JFrame { // necessary java.awt.*
 }
 
 class FormWithListeners extends JFrame { // necessary java.awt.event.*
+    int x, y;
+
     FormWithListeners() {
         setTitle("BorderLayout Demo");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(300, 300, 400, 300);
-        
+
         // create buttons
         JButton btnFist = new JButton("First");
         JButton btnSecond = new JButton("Second");
@@ -81,8 +83,9 @@ class FormWithListeners extends JFrame { // necessary java.awt.event.*
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                int x = e.getX();
-                int y = e.getY();
+                x = e.getX();
+                y = e.getY();
+                canvasPanel.repaint();
                 System.out.println(x + ":" + y);
             }
         });
@@ -96,5 +99,13 @@ class FormWithListeners extends JFrame { // necessary java.awt.event.*
         getContentPane().add(BorderLayout.CENTER, canvasPanel);
         getContentPane().add(BorderLayout.SOUTH, btnPanel);
         setVisible(true);
+    }
+
+    class Canvas extends JPanel { // my canvas for painting
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            g.drawOval(x, y, 50, 50);
+        }
     }
 }
