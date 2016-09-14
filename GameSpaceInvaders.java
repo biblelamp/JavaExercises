@@ -2,20 +2,19 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated 07 September 2016
+ * @version 0.3.5 dated September 14, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameSpaceInvaders {
+class GameSpaceInvaders extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Space Invaders";
-    final String GAME_OVER_MSG = "GAME OVER";
     final int POINT_SCALE = 2;
-    final int FIELD_WIDTH = 224*2;
-    final int FIELD_HEIGHT = 256*2;
+    final int FIELD_WIDTH = 224*POINT_SCALE;
+    final int FIELD_HEIGHT = 256*POINT_SCALE;
     final int START_LOCATION = 150;
     final int FIELD_DX = 7; // determined experimentally
     final int FIELD_DY = 26;
@@ -26,7 +25,7 @@ public class GameSpaceInvaders {
     final int RIGHT = 39;
     final int DOWN = 40;
     final int FIRE = 32;
-    final int SHOW_DELAY = 50; // delay for animation
+    final int SHOW_DELAY = 20; // delay for animation
     final int[][][][] PATTERN_OF_ALIENS = {
       {{{0,0,0,0,1,1,1,1,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0}, {1,1,1,1,1,1,1,1,1,1,1,1}, // alien 1/1
         {1,1,1,0,0,1,1,0,0,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,1,1,1,0,0,1,1,1,0,0},
@@ -48,50 +47,49 @@ public class GameSpaceInvaders {
         {1,0,0,0,0,0,0,1,0,0,0,0}, {0,1,0,0,0,0,1,0,0,0,0,0}}}
     };
     final int MAX_ALIEN_RAYS = 2;
+    Canvas canvasPanel = new Canvas();
     Cannon cannon = new Cannon();
     Ray ray = new Ray();
     Wave wave = new Wave();
     FlashAlien flash = new FlashAlien();
     AlienRays rays = new AlienRays();
-    JFrame frame;
-    Canvas canvasPanel = new Canvas();
     Random random = new Random();
-    int countScore = 0, countLives = 3;
-    boolean gameOver = false;
+    int countScore, countLives = 3;
+    boolean gameOver;
 
     public static void main(String[] args) {
         new GameSpaceInvaders().go();
     }
 
-    void go() {
-        frame = new JFrame(TITLE_OF_PROGRAM);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_WIDTH + FIELD_DX, FIELD_HEIGHT + FIELD_DY);
-        frame.setLocation(START_LOCATION, START_LOCATION);
-        frame.setResizable(false);
-
+    GameSpaceInvaders() {
+        setTitle(TITLE_OF_PROGRAM);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBounds(START_LOCATION, START_LOCATION, FIELD_WIDTH + FIELD_DX, FIELD_HEIGHT + FIELD_DY);
+        setResizable(false);
         canvasPanel.setBackground(Color.black);
-
-        frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
-        frame.addKeyListener(new KeyAdapter() {
+        getContentPane().add(BorderLayout.CENTER, canvasPanel);
+        addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT)) {
-                    cannon.move(e.getKeyCode());
-                }
-                if (e.getKeyCode() == FIRE) {
+                if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT))
+                    cannon.setDirection(e.getKeyCode());
+                if (e.getKeyCode() == FIRE)
                     ray.start(cannon.getX() + 12, cannon.getY() - 8);
-                }
-                canvasPanel.repaint();
+            }
+            public void keyReleased(KeyEvent e) {
+                if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT))
+                    cannon.setDirection(0);
             }
         });
-        frame.setVisible(true);
+        setVisible(true);
+    }
 
-        // main loop of game
+    void go() { // main loop of game
         while (!gameOver) {
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
             canvasPanel.repaint();
+            cannon.move();
             flash.disable();
             ray.fly();
             rays.fly();
@@ -107,11 +105,11 @@ public class GameSpaceInvaders {
     }
 
     class Ray { // from laser cannon
+        final int WIDTH = 2;
+        final int HEIGHT = 8;
+        final int DY = 12;
         int x, y;
-        boolean exists = false;
-        final int width = 2;
-        final int height = 8;
-        final int dy = 12;
+        boolean exists;
 
         void start(int x, int y) {
             if (!exists) {
@@ -123,50 +121,48 @@ public class GameSpaceInvaders {
 
         void fly() {
             if (exists) {
-                y -= dy;
-                exists = (y + dy) > 0;
+                y -= DY;
+                exists = (y + DY) > 0;
             }
         }
 
-        void disable() {
-            exists = false;
-        }
+        void disable() { exists = false; }
 
-        boolean isEnable() {
-            return exists;
-        }
+        boolean isEnable() { return exists; }
 
         int getX() { return x; }
         int getY() { return y; }
 
         void paint(Graphics g) {
-            if (exists) g.fillRect(x, y, width, height);
+            if (exists) g.fillRect(x, y, WIDTH, HEIGHT);
         }
     }
 
     class Cannon { // laser cannon
-        final int width = 26;
-        final int height = 16;
-        final int dx = 10;
-        int x, y;
+        final int WIDTH = 26;
+        final int HEIGHT = 16;
+        final int DX = 5;
+        int x, y, direction;
 
         public Cannon() {
             x = 10;
-            y = FIELD_HEIGHT - height - 30;
+            y = FIELD_HEIGHT - HEIGHT - 30;
         }
 
-        void move(int direction) {
-            if (direction == LEFT && x > 10) x -= dx;
-            if (direction == RIGHT && x < FIELD_WIDTH - width - 12) x += dx;
+        void move() {
+            if (direction == LEFT && x > 10) x -= DX;
+            if (direction == RIGHT && x < FIELD_WIDTH - WIDTH - 12) x += DX;
         }
+
+        void setDirection(int direction) { this.direction = direction; }
 
         int getX() { return x; }
         int getY() { return y; }
 
         void paint(Graphics g) {
-            g.fillRect(x, y + height/2, width, height/2);
-            g.fillRect(x + 2, y + height/2 - 2, width - 4, height/2);
-            g.fillRect(x + 10, y + 2, width - 20, height/2);
+            g.fillRect(x, y + HEIGHT/2, WIDTH, HEIGHT/2);
+            g.fillRect(x + 2, y + HEIGHT/2 - 2, WIDTH - 4, HEIGHT/2);
+            g.fillRect(x + 10, y + 2, WIDTH - 20, HEIGHT/2);
             g.fillRect(x + 12, y, 2, 2);
         }
     }
@@ -293,15 +289,15 @@ public class GameSpaceInvaders {
     }
 
     class Wave { // attacking wave of aliens
-        int startX = 50;
-        int startY = 60;
         final int[][] PATTERN = {
             {2,2,2,2,2,2,2,2,2,2,2}, {1,1,1,1,1,1,1,1,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0}};
-        ArrayList<Alien> wave = new ArrayList<Alien>();
-        final int NUM_FRAMES = 10; // sets the speed of the wave
+        volatile ArrayList<Alien> wave = new ArrayList<Alien>();
+        final int NUM_FRAMES = 30; // sets the speed of the wave
         int countFrames = 0;
         int direction = RIGHT;
         boolean stepDown = false;
+        int startX = 50;
+        int startY = 60;
 
         Wave() {
             for (int y = 0; y < PATTERN.length; y++)
@@ -354,13 +350,13 @@ public class GameSpaceInvaders {
         }
     }
 
-    class FlashAlien {
+    class FlashAlien { // flash when the alien explodes
         final int[][] BANG = {
             {0,0,0,0,0,1,0,0,0,0,0,0}, {0,1,0,0,0,1,0,0,1,0,0,0}, {0,0,1,0,0,0,0,0,1,0,0,1}, {0,0,0,1,0,0,0,1,0,0,1,0}, {1,1,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,1,1}, {0,1,0,0,1,0,0,0,1,0,0,0}, {1,0,0,1,0,0,0,0,0,1,0,0}, {0,0,0,1,0,0,1,0,0,0,1,0}, {0,0,0,0,0,0,1,0,0,0,0,0}
         };
+        boolean enable;
         int x, y;
-        boolean enable = false;
 
         void enable(int x, int y) {
             this.x = x;
@@ -391,7 +387,16 @@ public class GameSpaceInvaders {
             {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
             {1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1},
             {1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,0,1,0,0,0,1,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1},
+            {1,1,1,1,1,1,0,1,0,0,0,1,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1}
+        };
+        final int[][] GAME_OVER = {
+            {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1},
+            {1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
+            {1,0,0,0,0,1,0,1,1,1,1,1,1,0,1,0,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0},
+            {1,0,0,0,0,1,0,1,0,0,0,0,1,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
+            {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0},
+            {0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         };
         g.setColor(Color.white);
         for (int y = 0; y < SCORE.length; y++) {
@@ -400,6 +405,10 @@ public class GameSpaceInvaders {
             for (int i = 0; i < LIVES[y].length; i++)
                 if (LIVES[y][i] == 1) g.fillRect(i*POINT_SCALE + 320, y*POINT_SCALE + 20, POINT_SCALE, POINT_SCALE);
         }
+        if (gameOver)
+            for (int y = 0; y < GAME_OVER.length; y++)
+                for (int x = 0; x < GAME_OVER[y].length; x++)
+                    if (GAME_OVER[y][x] == 1) g.fillRect(x*POINT_SCALE + 170, y*POINT_SCALE + 250, POINT_SCALE, POINT_SCALE);
         g.setColor(Color.green);
         g.fillRect(10, GROUND_Y, FIELD_WIDTH - 20, 2);
     }
@@ -427,23 +436,19 @@ public class GameSpaceInvaders {
         }
     }
 
-    public class Canvas extends JPanel {
+    class Canvas extends JPanel { // my canvas for painting
         @Override
         public void paint(Graphics g) {
             super.paint(g);
             paintTextAndLine(g);
             paintNumber(g, countScore, 110, 20);
             paintNumber(g, countLives, 390, 20);
-            cannon.paint(g);
-            ray.paint(g);
-            wave.paint(g);
-            flash.paint(g);
-            rays.paint(g);
-            if (gameOver) {
-                g.setColor(Color.green);
-                g.setFont(new Font("Arial", Font.BOLD, 40));
-                FontMetrics fm = g.getFontMetrics();
-                g.drawString(GAME_OVER_MSG, (FIELD_WIDTH - fm.stringWidth(GAME_OVER_MSG))/2, FIELD_HEIGHT/2);
+            if (!gameOver) {
+                cannon.paint(g);
+                ray.paint(g);
+                wave.paint(g);
+                flash.paint(g);
+                rays.paint(g);
             }
         }
     }
