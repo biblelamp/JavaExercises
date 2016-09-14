@@ -2,12 +2,13 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated September 13, 2016
+ * @version 0.3 dated September 14, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.Timer;
 
 class GameMines extends JFrame {
 
@@ -16,17 +17,16 @@ class GameMines extends JFrame {
     final int BLOCK_SIZE = 30; // size of one block
     final int FIELD_SIZE = 9; // in blocks
     final int FIELD_DX = 6; // determined experimentally
-    final int FIELD_DY = 28;
+    final int FIELD_DY = 28 + 17;
     final int START_LOCATION = 200;
     final int MOUSE_BUTTON_LEFT = 1; // for mouse listener
     final int MOUSE_BUTTON_RIGHT = 3;
     final int NUMBER_OF_MINES = 10;
-    final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000};
+    final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000, 0x000};
     Cell[][] field = new Cell[FIELD_SIZE][FIELD_SIZE];
     Random random = new Random();
-    int countOpenedCells = 0;
-    boolean youWon = false;
-    boolean bangMine = false;
+    int countOpenedCells;
+    boolean youWon, bangMine; // flags for win and fail
     int bangX, bangY;
 
     public static void main(String[] args) {
@@ -35,10 +35,12 @@ class GameMines extends JFrame {
 
     GameMines() {
         setTitle(TITLE_OF_PROGRAM);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(START_LOCATION, START_LOCATION, FIELD_SIZE * BLOCK_SIZE + FIELD_DX, FIELD_SIZE * BLOCK_SIZE + FIELD_DY);
         setResizable(false);
-        Canvas canvasPanel = new Canvas();
+        final TimerLabel timeLabel = new TimerLabel();
+        timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        final Canvas canvasPanel = new Canvas();
         canvasPanel.setBackground(Color.white);
         canvasPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -56,10 +58,12 @@ class GameMines extends JFrame {
                         }
                 }
                 if (e.getButton() == MOUSE_BUTTON_RIGHT) field[y][x].inverseFlag(); // right button mouse
+                if (bangMine || youWon) timeLabel.stopTimer(); // game over
                 canvasPanel.repaint();
             }
         });
         getContentPane().add(BorderLayout.CENTER, canvasPanel);
+        getContentPane().add(BorderLayout.SOUTH, timeLabel);
         setVisible(true);
         initField();
     }
@@ -70,13 +74,11 @@ class GameMines extends JFrame {
         field[y][x].open();
         if (field[y][x].getCountBomb() > 0 || bangMine) return;
         for (int dx = -1; dx < 2; dx++)
-            for (int dy = -1; dy < 2; dy++)
-                openCells(x + dx, y + dy);
+            for (int dy = -1; dy < 2; dy++) openCells(x + dx, y + dy);
     }
 
     void initField() {
-        int countMines = 0;
-        int x, y;
+        int x, y, countMines = 0;
         // create cells for the field
         for (x = 0; x < FIELD_SIZE; x++)
             for (y = 0; y < FIELD_SIZE; y++)
@@ -150,31 +152,49 @@ class GameMines extends JFrame {
             g.setColor(Color.lightGray);
             g.drawRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             if (!isOpen) {
-                if ((bangMine || youWon) && isMine) {
-                    paintBomb(g, x, y, Color.black);
-                } else {
+                if ((bangMine || youWon) && isMine) paintBomb(g, x, y, Color.black);
+                else {
                     g.setColor(Color.lightGray);
-                    g.fill3DRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, true);
-                    if (isFlag)
-                        paintString(g, SIGN_OF_FLAG, x, y, Color.red);
+                    g.fill3DRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, true);
+                    if (isFlag) paintString(g, SIGN_OF_FLAG, x, y, Color.red);
                 }
-            } else {
-                if (isMine)
-                    paintBomb(g, x, y, bangMine? Color.red : Color.black);
+            } else
+                if (isMine) paintBomb(g, x, y, bangMine? Color.red : Color.black);
                 else
                     if (countBombNear > 0)
                         paintString(g, Integer.toString(countBombNear), x, y, new Color(COLOR_OF_NUMBERS[countBombNear - 1]));
-            }
         }
     }
 
-    public class Canvas extends JPanel { // my canvas for painting
+    class TimerLabel extends JLabel { // label with stopwatch
+        Timer timer = new Timer();
+
+        TimerLabel() {
+            timer.scheduleAtFixedRate(timerTask, 0, 1000); // TimerTask task, long delay, long period
+        }
+
+        TimerTask timerTask = new TimerTask() {
+            volatile int time;
+            Runnable refresher = new Runnable() {
+                public void run() {
+                    TimerLabel.this.setText(String.format("%02d:%02d", time / 60, time % 60));
+                }
+            };
+            public void run() {
+                time++;
+                SwingUtilities.invokeLater(refresher);
+            }
+        };
+
+        void stopTimer() { timer.cancel(); }
+    }
+
+    class Canvas extends JPanel { // my canvas for painting
         @Override
         public void paint(Graphics g) {
             super.paint(g);
             for (int x = 0; x < FIELD_SIZE; x++)
-                for (int y = 0; y < FIELD_SIZE; y++)
-                    field[y][x].paint(g, x, y);
+                for (int y = 0; y < FIELD_SIZE; y++) field[y][x].paint(g, x, y);
         }
     }
 }
