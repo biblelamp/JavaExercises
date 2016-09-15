@@ -2,12 +2,14 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.7 dated September 15, 2016
+ * @version 0.3.8 dated September 15, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import javax.sound.sampled.*;
+import java.io.*;
 
 class GameSpaceInvaders extends JFrame {
 
@@ -85,7 +87,7 @@ class GameSpaceInvaders extends JFrame {
     }
 
     void go() { // main loop of game
-        while (!gameOver) {
+        while (true) {
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
@@ -121,7 +123,10 @@ class GameSpaceInvaders extends JFrame {
 
         void setDirection(int direction) { this.direction = direction; }
 
-        void shot() { ray.start(x, y); }
+        void shot() { 
+            playSound(new File("sounds/shoot.wav"));
+            ray.start(x, y);
+        }
 
         int getX() { return x; }
         int getY() { return y; }
@@ -216,6 +221,7 @@ class GameSpaceInvaders extends JFrame {
                 }
             for (AlienRay ray : rays) // check hit cannon
                 if (ray.hitCannon()) {
+                    playSound(new File("sounds/explosion.wav"));
                     bang.enable();
                     countLives--;
                     cannon = new Cannon();
@@ -319,6 +325,7 @@ class GameSpaceInvaders extends JFrame {
             for (Alien alien : wave) // check hit alien
                 if (alien.isHitRay()) {
                     countScore += (alien.getType() + 1) * 10;
+                    playSound(new File("sounds/invaderkilled.wav"));
                     alien.bang();
                     wave.remove(alien);
                     break;
@@ -377,7 +384,7 @@ class GameSpaceInvaders extends JFrame {
             if (timeOfCycle == 0) {
                 timeOfCycle = TIME_OF_CYCLE;
                 view = 1 - view;
-                if (countCycles > 0) countCycles--;
+                if (countCycles > 0 && !gameOver) countCycles--;
             } else
                  timeOfCycle--;
         }
@@ -452,6 +459,16 @@ class GameSpaceInvaders extends JFrame {
                 for (int j = 0; j < 6; j++)
                     if (NUMBERS[n][i][j] == 1) g.fillRect(x + j*POINT_SCALE + p*14, y + i*POINT_SCALE, POINT_SCALE, POINT_SCALE);
         }
+    }
+
+    void playSound(File f) { // playing a sound
+        try {
+            AudioInputStream stream = AudioSystem.getAudioInputStream(f);
+            Clip clip = AudioSystem.getClip();
+            clip.open(stream);
+            clip.setFramePosition(0);
+            clip.start();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     class Canvas extends JPanel { // my canvas for painting
