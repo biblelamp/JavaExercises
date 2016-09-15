@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.6 dated September 15, 2016
+ * @version 0.3.7 dated September 15, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -49,6 +49,7 @@ class GameSpaceInvaders extends JFrame {
     final int MAX_ALIEN_RAYS = 2;
     Canvas canvasPanel = new Canvas();
     Cannon cannon = new Cannon();
+    BangCannon bang = new BangCannon();
     Ray ray = new Ray();
     Wave wave = new Wave();
     FlashAlien flash = new FlashAlien();
@@ -91,6 +92,7 @@ class GameSpaceInvaders extends JFrame {
             canvasPanel.repaint();
             cannon.move();
             flash.show();
+            bang.show();
             ray.fly();
             rays.fly();
             wave.nextStep();
@@ -126,10 +128,12 @@ class GameSpaceInvaders extends JFrame {
         int getWidth() { return WIDTH; }
 
         void paint(Graphics g) {
-            g.fillRect(x, y + HEIGHT/2, WIDTH, HEIGHT/2);
-            g.fillRect(x + 2, y + HEIGHT/2 - 2, WIDTH - 4, HEIGHT/2);
-            g.fillRect(x + 10, y + 2, WIDTH - 20, HEIGHT/2);
-            g.fillRect(x + 12, y, 2, 2);
+            if (!bang.isBang()) {
+                g.fillRect(x, y + HEIGHT/2, WIDTH, HEIGHT/2);
+                g.fillRect(x + 2, y + HEIGHT/2 - 2, WIDTH - 4, HEIGHT/2);
+                g.fillRect(x + 10, y + 2, WIDTH - 20, HEIGHT/2);
+                g.fillRect(x + 12, y, 2, 2);
+            }
         }
     }
 
@@ -184,7 +188,7 @@ class GameSpaceInvaders extends JFrame {
 
         boolean hitCannon() {
             if (y + height > cannon.getY())
-                if (x > cannon.getX() && x < cannon.getX() + cannon.getWidth())
+                if (x >= cannon.getX() && x <= cannon.getX() + cannon.getWidth())
                     return true;
             return false;
         }
@@ -212,6 +216,7 @@ class GameSpaceInvaders extends JFrame {
                 }
             for (AlienRay ray : rays) // check hit cannon
                 if (ray.hitCannon()) {
+                    bang.enable();
                     countLives--;
                     cannon = new Cannon();
                     gameOver = countLives == 0;
@@ -238,9 +243,7 @@ class GameSpaceInvaders extends JFrame {
             width = PATTERN_OF_ALIENS[type][view][8][0];
         }
 
-        int getType() {
-            return type;
-        }
+        int getType() { return type; }
 
         boolean isHitRay() {
             if (ray.isEnable())
@@ -259,13 +262,9 @@ class GameSpaceInvaders extends JFrame {
             else if (direction == DOWN) y += STEP_Y;
         }
 
-        void bang() { 
-            flash.enable(x, y - 2);
-        }
+        void bang() { flash.enable(x, y - 2); }
 
-        void shot() {
-            rays.add(x + width/2, y + height);
-        }
+        void shot() { rays.add(x + width/2, y + height); }
 
         void paint(Graphics g) {
             g.setColor(Color.white);
@@ -356,6 +355,43 @@ class GameSpaceInvaders extends JFrame {
         }
     }
 
+    class BangCannon { // fire when hit the cannon
+        final int[][][] FIRE = {
+            {{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,0,0,0,0,1,0,0,1,0,0,0,0}, {0,0,0,0,1,0,1,0,0,1,0,1,0,0,0}, {0,0,1,0,0,0,0,0,0,0,0,0,1,0,0},
+             {0,0,0,0,0,1,0,1,1,0,0,0,0,0,0}, {1,0,0,1,1,1,1,1,1,1,1,0,0,0,0}, {0,0,1,1,1,1,1,1,1,1,1,1,0,0,0}, {1,1,1,1,1,1,1,1,1,1,1,1,1,0,0}},
+            {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {1,0,0,0,0,0,1,0,0,0,0,0,1,0,0}, {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0}, {0,1,0,0,0,0,1,0,0,0,0,0,1,0,0}, {0,0,0,0,0,1,0,0,0,0,1,0,0,0,1},
+             {1,0,0,0,1,1,0,0,1,0,0,0,0,0,0}, {0,0,0,1,1,1,1,1,1,1,0,0,1,0,0}, {0,0,1,1,1,1,1,1,1,1,1,0,0,0,0}, {1,1,1,1,1,1,1,1,1,1,1,1,1,0,0}},
+        };
+        int x, y, countCycles, timeOfCycle, view;
+        final int TIME_OF_CYCLE = 3;
+
+        void enable() {
+            this.x = cannon.getX() - 1;
+            this.y = cannon.getY() - 1;
+            countCycles = 5;
+            timeOfCycle = TIME_OF_CYCLE;
+            view = 0;
+        }
+
+        void show() {
+            if (timeOfCycle == 0) {
+                timeOfCycle = TIME_OF_CYCLE;
+                view = 1 - view;
+                if (countCycles > 0) countCycles--;
+            } else
+                 timeOfCycle--;
+        }
+
+        boolean isBang() { return countCycles != 0; }
+
+        void paint(Graphics g) {
+            if (countCycles > 0)
+                for (int i = 0; i < FIRE[view].length; i++)
+                    for (int j = 0; j < FIRE[view][i].length; j++)
+                        if (FIRE[view][i][j] == 1) g.fillRect(j*POINT_SCALE + x, i*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
+        }
+    }
+
     void paintTextAndLine(Graphics g) { // paint score, lives and green line
         final int[][] SCORE = {
             {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1},
@@ -425,6 +461,7 @@ class GameSpaceInvaders extends JFrame {
             paintTextAndLine(g);
             paintNumber(g, countScore, 110, 20);
             paintNumber(g, countLives, 390, 20);
+            bang.paint(g);
             if (!gameOver) {
                 cannon.paint(g);
                 ray.paint(g);
