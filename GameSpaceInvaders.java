@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.5 dated September 14, 2016
+ * @version 0.3.6 dated September 15, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -73,7 +73,7 @@ class GameSpaceInvaders extends JFrame {
                 if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT))
                     cannon.setDirection(e.getKeyCode());
                 if (e.getKeyCode() == FIRE)
-                    ray.start(cannon.getX() + 12, cannon.getY() - 8);
+                    cannon.shot();
             }
             public void keyReleased(KeyEvent e) {
                 if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT))
@@ -90,17 +90,46 @@ class GameSpaceInvaders extends JFrame {
             } catch (Exception e) { e.printStackTrace(); }
             canvasPanel.repaint();
             cannon.move();
-            flash.disable();
+            flash.show();
             ray.fly();
             rays.fly();
-            rays.checkGround();
-            rays.checkHit();
             wave.nextStep();
-            wave.checkHit();
-            if (wave.getSize() == 0) { // if I destroy the whole wave
+            if (wave.isDestroyed()) { // if the wave completely destroyed
                 wave = new Wave();
                 countLives++;
             }
+        }
+    }
+
+    class Cannon { // laser cannon
+        final int WIDTH = 26;
+        final int HEIGHT = 16;
+        final int DX = 5;
+        int x, y, direction;
+
+        public Cannon() {
+            x = 10;
+            y = FIELD_HEIGHT - HEIGHT - 30;
+        }
+
+        void move() {
+            if (direction == LEFT && x > 10) x -= DX;
+            if (direction == RIGHT && x < FIELD_WIDTH - WIDTH - 12) x += DX;
+        }
+
+        void setDirection(int direction) { this.direction = direction; }
+
+        void shot() { ray.start(x, y); }
+
+        int getX() { return x; }
+        int getY() { return y; }
+        int getWidth() { return WIDTH; }
+
+        void paint(Graphics g) {
+            g.fillRect(x, y + HEIGHT/2, WIDTH, HEIGHT/2);
+            g.fillRect(x + 2, y + HEIGHT/2 - 2, WIDTH - 4, HEIGHT/2);
+            g.fillRect(x + 10, y + 2, WIDTH - 20, HEIGHT/2);
+            g.fillRect(x + 12, y, 2, 2);
         }
     }
 
@@ -114,8 +143,8 @@ class GameSpaceInvaders extends JFrame {
         void start(int x, int y) {
             if (!exists) {
                 exists = true;
-                this.x = x;
-                this.y = y;
+                this.x = x + (cannon.getWidth() - WIDTH) / 2;
+                this.y = y - HEIGHT;
             }
         }
 
@@ -138,35 +167,6 @@ class GameSpaceInvaders extends JFrame {
         }
     }
 
-    class Cannon { // laser cannon
-        final int WIDTH = 26;
-        final int HEIGHT = 16;
-        final int DX = 5;
-        int x, y, direction;
-
-        public Cannon() {
-            x = 10;
-            y = FIELD_HEIGHT - HEIGHT - 30;
-        }
-
-        void move() {
-            if (direction == LEFT && x > 10) x -= DX;
-            if (direction == RIGHT && x < FIELD_WIDTH - WIDTH - 12) x += DX;
-        }
-
-        void setDirection(int direction) { this.direction = direction; }
-
-        int getX() { return x; }
-        int getY() { return y; }
-
-        void paint(Graphics g) {
-            g.fillRect(x, y + HEIGHT/2, WIDTH, HEIGHT/2);
-            g.fillRect(x + 2, y + HEIGHT/2 - 2, WIDTH - 4, HEIGHT/2);
-            g.fillRect(x + 10, y + 2, WIDTH - 20, HEIGHT/2);
-            g.fillRect(x + 12, y, 2, 2);
-        }
-    }
-
     class AlienRay { // from one alien
         final int width = 6;
         final int height = 10;
@@ -178,17 +178,13 @@ class GameSpaceInvaders extends JFrame {
             this.y = y;
         }
 
-        void fly() {
-            y += dy;
-        }
+        void fly() { y += dy; }
 
-        boolean hitGround() {
-            return y + height > GROUND_Y;
-        }
+        boolean hitGround() { return y + height > GROUND_Y; }
 
         boolean hitCannon() {
             if (y + height > cannon.getY())
-                if (x > cannon.getX() && x < cannon.getX() + 26)
+                if (x > cannon.getX() && x < cannon.getX() + cannon.getWidth())
                     return true;
             return false;
         }
@@ -209,18 +205,12 @@ class GameSpaceInvaders extends JFrame {
 
         void fly() {
             for (AlienRay ray : rays) ray.fly();
-        }
-
-        void checkGround() {
-            for (AlienRay ray : rays)
+            for (AlienRay ray : rays) // check hit ground
                 if (ray.hitGround()) {
                     rays.remove(ray);
                     break;
                 }
-        }
-
-        void checkHit() {
-            for (AlienRay ray : rays)
+            for (AlienRay ray : rays) // check hit cannon
                 if (ray.hitCannon()) {
                     countLives--;
                     cannon = new Cannon();
@@ -230,9 +220,7 @@ class GameSpaceInvaders extends JFrame {
                 }
         }
 
-        int getSize() {
-            return rays.size();
-        }
+        int getSize() { return rays.size(); }
 
         void paint(Graphics g) {
             for (AlienRay ray : rays) ray.paint(g);
@@ -328,13 +316,8 @@ class GameSpaceInvaders extends JFrame {
                     startX += (direction == RIGHT)? STEP_X : -STEP_X;
                 }
                 countFrames = 0;
-            } else {
-                countFrames++;
-            }
-        }
-
-        void checkHit() {
-            for (Alien alien : wave)
+            } else { countFrames++; }
+            for (Alien alien : wave) // check hit alien
                 if (alien.isHitRay()) {
                     countScore += (alien.getType() + 1) * 10;
                     alien.bang();
@@ -343,7 +326,7 @@ class GameSpaceInvaders extends JFrame {
                 }
         }
 
-        int getSize() { return wave.size(); }
+        boolean isDestroyed() { return wave.size() == 0; }
 
         void paint(Graphics g) {
             for (Alien alien : wave) alien.paint(g);
@@ -355,19 +338,18 @@ class GameSpaceInvaders extends JFrame {
             {0,0,0,0,0,1,0,0,0,0,0,0}, {0,1,0,0,0,1,0,0,1,0,0,0}, {0,0,1,0,0,0,0,0,1,0,0,1}, {0,0,0,1,0,0,0,1,0,0,1,0}, {1,1,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,1,1}, {0,1,0,0,1,0,0,0,1,0,0,0}, {1,0,0,1,0,0,0,0,0,1,0,0}, {0,0,0,1,0,0,1,0,0,0,1,0}, {0,0,0,0,0,0,1,0,0,0,0,0}
         };
-        boolean enable;
-        int x, y;
+        int x, y, counter;
 
         void enable(int x, int y) {
             this.x = x;
             this.y = y;
-            enable = true;
+            counter = 5; // the show time in the animation cycles
         }
 
-        void disable() { enable = false; }
+        void show() { if (counter > 0) counter--; }
 
         void paint(Graphics g) {
-            if (enable)
+            if (counter > 0)
                 for (int i = 0; i < BANG.length; i++)
                     for (int j = 0; j < BANG[i].length; j++)
                         if (BANG[i][j] == 1) g.fillRect(j*POINT_SCALE + x, i*POINT_SCALE + y, POINT_SCALE, POINT_SCALE);
