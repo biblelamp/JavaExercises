@@ -2,7 +2,7 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.3 dated September 14, 2016
+ * @version 0.3.1 dated September 17, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +22,7 @@ class GameMines extends JFrame {
     final int MOUSE_BUTTON_LEFT = 1; // for mouse listener
     final int MOUSE_BUTTON_RIGHT = 3;
     final int NUMBER_OF_MINES = 10;
-    final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000, 0x000};
+    final int[] COLOR_OF_NUMBERS = {0x0000FF, 0x008000, 0xFF0000, 0x800000, 0x0};
     Cell[][] field = new Cell[FIELD_SIZE][FIELD_SIZE];
     Random random = new Random();
     int countOpenedCells;
@@ -40,9 +40,9 @@ class GameMines extends JFrame {
         setResizable(false);
         final TimerLabel timeLabel = new TimerLabel();
         timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        final Canvas canvasPanel = new Canvas();
-        canvasPanel.setBackground(Color.white);
-        canvasPanel.addMouseListener(new MouseAdapter() {
+        final Canvas canvas = new Canvas();
+        canvas.setBackground(Color.white);
+        canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
@@ -59,25 +59,25 @@ class GameMines extends JFrame {
                 }
                 if (e.getButton() == MOUSE_BUTTON_RIGHT) field[y][x].inverseFlag(); // right button mouse
                 if (bangMine || youWon) timeLabel.stopTimer(); // game over
-                canvasPanel.repaint();
+                canvas.repaint();
             }
         });
-        getContentPane().add(BorderLayout.CENTER, canvasPanel);
-        getContentPane().add(BorderLayout.SOUTH, timeLabel);
+        add(BorderLayout.CENTER, canvas);
+        add(BorderLayout.SOUTH, timeLabel);
         setVisible(true);
         initField();
     }
 
-    void openCells(int x, int y) {
-        if (x < 0 || x > FIELD_SIZE - 1 || y < 0 || y > FIELD_SIZE - 1) return;
-        if (!field[y][x].isNotOpen()) return;
+    void openCells(int x, int y) { // recursive procedure of opening the cells
+        if (x < 0 || x > FIELD_SIZE - 1 || y < 0 || y > FIELD_SIZE - 1) return; // wrong coordinates
+        if (!field[y][x].isNotOpen()) return; // cell is already open
         field[y][x].open();
-        if (field[y][x].getCountBomb() > 0 || bangMine) return;
+        if (field[y][x].getCountBomb() > 0 || bangMine) return; // the cell is not empty
         for (int dx = -1; dx < 2; dx++)
             for (int dy = -1; dy < 2; dy++) openCells(x + dx, y + dy);
     }
 
-    void initField() {
+    void initField() { // initialization of the playing field
         int x, y, countMines = 0;
         // create cells for the field
         for (x = 0; x < FIELD_SIZE; x++)
