@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3. dated September 15, 2016
+ * @version 0.3.9 dated September 17, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -49,7 +49,7 @@ class GameSpaceInvaders extends JFrame {
         {1,0,0,0,0,0,0,1,0,0,0,0}, {0,1,0,0,0,0,1,0,0,0,0,0}}}
     };
     final int MAX_ALIEN_RAYS = 2;
-    Canvas canvasPanel = new Canvas();
+    Canvas canvas = new Canvas();
     Cannon cannon = new Cannon();
     BangCannon bang = new BangCannon();
     Ray ray = new Ray();
@@ -69,8 +69,8 @@ class GameSpaceInvaders extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(START_LOCATION, START_LOCATION, FIELD_WIDTH + FIELD_DX, FIELD_HEIGHT + FIELD_DY);
         setResizable(false);
-        canvasPanel.setBackground(Color.black);
-        getContentPane().add(BorderLayout.CENTER, canvasPanel);
+        canvas.setBackground(Color.black);
+        add(BorderLayout.CENTER, canvas);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == LEFT) || (e.getKeyCode() == RIGHT))
@@ -91,7 +91,7 @@ class GameSpaceInvaders extends JFrame {
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
-            canvasPanel.repaint();
+            canvas.repaint();
             cannon.move();
             flash.show();
             bang.show();
@@ -285,7 +285,7 @@ class GameSpaceInvaders extends JFrame {
         final int[][] PATTERN = {
             {2,2,2,2,2,2,2,2,2,2,2}, {1,1,1,1,1,1,1,1,1,1,1}, {1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0}};
         volatile ArrayList<Alien> wave = new ArrayList<Alien>();
-        final int NUM_FRAMES = 30; // sets the speed of the wave
+        int numFrames = 30; // define the speed of the wave
         int countFrames = 0;
         int direction = RIGHT;
         boolean stepDown = false;
@@ -299,7 +299,7 @@ class GameSpaceInvaders extends JFrame {
         }
 
         void nextStep() {
-            if (countFrames == NUM_FRAMES) {
+            if (countFrames == numFrames) {
                 if ((startX == 10) || (startX == 17*STEP_X + 10)) { // time to change direction
                     if (!stepDown) {
                         direction = DOWN;
@@ -328,6 +328,9 @@ class GameSpaceInvaders extends JFrame {
                     playSound(new File("sounds/invaderkilled.wav"));
                     alien.bang();
                     wave.remove(alien);
+                    numFrames = 10 + (int)(20f/55f * wave.size()); // increase wave's speed
+                    if (countFrames > numFrames) countFrames = numFrames; // correct countFrames
+                    System.out.println(numFrames + ":" + countFrames);
                     break;
                 }
         }
