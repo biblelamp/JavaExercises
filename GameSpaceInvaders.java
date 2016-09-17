@@ -2,7 +2,7 @@
  * Java. Game Space Invaders
  *
  * @author Sergey Iryupin
- * @version 0.3.8 dated September 15, 2016
+ * @version 0.3. dated September 15, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
