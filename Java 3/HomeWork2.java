@@ -2,12 +2,12 @@
  * Java. Level 3. Lesson 2. Homework
  * 1. Read the file List.csv
  * 2. Parse it and transfer contents to the database (preferably sqlite)
- * 3. Change some of the price / category in a file and to load it again,
+ * 3. Change some of the price/category in a file and to load it again,
  *   track the products that changed their category or price,
  *    when it detects changes to update a record
  *
  * @author Sergey Iryupin
- * @version 18 Sep 2016
+ * @version 19 Sep 2016
  */
 import java.sql.*;
 import java.io.*;
@@ -18,36 +18,48 @@ public class HomeWork2 {
     final String DRIVER_NAME = "org.sqlite.JDBC";
     final String NAME_DB = "store.db";
     final String TABLE_DB = "goods";
+    final String CREATE_TBL = 
+        "CREATE TABLE if not exists " + TABLE_DB +
+        "(ID INTEGER PRIMARY KEY," +
+        " GRP1  TEXT," +
+        " GRP2  TEXT," +
+        " GRP3  TEXT," +
+        " GRP4  TEXT," +
+        " GRP5  TEXT," +
+        " NAME  TEXT NOT NULL," +
+        " VCODE TEXT," +
+        " FNAME TEXT," +
+        " PRICE INTEGER)";
     Connection connect = null;
-    
+
     public static void main(String[] args) {
         new HomeWork2().go();
     }
-    
+
     void go() {
         BufferedReader reader = null;
         String[] fields;
-        
+
         // open sqlite database
         open(NAME_DB);
-        createTable(NAME_DB, TABLE_DB, "");
+        createTable(NAME_DB, TABLE_DB, CREATE_TBL);
 
         // read and parse the csv file
         try {
             reader = new BufferedReader(
                         new InputStreamReader(
                             new FileInputStream(FILE_NAME), "UTF-8"));
-            String line;
+            String line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 fields = line.split("\t");
-                add(fields);
+                add(NAME_DB, TABLE_DB, fields);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         close();
     }
-    
+
     void open(String nameDB) { // open connection or create DB
         try {
             Class.forName(DRIVER_NAME);
@@ -68,8 +80,30 @@ public class HomeWork2 {
             e.printStackTrace();
         }
     }
-    
-    void add(String[] fields) { // add record
+
+    void add(String nameDB, String tableDB, String[] fields) { // add record
+        try {
+            Statement stmt = connect.createStatement();
+            String sql =
+                "INSERT INTO " + tableDB +
+                " (GRP1,GRP2,GRP3,GRP4,GRP5,NAME,ID,VCODE,FNAME,PRICE)" +
+                " VALUES ('" + 
+                fields[0] + "', '" + // GRP1
+                fields[1] + "', '" + // GRP2
+                fields[2] + "', '" + // GRP3
+                fields[3] + "', '" + // GRP4
+                fields[4] + "', '" + // GRP5
+                fields[5] + "', " +  // NAME
+                fields[6] + ", '" +  // ID
+                fields[7] + "', '" + // VCODE
+                fields[8] + "', " +  // FNAME
+                fields[9] + ");";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            System.out.println("Add record in table " + tableDB + " in DB " + nameDB + " successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void close() { // close connection
