@@ -2,14 +2,14 @@
  * Java. Classic Game Tetris
  *
  * @author Sergey Iryupin
- * @version 0.3.6 dated 10 Sep 2016
+ * @version 0.3.7 dated September 20, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameTetris {
+class GameTetris extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Tetris";
     final int BLOCK_SIZE = 25; // size of one block
@@ -37,7 +37,7 @@ public class GameTetris {
     int gameScore = 0;
     int[][] mine = new int[FIELD_HEIGHT + 1][FIELD_WIDTH]; // mine/glass
     JFrame frame;
-    Canvas canvasPanel = new Canvas();
+    Canvas canvas = new Canvas();
     Random random = new Random();
     Figure figure = new Figure();
     boolean gameOver = false;
@@ -59,36 +59,33 @@ public class GameTetris {
         new GameTetris().go();
     }
 
-    void go() {
-        frame = new JFrame(TITLE_OF_PROGRAM);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_WIDTH * BLOCK_SIZE + FIELD_DX, FIELD_HEIGHT * BLOCK_SIZE + FIELD_DY);
-        frame.setLocation(START_LOCATION, START_LOCATION);
-        frame.setResizable(false);
-
-        canvasPanel.setBackground(Color.black); // define the background color
-
-        frame.addKeyListener(new KeyAdapter() {
+    GameTetris() {
+        setTitle(TITLE_OF_PROGRAM);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBounds(START_LOCATION, START_LOCATION, FIELD_WIDTH * BLOCK_SIZE + FIELD_DX, FIELD_HEIGHT * BLOCK_SIZE + FIELD_DY);
+        setResizable(false);
+        canvas.setBackground(Color.black); // define the background color
+        addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (!gameOver) {
                     if (e.getKeyCode() == DOWN) figure.drop();
                     if (e.getKeyCode() == UP) figure.rotate();
                     if (e.getKeyCode() == LEFT || e.getKeyCode() == RIGHT) figure.move(e.getKeyCode());
                 }
-                canvasPanel.repaint();
+                canvas.repaint();
             }
         });
-        frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
-        frame.setVisible(true);
-
+        add(BorderLayout.CENTER, canvas);
+        setVisible(true);
         Arrays.fill(mine[FIELD_HEIGHT], 1); // create a ground for mines
+    }
 
-        // main loop of game
+    void go() { // main loop of game
         while (!gameOver) {
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
-            canvasPanel.repaint();
+            canvas.repaint();
             checkFilling();
             if (figure.isTouchGround()) {
                 figure.leaveOnTheGround();
@@ -114,7 +111,7 @@ public class GameTetris {
         }
         if (countFillRows > 0) {
             gameScore += SCORES[countFillRows - 1];
-            frame.setTitle(TITLE_OF_PROGRAM + " : " + gameScore);
+            setTitle(TITLE_OF_PROGRAM + " : " + gameScore);
         }
     }
 
@@ -175,9 +172,7 @@ public class GameTetris {
             y++;
         }
 
-        void drop() {
-            while (!isTouchGround()) stepDown();
-        }
+        void drop() { while (!isTouchGround()) stepDown(); }
 
         boolean isWrongPosition() {
             for (int x = 0; x < size; x++)
@@ -242,7 +237,7 @@ public class GameTetris {
         }
     }
 
-    public class Canvas extends JPanel { // my canvas for painting
+    class Canvas extends JPanel { // my canvas for painting
         @Override
         public void paint(Graphics g) {
             super.paint(g);
