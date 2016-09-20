@@ -2,8 +2,8 @@
  * Java. Level 3. Lesson 2. Homework
  * 1. Read the file List.csv
  * 2. Parse it and transfer contents to the database (preferably sqlite)
- * 3. Change some of the price/category in a file and to load it again,
- *   track the products that changed their category or price,
+ * 3. Change some of the price/group in a file and to load it again,
+ *    track the products that changed their group or price,
  *    when it detects changes to update a record
  *
  * @author Sergey Iryupin
@@ -17,7 +17,7 @@ public class HomeWork2 {
     final String FILE_NAME = "List.csv";
     final String DRIVER_NAME = "org.sqlite.JDBC";
     final String NAME_DB = "store.db";
-    final String TABLE_DB = "goods";
+    final String TABLE_DB = "GOODS";
     final String CREATE_TBL = 
         "CREATE TABLE if not exists " + TABLE_DB +
         "(ID INTEGER PRIMARY KEY," +
@@ -31,6 +31,8 @@ public class HomeWork2 {
         " FNAME TEXT," +
         " PRICE INTEGER)";
     Connection connect = null;
+    Statement stmt = null;
+    ResultSet rs = null;
 
     public static void main(String[] args) {
         new HomeWork2().go();
@@ -52,12 +54,30 @@ public class HomeWork2 {
             String line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 fields = line.split("\t");
-                add(NAME_DB, TABLE_DB, fields);
+                try {
+                    rs = stmt.executeQuery("SELECT COUNT() FROM " + TABLE_DB + " WHERE ID=" + fields[6] + ";" );
+                    if (rs.getInt("count()") == 0) {
+                        add(NAME_DB, TABLE_DB, fields);
+                    } else {
+                        rs = stmt.executeQuery("SELECT GRP1,GRP2,GRP3,GRP4,GRP5,PRICE FROM " + TABLE_DB + " WHERE ID=" + fields[6] + ";" );
+                        if (fields[0] != rs.getString("GRP1") || 
+                            fields[1] != rs.getString("GRP2") ||
+                            fields[2] != rs.getString("GRP3") ||
+                            fields[3] != rs.getString("GRP4") ||
+                            fields[4] != rs.getString("GRP5") ||
+                            fields[9] != rs.getString("PRICE")) {
+                                update(NAME_DB, TABLE_DB, fields);
+                            }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            close();
         }
-        close();
     }
 
     void open(String nameDB) { // open connection or create DB
@@ -72,10 +92,10 @@ public class HomeWork2 {
 
     void createTable(String nameDB, String tableDB, String createTbl) { // create table
         try {
-            Statement stmt = connect.createStatement();
+            stmt = connect.createStatement();
             stmt.executeUpdate(createTbl);
             stmt.close();
-            System.out.println("Create table " + tableDB + " in DB " + nameDB + " successfully");
+            System.out.println("Table " + tableDB + " in DB " + nameDB + " created successfully");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +103,7 @@ public class HomeWork2 {
 
     void add(String nameDB, String tableDB, String[] fields) { // add record
         try {
-            Statement stmt = connect.createStatement();
+            stmt = connect.createStatement();
             String sql =
                 "INSERT INTO " + tableDB +
                 " (GRP1,GRP2,GRP3,GRP4,GRP5,NAME,ID,VCODE,FNAME,PRICE)" +
@@ -97,10 +117,28 @@ public class HomeWork2 {
                 fields[6] + ", '" +  // ID
                 fields[7] + "', '" + // VCODE
                 fields[8] + "', " +  // FNAME
-                fields[9] + ");";
+                fields[9] + ");";    // PRICE
             stmt.executeUpdate(sql);
             stmt.close();
-            System.out.println("Add record in table " + tableDB + " in DB " + nameDB + " successfully");
+            System.out.println("Record added to the table " + tableDB + " in DB " + nameDB + " successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void update(String nameDB, String tableDB, String[] fields) { // update record
+        try {
+            stmt = connect.createStatement();
+            String sql = "UPDATE " + tableDB + " set " +
+            "GRP1='" + fields[0] + "'," +
+            "GRP2='" + fields[1] + "'," +
+            "GRP3='" + fields[2] + "'," +
+            "GRP4='" + fields[3] + "'," +
+            "GRP5='" + fields[4] + "'," +
+            "PRICE=" + fields[9] + " where ID='" + fields[6] + "';";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            System.out.println("Record updated in the table " + tableDB + " in DB " + nameDB + " successfully");
         } catch (Exception e) {
             e.printStackTrace();
         }
