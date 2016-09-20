@@ -60,12 +60,12 @@ public class HomeWork2 {
                         add(NAME_DB, TABLE_DB, fields);
                     } else {
                         rs = stmt.executeQuery("SELECT GRP1,GRP2,GRP3,GRP4,GRP5,PRICE FROM " + TABLE_DB + " WHERE ID=" + fields[6] + ";" );
-                        if (fields[0] != rs.getString("GRP1") || 
-                            fields[1] != rs.getString("GRP2") ||
-                            fields[2] != rs.getString("GRP3") ||
-                            fields[3] != rs.getString("GRP4") ||
-                            fields[4] != rs.getString("GRP5") ||
-                            fields[9] != rs.getString("PRICE")) {
+                        if (!fields[0].equals(rs.getString("GRP1")) || 
+                            !fields[1].equals(rs.getString("GRP2")) ||
+                            !fields[2].equals(rs.getString("GRP3")) ||
+                            !fields[3].equals(rs.getString("GRP4")) ||
+                            !fields[4].equals(rs.getString("GRP5")) ||
+                            !fields[9].equals(rs.getString("PRICE"))) {
                                 update(NAME_DB, TABLE_DB, fields);
                             }
                     }
