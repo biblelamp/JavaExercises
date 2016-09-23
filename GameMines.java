@@ -2,7 +2,7 @@
  * Java. Classic Game Minesweeper
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated September 17, 2016
+ * @version 0.3.2 dated September 23, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -26,8 +26,8 @@ class GameMines extends JFrame {
     Cell[][] field = new Cell[FIELD_SIZE][FIELD_SIZE];
     Random random = new Random();
     int countOpenedCells;
-    boolean youWon, bangMine; // flags for win and fail
-    int bangX, bangY;
+    boolean youWon, bangMine; // flags for win and bang/fail
+    int bangX, bangY; // for fix the coordinates of the explosion
 
     public static void main(String[] args) {
         new GameMines();
@@ -48,18 +48,20 @@ class GameMines extends JFrame {
                 super.mouseReleased(e);
                 int x = e.getX()/BLOCK_SIZE;
                 int y = e.getY()/BLOCK_SIZE;
-                if (e.getButton() == MOUSE_BUTTON_LEFT && !bangMine && !youWon) // left button mouse
-                    if (field[y][x].isNotOpen()) {
-                        openCells(x, y);
-                        youWon = countOpenedCells == FIELD_SIZE*FIELD_SIZE - NUMBER_OF_MINES; // winning check
-                        if (bangMine) {
-                            bangX = x;
-                            bangY = y;
-                        }
+                if (!bangMine && !youWon) {
+                    if (e.getButton() == MOUSE_BUTTON_LEFT) // left button mouse
+                        if (field[y][x].isNotOpen()) {
+                            openCells(x, y);
+                            youWon = countOpenedCells == FIELD_SIZE*FIELD_SIZE - NUMBER_OF_MINES; // winning check
+                            if (bangMine) {
+                                bangX = x;
+                                bangY = y;
+                            }
+                    }
+                    if (e.getButton() == MOUSE_BUTTON_RIGHT) field[y][x].inverseFlag(); // right button mouse
+                    if (bangMine || youWon) timeLabel.stopTimer(); // game over
+                    canvas.repaint();
                 }
-                if (e.getButton() == MOUSE_BUTTON_RIGHT) field[y][x].inverseFlag(); // right button mouse
-                if (bangMine || youWon) timeLabel.stopTimer(); // game over
-                canvas.repaint();
             }
         });
         add(BorderLayout.CENTER, canvas);
@@ -111,9 +113,9 @@ class GameMines extends JFrame {
                 }
     }
 
-    class Cell {
-        private boolean isOpen, isMine, isFlag;
+    class Cell { // playing field cell
         private int countBombNear;
+        private boolean isOpen, isMine, isFlag;
 
         void open() {
             isOpen = true;
@@ -169,9 +171,7 @@ class GameMines extends JFrame {
     class TimerLabel extends JLabel { // label with stopwatch
         Timer timer = new Timer();
 
-        TimerLabel() {
-            timer.scheduleAtFixedRate(timerTask, 0, 1000); // TimerTask task, long delay, long period
-        }
+        TimerLabel() { timer.scheduleAtFixedRate(timerTask, 0, 1000); } // TimerTask task, long delay, long period
 
         TimerTask timerTask = new TimerTask() {
             volatile int time;
