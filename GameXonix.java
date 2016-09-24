@@ -2,7 +2,7 @@
  * Java. Classic Game Xonix
  *
  * @author Sergey Iryupin
- * @version 0.2 dated September 24, 2016
+ * @version 0.3 dated September 25, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -27,10 +27,12 @@ class GameXonix extends JFrame {
     final int COLOR_WATER = 0;
     final int COLOR_LAND = 0x00a8a8;
     final int COLOR_TRACK = 0x901290;
+    final int PERCENT_OF_WATER_CAPTURE = 75;
+    Random random = new Random();
     Canvas canvas = new Canvas();
     Field field = new Field();
     Xonix xonix = new Xonix();
-    Ball ball = new Ball();
+    Balls balls = new Balls();
 
     public static void main(String[] args) {
         new GameXonix().go();
@@ -57,26 +59,36 @@ class GameXonix extends JFrame {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
             xonix.move();
-            ball.move();
-            if (xonix.isSelfCrosed() || ball.isHitTrackOrXonix()) {
+            balls.move();
+            if (xonix.isSelfCrosed() || balls.isHitTrackOrXonix()) {
                 field.clearTrack();
                 xonix = new Xonix();
+            }
+            if (field.getCurrentPercent() < PERCENT_OF_WATER_CAPTURE) {
+                field = new Field();
+                xonix = new Xonix();
+                balls.add();
             }
             canvas.repaint();
         }
     }
 
     class Field {
+        final int WATER_AREA = (FIELD_WIDTH - 4)*(FIELD_HEIGHT - 4);
         int[][] field = new int[FIELD_WIDTH][FIELD_HEIGHT];
+        float currentWaterArea;
 
         Field() {
             for (int y = 0; y < FIELD_HEIGHT; y++)
                 for (int x = 0; x < FIELD_WIDTH; x++)
                     field[x][y] = (x < 2 || x > FIELD_WIDTH - 3 || y < 2 || y > FIELD_HEIGHT - 3)? COLOR_LAND : COLOR_WATER;
+            currentWaterArea = WATER_AREA;
         }
 
         int getColor(int x, int y) { return field[x][y]; }
         void setColor(int x, int y, int color) { field[x][y] = color; }
+
+        float getCurrentPercent() { return currentWaterArea / WATER_AREA * 100; }
 
         void clearTrack() { // clear track of Xonix
             for (int y = 0; y < FIELD_HEIGHT; y++)
@@ -92,11 +104,15 @@ class GameXonix extends JFrame {
         }
 
         void tryToFill() {
-            fillTemporary(ball.getX(), ball.getY());
+            currentWaterArea = 0;
+            for (Ball ball : balls.getBalls()) fillTemporary(ball.getX(), ball.getY());
             for (int y = 0; y < FIELD_HEIGHT; y++)
                 for (int x = 0; x < FIELD_WIDTH; x++) {
                     if (field[x][y] == COLOR_TRACK || field[x][y] == COLOR_WATER) field[x][y] = COLOR_LAND;
-                    if (field[x][y] == COLOR_TEMP) field[x][y] = COLOR_WATER;
+                    if (field[x][y] == COLOR_TEMP) {
+                        field[x][y] = COLOR_WATER;
+                        currentWaterArea++;
+                    }
                 }
         }
 
@@ -156,14 +172,35 @@ class GameXonix extends JFrame {
         }
     }
 
+    class Balls {
+        ArrayList<Ball> balls = new ArrayList<Ball>();
+
+        Balls() { add(); }
+
+        void add() { balls.add(new Ball()); }
+
+        void move() { for (Ball ball : balls) ball.move(); }
+
+        ArrayList<Ball> getBalls() { return balls; }
+
+        boolean isHitTrackOrXonix() {
+            for (Ball ball : balls) if (ball.isHitTrackOrXonix()) return true;
+            return false;
+        }
+
+        void paint(Graphics g) { for (Ball ball : balls) ball.paint(g); }
+    }
+
     class Ball {
         int x, y, dx, dy;
 
         Ball() {
-            x = 5;
-            y = 5;
-            dx = 1;
-            dy = 1;
+            do {
+                x = random.nextInt(FIELD_WIDTH);
+                y = random.nextInt(FIELD_HEIGHT);
+            } while (field.getColor(x, y) > COLOR_WATER);
+            dx = random.nextBoolean()? 1 : -1;
+            dy = random.nextBoolean()? 1 : -1;
         }
 
         void move() {
@@ -196,7 +233,7 @@ class GameXonix extends JFrame {
             super.paint(g);
             field.paint(g);
             xonix.paint(g);
-            ball.paint(g);
+            balls.paint(g);
         }
     }
 }
