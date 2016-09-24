@@ -2,7 +2,7 @@
  * Java. Classic Game Xonix
  *
  * @author Sergey Iryupin
- * @version 0.1 dated September 23, 2016
+ * @version 0.2 dated September 24, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -23,11 +23,14 @@ class GameXonix extends JFrame {
     final int RIGHT = 39;
     final int DOWN = 40;
     final int SHOW_DELAY = 60; // delay for animation
+    final int COLOR_TEMP = 1; // for temporary filling
+    final int COLOR_WATER = 0;
     final int COLOR_LAND = 0x00a8a8;
     final int COLOR_TRACK = 0x901290;
-    int[][] field = new int[FIELD_WIDTH][FIELD_HEIGHT];
     Canvas canvas = new Canvas();
+    Field field = new Field();
     Xonix xonix = new Xonix();
+    Ball ball = new Ball();
 
     public static void main(String[] args) {
         new GameXonix().go();
@@ -45,7 +48,6 @@ class GameXonix extends JFrame {
                     xonix.setDirection(e.getKeyCode());
             }
         });
-        initField();
         setVisible(true);
     }
 
@@ -55,29 +57,61 @@ class GameXonix extends JFrame {
                 Thread.sleep(SHOW_DELAY);
             } catch (Exception e) { e.printStackTrace(); }
             xonix.move();
-            if (xonix.isSelfCrosed()) {
-                clearTrack();
+            ball.move();
+            if (xonix.isSelfCrosed() || ball.isHitTrackOrXonix()) {
+                field.clearTrack();
                 xonix = new Xonix();
             }
             canvas.repaint();
         }
     }
 
-    void initField() {
-        for (int y = 0; y < FIELD_HEIGHT; y++)
-            for (int x = 0; x < FIELD_WIDTH; x++)
-                if (x < 2 || x > FIELD_WIDTH - 3 || y < 2 || y > FIELD_HEIGHT - 3) field[x][y] = COLOR_LAND;
-    }
+    class Field {
+        int[][] field = new int[FIELD_WIDTH][FIELD_HEIGHT];
 
-    void clearTrack() {
-        for (int y = 0; y < FIELD_HEIGHT; y++)
-            for (int x = 0; x < FIELD_WIDTH; x++)
-                if (field[x][y] == COLOR_TRACK) field[x][y] = 0;
+        Field() {
+            for (int y = 0; y < FIELD_HEIGHT; y++)
+                for (int x = 0; x < FIELD_WIDTH; x++)
+                    field[x][y] = (x < 2 || x > FIELD_WIDTH - 3 || y < 2 || y > FIELD_HEIGHT - 3)? COLOR_LAND : COLOR_WATER;
+        }
+
+        int getColor(int x, int y) { return field[x][y]; }
+        void setColor(int x, int y, int color) { field[x][y] = color; }
+
+        void clearTrack() { // clear track of Xonix
+            for (int y = 0; y < FIELD_HEIGHT; y++)
+                for (int x = 0; x < FIELD_WIDTH; x++)
+                    if (field[x][y] == COLOR_TRACK) field[x][y] = COLOR_WATER;
+        }
+
+        void fillTemporary(int x, int y) {
+            if (field[x][y] > COLOR_WATER) return;
+            field[x][y] = COLOR_TEMP; // filling temporary color
+            for (int dx = -1; dx < 2; dx++)
+                for (int dy = -1; dy < 2; dy++) fillTemporary(x + dx, y + dy);
+        }
+
+        void tryToFill() {
+            fillTemporary(ball.getX(), ball.getY());
+            for (int y = 0; y < FIELD_HEIGHT; y++)
+                for (int x = 0; x < FIELD_WIDTH; x++) {
+                    if (field[x][y] == COLOR_TRACK || field[x][y] == COLOR_WATER) field[x][y] = COLOR_LAND;
+                    if (field[x][y] == COLOR_TEMP) field[x][y] = COLOR_WATER;
+                }
+        }
+
+        void paint(Graphics g) {
+            for (int y = 0; y < FIELD_HEIGHT; y++)
+                for (int x = 0; x < FIELD_WIDTH; x++) {
+                    g.setColor(new Color(field[x][y]));
+                    g.fillRect(x*POINT_SIZE, y*POINT_SIZE, POINT_SIZE, POINT_SIZE);
+                }
+        }
     }
 
     class Xonix {
         int x, y, direction;
-        boolean isWater, isCross;
+        boolean isWater, isSelfCross;
 
         Xonix() {
             y = 0;
@@ -85,6 +119,9 @@ class GameXonix extends JFrame {
             direction = 0;
             isWater = false;
         }
+
+        int getX() { return x; }
+        int getY() { return y; }
 
         void setDirection(int direction) { this.direction = direction; }
 
@@ -97,24 +134,59 @@ class GameXonix extends JFrame {
             if (y < 0) y = 0;
             if (y > FIELD_HEIGHT - 1) y = FIELD_HEIGHT - 1;
             if (x > FIELD_WIDTH - 1) x = FIELD_WIDTH - 1;
-            isCross = field[x][y] == COLOR_TRACK;
-            if (field[x][y] != 0 && isWater) {
+            isSelfCross = field.getColor(x, y) == COLOR_TRACK;
+            if (field.getColor(x, y) != COLOR_WATER && isWater) {
                 direction = 0;
                 isWater = false;
+                field.tryToFill();
             }
-            if (field[x][y] == 0) {
+            if (field.getColor(x, y) == COLOR_WATER) {
                 isWater = true;
-                field[x][y] = COLOR_TRACK;
+                field.setColor(x, y, COLOR_TRACK);
             }
         }
 
-        boolean isSelfCrosed() { return isCross; }
+        boolean isSelfCrosed() { return isSelfCross; }
 
         void paint(Graphics g) {
-            g.setColor((field[x][y] == COLOR_LAND) ? new Color(COLOR_TRACK) : Color.white);
+            g.setColor((field.getColor(x, y) == COLOR_LAND) ? new Color(COLOR_TRACK) : Color.white);
             g.fillRect(x*POINT_SIZE, y*POINT_SIZE, POINT_SIZE, POINT_SIZE);
-            g.setColor((field[x][y] == COLOR_LAND) ? Color.white : new Color(COLOR_TRACK));
-            g.fillRect(x*POINT_SIZE + 3, y*POINT_SIZE + 3, 4, 4);
+            g.setColor((field.getColor(x, y) == COLOR_LAND) ? Color.white : new Color(COLOR_TRACK));
+            g.fillRect(x*POINT_SIZE + 3, y*POINT_SIZE + 3, POINT_SIZE - 6, POINT_SIZE - 6);
+        }
+    }
+
+    class Ball {
+        int x, y, dx, dy;
+
+        Ball() {
+            x = 5;
+            y = 5;
+            dx = 1;
+            dy = 1;
+        }
+
+        void move() {
+            if (field.getColor(x + dx, y) == COLOR_LAND) dx = -dx;
+            if (field.getColor(x, y + dy) == COLOR_LAND) dy = -dy;
+            x += dx;
+            y += dy;
+        }
+
+        int getX() { return x; }
+        int getY() { return y; }
+
+        boolean isHitTrackOrXonix() {
+            if (field.getColor(x + dx, y + dy) == COLOR_TRACK) return true;
+            if (xonix.getX() == x + dx && xonix.getY() == x + dy) return true;
+            return false;
+        }
+
+        void paint(Graphics g) {
+            g.setColor(Color.white);
+            g.fillOval(x*POINT_SIZE, y*POINT_SIZE, POINT_SIZE, POINT_SIZE);
+            g.setColor(new Color(COLOR_LAND));
+            g.fillOval(x*POINT_SIZE + 2, y*POINT_SIZE + 2, POINT_SIZE - 4, POINT_SIZE - 4);
         }
     }
 
@@ -122,12 +194,9 @@ class GameXonix extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            for (int y = 0; y < FIELD_HEIGHT; y++)
-                for (int x = 0; x < FIELD_WIDTH; x++) {
-                    g.setColor(new Color(field[x][y]));
-                    g.fillRect(x*POINT_SIZE, y*POINT_SIZE, POINT_SIZE, POINT_SIZE);
-                }
+            field.paint(g);
             xonix.paint(g);
+            ball.paint(g);
         }
     }
 }
