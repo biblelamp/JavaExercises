@@ -2,7 +2,7 @@
  * Java. Classic Game Xonix
  *
  * @author Sergey Iryupin
- * @version 0.4 dated September 25, 2016
+ * @version 0.4.1 dated September 26, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -16,7 +16,7 @@ class GameXonix extends JFrame {
     final int FIELD_WIDTH = 640 / POINT_SIZE;
     final int FIELD_HEIGHT = 460 / POINT_SIZE;
     final int FIELD_DX = 6;
-    final int FIELD_DY = 28 + 26;
+    final int FIELD_DY = 28 + 28;
     final int START_LOCATION = 200;
     final int LEFT = 37; // key codes
     final int UP = 38;
@@ -29,9 +29,7 @@ class GameXonix extends JFrame {
     final int COLOR_TRACK = 0x901290;
     final int PERCENT_OF_WATER_CAPTURE = 75;
     final String FORMAT_STRING = "Score: %d %20s %d %20s %2.0f%%";
-    final Font font = new Font("", Font.BOLD, 20);
-    int countScore = 0;
-    int countLives = 3;
+    final Font font = new Font("", Font.BOLD, 21);
     Random random = new Random();
     Canvas canvas = new Canvas();
     JLabel board = new JLabel();
@@ -40,6 +38,7 @@ class GameXonix extends JFrame {
     Xonix xonix = new Xonix();
     Balls balls = new Balls();
     Cube cube = new Cube();
+    GameOver gameover = new GameOver();
 
     public static void main(String[] args) {
         new GameXonix().go();
@@ -67,23 +66,25 @@ class GameXonix extends JFrame {
     }
 
     void go() { // main loop of game
-        while (true) {
+        while (!gameover.isGameOver()) {
             xonix.move();
             balls.move();
             cube.move();
             canvas.repaint();
-            board.setText(String.format(FORMAT_STRING, countScore, "Xn:", countLives, "Full:", field.getCurrentPercent()));
+            board.setText(String.format(FORMAT_STRING, field.getCountScore(), "Xn:", xonix.getCountLives(), "Full:", field.getCurrentPercent()));
             delay.wait(SHOW_DELAY);
             if (xonix.isSelfCrosed() || balls.isHitTrackOrXonix() || cube.isHitXonix()) {
-                field.clearTrack();
-                xonix = new Xonix();
-                countLives--;
-                delay.wait(SHOW_DELAY * 10);
+                xonix.decreaseCountLives();
+                if (xonix.getCountLives() > 0) {
+                    xonix.init();
+                    field.clearTrack();
+                    delay.wait(SHOW_DELAY * 10);
+                }
             }
             if (field.getCurrentPercent() >= PERCENT_OF_WATER_CAPTURE) {
-                field = new Field();
-                xonix = new Xonix();
-                cube = new Cube();
+                field.init();
+                xonix.init();
+                cube.init();
                 balls.add();
                 delay.wait(SHOW_DELAY * 10);
             }
@@ -94,8 +95,13 @@ class GameXonix extends JFrame {
         private final int WATER_AREA = (FIELD_WIDTH - 4)*(FIELD_HEIGHT - 4);
         private int[][] field = new int[FIELD_WIDTH][FIELD_HEIGHT];
         private float currentWaterArea;
+        private int countScore = 0;
 
         Field() {
+            init();
+        }
+
+        void init() {
             for (int y = 0; y < FIELD_HEIGHT; y++)
                 for (int x = 0; x < FIELD_WIDTH; x++)
                     field[x][y] = (x < 2 || x > FIELD_WIDTH - 3 || y < 2 || y > FIELD_HEIGHT - 3)? COLOR_LAND : COLOR_WATER;
@@ -109,6 +115,7 @@ class GameXonix extends JFrame {
 
         void setColor(int x, int y, int color) { field[x][y] = color; }
 
+        int getCountScore() { return countScore; }
         float getCurrentPercent() { return 100f - currentWaterArea / WATER_AREA * 100; }
 
         void clearTrack() { // clear track of Xonix
@@ -150,10 +157,14 @@ class GameXonix extends JFrame {
     }
 
     class Xonix {
-        private int x, y, direction;
+        private int x, y, direction, countLives = 3;
         private boolean isWater, isSelfCross;
 
         Xonix() {
+            init();
+        }
+
+        void init() {
             y = 0;
             x = FIELD_WIDTH / 2;
             direction = 0;
@@ -162,6 +173,9 @@ class GameXonix extends JFrame {
 
         int getX() { return x; }
         int getY() { return y; }
+        int getCountLives() { return countLives; }
+
+        void decreaseCountLives() { countLives--; }
 
         void setDirection(int direction) { this.direction = direction; }
 
@@ -199,7 +213,9 @@ class GameXonix extends JFrame {
     class Balls {
         private ArrayList<Ball> balls = new ArrayList<Ball>();
 
-        Balls() { add(); }
+        Balls() {
+            add();
+        }
 
         void add() { balls.add(new Ball()); }
 
@@ -227,9 +243,13 @@ class GameXonix extends JFrame {
             dy = random.nextBoolean()? 1 : -1;
         }
 
-        void move() {
+        void updateDXandDY() {
             if (field.getColor(x + dx, y) == COLOR_LAND) dx = -dx;
             if (field.getColor(x, y + dy) == COLOR_LAND) dy = -dy;
+        }
+
+        void move() {
+            updateDXandDY();
             x += dx;
             y += dy;
         }
@@ -238,6 +258,7 @@ class GameXonix extends JFrame {
         int getY() { return y; }
 
         boolean isHitTrackOrXonix() {
+            updateDXandDY();
             if (field.getColor(x + dx, y + dy) == COLOR_TRACK) return true;
             if (x + dx == xonix.getX() && y + dy == xonix.getY()) return true;
             return false;
@@ -255,19 +276,24 @@ class GameXonix extends JFrame {
         private int x, y, dx, dy;
 
         Cube() {
-            x = dx = dy = 1;
+            init();
+        }
+
+        void init() { x = dx = dy = 1; }
+
+        void updateDXandDY() {
+            if (field.getColor(x + dx, y) == COLOR_WATER) dx = -dx;
+            if (field.getColor(x, y + dy) == COLOR_WATER) dy = -dy;
         }
 
         void move() {
-            if (field.getColor(x + dx, y) == COLOR_WATER) dx = -dx;
-            if (field.getColor(x, y + dy) == COLOR_WATER) dy = -dy;
+            updateDXandDY();
             x += dx;
             y += dy;
         }
 
         boolean isHitXonix() {
-            if (field.getColor(x + dx, y) == COLOR_WATER) dx = -dx;
-            if (field.getColor(x, y + dy) == COLOR_WATER) dy = -dy;
+            updateDXandDY();
             if (x + dx == xonix.getX() && y + dy == xonix.getY()) return true;
             return false;
         }
@@ -288,6 +314,23 @@ class GameXonix extends JFrame {
         }
     }
 
+    class GameOver {
+        private final String GAME_OVER_MSG = "GAME OVER";
+        private boolean gameOver;
+
+        boolean isGameOver() { return gameOver; }
+
+        void paint(Graphics g) {
+            if (xonix.getCountLives() == 0) {
+                gameOver = true;
+                g.setColor(Color.white);
+                g.setFont(new Font("", Font.BOLD, 60));
+                FontMetrics fm = g.getFontMetrics();
+                g.drawString(GAME_OVER_MSG, (FIELD_WIDTH*POINT_SIZE + FIELD_DX - fm.stringWidth(GAME_OVER_MSG))/2, (FIELD_HEIGHT*POINT_SIZE)/2);
+            }
+        }
+    }
+
     class Canvas extends JPanel { // my canvas for painting
         @Override
         public void paint(Graphics g) {
@@ -296,6 +339,7 @@ class GameXonix extends JFrame {
             xonix.paint(g);
             balls.paint(g);
             cube.paint(g);
+            gameover.paint(g);
         }
     }
 }
