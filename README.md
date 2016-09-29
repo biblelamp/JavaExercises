@@ -11,7 +11,10 @@ Implementation of the popular game Snake. You can see webinar "[Write classic ga
 Implementation of the popular game Tetris, which was invented in the USSR Alexey Pajitnov and presented June 6, 1984. You can see webinar "[Write classic game Tetris](https://www.youtube.com/watch?v=sCit9jzDSrE)" (in Russian).
 
 ## GameSpaceInvaders.java
-Implementation of the famous game Space Invaders. It is an arcade video game created by Tomohiro Nishikado and released in 1978.
+Implementation of the famous game Space Invaders. It is an arcade video game created by Tomohiro Nishikado and released in 1978. You can see webinar "[Write game Space Invaders](https://www.youtube.com/watch?v=j5P7j-zelxc)" (in Russian).
 
 ## GameMines.java
-Implementation of the simple game Minesweeper.
+Implementation of the famous game Minesweeper. You can see webinar "[Write game Minesweeper](https://www.youtube.com/watch?v=xPdrl70ZYnE)" (in Russian).
+
+## GameXonix.java
+Implementation of the famous game Xonix.
