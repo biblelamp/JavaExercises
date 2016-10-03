@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated 24 Aug 2016
+ * @version 0.3.4 dated October 03, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +11,7 @@ import javax.imageio.*;
 import java.util.*;
 import java.io.*;
 
-public class GameSnake {
+class GameSnake extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Classic Game Snake";
     final String GAME_OVER_MSG = "GAME OVER";
@@ -33,55 +33,45 @@ public class GameSnake {
     final Color DEFAULT_COLOR = Color.gray;
     //final Color FOOD_COLOR = Color.green;
     //final Color POISON_COLOR = Color.red;
-    Snake snake;
-    Food food;
-    Poison poison;
     Image apple, amanita; // images for food and poison
-    JFrame frame;
-    Canvas canvasPanel;
     Random random = new Random();
+    Canvas canvas = new Canvas();
+    Snake snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, START_DIRECTION);
+    Food food = new Food();
+    Poison poison = new Poison();
     boolean gameOver = false;
 
     public static void main(String[] args) {
         new GameSnake().go();
     }
 
-    void go() {
-        frame = new JFrame(TITLE_OF_PROGRAM + " : " + START_SNAKE_SIZE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_WIDTH * POINT_RADIUS + FIELD_DX, FIELD_HEIGHT * POINT_RADIUS + FIELD_DY);
-        frame.setLocation(START_LOCATION, START_LOCATION);
-        frame.setResizable(false);
-
-        canvasPanel = new Canvas();
-        canvasPanel.setBackground(Color.white);
-
-        frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
-        frame.addKeyListener(new KeyAdapter() {
+    GameSnake() {
+        setTitle(TITLE_OF_PROGRAM + " : " + START_SNAKE_SIZE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBounds(START_LOCATION, START_LOCATION, FIELD_WIDTH * POINT_RADIUS + FIELD_DX, FIELD_HEIGHT * POINT_RADIUS + FIELD_DY);
+        setResizable(false);
+        canvas.setBackground(Color.white);
+        add(BorderLayout.CENTER, canvas);
+        addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 snake.setDirection(e.getKeyCode());
             }
         });
-
-        frame.setVisible(true);
-
-        snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, START_DIRECTION);
-        food = new Food();
-        poison = new Poison();
-
         try {
             apple = ImageIO.read(new File("img/apple.png"));
             amanita = ImageIO.read(new File("img/amanita.png"));
         } catch(IOException e) { e.printStackTrace(); }
-
-        // main loop of game
+        setVisible(true);
+    }
+    
+    void go() { // main loop of game
         while (!gameOver) {
             snake.move();
             if (food.isEaten()) {
                 food.next();
                 poison.add();
             }
-            canvasPanel.repaint();
+            canvas.repaint();
             try {
                 Thread.sleep(SHOW_DELAY);
             } catch (InterruptedException e) { e.printStackTrace(); }
@@ -89,24 +79,19 @@ public class GameSnake {
     }
 
     class Snake {
-        ArrayList<Point> snake = new ArrayList<Point>();
-        int direction;
+        private ArrayList<Point> snake = new ArrayList<Point>();
+        private int direction;
 
         public Snake(int x, int y, int length, int direction) {
-            for (int i = 0; i < length; i++) {
-                snake.add(new Point(x - i, y));
-            }
+            for (int i = 0; i < length; i++) snake.add(new Point(x - i, y));
             this.direction = direction;
         }
 
         boolean isInsideSnake(int x, int y) {
-            for (Point point : snake) {
-                if ((point.getX() == x) && (point.getY() == y)) {
-                    if (!((snake.get(snake.size() - 1).getX() == x) && (snake.get(snake.size() - 1).getY() == y))) { // to exclude snake's tail
+            for (Point point : snake)
+                if ((point.getX() == x) && (point.getY() == y))
+                    if (!((snake.get(snake.size() - 1).getX() == x) && (snake.get(snake.size() - 1).getY() == y))) // to exclude snake's tail
                         return true;
-                    }
-                }
-            }
             return false;
         }
 
@@ -129,24 +114,20 @@ public class GameSnake {
             snake.add(0, new Point(x, y)); // new position for head
             if (isFood(food)) { // check meeting food
                 food.eat();
-                frame.setTitle(TITLE_OF_PROGRAM + " : " + snake.size());
+                setTitle(TITLE_OF_PROGRAM + " : " + snake.size());
             } else {
                 snake.remove(snake.size() - 1);
             }
         }
 
         void setDirection(int direction) {
-            if ((direction >= LEFT) && (direction <= DOWN)) { // block wrong codes
-                if (Math.abs(this.direction - direction) != 2) { // block moving back
+            if ((direction >= LEFT) && (direction <= DOWN)) // block wrong codes
+                if (Math.abs(this.direction - direction) != 2) // block moving back
                     this.direction = direction;
-                }
-            }
         }
 
         void paint(Graphics g) {
-            for (Point point : snake) {
-                point.paint(g);
-            }
+            for (Point point : snake) point.paint(g);
         }
     }
 
@@ -157,17 +138,11 @@ public class GameSnake {
             //this.color = FOOD_COLOR;
         }
 
-        void eat() {
-            this.setXY(-1, -1);
-        }
+        void eat() { this.setXY(-1, -1); }
 
-        boolean isEaten(){
-            return this.getX() == -1;
-        }
+        boolean isEaten(){ return this.getX() == -1; }
 
-        boolean isFood(int x, int y) {
-            return (this.x == x) && (this.y == y);
-        }
+        boolean isFood(int x, int y) { return (this.x == x) && (this.y == y); }
 
         void next() {
             int x, y;
@@ -177,21 +152,17 @@ public class GameSnake {
             } while (snake.isInsideSnake(x, y) || poison.isPoison(x, y));
             this.setXY(x, y);
         }
-        
+
         void paint(Graphics g) {
             g.drawImage(apple, x*POINT_RADIUS, y*POINT_RADIUS, null);
         }
     }
 
     class Poison {
-        ArrayList<Point> poison = new ArrayList<Point>();
+        private ArrayList<Point> poison = new ArrayList<Point>();
 
         boolean isPoison(int x, int y) {
-            for (Point point : poison) {
-                if ((point.getX() == x) && (point.getY() == y)) {
-                    return true;
-                }
-            }
+            for (Point point : poison) if ((point.getX() == x) && (point.getY() == y)) return true;
             return false;
         }
 
@@ -205,27 +176,26 @@ public class GameSnake {
         }
 
         void paint(Graphics g) {
-            for (Point point : poison) {
-                g.drawImage(amanita, point.getX()*POINT_RADIUS, point.getY()*POINT_RADIUS, null);
-            }
+            for (Point point : poison) g.drawImage(amanita, point.getX()*POINT_RADIUS, point.getY()*POINT_RADIUS, null);
         }
     }
 
     class Point {
-        int x, y;
-        Color color = DEFAULT_COLOR;
+        protected int x, y;
+        protected Color color = DEFAULT_COLOR;
 
         public Point(int x, int y) {
-            this.setXY(x, y);
+            setXY(x, y);
         }
 
         public Point(int x, int y, Color color) {
-            this.setXY(x, y);
+            setXY(x, y);
             this.color = color;
         }
 
         int getX() { return x; }
         int getY() { return y; }
+
         void setXY(int x, int y) {
             this.x = x;
             this.y = y;
@@ -237,8 +207,7 @@ public class GameSnake {
         }
     }
 
-    public class Canvas extends JPanel {
-
+    class Canvas extends JPanel {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
