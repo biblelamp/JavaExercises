@@ -8,6 +8,12 @@ class Stepic_5_2_8 {
         System.out.println(checkSumOfStream(is));
     }
 
+    /*
+     * A method which reads an input stream and computes a checksum
+     * The checksum is calculated by the following recurrent formula:
+     * C[n+1] = rotateLeft(C[n]) xor b[n+1]
+     */
+
     static int checkSumOfStream(InputStream is) throws IOException {
         int b;
         int checkSum = 0;
