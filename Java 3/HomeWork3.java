@@ -3,7 +3,7 @@
  * 1. Read the small file (about 1 kb) in a byte array
  * 2. Sew together 10 files one by one
  * 3. Read file (a small book of 20-50 kb) and count the number of unique words
- *
+ * 4. Read the book and count how many times each letter of the alphabet
  */
 import java.io.*;
 import java.util.*;
@@ -51,11 +51,25 @@ class HomeWork3 {
         } catch(IOException e) {
             e.printStackTrace();
         }
-        for (Map.Entry<String, Integer> o : set) {
-            System.out.println(o.getKey() + ": " + o.getValue());
-        }
+        //for (Map.Entry<String, Integer> o : set) {
+        //    System.out.println(o.getKey() + ": " + o.getValue());
+        //}
         System.out.println("The book has " + hm.size() + " unique words.");
 
+        // task 4
+        int[] alphabet = new int[26];
+        Arrays.fill(alphabet, 0);
+        try (BufferedReader  reader = new BufferedReader (new InputStreamReader(new FileInputStream(BOOK_FILE_NAME)))) {
+            int character;
+            while ((character = reader.read()) != -1) {
+                if (character >= (int)'A' && character <= (int)'Z') character += 32;
+                if (character >= (int)'a' && character <= (int)'z') alphabet[character - 97]++;
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i< alphabet.length; i++)
+            System.out.println((char)(i + 97) + ": " + alphabet[i]);
     }
 
     byte[] getFileToByteArray(String fileName) {
