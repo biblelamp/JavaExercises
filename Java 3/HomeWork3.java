@@ -3,7 +3,8 @@
  * 1. Read the small file (about 1 kb) in a byte array
  * 2. Sew together 10 files one by one
  * 3. Read file (a small book of 20-50 kb) and count the number of unique words
- * 4. Read the book and count how many times each letter of the alphabet
+ * 4. Read the book and count number of each letter of the alphabet
+ * 5. Read the book and count number of vowels and consonants letters
  */
 import java.io.*;
 import java.util.*;
@@ -70,6 +71,33 @@ class HomeWork3 {
         }
         for (int i = 0; i< alphabet.length; i++)
             System.out.println((char)(i + 97) + ": " + alphabet[i]);
+
+        // task 5
+        int vowel = 0;
+        int vowelCond = 0;
+        int consonant = 0;
+        try (BufferedReader  reader = new BufferedReader (new InputStreamReader(new FileInputStream(BOOK_FILE_NAME)))) {
+            int character;
+            while ((character = reader.read()) != -1) {
+                if (character >= (int)'A' && character <= (int)'Z') character += 32;
+                switch ((char)character) {
+                    case 'a':
+                    case 'e':
+                    case 'i':
+                    case 'o':
+                    case 'u': vowel++;
+                        break;
+                    case 'y':
+                    case 'w': vowelCond++;
+                        break;
+                    default: consonant++;
+                    
+                }
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(String.format("The number of vowels is %d, conditionally vowels is %d, consonants is %d", vowel, vowelCond, consonant));
     }
 
     byte[] getFileToByteArray(String fileName) {
