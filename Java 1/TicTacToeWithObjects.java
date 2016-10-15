@@ -2,12 +2,15 @@
  * Java. Game TicTacToe with objects
  *
  * @author Sergey Iryupin
- * @version 0.1 dated October 15, 2016
+ * @version 0.2 dated October 15, 2016
  */
 import java.util.*;
 
 class TicTacToeWithObjects {
 
+    final String HUMAN_WON = "You won!";
+    final String AI_WON = "AI won!";
+    final String DRAW_MSG = "Sorry draw...";
     Field field = new Field();
     Human human = new Human();
     AI ai = new AI();
@@ -24,22 +27,21 @@ class TicTacToeWithObjects {
             human.turn();
             field.print();
             if (field.isWin(human.getDot())) {
-                System.out.println("You won!");
+                System.out.println(HUMAN_WON);
                 break;
             }
             if (field.isFull()) {
-                System.out.println("Sorry draw...");
+                System.out.println(DRAW_MSG);
                 break;
             }
             ai.turn();
-            System.out.println("AI made its turn");
             field.print();
             if (field.isWin(ai.getDot())) {
-                System.out.println("AI won!");
+                System.out.println(AI_WON);
                 break;
             }
             if (field.isFull()) {
-                System.out.println("Sorry draw...");
+                System.out.println(DRAW_MSG);
                 break;
             }
         }
@@ -116,6 +118,7 @@ class TicTacToeWithObjects {
         char getDot() { return DOT; }
 
         void turn() {
+            System.out.println("AI made its turn");
             int x, y;
             do {
                 x = rand.nextInt(field.getSize());
