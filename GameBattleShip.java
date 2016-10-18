@@ -2,7 +2,7 @@
  * Java. Game Battle Ship
  *
  * @author Sergey Iryupin
- * @version 0.2 dated October 17, 2016
+ * @version 0.2.1 dated October 17, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -48,9 +48,8 @@ class GameBattleShip extends JFrame {
                 super.mouseReleased(e);
                 int x = e.getX()/CELL_SIZE;
                 int y = e.getY()/CELL_SIZE;
-                if (e.getButton() == MOUSE_BUTTON_LEFT) // left button mouse
-                    game.getHumanShot(x, y);
-                if (e.getButton() == MOUSE_BUTTON_RIGHT) game.getMark(x, y);
+                if (e.getButton() == MOUSE_BUTTON_LEFT) game.shotHuman(x, y);
+                if (e.getButton() == MOUSE_BUTTON_RIGHT) game.setUnsetLabel(x, y);
             }
         });
         // panel for buttons
@@ -64,7 +63,7 @@ class GameBattleShip extends JFrame {
                 setTitle(TITLE_OF_PROGRAM + " : " + (game.getShowMode() ? TITLE_OF_HUMAN_FIELD : TITLE_OF_AI_FIELD));
                 canvas.repaint();
             }
-        });        
+        });
         JButton init = new JButton(BTN_NEW_GAME);
         init.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -105,23 +104,25 @@ class GameBattleShip extends JFrame {
 
         boolean getShowMode() { return isHumanVisible; }
 
-        void getMark(int x, int y) {
+        void setUnsetLabel(int x, int y) {
             if (!isHumanVisible) {
-                humanShots.add(x, y, false);
+                Shot label = humanShots.getLabel(x, y);
+                if (label != null) humanShots.removeLabel(label);
+                else humanShots.add(x, y, false);
                 canvas.repaint();
             }
         }
 
-        void getHumanShot(int x, int y) {
+        void shotHuman(int x, int y) {
             if (!isHumanVisible) {
-                if (aiShips.checkHit(x, y)) { // human hit the target
-                    if (!aiShips.checkSurvivors())
-                        System.out.println("YOU WON!");
-                } else { // human missed - AI will shoot
+                if (!humanShots.hitSamePlace(x, y)) {
                     humanShots.add(x, y, true);
-                    shootsAI();
+                    if (aiShips.checkHit(x, y)) { // human hit the target
+                        if (!aiShips.checkSurvivors())
+                            System.out.println("YOU WON!");
+                    } else shootsAI(); // human missed - AI will shoot
+                    canvas.repaint();
                 }
-                canvas.repaint();
             }
         }
 
@@ -131,9 +132,9 @@ class GameBattleShip extends JFrame {
                 x = random.nextInt(NUMBER_OF_CELLS);
                 y = random.nextInt(NUMBER_OF_CELLS);
             } while (aiShots.hitSamePlace(x, y));
+            aiShots.add(x, y, true);
             if (!humanShips.checkHit(x, y)) { // AI missed
                 System.out.println(x + ":" + y + " AI missed.");
-                aiShots.add(x, y, true);
                 return;
             } else { // AI hit the target - AI can shoot again
                 System.out.println(x + ":" + y + " AI hit the target.");
@@ -157,7 +158,7 @@ class GameBattleShip extends JFrame {
 
     class Ships {
         ArrayList<Ship> ships = new ArrayList<Ship>();
-        final int[] pattern = {4, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1};
+        final int[] pattern = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
         boolean hide;
 
         Ships(boolean hide) {
@@ -175,8 +176,7 @@ class GameBattleShip extends JFrame {
         }
 
         boolean isOverlayOrTouch(Ship ctrlShip) {
-            for (Ship ship : ships)
-                if (ship.isOverlayOrTouch(ctrlShip)) return true;
+            for (Ship ship : ships) if (ship.isOverlayOrTouch(ctrlShip)) return true;
             return false;
         }
 
@@ -211,8 +211,7 @@ class GameBattleShip extends JFrame {
         }
 
         boolean isOverlayOrTouch(Ship ctrlShip) { // is ship overlay or touch other ships
-            for (Cell cell : cells)
-                if (ctrlShip.isOverlayOrTouchCell(cell)) return true;
+            for (Cell cell : cells) if (ctrlShip.isOverlayOrTouchCell(cell)) return true;
             return false;
         }
 
@@ -279,9 +278,16 @@ class GameBattleShip extends JFrame {
         }
 
         boolean hitSamePlace(int x, int y) {
-            for (Shot shot : shots) if (shot.getX() == x && shot.getY() == y) return true;
+            for (Shot shot : shots) if (shot.getX() == x && shot.getY() == y && shot.isShot()) return true;
             return false;
         }
+
+        Shot getLabel(int x, int y) {
+            for (Shot label : shots) if (label.getX() == x && label.getY() == y && (!label.isShot())) return label;
+            return null;
+        }
+
+        void removeLabel(Shot label) { shots.remove(label); }
 
         void paint(Graphics g) {
             for (Shot shot : shots) shot.paint(g);
@@ -300,6 +306,7 @@ class GameBattleShip extends JFrame {
 
         int getX() { return x; }
         int getY() { return y; }
+        boolean isShot() { return shot; }
 
         void paint(Graphics g) {
             g.setColor(Color.black);
