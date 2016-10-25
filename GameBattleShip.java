@@ -2,7 +2,7 @@
  * Java. Game Battle Ship
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated October 17, 2016
+ * @version 0.2.2 dated October 26, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -91,13 +91,14 @@ class GameBattleShip extends JFrame {
         Ships humanShips, aiShips;
         Shots humanShots, aiShots;
         boolean isHumanVisible;
+        boolean gameOver;
 
         Game() {
             humanShips = new Ships(false);
             humanShots = new Shots();
             aiShips = new Ships(true);
             aiShots = new Shots();
-            isHumanVisible = false;
+            isHumanVisible = gameOver = false;
         }
 
         void switchView() { isHumanVisible = !isHumanVisible; }
@@ -105,7 +106,7 @@ class GameBattleShip extends JFrame {
         boolean getShowMode() { return isHumanVisible; }
 
         void setUnsetLabel(int x, int y) {
-            if (!isHumanVisible) {
+            if (!isHumanVisible && !gameOver) {
                 Shot label = humanShots.getLabel(x, y);
                 if (label != null) humanShots.removeLabel(label);
                 else humanShots.add(x, y, false);
@@ -114,12 +115,14 @@ class GameBattleShip extends JFrame {
         }
 
         void shotHuman(int x, int y) {
-            if (!isHumanVisible) {
+            if (!isHumanVisible && !gameOver) {
                 if (!humanShots.hitSamePlace(x, y)) {
                     humanShots.add(x, y, true);
                     if (aiShips.checkHit(x, y)) { // human hit the target
-                        if (!aiShips.checkSurvivors())
+                        if (!aiShips.checkSurvivors()) {
                             System.out.println("YOU WON!");
+                            gameOver = true;
+                        }
                     } else shootsAI(); // human missed - AI will shoot
                     canvas.repaint();
                 }
@@ -138,14 +141,19 @@ class GameBattleShip extends JFrame {
                 return;
             } else { // AI hit the target - AI can shoot again
                 System.out.println(x + ":" + y + " AI hit the target.");
-                if (!humanShips.checkSurvivors())
+                if (!humanShips.checkSurvivors()) {
                     System.out.println("AI WON!");
-                else
+                    gameOver = true;
+                } else
                     shootsAI();
             }
         }
 
         void paint(Graphics g) {
+            for (int i = 0; i < NUMBER_OF_CELLS - 1; i++) {
+                g.drawLine(0, (i + 1)*CELL_SIZE, WINDOW_SIZE, (i + 1)*CELL_SIZE);
+                g.drawLine((i + 1)*CELL_SIZE, 0, (i + 1)*CELL_SIZE, WINDOW_SIZE);
+            }
             if (isHumanVisible) {
                 aiShots.paint(g);
                 humanShips.paint(g);
@@ -319,10 +327,6 @@ class GameBattleShip extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            for (int i = 0; i < NUMBER_OF_CELLS - 1; i++) {
-                g.drawLine(0, (i + 1)*CELL_SIZE, WINDOW_SIZE, (i + 1)*CELL_SIZE);
-                g.drawLine((i + 1)*CELL_SIZE, 0, (i + 1)*CELL_SIZE, WINDOW_SIZE);
-            }
             game.paint(g);
         }
     }
