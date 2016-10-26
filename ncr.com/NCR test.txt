@@ -1,0 +1,24 @@
+This is an initial part of the NCR interviewing process for Software developers. You are required to complete the tasks below and send it back to NCR for evaluation. Please do not forget to address all tasks. This part of the interview is aimed at finding out whether candidate’s skills roughly match skills required for the position.
+
+Coding
+
+The most important thing a software developer at NCR does is writing maintainable, robust, well tested, and high performance code. Correct OOP design, data structure best suited for the task, checking for edge cases, common error inputs and similar aspects will be main criteria by which your code will be evaluated. Take your time and deliver quality code. Use the programming language of the position you are applying for. You can take advantage of your favorite IDE.
+
+Your Tasks
+
+You are required to complete ALL tasks given below.
+
+1.  Create a library to detect duplicate sets of integer values. Two sets are considered duplicate when they contain the same number of items and their items are of the same value no matter what positions they are at.
+Example:
+1,2,3 is considered a duplicate of 2,1,3
+1,2,3 is not considered a duplicate of 1,2,3,1
+
+Library is required to provide:
+a)  a way to accept a string representing a new set of values delimited by comma sign “,” (e.g. “1,2,3”) and return true/false if the given set is a duplicate of a set seen before,
+b)  a way to return an information on number of duplicates and non-duplicates seen so far,
+c)  a way to list members of the most frequent duplicate group seen so far,
+d)  a way to return human readable report on list of invalid inputs seen so far.
+
+2.  What is your solution’s time and memory complexity? (Big O notation)
+3.  Create a set of unit tests to verify your solution. One of the unit tests is supposed to load records from enclosed input data file “input.txt” and verify your code correctly processes them.
+4.  Package your solution and your answers to the questions into a zip file and send them back to NCR for evaluation. Please let us know how long it took.
