@@ -2,7 +2,7 @@
  * Java. Game Battle Ship
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated October 26, 2016
+ * @version 0.2.3 dated October 27, 2016
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +18,8 @@ class GameBattleShip extends JFrame {
     final String BTN_SHOW_MY = "Show " + TITLE_OF_HUMAN_FIELD;
     final String BTN_SHOW_ENEMY = "Show " + TITLE_OF_AI_FIELD;
     final String BTN_EXIT_GAME = "Exit game";
+    final String YOU_WON = "YOU WON!";
+    final String AI_WON = "AI WON!";
     final int START_LOCATION = 200;
     final int WINDOW_SIZE = 450;
     final int WINDOW_DX = 6;
@@ -39,8 +41,7 @@ class GameBattleShip extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(START_LOCATION, START_LOCATION, WINDOW_SIZE + WINDOW_DX, WINDOW_SIZE + WINDOW_DY);
         setResizable(false);
-        // panel for painting
-        canvas = new Canvas();
+        canvas = new Canvas(); // panel for painting
         canvas.setBackground(Color.white);
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -52,8 +53,7 @@ class GameBattleShip extends JFrame {
                 if (e.getButton() == MOUSE_BUTTON_RIGHT) game.setUnsetLabel(x, y);
             }
         });
-        // panel for buttons
-        JPanel bp = new JPanel();
+        JPanel bp = new JPanel(); // panel for buttons
         bp.setLayout(new GridLayout());
         JButton show = new JButton(BTN_SHOW_MY);
         show.addActionListener(new ActionListener() {
@@ -88,10 +88,10 @@ class GameBattleShip extends JFrame {
     }
 
     class Game {
-        Ships humanShips, aiShips;
-        Shots humanShots, aiShots;
-        boolean isHumanVisible;
-        boolean gameOver;
+        Ships humanShips, aiShips; // set of ships for human and AI
+        Shots humanShots, aiShots; // set of shots from human and AI
+        boolean isHumanVisible, gameOver;
+        String gameOverMsg;
 
         Game() {
             humanShips = new Ships(false);
@@ -120,7 +120,7 @@ class GameBattleShip extends JFrame {
                     humanShots.add(x, y, true);
                     if (aiShips.checkHit(x, y)) { // human hit the target
                         if (!aiShips.checkSurvivors()) {
-                            System.out.println("YOU WON!");
+                            gameOverMsg = YOU_WON; //System.out.println(YOU_WON);
                             gameOver = true;
                         }
                     } else shootsAI(); // human missed - AI will shoot
@@ -142,7 +142,7 @@ class GameBattleShip extends JFrame {
             } else { // AI hit the target - AI can shoot again
                 System.out.println(x + ":" + y + " AI hit the target.");
                 if (!humanShips.checkSurvivors()) {
-                    System.out.println("AI WON!");
+                    gameOverMsg = AI_WON; //System.out.println(AI_WON);
                     gameOver = true;
                 } else
                     shootsAI();
@@ -150,6 +150,7 @@ class GameBattleShip extends JFrame {
         }
 
         void paint(Graphics g) {
+            g.setColor(Color.lightGray);
             for (int i = 0; i < NUMBER_OF_CELLS - 1; i++) {
                 g.drawLine(0, (i + 1)*CELL_SIZE, WINDOW_SIZE, (i + 1)*CELL_SIZE);
                 g.drawLine((i + 1)*CELL_SIZE, 0, (i + 1)*CELL_SIZE, WINDOW_SIZE);
@@ -161,12 +162,18 @@ class GameBattleShip extends JFrame {
                 humanShots.paint(g);
                 aiShips.paint(g);
             }
+            if (gameOver) {
+                g.setColor(Color.blue);
+                g.setFont(new Font("", Font.BOLD, 64));
+                FontMetrics fm = g.getFontMetrics();
+                g.drawString(gameOverMsg, (WINDOW_SIZE + WINDOW_DX - fm.stringWidth(gameOverMsg))/2, (WINDOW_SIZE + WINDOW_DY)/2);
+            }
         }
     }
 
     class Ships {
-        ArrayList<Ship> ships = new ArrayList<Ship>();
-        final int[] pattern = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
+        ArrayList<Ship> ships = new ArrayList<Ship>(); // array for ship
+        final int[] pattern = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1}; // pattern for ships
         boolean hide;
 
         Ships(boolean hide) {
@@ -317,7 +324,7 @@ class GameBattleShip extends JFrame {
         boolean isShot() { return shot; }
 
         void paint(Graphics g) {
-            g.setColor(Color.black);
+            g.setColor(Color.gray);
             if (shot) g.fillRect(x*CELL_SIZE + CELL_SIZE/2 - 3, y*CELL_SIZE + CELL_SIZE/2 - 3, 8, 8);
             else g.drawRect(x*CELL_SIZE + CELL_SIZE/2 - 3, y*CELL_SIZE + CELL_SIZE/2 - 3, 8, 8);
         }
