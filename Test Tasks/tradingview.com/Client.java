@@ -2,7 +2,7 @@
  * Java. Client - test task from TradingView
  *
  * @author Sergey Iryupin
- * @version 0.2 dated November 20, 2016
+ * @version 0.2.1 dated November 21, 2016
  */
 import java.io.*;
 import java.net.*;
@@ -10,10 +10,12 @@ import java.util.*;
 
 class Client {
 
-    Scanner scanner = new Scanner(System.in); // for keyboard input
-    final String IP_ADDRESS = "127.0.0.1";
-    final int PORT = 2048;
+    final String SERVER_IP = "127.0.0.1";
+    final int SERVER_PORT = 2048;
     final String EXIT_COMMAND = "exit"; // command for exit
+    final String CONNECTION_START = "Connection to server established.";
+    final String CONNECTION_CLOSED = "Connection closed.";
+    Scanner scanner = new Scanner(System.in); // for keyboard input
 
     Socket sock;
     PrintWriter writer;
@@ -26,10 +28,10 @@ class Client {
     void go() {
         String message;
         try {
-            sock = new Socket(IP_ADDRESS, PORT);
+            sock = new Socket(SERVER_IP, SERVER_PORT);
+            System.out.println(CONNECTION_START);
             writer = new PrintWriter(sock.getOutputStream());
             reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            System.out.println("Connection with the server established:");
             Thread getSrvMessage = new Thread(new ServerListener());
             getSrvMessage.start();
             try {
@@ -46,11 +48,12 @@ class Client {
         } catch(IOException ex) {
             ex.printStackTrace();
         }
+        System.out.println(CONNECTION_CLOSED);
     }
 
     class ServerListener implements Runnable { // get messages from Server
         public void run() {
-        String message;
+            String message;
             try {
                 while ((message = reader.readLine()) != null) {
                     System.out.println("get: " + message);
