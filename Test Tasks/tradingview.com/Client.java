@@ -2,7 +2,7 @@
  * Java. Client - test task from TradingView
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated November 21, 2016
+ * @version 0.2.2 dated November 23, 2016
  */
 import java.io.*;
 import java.net.*;
@@ -12,6 +12,7 @@ class Client {
 
     final String SERVER_IP = "127.0.0.1";
     final int SERVER_PORT = 2048;
+    final String PROMPT = "\n$";
     final String EXIT_COMMAND = "exit"; // command for exit
     final String CONNECTION_START = "Connection to server established.";
     final String CONNECTION_CLOSED = "Connection closed.";
@@ -29,7 +30,7 @@ class Client {
         String message;
         try {
             sock = new Socket(SERVER_IP, SERVER_PORT);
-            System.out.println(CONNECTION_START);
+            System.out.print(CONNECTION_START + PROMPT);
             writer = new PrintWriter(sock.getOutputStream());
             reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             Thread getSrvMessage = new Thread(new ServerListener());
@@ -56,7 +57,8 @@ class Client {
             String message;
             try {
                 while ((message = reader.readLine()) != null) {
-                    System.out.println("get: " + message);
+                    System.out.print(message);
+                    System.out.print(PROMPT);
                 }
             } catch(Exception ex) { 
                 ex.printStackTrace();
