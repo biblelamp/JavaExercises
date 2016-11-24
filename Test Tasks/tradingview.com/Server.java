@@ -2,7 +2,7 @@
  * Java. Server - test task from TradingView
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated November 23, 2016
+ * @version 0.3.2 dated November 24, 2016
  */
 import java.io.*;
 import java.net.*;
@@ -19,8 +19,14 @@ class Server {
     final String CLIENT_JOINED = "Client joined.";
     final String CLIENT_DISCONNECTED = "Client is disconnected.";
 
+    final String SERVER_DIR;
+
     public static void main(String[] args) {
-        new Server().go();
+        new Server(args).go();
+    }
+
+    Server(String[] args) {
+        SERVER_DIR = (args.length > 0)? args[0] : ".";
     }
 
     class ClientHandler implements Runnable {
@@ -48,13 +54,14 @@ class Server {
                     if (command[0].equals(LS_COMMAND)) { // list of files
                         message = getListOfFiles();
                     } else if (command[0].equals(GET_COMMAND)) { // get file
-                        message = getFile();
-                    } else if (message.toLowerCase().equals(EXIT_COMMAND)) { // logoff
+                        message = getFile(command[1]);
+                    } else if (message.equals(EXIT_COMMAND)) { // logoff
                         break;
                     } else {
                         message = UNKNOWN_COMMAND;
                     }
                     writer.println(message);
+                    writer.println("\0");
                     writer.flush();
                 }
             } catch(Exception ex) { 
@@ -65,13 +72,29 @@ class Server {
     }
 
     String getListOfFiles() {
-        String message;
-        return "list of file(s)";
+        String message = "";
+        File dir = new File(SERVER_DIR);
+        if (dir.exists()) {
+            File[] fileList = dir.listFiles();
+            for (File file : fileList)
+                if(file.isFile())
+                    message += "\n" + file.getName();
+        }
+        return "List of file(s):" + message;
     }
 
-    String getFile() {
-        String message;
-        return "get <filename>";
+    String getFile(String fileName) throws IOException {
+        File file = new File(SERVER_DIR + File.separator + fileName);
+        if (file.exists()) {
+            int length = (int) file.length();
+            char[] cbuf = new char[length];
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
+            int read = isr.read(cbuf); 
+            String message = new String(cbuf, 0, read);
+            return GET_COMMAND + " " + file.getName() + "\n" + message;
+        } else {
+            return "Error: no such file.";
+        }
     }
 
     void go() {
