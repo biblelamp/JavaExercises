@@ -2,10 +2,11 @@
  * Java. Server - test task from TradingView
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated November 24, 2016
+ * @version 0.3.3 dated November 25, 2016
  */
 import java.io.*;
 import java.net.*;
+import java.util.logging.*;
 
 class Server {
 
@@ -20,13 +21,24 @@ class Server {
     final String CLIENT_DISCONNECTED = "Client is disconnected.";
 
     final String SERVER_DIR;
+    final String LOG_FILE_NAME = "log.txt";
+    Logger logger; // for logging
 
     public static void main(String[] args) {
         new Server(args).go();
     }
 
     Server(String[] args) {
+        // set up dir
         SERVER_DIR = (args.length > 0)? args[0] : ".";
+        // set up logging
+        logger = Logger.getLogger(Server.class.getName());
+        try {
+            FileHandler fh = new FileHandler(LOG_FILE_NAME);
+            logger.addHandler(fh);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     class ClientHandler implements Runnable {
@@ -40,7 +52,7 @@ class Server {
                 reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                 writer = new PrintWriter(sock.getOutputStream());
             } catch(Exception ex) {
-                ex.printStackTrace(); 
+                ex.printStackTrace();
             }
         }
 
@@ -49,7 +61,8 @@ class Server {
             String[] command;
             try {
                 while ((message = reader.readLine()) != null) {
-                    System.out.println("get: " + message);
+                    //System.out.println("get: " + message);
+                    logger.log(Level.INFO, message);
                     command = message.split(" ");
                     if (command[0].equals(LS_COMMAND)) { // list of files
                         message = getListOfFiles();
