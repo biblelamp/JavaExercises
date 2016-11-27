@@ -1,0 +1,24 @@
+Modify the query to select only the products having a price equal to or greater than 100. Results should be ordered by price in descending order.
+
+Throughout the test, the SQL syntax to be used is the ANSI syntax. For example:
+
+    for inner joins use the "INNER JOIN ... ON ..." keywords and not the specific MySQL "USING" syntax
+    for outer joins, use the "LEFT OUTER JOIN" keywords and not the specific Oracle "a=b(*)" syntax or Sybase "a *= b" syntax
+
+Output exactly the PRODUCT_ID, NAME and PRICE columns as in the example below.
+ 
+Example of output:
+
+---------------------------------------------
+| PRODUCT_ID | NAME                | PRICE  |
+---------------------------------------------
+| 14         | ProForm 6.0 RT      | 499.99 |
+| 12         | GreenWorks 25022    | 172.73 |
+| 0          | Kindle Fire 7       | 119.00 |
+| 15         | Weider 190 RX       | 100.90 |
+---------------------------------------------
+
+Solution:
+
+SELECT product_id, name, price
+FROM product WHERE price >=100 ORDER BY price DESC
