@@ -16,16 +16,23 @@ class Stack {
     int pop() {
         return stackArray[sp--];
     }
- 
+
     int peek() {
         return stackArray[sp];
     }
- 
+
     boolean isEmpty() {
         return (sp == -1);
     }
- 
+
     boolean isFull() {
         return (sp == size - 1);
+    }
+
+    public String toString() {
+        String result = "[";
+        for (int i = 0; i < sp + 1; i++)
+            result += String.valueOf(stackArray[i]) + ((i < sp)? ", " : "");
+        return result + "]";
     }
 }
