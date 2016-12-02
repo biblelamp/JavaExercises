@@ -2,7 +2,7 @@ class ExampleStack {
 
     public static void main(String[] args) {
         //Stack stack = new Stack(10);
-        DimamicStack stack = new DimamicStack();
+        DimamicStack<Integer> stack = new DimamicStack<Integer>();
 
         stack.push(79);
         stack.push(56);

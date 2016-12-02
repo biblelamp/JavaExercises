@@ -14,11 +14,13 @@ class UsingStack {
 class CheckExpressions {
 
     private String str;
-    private Stack stack;
+    //private Stack stack;
+    DimamicStack<Character> stack;
 
     public CheckExpressions(String str) {
         this.str = str;
-        stack = new Stack(str.length());
+        //stack = new Stack(str.length());
+        stack = new DimamicStack<Character>();
     }
 
     boolean check() {
@@ -34,7 +36,8 @@ class CheckExpressions {
                 case ']':
                 case ')':
                     if (!stack.isEmpty()) {
-                        char chClosed = (char) stack.pop();
+                        //char chClosed = (char) stack.pop();
+                        char chClosed = stack.pop();
                         if ((ch == '}' && chClosed != '{')
                             || (ch == ']' && chClosed != '[')
                             || (ch == ')' && chClosed != '('))
