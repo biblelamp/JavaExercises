@@ -1,24 +1,24 @@
 /*
- * Implementation of stack using ArrayList
- * LIFO - Last In First Out
+ * Implementation of stack using ArrayList with generic
+ * Access type: LIFO (Last In First Out)
  */
 
 import java.util.*;
 
-class DimamicStack {
-    private List<Integer> stack = new ArrayList<>();
+class DimamicStack<T> {
+    private List<T> stack = new ArrayList<T>();
 
-    public void push(int item) {
+    public void push(T item) {
         stack.add(item);
     }
 
-    public int pop() {
-        int item = peek();
+    public T pop() {
+        T item = peek();
         stack.remove(stack.size() - 1);
         return item;
     }
 
-    public int peek() {
+    public T peek() {
         return stack.get(stack.size() - 1);
     }
 
