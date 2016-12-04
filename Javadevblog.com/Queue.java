@@ -5,55 +5,56 @@
 
 class Queue {
     private int[] queue;
-    private int size; // maximum number of elements
     private int length; // current number of elements
-    private int head;
-    private int tail;
- 
+    private int head; // pointer to head
+    private int tail; // pointer to tail
+
     public Queue(int size) {
-        this.size = size;
         queue = new int[size];
         tail = -1;
         head = 0;
         length = 0;
     }
 
-    void add(int elem) {
-        if (tail == size - 1) { // cyclical movement
+    boolean add(int elem) {
+        if (isFull()) { // queue/array is full
+            return false;
+        }
+        if (tail == queue.length - 1) { // cyclical movement
             tail = -1;
         }
         queue[++tail] = elem;
         length++;
+        return true;
     }
 
     int extract() {
         int temp = queue[head++]; // get first element from queue
- 
-        if (head == size) { // cyclical movement
+        if (head == queue.length) { // cyclical movement
             head = 0;
         }
         length--; // decrease number of elements
         return temp;
     }
 
-    int gethead() {
+    int getHead() {
         return queue[head];
     }
 
-    int gettail() {
+    int getTail() {
         return queue[tail];
     }
 
-    boolean isFull() {
-        return (length == size - 1);
-    }
- 
-    boolean isEmpty() {
-        return (length == 0);
-    }
- 
     int getSize() {
         return length;
+    }
+
+    boolean isFull() {
+        return (queue.length == length);
+    }
+
+    boolean isEmpty() {
+        return (length == 0);
     }
 
     public String toString() {
@@ -62,9 +63,8 @@ class Queue {
         while (pointer != tail) {
             result += String.valueOf(queue[pointer]) + ((pointer != tail)? ", " : "");
             pointer++;
-            if (pointer == size) pointer = 0;
+            if (pointer == queue.length) pointer = 0;
         }
         return result + String.valueOf(queue[pointer]) + "]";
-        //return (String.valueOf(head) + ", " + String.valueOf(tail));
    }
 }
