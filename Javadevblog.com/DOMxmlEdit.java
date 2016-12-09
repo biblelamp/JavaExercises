@@ -4,8 +4,11 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
+import java.util.*;
  
 public class DOMxmlEdit {
+
+    static final String[] Languages = {"JAVA", "C++", "PYTHON", "PASCAL"};
 
     public static void main(String[] args) {
         File xmlFile = new File("languages.xml");
@@ -44,15 +47,15 @@ public class DOMxmlEdit {
         NodeList languages = doc.getElementsByTagName("Language");
         Element lang = null;
 
-        // проходим по каждому элементу Language
+        // to get each element Language
         for(int i = 0; i < languages.getLength(); i++){
             lang = (Element) languages.item(i);
-            System.out.println(lang.getElementsByTagName("name").item(0).getFirstChild());
-            //if ((String)lang.getElementsByTagName("name").item(0).getFirstChild() != "C") {
-            //    Element paradigmElement = doc.createElement("paradigm");
-            //    paradigmElement.appendChild(doc.createTextNode("oop"));
-            //    lang.appendChild(paradigmElement);
-            //}
+            String name = lang.getElementsByTagName("name").item(0).getFirstChild().getNodeValue();
+            if (Arrays.asList(Languages).contains(name)) {
+                Element paradigmElement = doc.createElement("paradigm");
+                paradigmElement.appendChild(doc.createTextNode("oop"));
+                lang.appendChild(paradigmElement); // addition
+            }
         }
     }
 
@@ -60,11 +63,12 @@ public class DOMxmlEdit {
     private static void updateElementValueName(Document doc) {
         NodeList languages = doc.getElementsByTagName("Language");
         Element lang = null;
+
         // update the value of the elements name
         for(int i = 0; i < languages.getLength(); i++){
             lang = (Element) languages.item(i);
             Node name = lang.getElementsByTagName("name").item(0).getFirstChild();
-            name.setNodeValue(name.getNodeValue().toUpperCase());
+            name.setNodeValue(name.getNodeValue().toUpperCase()); // update
         }
     } 
 }
