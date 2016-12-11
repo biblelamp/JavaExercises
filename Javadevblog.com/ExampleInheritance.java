@@ -7,6 +7,12 @@ class ExampleInheritance {
         System.out.println("Cat eats " + cat.getFood());
         System.out.println("Cat has " + cat.getNumberOfLegs() + " legs");
         System.out.println("Cat color is " + cat.getColor());
+        
+        Cat unknown = new Cat();
+        System.out.println("Unknown cat is vegetaring? " + unknown.isVegetarian());
+        System.out.println("Unknown cat eats " + unknown.getFood());
+        System.out.println("Unknown cat has " + unknown.getNumberOfLegs() + " legs");
+        System.out.println("Unknown cat color is " + unknown.getColor());
     }
 }
 
@@ -16,6 +22,11 @@ class Cat extends Animal { // new class is based on class Animal and it extends 
     public Cat(boolean vegetarian, String food, int numberOfLegs, String color) {
         super(vegetarian, food, numberOfLegs);
         this.color = color;
+    }
+
+    public Cat() { // overloaded constructor
+        super();
+        color = "unknown";
     }
 
     public String getColor() { // new method
@@ -36,6 +47,11 @@ class Animal {
         this.vegetarian = vegetarian;
         this.food = food;
         this.numberOfLegs = numberOfLegs;
+    }
+
+    public Animal() { // overloaded constructor
+        food = "unknown";
+        numberOfLegs = -1;
     }
 
     public boolean isVegetarian() {
