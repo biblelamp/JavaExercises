@@ -13,9 +13,15 @@ import javax.swing.table.*;
 import java.text.*;
 import java.util.*;
 import java.io.*;
-import org.jopendocument.dom.spreadsheet.*;
-import com.toedter.calendar.*; //https://www.ssec.wisc.edu/mcidas/software/v/javadoc/1.4/edu/wisc/ssec/mcidasv/data/dateChooser/JDateChooser.html
-import org.jfree.chart.*;
+/*
+ * I have to put proper*.jar files to C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext
+ * - jOpenDocument-1.3
+ * - jcalendar-1.4
+ * - jcommon-1.0.23, jfreechart-1.0.19
+ */
+import org.jopendocument.dom.spreadsheet.*; // http://www.jopendocument.org/downloads.html
+import com.toedter.calendar.*; //https://toedter.com/jcalendar/
+import org.jfree.chart.*; // http://www.jfree.org/jfreechart/
 import org.jfree.chart.labels.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.*;
