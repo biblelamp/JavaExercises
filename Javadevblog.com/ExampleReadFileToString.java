@@ -2,7 +2,10 @@ import java.io.*; // BufferedReader
 import java.nio.file.*; // class Files
 import java.nio.charset.*;
 import java.util.*; // Scanner
-//import org.apache.commons.io.*;
+import org.apache.commons.io.*; // https://commons.apache.org/proper/commons-io/download_io.cgi
+/*
+ * I have to put commons-io-2.5 to C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext for javac
+ */
  
 class ExampleReadFileToString {
  
@@ -11,16 +14,16 @@ class ExampleReadFileToString {
         String contents;
 
         // read file using Scanner
-        contents = readUsingScanner(fileName);
+        //contents = readUsingScanner(fileName);
 
         // read file using Apache Commons IO
-        //contents = readUsingApacheCommonsIO(fileName);
+        contents = readUsingApacheCommonsIO(fileName);
 
         // read file using class Files
-        contents = readUsingFiles(fileName);
+        //contents = readUsingFiles(fileName);
 
         // read file using BufferedReader
-        contents = readUsingBufferedReader(fileName);
+        //contents = readUsingBufferedReader(fileName);
 
         // output file
         System.out.println(contents);
@@ -47,9 +50,9 @@ class ExampleReadFileToString {
     }
 
     // read file using Apache Commons IO
-    //private static String readUsingApacheCommonsIO(String fileName) throws IOException {
-    //    return FileUtils.readFileToString(new File(fileName), StandardCharsets.UTF_8);
-    //}
+    private static String readUsingApacheCommonsIO(String fileName) throws IOException {
+        return FileUtils.readFileToString(new File(fileName), StandardCharsets.UTF_8);
+    }
 
     // read file using Scanner
     private static String readUsingScanner(String fileName) throws IOException {
