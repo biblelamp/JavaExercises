@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.4 dated 17 Aug 2016
+ * @version 0.5.5 dated 16 Jan 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -167,12 +167,12 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
         File file = new File(fileName.getText());
         try {
             spreadSheet = SpreadSheet.createFromFile(file);
-            for (int i=0; i<spreadSheet.getSheetCount(); i++) {
+            for (int i = 0; i < spreadSheet.getSheetCount(); i++) {
                 sheet = spreadSheet.getSheet(i);
                 int row = 1;
                 while (true) {
 
-                    // date
+                    // get date
                     try {
                         cell = sheet.getCellAt(0, row);
                         if (!cell.isEmpty()) {
@@ -198,6 +198,7 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
 
                     // date range check
                     if (date.before(startDate.getDate())) {
+                        System.out.println(sheet.getName() + " " + date);
                         continue;
                     }
                     if (date.after(endDate.getDate())) {
