@@ -124,7 +124,6 @@ class GameSpaceInvaders extends JFrame {
         void setDirection(int direction) { this.direction = direction; }
 
         void shot() { 
-            playSound(new File("sounds/shoot.wav"));
             ray.start(x, y);
         }
 
@@ -151,6 +150,7 @@ class GameSpaceInvaders extends JFrame {
 
         void start(int x, int y) {
             if (!exists) {
+                playSound(new File("sounds/shoot.wav"));
                 exists = true;
                 this.x = x + (cannon.getWidth() - WIDTH) / 2;
                 this.y = y - HEIGHT;
