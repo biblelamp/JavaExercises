@@ -2,7 +2,7 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.5 dated 16 Jan 2017
+ * @version 0.5.6 dated 15 Feb 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -33,8 +33,18 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
     final static int WINDOW_WIDTH = 500;
     final static int WINDOW_HEIGHT = 450;
     final static int START_POSITION = 100;
+    final String CLICK_ME = "Click me...";
+    final String TOOL_TIP_FILE_NAME = "Click to select the data file *.ods";
+    final String SET_FILE_FILTER = "Spreadsheet files (*.ods)";
+    final String SET_FILE_EXT = "ods";
+    final String PATH_IMG_BUTTON = "img/go.png";
+    final String TOOL_TIP_BUTTON = "Click to calculate the results";
     final String SETTINGS_FILE = "settings.ini";
     final String TOTAL_TITLE = "Total";
+    final String CHART_TITLE = "Chart";
+    final String TYPE_COL_NAME = "Cost type";
+    final String SUM_COL_NAME = "Cost sum";
+    final String PRCNT_COL_NAME = "%";
     final String BOLD_BEGIN = "<html><b>";
     final String BOLD_END = "</b></html>";
     JFrame frame;
@@ -61,15 +71,15 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
         startDate = new JDateChooser(new Date());
         endDate = new JDateChooser(new Date());
 
-        fileName = new JTextField("Click me...", 22);
-        fileName.setToolTipText("Click to select the data file *.ods");
+        fileName = new JTextField(CLICK_ME, 22);
+        fileName.setToolTipText(TOOL_TIP_FILE_NAME);
         fileName.setEditable(false);
         fileName.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 JFileChooser open = new JFileChooser();
                 open.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                open.setFileFilter(new FileNameExtensionFilter("Spreadsheet files (*.ods)", "ods"));
+                open.setFileFilter(new FileNameExtensionFilter(SET_FILE_FILTER, SET_FILE_EXT));
                 int result = open.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     fileName.setText(open.getSelectedFile().getAbsolutePath());
@@ -77,14 +87,18 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
             }
         });
 
-        ImageIcon icon = new ImageIcon(AnalyzeCosts.class.getResource("img/go.png"));
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon(AnalyzeCosts.class.getResource(PATH_IMG_BUTTON));
+        } catch (Exception e) { }
         JButton getFileName = new JButton();
         getFileName.setPreferredSize(new Dimension(45, 30));
         getFileName.setIcon(icon);
-        getFileName.setToolTipText("Click to calculate the results");
+        getFileName.setToolTipText(TOOL_TIP_BUTTON);
         getFileName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                readAndAnalize("");
+                if (!fileName.getText().equals(CLICK_ME))
+                    readAndAnalize("");
                 saveSettings();
             }
         });
@@ -108,9 +122,9 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
                  return String.class;
             }
         };
-        model.addColumn("Cost type");
-        model.addColumn("Cost sum");
-        model.addColumn("%");
+        model.addColumn(TYPE_COL_NAME);
+        model.addColumn(SUM_COL_NAME);
+        model.addColumn(PRCNT_COL_NAME);
         JTable table = new JTable(model);
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -135,8 +149,8 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
         chartPanel = new ChartPanel(chart);
 
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Total", new JScrollPane(table));
-        tabbedPane.addTab("Chart", chartPanel);
+        tabbedPane.addTab(TOTAL_TITLE, new JScrollPane(table));
+        tabbedPane.addTab(CHART_TITLE, chartPanel);
 
         getContentPane().add(BorderLayout.NORTH, upPanel);
         getContentPane().add(BorderLayout.CENTER, tabbedPane);
