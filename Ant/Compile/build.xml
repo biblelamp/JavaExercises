@@ -1,0 +1,34 @@
+<project name="HelloWorld" default="all">
+
+    <target name="make.dirs" description="Make some dirs">
+        <mkdir dir="build"/>
+        <mkdir dir="build/classes"/>
+    </target>
+
+    <target name="compile" description="compile java" depends="make.dirs">
+        <javac destdir="build/classes" includeantruntime="false">
+            <src path="src"/>
+        </javac>
+    </target>
+
+    <target name="all" description="Do the build" depends="compile"/>
+
+    <target name="jar">
+        <mkdir dir="build"/>
+        <jar destfile="build/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/HelloWorld.jar" fork="true"/>
+    </target>
+
+    <target name="clean" description="clean up">
+       <echo>I'm cleaning up.</echo>
+       <delete dir="build"/>
+    </target>
+
+</project>
