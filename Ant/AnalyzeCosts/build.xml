@@ -1,40 +1,57 @@
 <project name="AnalyzeCosts" basedir="." default="main">
 
+    <!-- set all properties -->
     <property name="src.dir" value="src"/>
-
-    <property name="java.sdk" value="C:\Program Files\Java\jdk1.5"/>
+    <property name="java.sdk1.5" value="C:\Program Files\Java\jdk1.5"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
-
     <property name="main-class" value="AnalyzeCosts"/>
-
     <property name="lib.dir" value="lib"/>
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
+    <!-- clean building -->
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
 
+    <!-- compile project and copy img for button before -->
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
         <copy todir="${classes.dir}\img">
             <fileset dir="${src.dir}\img"/>
         </copy>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" executable="${java.sdk}/bin/javac" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" executable="${java.sdk1.5}/bin/javac" classpathref="classpath" includeantruntime="false"/>
     </target>
 
+    <!-- make list of extended library -->
+    <pathconvert property="classpath.name" pathsep=" ">
+        <path refid="classpath"/>
+        <mapper>
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*.jar" to="lib/*.jar"/>
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+
+    <!-- make jar file -->
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
+        <copy todir="${jar.dir}\${lib.dir}">
+            <fileset dir="${lib.dir}"/>
+        </copy>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="${classpath.name}"/>
             </manifest>
         </jar>
     </target>
 
+    <!-- run jar file -->
     <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
             <classpath>
@@ -44,8 +61,8 @@
         </java>
     </target>
 
+    <!-- set targets  -->
     <target name="rebuild" depends="clean,jar"/>
-
     <target name="main" depends="clean,run"/>
 
 </project>
