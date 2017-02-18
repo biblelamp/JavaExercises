@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 1. Example of homework
  *
  * @author Sergey Iryupin
- * @version от 17 Feb 2017
+ * @version dated 18 Feb 2017
  */
 public class HW1Lesson {
 
@@ -88,7 +88,7 @@ public class HW1Lesson {
      *    при этом каждый 400-й – високосный.
      */
     static void checkLeapYear(int y) {
-        if (((y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0))
+        if (y % 4 == 0 && y % 100 != 0 || y % 400 == 0)
             System.out.println(y + " year is a leap");
         else
             System.out.println(y + " year isn't a leap");
