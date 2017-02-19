@@ -17,4 +17,4 @@ Implementation of the famous game Space Invaders. It is an arcade video game cre
 Implementation of the famous game Minesweeper. You can see webinar "[Write game Minesweeper](https://www.youtube.com/watch?v=xPdrl70ZYnE)" (in Russian).
 
 ## GameXonix.java
-Implementation of the famous game Xonix.
+Implementation of the famous game Xonix. You can see webinar "[Write game Xonix](https://www.youtube.com/watch?v=dMROhd-d3z0)" (in Russian).
