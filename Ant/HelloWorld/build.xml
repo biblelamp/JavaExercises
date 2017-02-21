@@ -1,5 +1,6 @@
-<project name="HelloWorld" default="all">
-  <target name="all" description="Do the entire build">
-    <echo>I'm building my software</echo>
+<?xml version="1.0"?>
+<project name="HelloWorld" default="default">
+  <target name="default" description="Show the message">
+    <echo>Hello, World!</echo>
   </target>
 </project>
