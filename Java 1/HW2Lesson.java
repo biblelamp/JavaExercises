@@ -104,8 +104,8 @@ public class HW2Lesson {
         if (array == null || array.length < 2)
             return false;
         int sumArray = 0, sumLeft = 0;
-        for (int i = 0; i < array.length; i++)
-            sumArray += array[i];
+        for (int i : array)
+            sumArray += i;
         for (int i = 0; i < array.length - 1; i++) {
             sumLeft += array[i];
             if (sumLeft*2 == sumArray)
