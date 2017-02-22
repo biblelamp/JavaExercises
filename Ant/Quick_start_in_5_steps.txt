@@ -30,7 +30,7 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
 
 3. Минимально необходимый список заданий (tasks)
 
-Стандартная версия содержит более 150 заданий. Нам потребуются только четыре задания:
+Стандартная версия содержит более 150 заданий. Нам потребуются только пять:
 
     echo - вывод сообщения в консоль
     delete - удаление файлов и директорий
@@ -47,5 +47,24 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
       </target>
     </project>
 
-5. Пишем сценарий для сборки и тестирования проекта
+5. Пишем сценарий для сборки и тестирования простого проекта
 
+   Код проекта:
+
+    public class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+
+    Сценарий для проекта, первая версия:
+
+    <?xml version="1.0"?>
+    <project name="HelloWorld" default="default">
+      <target name="clean">
+      </target>
+      <target name="compile">
+      </target>
+      <target name="run">
+      </target>
+    </project>
