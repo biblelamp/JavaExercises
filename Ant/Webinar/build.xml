@@ -14,6 +14,13 @@
     <target name="run" depends="compile">
         <java classname="${ant.project.name}" classpath="${classes}"/>
     </target>
+    <target name="package" depends="compile">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main-Class" value="${ant.project.name}"/>
+            </manifest>
+        </jar>
+    </target>
     <target name="clean">
         <delete dir="${build}"/>
     </target>
