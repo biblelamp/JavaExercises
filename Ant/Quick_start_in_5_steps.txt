@@ -30,21 +30,22 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
 
 3. Минимально необходимый список заданий (tasks)
 
-Стандартная версия содержит более 150 заданий. Нам потребуются только пять:
+Стандартная версия содержит более 150 заданий. Нам потребуются только шесть:
 
     echo - вывод сообщения в консоль
+    mkdir - создание директорий
     delete - удаление файлов и директорий
     javac - компиляция Java-кода
-    jar - создание jar файла
     java - запуск class и jar файлов
+    jar - создание jar файла
 
 4. Простейший Ant-сценарий
 
     <?xml version="1.0"?>
     <project name="HelloWorld" default="default">
-      <target name="default" description="Show the message">
-        <echo>Hello, World!</echo>
-      </target>
+        <target name="default" description="Show the message">
+            <echo>Hello, World!</echo>
+        </target>
     </project>
 
 5. Пишем сценарий для сборки и тестирования простого проекта
@@ -60,11 +61,42 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
     Сценарий для проекта, первая версия:
 
     <?xml version="1.0"?>
-    <project name="HelloWorld" default="default">
-      <target name="clean">
-      </target>
-      <target name="compile">
-      </target>
-      <target name="run">
-      </target>
+    <project name="HelloWorld" default="run">
+        <target name="mkdir">
+            <mkdir dir="build/classes"/>
+        </target>
+        <target name="compile" depends="mkdir">
+            <javac destdir="build/classes" includeantruntime="false">
+                <src path="src"/>
+            </javac>
+        </target>
+        <target name="run" depends="compile">
+            <java classname="HelloWorld" classpath="build/classes"/>
+        </target>
+        <target name="clean">
+            <delete dir="build"/>
+        </target>
+    </project>
+
+    Сценарий для проекта, вторая версия
+
+    <?xml version="1.0"?>
+    <project name="HelloWorld" default="run">
+        <property name="src" location="src"/>
+        <property name="build" location="build"/>
+        <property name="classes" location="${build}/classes"/>
+        <target name="mkdir">
+            <mkdir dir="${classes}"/>
+        </target>
+        <target name="compile" depends="mkdir">
+            <javac destdir="${classes}" includeantruntime="false">
+                <src path="${src}"/>
+            </javac>
+        </target>
+        <target name="run" depends="compile">
+            <java classname="${ant.project.name}" classpath="${classes}"/>
+        </target>
+        <target name="clean">
+            <delete dir="${build}"/>
+        </target>
     </project>
