@@ -20,7 +20,7 @@
 
     <!-- run class file(s) -->
     <target name="run" depends="compile">
-        <java classname="${ant.project.name}" classpath="${classes}"/>
+        <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
     </target>
 
     <!-- make jar file -->
