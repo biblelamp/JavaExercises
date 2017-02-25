@@ -18,6 +18,16 @@
         </javac>
     </target>
 
+    <!-- junit test -->
+    <target name="test" depends="compile">
+    <junit fork="yes">
+        <classpath>
+            <pathelement location="${classes}"/>
+        </classpath>
+        <test name="TestHello"/>
+    </junit>
+    </target>
+
     <!-- run class file(s) -->
     <target name="run" depends="compile">
         <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
@@ -25,7 +35,7 @@
 
     <!-- make jar file -->
     <target name="package" depends="compile">
-        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
             <manifest>
                 <attribute name="Main-Class" value="${ant.project.name}"/>
             </manifest>
@@ -36,4 +46,7 @@
     <target name="clean">
         <delete dir="${build}"/>
     </target>
+
+    <!-- repack jar file -->
+    <target name="repack" depends="clean,package"/>
 </project>
