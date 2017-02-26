@@ -1,49 +1,52 @@
-Вебинар по теме:
-
 Apache Ant – быстрый старт
 
 Apache Ant должен быть знаком каждому Java-программисту: это популярный инструмент сборки ПО (build tool), полностью написанный на Java. Сценарий сборки представляет собой простой XML-файл. Несмотря на свою Java-направленность, этим инструментом пользуются и другие разработчики.
 
-На вебинаре мы пройдём пять простых шагов, чтобы начать использовать Ant:
+Мы пройдём пять простых шагов, чтобы начать использовать Ant:
 1. Скачаем, установим и настроим.
 2. Разберёмся с принципами работы и форматом XML-сценария сборки.
 3. Узнаем минимально необходимый список команд.
 4. Напишем простейший Ant-сценарий.
 5. Напишем сценарий для полного цикла сборки и тестирования простого проекта.
 
-Нам потребуется Java SE Development Kit (JDK, скачиваем по адресу http://www.oracle.com/technetwork/java/javase/downloads), ваш любимый текстовый редактор (рекомендую Notepad++) и минимальные навыки работы в командной строке.
+Нам потребуется Java SE Development Kit (JDK, скачиваем по адресу http://www.oracle.com/technetwork/java/javase/downloads), ваш любимый текстовый редактор (под Windows рекомендую Notepad++) и минимальные навыки работы в командной строке.
 
 1. Скачиваем, устанавливаем, настраиваем
 
-Посещаем веб-сайт https://ant.apache.org/ заходим в раздел Download/Binary Distributions и скачиваем файл apache-ant-1.10.1-bin.zip (возможно сейчас есть уже более свежая версия). Содержимое архива копируем в любой каталог, например "C:\Program Files\Ant". Затем добавляем путь к папке bin (C:\Program Files\Ant\bin) в системную переменную Path.
+Посещаем веб-сайт https://ant.apache.org/ заходим в раздел Download/Binary Distributions и скачиваем файл apache-ant-1.10.1-bin.zip (возможно сейчас есть уже более свежая версия). Содержимое архива копируем в любой каталог, например "C:\Program Files\Ant" (Windows). Затем добавляем путь к папке bin (C:\Program Files\Ant\bin) в системную переменную Path.
 
 Проверяем работоспособность Ant, вызвав командную строку:
 
-C:\>ant -version
-Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+    C:\>ant -version
+    Apache Ant(TM) version 1.10.1 compiled on February 2 2017
 
 Если такое или аналогичное сообщение получено - всё в порядке.
 
 2. Основные принципы работы
 
-Сценарий сборки - обычный XML-файл. Он содержит определение целей (target), зависимостей (depends) и свойств (property). Простейший сценарий должен иметь хотя бы одну цель. Цель содержит вызов одной или нескольких команд или заданий (tasks). Зависимости связывают цели между собой. Например, есть цель "compile", a есть "run", зависимая от "compile". И если мы выполняем "run", сначала выполняется "compile".
+Сценарий сборки - обычный XML-файл. Он содержит определение целей (target), зависимостей (depends) и свойств (property). Простейший сценарий должен иметь хотя бы одну цель. Цель содержит вызов одной или нескольких команд или заданий (tasks). Мы можем задать имя цели с помощью атрибута "name". Заданное имя становится командой нашего сценария и может быть вызвана:
+
+    C:\>ant <name>
+
+В теге target может быть также указана зависимость (необязательно) с помощью атрибута "depends". Зависимости связывают цели между собой. Например, есть цель "compile", a есть "run", зависимая от "compile". И если мы выполняем "run", сначала выполняется "compile".
 
 3. Минимально необходимый список заданий (tasks)
 
-Стандартная версия содержит более 150 заданий. Нам потребуются только шесть:
+Стандартная версия Ant содержит более 150 заданий. Нам пока что потребуются семь:
 
     echo - вывод сообщения в консоль
     mkdir - создание директорий
     delete - удаление файлов и директорий
     javac - компиляция Java-кода
     java - запуск class и jar файлов
+    junit - запуск тестов
     jar - создание jar файла
 
 4. Простейший Ant-сценарий
 
     <?xml version="1.0"?>
     <project name="HelloWorld" default="default">
-        <target name="default" description="Show the message">
+        <target name="default">
             <echo>Hello, World!</echo>
         </target>
     </project>
@@ -78,7 +81,7 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
         </target>
     </project>
 
-    Сценарий для проекта, вторая версия
+    Сценарий для проекта, вторая версия (используем property):
 
     <?xml version="1.0"?>
     <project name="HelloWorld" default="run">
@@ -89,9 +92,7 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
             <mkdir dir="${classes}"/>
         </target>
         <target name="compile" depends="mkdir">
-            <javac destdir="${classes}" includeantruntime="false">
-                <src path="${src}"/>
-            </javac>
+            <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
         </target>
         <target name="run" depends="compile">
             <java classname="${ant.project.name}" classpath="${classes}"/>
@@ -100,3 +101,61 @@ Apache Ant(TM) version 1.10.1 compiled on February 2 2017
             <delete dir="${build}"/>
         </target>
     </project>
+
+    Немного изменим код проекта (чтобы было что тестировать):
+
+    public class HelloWorld {
+        public static void main(String[] args) {
+            HelloWorld hello = new HelloWorld();
+            System.out.println(hello.sayHello());
+        }
+        String sayHello() {
+            return "Hello, World!";
+        }
+    }
+
+    и добавим класс теста:
+
+    import static org.junit.Assert.assertEquals;
+    import org.junit.Test;
+    public class TestHello {
+        @Test
+        public void testHello() {
+            HelloWorld hello = new HelloWorld();
+            assertEquals("Hello, World!", hello.sayHello());
+        }
+    }
+
+    Используя информацию со страницы https://github.com/junit-team/junit4/wiki/getting-started загрузим два файла junit-4.12.jar и hamcrest-core-1.3.jar и скопируем их в папку нашего <JDK>\jre\lib\ext. Теперь мы можем проверить как работает тестирование в командной строке:
+
+    C:\>java org.junit.runner.JUnitCore TestHello
+    JUnit version 4.12
+    .
+    Time: 0,11
+    OK (1 test)
+
+    Теперь дополним наш build файл следующими строчками:
+
+    <target name="test" depends="compile">
+        <junit>
+            <classpath>
+                <pathelement location="${classes}"/>
+            </classpath>
+            <test name="TestHello"/>
+        </junit>
+    </target>
+
+    и дополним строку с заданием jar:
+
+    <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
+
+    Теперь к списку команд нашего build файла добавилась команда test.
+    Осталось добавить target для сборки, которая сформирует jar файл:
+
+    <target name="package" depends="compile">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
+            <manifest>
+                <attribute name="Main-Class" value="${ant.project.name}"/>
+            </manifest>
+        </jar>
+    </target>
