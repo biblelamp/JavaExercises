@@ -13,24 +13,22 @@
 
     <!-- compile java file(s) to class file(s) -->
     <target name="compile" depends="mkdir">
-        <javac destdir="${classes}" includeantruntime="false">
-            <src path="${src}"/>
-        </javac>
+        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
     </target>
 
     <!-- junit test -->
     <target name="test" depends="compile">
-    <junit fork="yes">
-        <classpath>
-            <pathelement location="${classes}"/>
-        </classpath>
-        <test name="TestHello"/>
-    </junit>
+        <junit> <!-- fork="yes">-->
+            <classpath>
+                <pathelement location="${classes}"/>
+            </classpath>
+            <test name="TestHello"/>
+        </junit>
     </target>
 
     <!-- run class file(s) -->
     <target name="run" depends="compile">
-        <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
+        <java classname="${ant.project.name}" classpath="${classes}"/> <!-- fork="true"/>-->
     </target>
 
     <!-- make jar file -->
