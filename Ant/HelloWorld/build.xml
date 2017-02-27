@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<project name="HelloWorld" default="default">
-  <target name="default" description="Show the message">
+<project name="HelloWorld" default="hello">
+  <target name="hello" description="Show the message">
     <echo>Hello, World!</echo>
   </target>
 </project>
