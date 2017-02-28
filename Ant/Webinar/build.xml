@@ -18,7 +18,7 @@
 
     <!-- junit test -->
     <target name="test" depends="compile">
-        <junit> <!-- fork="yes">-->
+        <junit>
             <classpath>
                 <pathelement location="${classes}"/>
             </classpath>
@@ -28,7 +28,7 @@
 
     <!-- run class file(s) -->
     <target name="run" depends="compile">
-        <java classname="${ant.project.name}" classpath="${classes}"/> <!-- fork="true"/>-->
+        <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
     </target>
 
     <!-- make jar file -->
