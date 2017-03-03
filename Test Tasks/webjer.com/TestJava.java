@@ -1,12 +1,32 @@
 /**
- * Java. Test work for http://webjer.com
+ * Java. Test tasks from http://webjer.com/testjava1.html
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Feb 28, 2017
+ * @version 0.1 dated Mar 3, 2017
  */
+import java.util.*;
+ 
 public class TestJava {
 
     public static void main(String[] args) {
+
+        // test for QUESTION #1
+        System.out.println(allStringSetsIdentical(null));
+        System.out.println(allStringSetsIdentical(new String[][]{{}}));
+        System.out.println(allStringSetsIdentical(new String[][]{{"a", "b"}}));
+        System.out.println(allStringSetsIdentical(
+            new String[][]{{"a", "b"}, {"b", "b", "a"}, {"b", "a"}}));
+        System.out.println(allStringSetsIdentical(
+            new String[][]{{"a","b"},{"a"},{"b"}}));
+
+        // test for QUESTION #2:
+        System.out.println(StateUtils.createStateSelectList());
+        System.out.println(StateUtils.parseSelectedState("Arizona"));
+        System.out.println(StateUtils.parseSelectedState("Kansas"));
+        System.out.println(StateUtils.displayStateFullName("CA"));
+        System.out.println(StateUtils.displayStateFullName("KA"));
+
+        // test for QUESTION #3:
     }
 
     /**
@@ -34,7 +54,15 @@ public class TestJava {
      *    new String[][]{{"a","b"},{"a"},{"b"}}) returns false
      */
     public static boolean allStringSetsIdentical(String[][] sets) {
-        return false;
+        if (sets == null || sets.length < 2)
+            return false;
+        String[] sample = new HashSet<String>(
+            Arrays.asList(sets[0])).toArray(new String[0]);
+        for (int i = 1; i < sets.length; i++)
+            if (!Arrays.equals(sample, new HashSet<String>(
+                Arrays.asList(sets[i])).toArray(new String[0])))
+                return false;
+        return true;
     }
 
     /**
@@ -52,29 +80,40 @@ public class TestJava {
      * need to work for all 50 states. But it is fine if your rewrite shows only
      * the 5 states here.)
      */
-    public class StateUtils {
+    public static class StateUtils {
+        static String[][] states = {
+            {"Alabama", "Alaska", "Arizona", "Arkansas", "California"},
+            {"AL", "AK", "AZ", "AR", "CA"}
+        };
 
         /**
          * Generates an HTML select list that can be used to select a specific
          * U.S. state.
          */
-        public String createStateSelectList() {
-            return "";
+        public static String createStateSelectList() {
+            StringBuffer str = new StringBuffer("<select name=\"state\">\n");
+            for (int i = 0; i < states[0].length; i++)
+                str.append("<option value=\"" + states[0][i] + "\">" +
+                states[0][i] + "</option>\n");
+            str.append("</select>\n");
+            return str.toString();
         }
 
         /**
          * Parses the state from an HTML form submission, converting it to
          * the two-letter abbreviation.
          */
-        public String parseSelectedState(String s) {
-            return "";
+        public static String parseSelectedState(String s) {
+            int index = Arrays.binarySearch(states[0], s);
+            return (index < 0)? null : states[1][index];
         }
 
         /**
          * Displays the full name of the state specified by the two-letter code.
          */
-        public String displayStateFullName(String abbr) {
-            return "";
+        public static String displayStateFullName(String abbr) {
+            int index = Arrays.binarySearch(states[1], abbr);
+            return (index < 0)? null : states[0][index];
         }
     }
 
