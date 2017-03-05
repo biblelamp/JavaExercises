@@ -2,7 +2,7 @@
  * Java. Test tasks from http://webjer.com/testjava1.html
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Mar 3, 2017
+ * @version 0.2 dated Mar 5, 2017
  */
 import java.util.*;
  
@@ -11,6 +11,7 @@ public class TestJava {
     public static void main(String[] args) {
 
         // test for QUESTION #1
+        System.out.println("QUESTION #1\n");
         System.out.println(allStringSetsIdentical(null));
         System.out.println(allStringSetsIdentical(new String[][]{{}}));
         System.out.println(allStringSetsIdentical(new String[][]{{"a", "b"}}));
@@ -20,6 +21,7 @@ public class TestJava {
             new String[][]{{"a","b"},{"a"},{"b"}}));
 
         // test for QUESTION #2:
+        System.out.println("\nQUESTION #2\n");
         System.out.println(StateUtils.createStateSelectList());
         System.out.println(StateUtils.parseSelectedState("Arizona"));
         System.out.println(StateUtils.parseSelectedState("Kansas"));
@@ -27,6 +29,16 @@ public class TestJava {
         System.out.println(StateUtils.displayStateFullName("KA"));
 
         // test for QUESTION #3:
+        System.out.println("\nQUESTION #3\n");
+        String text =
+            "The  String\n\n argument\n may\n contain\n lines\n\n longer than"+
+            " maxCharsPerLine.\nNewlines should be added so that each line in" +
+            " the return  String  has at most maxCharsPerLine characters.\nTo" +
+            " determine where newlines should be added, \n try to fit as many" +
+            " words as possible on a line\n(while keeping line length at most" +
+            " maxCharsPerLine and satisfying  the other requirements)\nbefore" +
+            " starting a new line.";
+        System.out.println(wrapText(text, 50));
     }
 
     /**
@@ -75,6 +87,10 @@ public class TestJava {
      * Please rewrite this code to be "better". Submit your replacement code,
      * and please also submit a few brief comments explaining why you think your
      * code is better than the sample.
+     *
+     * Seggey Iryupin:
+     *    I think my variant is better because it divides data and code which
+     *    processes them. Also my variant is more compact.
      *
      * (For brevity, this sample works for only 5 states. The real version would
      * need to work for all 50 states. But it is fine if your rewrite shows only
@@ -152,6 +168,18 @@ public class TestJava {
      * before starting a new line.
      */
     public static String wrapText(String text, int maxCharsPerLine) {
-        return "";
+        StringBuffer result = new StringBuffer();
+        String[] words = text.split("(\\s)+");
+        int length = 0;
+        for (String str : words) {
+            if ((length + str.length() + 1) < maxCharsPerLine) {
+                result.append(" " + str);
+                length += str.length() + 1;
+            } else {
+                result.append("\n" + str);
+                length = str.length() + 1;
+            }
+        }
+        return result.delete(0, 1).toString();
     }
 }
