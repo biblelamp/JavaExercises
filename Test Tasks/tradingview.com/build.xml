@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project name="TradingView" default="compile">
+
+    <!-- set properties -->
+    <property name="srv" value="Server"/>
+    <property name="client" value="Client"/>
+    <property name="build" value="build"/>
+    <property name="classes" value="${build}/classes"/>
+
+    <!-- make folders for class/jar file(s) -->
+    <target name="mkdir">
+        <mkdir dir="${classes}"/>
+    </target>
+
+    <!-- compile java file(s) to class file(s) -->
+    <target name="compile" depends="mkdir">
+        <javac srcdir="." destdir="${classes}" includeAntRuntime="false"/>
+    </target>
+
+    <!-- run Server -->
+    <target name="run.srv" depends="compile">
+        <java classname="${srv}" classpath="${classes}" fork="true"/>
+    </target>
+
+    <!-- run Client -->
+    <target name="run.client" depends="compile">
+        <java classname="${client}" classpath="${classes}" fork="true"/>
+    </target>
+
+    <!-- delete folders with class/jar file(s) -->
+    <target name="clean">
+        <delete dir="${build}"/>
+    </target>
+
+</project>
