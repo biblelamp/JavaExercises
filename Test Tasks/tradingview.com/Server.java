@@ -1,8 +1,8 @@
 /**
- * Java. Server - test task from TradingView
+ * Java. Server - test task for TradingView
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated March 09, 2017
+ * @version 0.3.5 dated March 09, 2017
  */
 import java.io.*;
 import java.net.*;
@@ -15,16 +15,24 @@ class Server {
     final String LS_COMMAND = "ls"; // get list of files
     final String GET_COMMAND = "get"; // get file
     final String EXIT_COMMAND = "exit"; // logoff
-    final String UNKNOWN_COMMAND = "Unknown command. Use only: ls/get <filename>/exit";
+    final String UNKNOWN_COMMAND = "Unknown command. Use only: ls | get <filename> | exit";
+    final String SERVER_PROMPT = "Type 'exit' to stop server\n> ";
 
     final String SERVER_STARTED = "Server started.";
     final String SERVER_STOPPED = "Server stopped.";
     final String CLIENT_JOINED = "Client joined.";
     final String CLIENT_DISCONNECTED = "Client is disconnected.";
+    final String MSG_LIST_OF_FILES = "List of file(s):";
+    final String MSG_NO_SUCH_FILE = "Error: no such file.";
 
     final String SERVER_DIR;
     final String LOG_FILE_NAME = "log.txt";
     Logger logger; // for logging
+
+    TimerTask task;
+    Timer timer = new Timer();
+    final int RECORDING_PERIOD = 10; // in sec
+    final String STATISTIC_FILE_NAME = "statistic.srv.txt";
 
     public static void main(String[] args) {
         new Server(args).go();
@@ -105,12 +113,21 @@ class Server {
 
         public void run() {
             do {
-                System.out.print("> ");
+                System.out.print(SERVER_PROMPT);
                 command = scanner.nextLine();
             } while (!command.equals(EXIT_COMMAND));
             //System.out.println(SERVER_STOPPED);
             logger.log(Level.INFO, SERVER_STOPPED);
             System.exit(0);
+        }
+    }
+
+    /**
+     * SaveStatistic: save statistic to the file
+     */
+    class SaveStatistic extends TimerTask {
+        public void run() {
+            System.out.println("Save statistic...");
         }
     }
 
@@ -129,7 +146,7 @@ class Server {
                 if(file.isFile())
                     message += "\n" + file.getName();
         }
-        return "List of file(s):" + message;
+        return MSG_LIST_OF_FILES + message;
     }
 
     /**
@@ -148,12 +165,15 @@ class Server {
             String message = new String(cbuf, 0, read);
             return GET_COMMAND + " " + file.getName() + "\n" + message;
         } else {
-            return "Error: no such file.";
+            return MSG_NO_SUCH_FILE;
         }
     }
 
     void go() {
         String message;
+        // set timer for saving
+        task = new SaveStatistic();
+        timer.schedule(task, RECORDING_PERIOD * 1000, RECORDING_PERIOD * 1000);
         try {
             //System.out.println(SERVER_STARTED);
             logger.log(Level.INFO, SERVER_STARTED);
