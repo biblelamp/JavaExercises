@@ -2,10 +2,11 @@
  * Java. Server - test task from TradingView
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated November 25, 2016
+ * @version 0.3.4 dated March 09, 2017
  */
 import java.io.*;
 import java.net.*;
+import java.util.*;
 import java.util.logging.*;
 
 class Server {
@@ -17,6 +18,7 @@ class Server {
     final String UNKNOWN_COMMAND = "Unknown command. Use only: ls/get <filename>/exit";
 
     final String SERVER_STARTED = "Server started.";
+    final String SERVER_STOPPED = "Server stopped.";
     final String CLIENT_JOINED = "Client joined.";
     final String CLIENT_DISCONNECTED = "Client is disconnected.";
 
@@ -28,6 +30,9 @@ class Server {
         new Server(args).go();
     }
 
+    /**
+     * Constructor: get Server dir and start logging
+     */
     Server(String[] args) {
         // set up dir
         SERVER_DIR = (args.length > 0)? args[0] : ".";
@@ -41,6 +46,9 @@ class Server {
         }
     }
 
+    /**
+     * ClientHandler: service requests of clients
+     */
     class ClientHandler implements Runnable {
         BufferedReader reader;
         PrintWriter writer;
@@ -84,6 +92,34 @@ class Server {
         }
     }
 
+    /**
+     * CommandHandler: processing of commands of console
+     */
+    class CommandHandler implements Runnable {
+        Scanner scanner;
+        String command;
+
+        CommandHandler() {
+            scanner = new Scanner(System.in);
+        }
+
+        public void run() {
+            do {
+                System.out.print("> ");
+                command = scanner.nextLine();
+            } while (!command.equals(EXIT_COMMAND));
+            //System.out.println(SERVER_STOPPED);
+            logger.log(Level.INFO, SERVER_STOPPED);
+            System.exit(0);
+        }
+    }
+
+    /**
+     * getListOfFiles: get list of files from server dir
+     *
+     * @param : no
+     * @return : String (list of files)
+     */
     String getListOfFiles() {
         String message = "";
         File dir = new File(SERVER_DIR);
@@ -96,6 +132,12 @@ class Server {
         return "List of file(s):" + message;
     }
 
+    /**
+     * getFile: get file from disk to buffer
+     *
+     * @param : String (filename)
+     * @return : String (command + filename + buffer)
+     */
     String getFile(String fileName) throws IOException {
         File file = new File(SERVER_DIR + File.separator + fileName);
         if (file.exists()) {
@@ -113,7 +155,10 @@ class Server {
     void go() {
         String message;
         try {
-            System.out.println(SERVER_STARTED);
+            //System.out.println(SERVER_STARTED);
+            logger.log(Level.INFO, SERVER_STARTED);
+            Thread cmd = new Thread(new CommandHandler());
+            cmd.start();
             ServerSocket serverSock = new ServerSocket(SERVER_PORT);
             while (true) {
                 Socket clientSocket = serverSock.accept();
