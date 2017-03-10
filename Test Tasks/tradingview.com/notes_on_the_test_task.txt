@@ -1,0 +1,46 @@
+Notes on the test task Mar 10, 2017
+
+Плюсы:
+
+1) код написан аккуратно, компактно, читаемо, ничего лишнего. Очень хорошо. Ant скрипты сборки и запуска в порядке.
+
+Минусы:
+
+1) Сервер останавливается по команде exit. Однако в CommandHandler.run происходит
+
+```
+
+System.exit(0); // server shutdown
+
+```
+
+Предположим, к серверу подключено N клиентов, и часть из них в этот момент скачивает файлы. Процесс скачивания будет жестко прерван и клиенты получат дисконнект и неполные данные. Какой алгоритм можно предложить чтобы этого избежать?
+
+2) Сохранение статистики о скачиваниях. Статистика хранится в поле:
+
+```
+HashMap<String, Integer> statistic = new HashMap<>(); // to keep statistic
+```
+
+(Кстати, почему поле HashMap, а не Map?..) Это потоконебезопасная коллекция, посмотрим как она защищена от многопоточного доступа к своим данным. Запись значений в нее происходит в методе getFile, вызывающемся из ClientHandler.run. Критических секций, мютексов, атомик флагов не видно. ClientHandler.run работает в потоке, который создается индивидуально для каждого подключаемого клиента тут ```Thread client = new Thread(new ClientHandler(clientSocket));```
+
+Чтение значений из statistic происходит в другом потоке, который создается здесь:
+
+```
+task = new SaveStatistic();
+timer.schedule(task, RECORDING_PERIOD * 1000, RECORDING_PERIOD * 1000);
+```
+
+Внутри SaveStatistic.run происходит итерация по содержимому:
+
+```
+for (Map.Entry<String, Integer> item : statistic.entrySet())
+out.write(item.getKey() + " " + item.getValue() + "\n");
+```
+
+Читаем доки JDK https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html#entrySet--
+Returns a Set view of the mappings contained in this map. The set is backed by the map, so changes to the map are reflected in the set, and vice-versa. If the map is modified while an iteration over the set is in progress (except through the iterator's own remove operation, or through the setValue operation on a map entry returned by the iterator) the results of the iteration are undefined.
+
+В общем, нельзя так делать. Если нагрузить данный сервер как следует, рано или поздно произойдет конкуренция потоков и он упадет.
+
+К сожалению пока отказ.
