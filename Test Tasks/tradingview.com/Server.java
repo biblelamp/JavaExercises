@@ -1,8 +1,16 @@
 /**
  * Java. Server - test task for TradingView
+ * Server requirements:
+ * - process requests from multiple clients:
+ *   - send a list of available files
+ *   - send a requested file
+ * - logging all processes
+ * - collecting statistics (the number of downloads of each file)
+ *   and every N seconds saves statistics in text format to a file
+ * - stopping server by command from console
  *
  * @author Sergey Iryupin
- * @version 0.3.5 dated March 09, 2017
+ * @version 0.3.6 dated March 10, 2017
  */
 import java.io.*;
 import java.net.*;
@@ -15,8 +23,9 @@ class Server {
     final String LS_COMMAND = "ls"; // get list of files
     final String GET_COMMAND = "get"; // get file
     final String EXIT_COMMAND = "exit"; // logoff
-    final String UNKNOWN_COMMAND = "Unknown command. Use only: ls | get <filename> | exit";
-    final String SERVER_PROMPT = "Type 'exit' to stop server\n> ";
+    final String UNKNOWN_COMMAND =
+        "Unknown command. Use only: ls | get <filename> | exit";
+    final String SERVER_PROMPT = "Type 'exit' to stop server\n# ";
 
     final String SERVER_STARTED = "Server started.";
     final String SERVER_STOPPED = "Server stopped.";
@@ -33,16 +42,18 @@ class Server {
     Timer timer = new Timer();
     final int RECORDING_PERIOD = 10; // in sec
     final String STATISTIC_FILE_NAME = "statistic.srv.txt";
+    HashMap<String, Integer> statistic = new HashMap<>(); // to keep statistic
 
     public static void main(String[] args) {
         new Server(args).go();
     }
 
     /**
-     * Constructor: get Server dir and start logging
+     * Constructor: set server directory and start logging
      */
     Server(String[] args) {
-        // set up dir
+        // it's assumed that the first argument to the command line
+        // is the path to the server working directory
         SERVER_DIR = (args.length > 0)? args[0] : ".";
         // set up logging
         logger = Logger.getLogger(Server.class.getName());
@@ -50,7 +61,7 @@ class Server {
             FileHandler fh = new FileHandler(LOG_FILE_NAME);
             logger.addHandler(fh);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.WARNING, ex.getMessage());
         }
     }
 
@@ -65,10 +76,11 @@ class Server {
         ClientHandler(Socket clientSocket) {
             try {
                 sock = clientSocket;
-                reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+                reader = new BufferedReader(
+                    new InputStreamReader(sock.getInputStream()));
                 writer = new PrintWriter(sock.getOutputStream());
             } catch(Exception ex) {
-                ex.printStackTrace();
+                logger.log(Level.WARNING, ex.getMessage());
             }
         }
 
@@ -94,9 +106,9 @@ class Server {
                     writer.flush();
                 }
             } catch(Exception ex) { 
-                ex.printStackTrace();
+                logger.log(Level.WARNING, ex.getMessage());
             }
-            System.out.println(CLIENT_DISCONNECTED);
+            logger.log(Level.INFO, CLIENT_DISCONNECTED);
         }
     }
 
@@ -116,9 +128,8 @@ class Server {
                 System.out.print(SERVER_PROMPT);
                 command = scanner.nextLine();
             } while (!command.equals(EXIT_COMMAND));
-            //System.out.println(SERVER_STOPPED);
             logger.log(Level.INFO, SERVER_STOPPED);
-            System.exit(0);
+            System.exit(0); // server shutdown
         }
     }
 
@@ -127,7 +138,16 @@ class Server {
      */
     class SaveStatistic extends TimerTask {
         public void run() {
-            System.out.println("Save statistic...");
+            if (!statistic.isEmpty())
+                try (OutputStreamWriter out =
+                    new OutputStreamWriter(
+                        new FileOutputStream(STATISTIC_FILE_NAME))) {
+                    for (Map.Entry<String, Integer> item : statistic.entrySet())
+                        out.write(item.getKey() + " " + item.getValue() + "\n");
+                    out.flush();
+                } catch (IOException ex) {
+                    logger.log(Level.WARNING, ex.getMessage());
+                }
         }
     }
 
@@ -143,7 +163,7 @@ class Server {
         if (dir.exists()) {
             File[] fileList = dir.listFiles();
             for (File file : fileList)
-                if(file.isFile())
+                if (file.isFile())
                     message += "\n" + file.getName();
         }
         return MSG_LIST_OF_FILES + message;
@@ -160,11 +180,18 @@ class Server {
         if (file.exists()) {
             int length = (int) file.length();
             char[] cbuf = new char[length];
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
+            InputStreamReader isr = new InputStreamReader(
+                new FileInputStream(file));
             int read = isr.read(cbuf); 
-            String message = new String(cbuf, 0, read);
+            String message = new String(cbuf, 0, read); // read file
+            int value = 0;
+            try {
+                value = statistic.get(file.getName());
+            } catch(NullPointerException e) { }
+            statistic.put(file.getName(), value + 1);
             return GET_COMMAND + " " + file.getName() + "\n" + message;
         } else {
+            logger.log(Level.WARNING, MSG_NO_SUCH_FILE);
             return MSG_NO_SUCH_FILE;
         }
     }
@@ -175,7 +202,7 @@ class Server {
         task = new SaveStatistic();
         timer.schedule(task, RECORDING_PERIOD * 1000, RECORDING_PERIOD * 1000);
         try {
-            //System.out.println(SERVER_STARTED);
+            // server started and it's waiting connections
             logger.log(Level.INFO, SERVER_STARTED);
             Thread cmd = new Thread(new CommandHandler());
             cmd.start();
@@ -184,10 +211,10 @@ class Server {
                 Socket clientSocket = serverSock.accept();
                 Thread client = new Thread(new ClientHandler(clientSocket));
                 client.start();
-                System.out.println(CLIENT_JOINED);
+                logger.log(Level.INFO, CLIENT_JOINED);
             }
-        } catch(IOException ex) {
-            ex.printStackTrace();
+        } catch(Exception ex) {
+            logger.log(Level.WARNING, ex.getMessage());
         }
     }
 }
