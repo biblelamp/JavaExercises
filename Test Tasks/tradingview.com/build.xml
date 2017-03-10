@@ -1,11 +1,20 @@
 <?xml version="1.0"?>
-<project name="TradingView" default="compile">
+<project name="TradingView" default="Help">
 
     <!-- set properties -->
     <property name="srv" value="Server"/>
     <property name="client" value="Client"/>
-    <property name="build" value="build"/>
-    <property name="classes" value="${build}/classes"/>
+    <property name="build" location="build"/>
+    <property name="classes" location="${build}/classes"/>
+
+    <!-- show all available targets -->
+    <target name="Help">
+    <echo>The following targets are available to you:
+    $ ant srv.build // build Server jar file
+    $ ant client.build // build Client jar file
+    $ ant srv.run // run Server
+    $ ant client.run // run Client</echo>
+    </target>
 
     <!-- make folders for class/jar file(s) -->
     <target name="mkdir">
@@ -17,14 +26,32 @@
         <javac srcdir="." destdir="${classes}" includeAntRuntime="false"/>
     </target>
 
+    <!-- build Server jar file -->
+    <target name="srv.build" depends="compile">
+        <jar destfile="${build}/${srv}.jar" basedir="${classes}"  excludes="${client}*.class">
+            <manifest>
+                <attribute name="Main-Class" value="${srv}"/>
+            </manifest>
+        </jar>        
+    </target>
+
+    <!-- build Client jar file -->
+    <target name="client.build" depends="compile">
+        <jar destfile="${build}/${client}.jar" basedir="${classes}"  excludes="${srv}*.class">
+            <manifest>
+                <attribute name="Main-Class" value="${client}"/>
+            </manifest>
+        </jar>        
+    </target>
+
     <!-- run Server -->
-    <target name="run.srv" depends="compile">
-        <java classname="${srv}" classpath="${classes}" fork="true"/>
+    <target name="srv.run" depends="srv.build">
+        <java jar="${build}/${srv}.jar" fork="true"/>
     </target>
 
     <!-- run Client -->
-    <target name="run.client" depends="compile">
-        <java classname="${client}" classpath="${classes}" fork="true"/>
+    <target name="client.run" depends="client.build">
+        <java jar="${build}/${client}.jar" fork="true"/>
     </target>
 
     <!-- delete folders with class/jar file(s) -->
