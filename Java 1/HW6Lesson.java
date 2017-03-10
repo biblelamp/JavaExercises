@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 6. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 07 Mar 2017
+ * @version dated 10 Mar 2017
  */
 public class HW6Lesson {
 
@@ -24,18 +24,28 @@ class Cat extends Animal {
     Cat(int speed_limit, float jump_limit, int swim_limit) {
         super(speed_limit, jump_limit, swim_limit);
     }
+
+    @Override
+    protected boolean swim(int distance) {
+        return false; // cats cannot swim (by the condition of task)
+    }
 }
 
 class Dog extends Animal {
     Dog(int speed_limit, float jump_limit, int swim_limit) {
         super(speed_limit, jump_limit, swim_limit);
     }
+
+    @Override
+    protected boolean swim(int distance) {
+        return distance <= swim_limit;
+    }
 }
 
 abstract class Animal {
-    protected int speed_limit;
-    protected float jump_limit;
-    protected int swim_limit;
+    private int speed_limit;
+    private float jump_limit;
+    protected int swim_limit; // for direct access from heirs
 
     Animal(int speed_limit, float jump_limit, int swim_limit) {
         this.speed_limit = speed_limit;
@@ -49,7 +59,5 @@ abstract class Animal {
     protected boolean jump(float height)  {
         return height <= jump_limit;
     }
-    protected boolean swim(int distance) {
-        return distance <= swim_limit;
-    }
+    abstract boolean swim(int distance);
 }
