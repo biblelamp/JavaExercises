@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 7. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 10 Mar 2017
+ * @version dated 11 Mar 2017
  */
 public class HW7Lesson {
 
@@ -32,7 +32,9 @@ class Cat {
     }
 
     void eat(Plate plate) {
-        satiety = plate.decreaseFood(volume);
+        //satiety = plate.decreaseFood(volume);
+        if (plate.getQuantity() >= volume)
+            satiety = plate.decreaseFood(volume);
     }
 
     @Override
@@ -48,7 +50,7 @@ class Plate {
         this.food = food;
     }
 
-    int getQuantity(int food) {
+    int getQuantity() {
         return food;
     }
 
