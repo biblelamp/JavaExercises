@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.1 dated March 11, 2017
+ * @version 0.2 dated March 12, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +46,8 @@ class TicTacToe extends JFrame {
                 int y = e.getY()/CELL_SIZE;
                 human.turn(x, y, field, ai);
                 canvas.repaint();
+                if (field.getGameOverMsg() != null)
+                    JOptionPane.showMessageDialog(TicTacToe.this, field.getGameOverMsg());
             }
         });
         JButton init = new JButton(BTN_INIT);

@@ -3,7 +3,7 @@
  * Class: Field
  *
  * @author Sergey Iryupin
- * @version 0.1 dated March 11, 2017
+ * @version 0.2 dated March 12, 2017
  */
 import java.awt.*;
 import java.awt.geom.*; // for Graphics2D
@@ -20,6 +20,7 @@ class Field {
     private final String MSG_AI_WON = "AI WON!";
     private char[][] field;
     private boolean gameOver;
+    private String gameOverMsg;
 
     Field(int field_size, int window_size, char human_dot, char ai_dot) {
         FIELD_SIZE = field_size;
@@ -36,26 +37,31 @@ class Field {
             for (int j = 0; j < FIELD_SIZE; j++)
                 field[i][j] = EMPTY_DOT;
         gameOver = false;
+        gameOverMsg = null;
     }
 
     int getSize() { return FIELD_SIZE; }
 
     boolean isGameOver() { return gameOver; }
 
+    String getGameOverMsg() { return gameOverMsg; }
+
     void setDot(int x, int y, char ch) { // set dot and check fill and win
         field[x][y] = ch;
         if (isFull()) {
-            System.out.println(MSG_DRAW);
+            gameOverMsg = MSG_DRAW;
             gameOver = true;
         }
         if (isWin(HUMAN_DOT)) {
-            System.out.println(MSG_HUMAN_WON);
+            gameOverMsg = MSG_HUMAN_WON;
             gameOver = true;
         }
         if (isWin(AI_DOT)) {
-            System.out.println(MSG_AI_WON);
+            gameOverMsg = MSG_AI_WON;
             gameOver = true;
         }
+        //if (gameOver)
+        //    JOptionPane.showMessageDialog(frame, gameOverMsg);
     }
 
     boolean isCellEmpty(int x, int y) {
