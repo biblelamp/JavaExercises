@@ -1,221 +1,225 @@
-Apache Ant – быстрый старт
-
-Apache Ant должен быть знаком каждому Java-программисту: это популярный инструмент сборки ПО (build tool), полностью написанный на Java. Сценарий сборки представляет собой простой XML-файл. Несмотря на свою Java-направленность, этим инструментом пользуются и другие разработчики.
+Apache Ant должен быть знаком каждому Java-программисту: это популярный инструмент сборки ПО (build tool), полностью написанный на Java. Сценарий представляет собой простой XML-файл. Этот инструмент используют не только Java-разработчики.
 
 Мы пройдём пять простых шагов, чтобы начать использовать Ant:
 1. Скачаем, установим и настроим.
-2. Разберёмся с принципами работы и форматом XML-сценария сборки.
-3. Узнаем минимально необходимый список заданий.
-4. Напишем простейший Ant-сценарий.
+2. Напишем HelloWorld сценарий.
+3. Разберёмся с принципами работы и XML форматом сценария сборки.
+4. Узнаем минимально необходимый список заданий.
 5. Напишем сценарий для полного цикла сборки и тестирования простого проекта.
 
-Нам потребуется Java SE Development Kit (JDK, скачиваем по адресу http://www.oracle.com/technetwork/java/javase/downloads), ваш любимый текстовый редактор (для Windows рекомендую Notepad++) и минимальные навыки работы в командной строке. Сценарии сборки и пример на Java протестированы и в Windows (XP/7), и в Linux (Xubuntu 12.04, CentOS 6.8). Однако в дальнейшем мы будем предполагать что работаем в Windows.
+Нам потребуется Java SE Development Kit (JDK, скачиваем по адресу http://www.oracle.com/technetwork/java/javase/downloads), ваш любимый текстовый редактор (для Windows рекомендую Notepad++, для Linux — vi/vim) и минимальные навыки работы в командной строке. Сценарии сборки и примеры на Java протестированы и в Linux (Simply Linux 7.95.0, CentOS Linux 6.8) и в Windows (XP/7). Использование Ant одинаково и в Linux и в Windows.
 
 1. Скачиваем, устанавливаем, настраиваем
 
-Посещаем веб-сайт https://ant.apache.org/ заходим в раздел Download/Binary Distributions и скачиваем файл apache-ant-1.10.1-bin.zip (возможно сейчас есть уже более свежая версия). Содержимое архива копируем в любой каталог, например "C:\Program Files\Ant" (Windows). Затем добавляем путь к каталогу bin (C:\Program Files\Ant\bin) в системную переменную Path.
+Linux: устанавливаем из репозитария командой вроде sudo apt-get install ant. Учтите, что нам нужна версия не ниже 1.8.*. Для CentOS 6.8 можно использовать скрипт, предложенный в предыдущей статье.
 
-Проверяем работоспособность Ant, вызвав командную строку:
+Windows: посещаем веб-сайт https://ant.apache.org/ заходим в раздел Download/Binary Distributions и скачиваем архив apache-ant-1.10.1-bin.zip (возможно сейчас есть уже более свежая версия). Cодержимое архива копируем в любой каталог, например "C:\Program Files\Apache Ant". Затем добавляем путь к каталогу bin (C:\Program Files\Apache Ant\bin) в системную переменную Path.
 
-    C:\>ant -version
-    Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+Проверяем работоспособность, вызвав ant в командной строке:
 
-Если аналогичное сообщение получено - всё в порядке.
+$ ant -version
+Apache Ant(TM) version 1.10.1 compiled on February 2 2017
 
-2. Основные принципы работы
+Если аналогичное сообщение получено — всё в порядке.
 
-Сценарий сборки - обычный XML-файл. Он содержит определение целей (target), зависимостей (depends) и свойств (property). Простейший сценарий должен иметь хотя бы одну цель. Цель описывает вызов одной или нескольких команд или заданий (tasks). Мы можем задать имя цели с помощью атрибута "name" (name="command"). Заданное имя становится командой для нашего сценария и может быть вызвана так:
+2. Пишем HelloWorld сценарий
 
-    C:\>ant command
+<?xml version="1.0"?>
+<project name="HelloWorld" default="hello">
+    <target name="hello">
+        <echo>Hello, World!</echo>
+    </target>
+</project>
 
-В теге target также можно (но необязательно) указать зависимость с помощью атрибута "depends". Зависимости связывают цели между собой. Например, есть цель "compile", a есть "run", зависимая от "compile". И если мы выполняем "run", сначала выполняется "compile".
+Создадим каталог hello и сохраним туда файл с именем build.xml, содержащий предложенный выше сценарий. В командной строке перейдём в каталог и вызовем ant:
 
-3. Минимально необходимый список заданий (tasks)
+$ cd ~/hello/
+$ ant
+Buildfile: /home/lamp/hello/build.xml
+
+hello:
+     [echo] Hello, World!
+BUILD SUCCESSFULL
+
+Total time: 0 seconds
+
+Что произошло? Ant нашел файл сценария с именем по умолчанию (build.xml) и выполнил задание с именем hello, также указанное по умолчанию в теге project с помощью атрибута default (обратите внимание что в теге project мы также указали имя проекта, используя атрибут name). Мы получим такой же результат, если при вызове ant укажем в качестве параметра слово hello:
+
+$ ant hello
+
+3. Основные принципы работы
+
+Сценарий сборки — обычный XML-файл. Он открывается (и закрывается) тегом project, в котором можно указать имя проекта и цель по умолчанию. Далее он содержит определение целей (target), зависимостей (depends) и свойств (property). Простейший сценарий должен иметь хотя бы одну цель. В теге target мы описываем вызов одного или нескольких заданий (tasks). Можно задать имя для target с помощью атрибута name (name="command"). Заданное имя становится командой для нашего сценария и вызвать соответствующую цель можно так:
+
+$ ant command
+
+В target есть возможность (хотя это необязательно) указать зависимость с помощью атрибута depends. Зависимости связывают target'ы между собой. Например, есть target c именем "compile", a есть — с именем "run", зависимый от "compile". И если мы захотим выполнить "run", сначала выполнится "compile".
+
+4. Минимально необходимый список заданий (tasks)
 
 Стандартная версия Ant содержит более 150 заданий (https://ant.apache.org/manual/tasklist.html). Нам пока потребуются только семь:
 
-    echo - вывод сообщения в консоль
-    mkdir - создание директорий
-    delete - удаление файлов и директорий
-    javac - компиляция Java-кода
-    java - запуск class и jar файлов
-    jar - создание jar файла
-    junit - запуск тестов
-
-4. Простейший Ant-сценарий
-
-    <?xml version="1.0"?>
-    <project name="HelloWorld" default="hello">
-        <target name="hello">
-            <echo>Hello, World!</echo>
-        </target>
-    </project>
-
-    В этом сценарии у нас единственная цель с именем hello - вывести строку в консоль. Обратите внимание: в теге project мы задали имя проекта, с помощью атрибута name и цель по умолчанию, с помощью атрибута default.
-    Создадим каталог D:\Hello в корне диска D: (можно выбрать другой диск) и сохраним туда файл build.xml, содержащий предложенный выше сценарий. Запустим интерпретатор командной строки (Пуск/Выполнить/cmd), перейдём в наш каталог и вызовем ant:
-
-    D:\Hello>ant
-    Buildfile: D:\Hello\build.xml
-
-    hello:
-         [echo] Hello, World!
-    BUILD SUCCESSFULL
-
-    Total time: 0 seconds
-
-    Ant нашел файл сценария по умолчанию (build.xml), прочитал его и выполнил задание, заданное по умолчанию в теге project - hello. Мы получим такой же результат, если при вызове ant укажем в качестве параметра команду hello:
-
-    D:\Hello>ant hello
+echo — вывод сообщения в консоль
+mkdir — создание директорий
+delete — удаление файлов и директорий
+javac — компиляция Java—кода
+java — запуск class и jar файлов
+jar — создание jar файла
+junit — запуск тестов
 
 5. Пишем сценарий для сборки и тестирования Java проекта
 
-    Ant предоставляет полную свободу в формировании структуры каталогов. Мы создадим подкаталог src для исходных текстов на java. Это можно сделать в командной строке:
+Ant предоставляет полную свободу в формировании структуры каталогов. Мы создадим в нашем каталоге подкаталог src для исходных текстов на java (в Windows это будет команда md):
 
-    D:\Hello>md src
+$ mkdir src
 
-    Там (D:\Hello\src) мы сохраним файл HelloWorld.java следующего содержания:
+И сохраним туда файл HelloWorld.java следующего содержания:
 
-    public class HelloWorld {
-        public static void main(String[] args) {
-            System.out.println("Hello, World!");
-        }
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
     }
+}
 
-    Затем изменим текст сценария, получив следующее:
+Затем немного усложним текст нашего сценария (build.xml):
 
-    <?xml version="1.0"?>
-    <project name="HelloWorld" default="run">
-        <target name="mkdir">
-            <mkdir dir="build/classes"/>
-        </target>
-        <target name="compile" depends="mkdir">
-            <javac destdir="build/classes" includeantruntime="false">
-                <src path="src"/>
-            </javac>
-        </target>
-        <target name="run" depends="compile">
-            <java classname="HelloWorld" classpath="build/classes"/>
-        </target>
-        <target name="clean">
-            <delete dir="build"/>
-        </target>
-    </project>
-
-    Теперь сценарий содержит четыре цели (команды): mkdir (создание папок для классов), compile (компиляция файла(ов) .java), run (запуск файла(ов) .class), clean (удаление результатов компиляции).
-
-    Запустим сценарий без параметров и увидим результат выполнения Java программы. Обратим внимание, что в сценарии есть цель clean, которая удаляет каталоги с результатами компиляции.
-
-    Прямое указание имен каталогов не говорит о хорошем стиле. Особенно если имена в сценарии повторяются. Модицицируем build.xml, используя property:
-
-    <?xml version="1.0"?>
-    <project name="HelloWorld" default="run">
-        <property name="src" location="src"/>
-        <property name="build" location="build"/>
-        <property name="classes" location="${build}/classes"/>
-        <target name="mkdir">
-            <mkdir dir="${classes}"/>
-        </target>
-        <target name="compile" depends="mkdir">
-            <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
-        </target>
-        <target name="run" depends="compile">
-            <java classname="${ant.project.name}" classpath="${classes}"/>
-        </target>
-        <target name="clean">
-            <delete dir="${build}"/>
-        </target>
-    </project>
-
-    Затем добавим в сценарий цель/команду, которая формирует jar файл:
-
-    <target name="package" depends="compile">
-        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
-            <manifest>
-                <attribute name="Main-Class" value="${ant.project.name}"/>
-            </manifest>
-        </jar>
+<?xml version="1.0"?>
+<project name="HelloWorld" default="run">
+    <target name="mkdir">
+        <mkdir dir="build/classes"/>
     </target>
+    <target name="compile" depends="mkdir">
+        <javac destdir="build/classes" includeantruntime="false">
+            <src path="src"/>
+        </javac>
+    </target>
+    <target name="run" depends="compile">
+        <java classname="HelloWorld" classpath="build/classes"/>
+    </target>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+</project>
 
-    И убедимся что она работает:
+Теперь сценарий содержит четыре target (команды): mkdir (создание папок для классов), compile (компиляция файла(ов) .java), run (запуск файла .class), clean (удаление папок с результатами компиляции). Обратите также внимание на зависимости: target run предварительно вызовет compile, compile – mkdir. И только clean сама по себе. Ещё run является для проекта target по умолчанию.
 
-    D:\Hello>ant package
-    D:\Hello>java -jar build\HelloWorld.jar
-    Hello, World!
+Запустим сценарий без параметров и увидим, в конце концов, результат работы нашей Java программы — приветствие.
+
+Прямое указание имен каталогов не говорит о хорошем стиле. Особенно если имена в сценарии повторяются. Модифицируем build.xml, используя property (обратите внимание, как нам пригодилось имя проекта, заданное в project):
+
+ <?xml version="1.0"?>
+ <project name="HelloWorld" default="run">
+     <property name="src" location="src"/>
+     <property name="build" location="build"/>
+     <property name="classes" location="${build}/classes"/>
+     <target name="mkdir">
+         <mkdir dir="${classes}"/>
+     </target>
+     <target name="compile" depends="mkdir">
+         <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
+     </target>
+     <target name="run" depends="compile">
+         <java classname="${ant.project.name}" classpath="${classes}"/>
+     </target>
+     <target name="clean">
+         <delete dir="${build}"/>
+     </target>
+ </project>
+
+Теперь добавим в сценарий target для формирования jar файла:
+
+<target name="package" depends="compile">
+    <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+        <manifest>
+            <attribute name="Main—Class" value="${ant.project.name}"/>
+        </manifest>
+    </jar>
+</target>
+
+И убедимся что всё работает:
+
+$ ant package
+$ java -jar build/HelloWorld.jar
+$ Hello, World!
     
-    Перейдём к тестированию. Изменим код проекта (чтобы было что тестировать):
+Перейдём к тестированию. Изменим код проекта (чтобы было что тестировать):
 
-    public class HelloWorld {
-        public static void main(String[] args) {
-            HelloWorld hello = new HelloWorld();
-            System.out.println(hello.sayHello());
-        }
-        String sayHello() {
-            return "Hello, World!";
-        }
+public class HelloWorld {
+    public static void main(String[] args) {
+        HelloWorld hello = new HelloWorld();
+        System.out.println(hello.sayHello());
     }
-
-    и добавим в каталог src файл/класс (TestHello.java) с простым тестом:
-
-    import static org.junit.Assert.assertEquals;
-    import org.junit.Test;
-    public class TestHello {
-        @Test
-        public void testHello() {
-            HelloWorld hello = new HelloWorld();
-            assertEquals("Hello, World!", hello.sayHello());
-        }
+    String sayHello() {
+        return "Hello, World!";
     }
+}
 
-    Используя информацию со страницы https://github.com/junit-team/junit4/wiki/getting-started загрузим два файла, junit-4.12.jar и hamcrest-core-1.3.jar и скопируем их в каталог нашего <JDK>\jre\lib\ext. Теперь можно проверить как работает тест в командной строке:
+и добавим в каталог src файл/класс (TestHello.java) с простым тестом:
 
-    D:\Hello>java -cp build\classes org.junit.runner.JUnitCore TestHello
-    JUnit version 4.12
-    .
-    Time: 0,281
-    OK (1 test)
-
-    Дополним наш сценарий следующими строчками:
-
-    <target name="test" depends="compile">
-        <junit>
-            <classpath>
-                <pathelement location="${classes}"/>
-            </classpath>
-            <test name="TestHello"/>
-        </junit>
-    </target>
-
-    и дополним строку с заданием package (jar):
-
-    <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
-
-    Теперь к списку команд нашего build файла (mkdir, compile, run, package) добавилась команда test.
-    В заключение мы изменим код нашего проекта так, чтобы приветствие выводилось в отдельном графическом окне. Затем сформируем jar файл и запустим его двойным кликом мыши (у вас должно быть настроено выполнение jar по клику).
-
-    Третья версия кода проекта:
-
-    import javax.swing.*;
-    import java.awt.*;
-    public class HelloWorld extends JFrame {
-        public static void main(String[] args) {
-            new HelloWorld();
-        }
-        HelloWorld() {
-            setTitle(sayHello());
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
-            setBounds(200, 200, 300, 200);
-            JLabel label = new JLabel(sayHello(), SwingConstants.CENTER);
-            label.setFont(new Font("", Font.BOLD, 24));
-            add(label);
-            setVisible(true);
-        }
-        String sayHello() {
-            return "Hello, World!";
-        }
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+public class TestHello {
+    @Test
+    public void testHello() {
+        HelloWorld hello = new HelloWorld();
+        assertEquals("Hello, World!", hello.sayHello());
     }
+}
 
-    Вносим незначительные дополнение в сценарий (в команде run), добавив fork="true" (запуск выполнения класса в другой виртуальной машине). В противном случае run не сработает (проверено экспериментально):
+Используя информацию со страницы https://github.com/junit-team/junit4/wiki/getting-started загрузим два файла, junit-4.12.jar и hamcrest-core-1.3.jar и скопируем их в каталог нашего [JDK]\jre\lib\ext:
 
-    <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
+$ sudo cp ~/Downloads/*.jar /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el6_8.i386/jre/lib/ext/
 
-    Выполняем команду формирования jar (D:\Hello>ant package) открываем в проводнике каталог D:\Hello\build находим там файл HelloWorld.jar дважды кликаем по нему мышкой и получаем удовольствие от созерцания графического окошка с приветствием.
+Теперь можно проверить как работает тест в командной строке:
+
+D:\Hello>java -cp build/classes org.junit.runner.JUnitCore TestHello
+JUnit version 4.12
+.
+Time: 0,281
+OK (1 test)
+
+Дополним наш сценарий следующими строчками:
+
+<target name="test" depends="compile">
+    <junit>
+        <classpath>
+            <pathelement location="${classes}"/>
+        </classpath>
+        <test name="TestHello"/>
+    </junit>
+</target>
+
+и дополним строку с target package (jar):
+
+<jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
+
+Теперь к списку команд нашего сценария (mkdir, compile, run, package) добавилась команда test.
+В заключение мы изменим код нашего проекта так, чтобы приветствие выводилось в отдельном графическом окне. Затем сформируем jar файл и запустим его двойным кликом мыши (у вас должно быть настроено выполнение jar файлов по клику).
+
+Третья версия Java кода:
+
+import javax.swing.*;
+import java.awt.*;
+public class HelloWorld extends JFrame {
+    public static void main(String[] args) {
+        new HelloWorld();
+    }
+    HelloWorld() {
+        setTitle(sayHello());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBounds(200, 200, 300, 200);
+        JLabel label = new JLabel(sayHello(), SwingConstants.CENTER);
+        label.setFont(new Font("", Font.BOLD, 24));
+        add(label);
+        setVisible(true);
+    }
+    String sayHello() {
+        return "Hello, World!";
+    }
+}
+
+Вносим также незначительное дополнение в сценарий (в target run), дописав fork="true" (запуск выполнения класса в другой виртуальной машине). В противном случае run не сработает (проверено экспериментально):
+
+<java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
+
+Выполняем команду формирования jar файла ($ ant package), открываем в проводнике файлов каталог ~/hello/build, находим там HelloWorld.jar, дважды кликаем по нему мышкой и получаем удовольствие от созерцания графического окошка с приветствием.
