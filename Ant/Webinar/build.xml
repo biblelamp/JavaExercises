@@ -6,13 +6,9 @@
     <property name="build" location="build"/>
     <property name="classes" location="${build}/classes"/>
 
-    <!-- make folders for class/jar file(s) -->
-    <target name="mkdir">
-        <mkdir dir="${classes}"/>
-    </target>
-
     <!-- compile java file(s) to class file(s) -->
-    <target name="compile" depends="mkdir">
+    <target name="compile">
+        <mkdir dir="${classes}"/>
         <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
     </target>
 
