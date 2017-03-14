@@ -1,0 +1,221 @@
+Apache Ant should be familiar to every Java programmer: this is a popular software build tool, completely written in Java. Ant uses a build script which is a simple XML file. Despite its being Java-oriented, web developers also use this tool.
+
+We'll make five simple steps to start using Ant:
+1. Installation and check.
+2. Writing a simple HelloWorld script.
+3. Understanding the basic principles of work and the XML format of the build script.
+4. Finding out the minimum required list of tasks.
+5. Writing a script for a full cycle of building and testing of a training project.
+
+We need the Java SE Development Kit (JDK, download it from http://www.oracle.com/technetwork/java/javase/downloads), your favorite text editor (in Linux we can use vi/vim/gedit, for Windows I recommend Notepad++) and basic skills in command line. Build scripts and Java examples have been tested in Linux (Simply Linux 7.95.0, CentOS Linux 6.8) and Windows (XP/7). Using Ant is the same both for Linux and Windows.
+
+1. Installation and check
+
+Ant can easily be installed from the repository using a command like sudo apt-get install ant (replace apt-get on yum if necessary). Important: we need version no lower than 1.8.*. We have version 1.7.1 in the CentOS 6.8 repository, so it's better to use the script (https://github.com/biblelamp/LinuxExercises/blob/master/CentOS/installantoncentos.sh) which is offered in the previous article (https://developers.redhat.com/blog/2017/03/14/preparing-centos-6-8-for-work).
+
+We check the operability by calling ant in the command line:
+
+$ ant -version
+Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+
+If we see a similar message – everything is OK.
+
+2. Writing a simple HelloWorld script
+
+<?xml version="1.0"?>
+<project name="HelloWorld" default="hello">
+    <target name="hello">
+        <echo>Hello, World!</echo>
+    </target>
+</project>
+
+We create the hello subdirectory in the home directory (to do this, Linux has the mkdir command) and save there a file containing the above script with a name build.xml. We go to this directory and call ant:
+
+$ mkdir hello
+$ cd hello
+$ ant
+Buildfile: /home/lamp/hello/build.xml
+
+hello:
+     [echo] Hello, World!
+BUILD SUCCESSFULL
+
+Total time: 0 seconds
+
+What happens? Ant finds the script file with the default name (build.xml) and execute the target with the name hello also specified by default in the project tag using the default attribute (note that in the project tag we also specify the name of the project using the name attribute). We get the same result if we call ant with hello parameter:
+
+$ ant hello
+
+3. Basic terms and principles of work
+
+The build script is a simple XML file. The text is opened (and closed) by the project tag in which you can specify the project name and the default target. It also contains a definition of goals (target), dependencies (depends) and properties (property). The simplest script should have at least one target. In the target tag we describe the call of one or more tasks. For target you can specify a name using the name attribute (name="name_of_target"). The given name becomes a command for our script and you can call the corresponding target in the following way:
+
+$ ant name_of_target
+
+The target also has the ability to specify a dependency using the depends attribute. Dependencies link the targets with each other. For example, there is a target named "compile", and another one with name "run", dependent on "compile". And if we want to run "run", "compile" will be executed before.
+
+4. The minimum required list of tasks
+
+The standard version of Ant contains more than 150 tasks (https://ant.apache.org/manual/tasklist.html). We need only seven:
+
+echo – output messages to the console
+mkdir – creating directories
+delete – delete files and directories
+javac – compiling Java code
+java – launching class and jar files
+jar – creating a jar file
+junit – running tests
+
+5. Script for building and testing Java projects
+
+Ant provides complete freedom in the formation of a directory structure. We create in our hello directory a subdirectory src for the source code in Java:
+
+$ mkdir src
+
+And save a file named HelloWorld.java there with the following content:
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+
+Now let's slightly complicate our script (build.xml):
+<?xml version="1.0"?>
+<project name="HelloWorld" default="run">
+    <target name="compile" depends="mkdir">
+        <mkdir dir="build/classes"/>
+        <javac destdir="build/classes" includeantruntime="false">
+            <src path="src"/>
+        </javac>
+    </target>
+    <target name="run" depends="compile">
+        <java classname="HelloWorld" classpath="build/classes"/>
+    </target>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+</project>
+
+As a result the script has three targets (commands): compile (compiling the .java file(s)), run (starting the .class file), clean (deleting the folders with the results of the compilation). In this case, compile contains two tasks – mkdir and javac. Note the dependency: target run will call compile beforehand. In addition, run is the default target for the project.
+
+Run the script without parameters and see the result of working the Java program: Hello, World!
+
+The direct indication of directory names doesn't imply a good style, especially if the directory names in the script are repeated. We modify build.xml using property (note how the project name is used in the script below) and add a couple of comments:
+
+ <?xml version="1.0"?>
+ <project name="HelloWorld" default="run">
+     <!-- define names of directories -->
+     <property name="src" location="src"/>
+     <property name="build" location="build"/>
+     <property name="classes" location="${build}/classes"/>
+     <!-- define all targets -->
+     <target name="compile">
+         <mkdir dir="${classes}"/>
+         <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
+     </target>
+     <target name="run" depends="compile">
+         <java classname="${ant.project.name}" classpath="${classes}"/>
+     </target>
+     <target name="clean">
+         <delete dir="${build}"/>
+     </target>
+ </project>
+
+Now add the target package to generate the jar file:
+
+<target name="package" depends="compile">
+    <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+        <manifest>
+            <attribute name="Main–Class" value="${ant.project.name}"/>
+        </manifest>
+    </jar>
+</target>
+
+And make sure that everything works:
+
+$ ant package
+$ java -jar build/HelloWorld.jar
+Hello, World!
+    
+Let's start to testing. We change the project code (to have something for testing):
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        HelloWorld hello = new HelloWorld();
+        System.out.println(hello.sayHello());
+    }
+    String sayHello() {
+        return "Hello, World!";
+    }
+}
+
+And add the file/class TestHello.java with the simple test to the src directory:
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+public class TestHello {
+    @Test
+    public void testHello() {
+        HelloWorld hello = new HelloWorld();
+        assertEquals("Hello, World!", hello.sayHello());
+    }
+}
+
+Using the information from the page https://github.com/junit-team/junit4/wiki/getting-started, we download two files, junit-4.12.jar and hamcrest-core-1.3.jar and copy them to the directory of our JDK/jre/lib/ext (I use this copy command in CentOS 6.8):
+
+$ sudo cp ~/Downloads/*.jar /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el6_8.i386/jre/lib/ext/
+
+Now we can check how the test works in the command line:
+
+$ java -cp build/classes org.junit.runner.JUnitCore TestHello
+JUnit version 4.12
+.
+Time: 0,281
+OK (1 test)
+
+Add one more target with the name test to our script:
+
+<target name="test" depends="compile">
+    <junit>
+        <classpath>
+            <pathelement location="${classes}"/>
+        </classpath>
+        <test name="TestHello"/>
+    </junit>
+</target>
+
+And complete the line in the package target (jar):
+
+<jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
+
+Now test is added to the list of commands in our script (besides compile, run, package, clean).
+After this we change the code of our project so that the greeting is displayed in a separate graphical window. Then we create a jar file and run it with a double mouse click (you should be configured to execute jar files by double-clicking).
+
+The third version of Java code:
+
+import javax.swing.*;
+import java.awt.*;
+public class HelloWorld extends JFrame {
+    public static void main(String[] args) {
+        new HelloWorld();
+    }
+    HelloWorld() {
+        setTitle(sayHello());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBounds(200, 200, 300, 200);
+        JLabel label = new JLabel(sayHello(), SwingConstants.CENTER);
+        label.setFont(new Font("", Font.BOLD, 24));
+        add(label);
+        setVisible(true);
+    }
+    String sayHello() {
+        return "Hello, World!";
+    }
+}
+
+We change the script a little (in the run target), adding fork="true" (execution of the class in another virtual machine). Otherwise, the run will not work (having been checked experimentally):
+
+<java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
+
+We execute the command to generate the jar file ($ ant package), open the ~/hello/build directory in the file explorer, find HelloWorld.jar, double click on it and enjoy viewing the graphical window with the greeting.
