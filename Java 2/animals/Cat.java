@@ -2,15 +2,19 @@
  * Class Cat
  * 
  * @author  Sergey Iryupin
- * @version 0.1 dated Mar 18, 2017
+ * @version 0.2 dated Mar 19, 2017
  */
-public class Cat extends Animal implements Swimable {
+public class Cat extends Animal implements Swimable, Jumpable {
 
     public Cat(String name) {
         this.name = name;
     }
 
     @Override
-    public void swim() {
+    public void swim(int distance) {
+    }
+
+    @Override
+    public void jump(float height) {
     }
 }

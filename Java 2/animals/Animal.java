@@ -17,7 +17,9 @@ public abstract class Animal {
 
     @Override
     public String toString() {
-        return this.getClass().getName() + " " + name +
-            ((this instanceof Swimable)?" can swim":" can not swim");
+        return this.getClass().getName() + " " +
+            name +
+            ((this instanceof Swimable)?" can swim":" can not swim") +
+            ((this instanceof Jumpable)?" can jump":" can not jump");
     }
 }

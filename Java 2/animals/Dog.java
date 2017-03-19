@@ -2,15 +2,19 @@
  * Class Dog
  * 
  * @author  Sergey Iryupin
- * @version 0.1 dated Mar 18, 2017
+ * @version 0.2 dated Mar 19, 2017
  */
-public class Dog extends Animal implements Swimable {
+public class Dog extends Animal implements Swimable, Jumpable {
 
     public Dog(String name) {
         this.name = name;
     }
 
     @Override
-    public void swim() {
+    public void swim(int distance) {
+    }
+    
+    @Override
+    public void jump(float height) {
     }
 }

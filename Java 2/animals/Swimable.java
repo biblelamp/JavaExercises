@@ -5,5 +5,5 @@
  * @version 0.1 dated Mar 18, 2017
  */
 public interface Swimable {
-    void swim();
+    void swim(int distance);
 }
