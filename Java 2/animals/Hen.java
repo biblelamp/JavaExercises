@@ -2,12 +2,15 @@
  * Class Hen
  * 
  * @author  Sergey Iryupin
- * @version 0.2 dated Mar 23, 2017
+ * @version 0.3 dated Mar 24, 2017
  */
-public class Hen extends Animal implements Jumpable {
+class Hen extends Animal implements Jumpable {
+    private float jump_limit;
 
-    public Hen(String name) {
+    Hen(String name) {
         this.name = name;
+        super.run_limit = 100;
+        jump_limit = 3.2f;
     }
 
     @Override
@@ -16,6 +19,7 @@ public class Hen extends Animal implements Jumpable {
     }
 
     @Override
-    public void jump(float height) {
+    public boolean jump(float height) {
+        return jump_limit > height;
     }
 }

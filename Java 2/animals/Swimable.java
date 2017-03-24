@@ -4,6 +4,6 @@
  * @author  Sergey Iryupin
  * @version 0.1 dated Mar 18, 2017
  */
-public interface Swimable {
-    void swim(int distance);
+interface Swimable {
+    boolean swim(int length);
 }

@@ -2,20 +2,25 @@
  * Class Animal is parent for all animals
  *
  * @author  Sergey Iryupin
- * @version 0.2 dated Mar 23, 2017
+ * @version 0.3 dated Mar 24, 2017
  */
-public abstract class Animal {
+abstract class Animal {
     protected String name;
+    protected int run_limit;
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
     abstract String voice();
+
+    boolean run(int length) {
+        return run_limit > length;
+    }
 
     @Override
     public String toString() {

@@ -2,12 +2,17 @@
  * Class Cat
  * 
  * @author  Sergey Iryupin
- * @version 0.3 dated Mar 23, 2017
+ * @version 0.4 dated Mar 24, 2017
  */
-public class Cat extends Animal implements Swimable, Jumpable {
+class Cat extends Animal implements Swimable, Jumpable {
+    private int swim_limit;
+    private float jump_limit;
 
-    public Cat(String name) {
+    Cat(String name) {
         this.name = name;
+        super.run_limit = 100;
+        swim_limit = 60;
+        jump_limit = 2.8f;
     }
 
     @Override
@@ -16,10 +21,12 @@ public class Cat extends Animal implements Swimable, Jumpable {
     }
 
     @Override
-    public void swim(int distance) {
+    public boolean swim(int length) {
+        return swim_limit > length;
     }
 
     @Override
-    public void jump(float height) {
+    public boolean jump(float height) {
+        return jump_limit > height;
     }
 }
