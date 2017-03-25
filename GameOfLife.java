@@ -32,6 +32,7 @@ public class GameOfLife extends JFrame {
     final int START_LOCATION = 200;
     boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
     boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
+    boolean[][] tmp;
     int countGeneration = 0;
     int showDelay = 500;
     int showDelayStep = 50;
@@ -307,9 +308,11 @@ public class GameOfLife extends JFrame {
                 nextGeneration[x][y] = ((count < 2) || (count > 3)) ? false : nextGeneration[x][y];
             }
         }
-        for (int x = 0; x < LIFE_SIZE; x++) {
-            System.arraycopy(nextGeneration[x], 0, lifeGeneration[x], 0, LIFE_SIZE);
-        }
+	// swap generations
+	tmp		= nextGeneration;
+	nextGeneration	= lifeGeneration;
+	lifeGeneration	= tmp;
+
         countGeneration++;
     }
 
