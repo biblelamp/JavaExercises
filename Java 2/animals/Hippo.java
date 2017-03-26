@@ -9,7 +9,7 @@ class Hippo extends Animal implements Swimable {
    
     Hippo(String name) {
         this.name = name;
-        super.run_limit = 100;
+        this.run_limit = 100;
         swim_limit = 100;
     }
 

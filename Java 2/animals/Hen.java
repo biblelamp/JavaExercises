@@ -9,7 +9,7 @@ class Hen extends Animal implements Jumpable {
 
     Hen(String name) {
         this.name = name;
-        super.run_limit = 100;
+        this.run_limit = 100;
         jump_limit = 3.2f;
     }
 

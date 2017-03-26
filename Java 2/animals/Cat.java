@@ -10,7 +10,7 @@ class Cat extends Animal implements Swimable, Jumpable {
 
     Cat(String name) {
         this.name = name;
-        super.run_limit = 100;
+        this.run_limit = 100;
         swim_limit = 60;
         jump_limit = 2.8f;
     }
