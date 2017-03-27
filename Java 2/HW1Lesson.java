@@ -1,5 +1,3 @@
-import animals.*;
-import obstances.*;
 /**
  * Java. Level 2. Lesson 1. Example of homework
  * Preparatory actions:
@@ -10,28 +8,32 @@ import obstances.*;
  *      > jar -cf animals.jar animals
  * 2. Making obstances.jar from classes track, wall, water in the same way
  * 3. Put both packages to lib/ directory
- * 4. Compile using this way:
+ *    Compile using this way:
  *    > javac -cp lib/animals.jar;lib/obstances.jar HW1Lesson.java
- * 5. Run compiled program this way:
+ *    Run compiled program this way:
  *    > java -cp lib/animals.jar;lib/obstances.jar;. HW1Lesson
+ * 4. Or put both packages to [JDK]/jre/lib/ext
+ *    and compile and run this way:
+ *    > javac HW1Lesson.java
+ *    > java HW1Lesson
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 26 Mar 2017
+ * @version 0.2 dated 27 Mar 2017
  */
+import animals.*;
+import obstances.*;
+import hw1.*;
+
 public class HW1Lesson {
 
     public static void main(String[] args) {
-        Animal[] zoo = {new Cat("Murzik"), new Hen("Izzy"), new Hippo("Hippopo")};
-        Track track = new Track(50);
-        Water water = new Water(50);
-        Wall wall = new Wall(2);
+        Course course = new Course(new Doable[] {
+            new Track(50), new Water(50), new Wall(2)});
+        Team team = new Team(new Animal[] {
+            new Cat("Murzik"), new Hen("Izzy"), new Hippo("Hippopo")});
 
-        for (Animal animal : zoo) {
-            System.out.println(animal);
-            System.out.println(" voice: " + animal.voice());
-            System.out.println(" run: " + track.doIt(animal));
-            System.out.println(" swim: " + water.doIt(animal));
-            System.out.println(" jump: " + wall.doIt(animal));
-        }
+        System.out.println(team);
+        course.doIt(team);
+        team.showResult();
     }
 }
