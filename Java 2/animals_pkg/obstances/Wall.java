@@ -4,7 +4,7 @@ import animals.*;
  * Class Wall
  * 
  * @author  Sergey Iryupin
- * @version 0.3 dated Mar 27, 2017
+ * @version 0.4 dated Mar 28, 2017
  */
 public class Wall implements Doable {
     private float height;
@@ -18,5 +18,10 @@ public class Wall implements Doable {
             return ((Jumpable) animal).jump(height);
         else
             return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName() + " " + height + "m";
     }
 }

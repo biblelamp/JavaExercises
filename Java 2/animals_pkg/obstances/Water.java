@@ -4,7 +4,7 @@ import animals.*;
  * Class Water
  * 
  * @author  Sergey Iryupin
- * @version 0.3 dated Mar 27, 2017
+ * @version 0.4 dated Mar 28, 2017
  */
 public class Water  implements Doable {
     private int length;
@@ -18,5 +18,10 @@ public class Water  implements Doable {
             return ((Swimable) animal).swim(length);
         else
             return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName() + " " + length + "m";
     }
 }
