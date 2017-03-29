@@ -9,13 +9,15 @@ import obstances.*;
 import java.util.*;
 
 public class Team {
-    Animal[] animals;
-    String result;
+    private Animal[] animals;
+    private String name;
+    private String result;
 
-    public Team(Animal[] animals) {
+    public Team(String name, Animal[] animals) {
+        this.name = name;
         this.animals = new Animal[animals.length];
         this.animals = animals;
-        result = null;
+        result = "";
     }
 
     public void doIt(Doable obstacle) {
@@ -30,6 +32,6 @@ public class Team {
 
     @Override
     public String toString() {
-        return Arrays.toString(animals);
+        return "Team: " + name + " " + Arrays.toString(animals);
     }
 }

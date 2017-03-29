@@ -18,7 +18,7 @@
  *    > java HW1Lesson
  *
  * @author Sergey Iryupin
- * @version 0.2 dated 27 Mar 2017
+ * @version 0.3 dated 28 Mar 2017
  */
 import animals.*;
 import obstances.*;
@@ -28,9 +28,14 @@ public class HW1Lesson {
 
     public static void main(String[] args) {
         Course course = new Course(new Doable[] {
-            new Track(50), new Water(50), new Wall(2)});
-        Team team = new Team(new Animal[] {
-            new Cat("Murzik"), new Hen("Izzy"), new Hippo("Hippopo")});
+            new Track(50), 
+            new Water(50), 
+            new Wall(2)});
+        Team team = new Team("Animals", new Animal[] {
+            new Cat("Murzik"), 
+            new Cat("Barsik"), 
+            new Hen("Izzy"), 
+            new Hippo("Hippopo")});
 
         System.out.println(team);
         course.doIt(team);
