@@ -18,12 +18,16 @@
     3. Герберт Шилдт, Java 8. Руководство для начинающих
        Глава 9
 
-3. Коллекциию. Collection Framework
+3. Коллекции. Collection Framework
 
     Литература:
-    1. Кэти Сьерра, Берт Бейтс, Изучаем Java
-    2. Брюс Эккель, Философия Java
-    3. Герберт Шилдт, Java 8. Руководство для начинающих
+    1. Брюс Эккель, Философия Java
+       Глава 11
+    2. Герберт Шилдт, Java 8. Полное руководство
+       Глава 18
+    3. Собеседование по Java — коллекции (Collections)   
+       http://javastudy.ru/interview/collections/
+       https://jsehelper.blogspot.ru/2016/01/java-collections-framework-1.html
 
 4. Графический интерфейс. Swing
 
