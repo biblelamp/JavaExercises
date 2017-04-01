@@ -17,7 +17,7 @@ class Code3Lesson {
         TreeMapExample();
     }
 
-    // https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
+    // @see https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
     static void ArrayListExample() {
         List<String> al = new ArrayList<>();
         al.add("A");
@@ -26,13 +26,13 @@ class Code3Lesson {
         al.add("D");
         al.add("E");
         al.add(1,"А0");
-        System.out.println(al) ;
+        System.out.println(al);
         al.remove("E");
         al.remove(2);
         System.out.println(al);
     }
-    
-    // https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html
+
+    // @see https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html
     static void HashSetExample() {
         Set<String> hs = new HashSet<>();
         hs.add("Beta");
@@ -45,7 +45,7 @@ class Code3Lesson {
         System.out.println(hs);
     }
 
-    // https://docs.oracle.com/javase/8/docs/api/java/util/TreeSet.html
+    // @see https://docs.oracle.com/javase/8/docs/api/java/util/TreeSet.html
     static void TreeSetExample() {
         Set<String> hs = new TreeSet<>();
         hs.add("Beta");
@@ -58,7 +58,7 @@ class Code3Lesson {
         System.out.println(hs);
     }
 
-    // https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
+    // @see https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
     static void HashMapExample() {
         Map<String, String> hm = new HashMap<>();
         hm.put("Russia", "Moscow");
@@ -71,7 +71,7 @@ class Code3Lesson {
         System.out.println(hm);
     }
 
-    // https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html
+    // @see https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html
     static void TreeMapExample() {
         Map<String, String> tm = new TreeMap<>();
         tm.put("Russia", "Moscow");
