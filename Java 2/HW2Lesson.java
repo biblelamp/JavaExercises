@@ -12,17 +12,14 @@ public class HW2Lesson {
         "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3\n0 6",
-        "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0 6"
-    };
+        "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0 6"};
 
     public static void main(String[] args) {
         for (String str : data)
             try {
                 System.out.println(calcMatrix(str));
-            } catch (NumberFormatException ex) {
-                System.out.println(ex);
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println(ex);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(e);
             }
     }
 
