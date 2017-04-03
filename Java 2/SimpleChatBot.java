@@ -1,5 +1,5 @@
 /**
- * Java. Simple Chat-Bot
+ * Java. Chatter: simple chatbot
  *
  * @author Sergey Iryupin
  * @version 0.2 dated Apr 3, 2016
@@ -11,7 +11,7 @@ import bot.*;
 
 class SimpleChatBot extends JFrame implements ActionListener {
 
-    final String TITLE_OF_PROGRAM = "Simple Chat-Bot";
+    final String TITLE_OF_PROGRAM = "Chatter: simple chatbot";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
@@ -42,6 +42,7 @@ class SimpleChatBot extends JFrame implements ActionListener {
         JPanel bp = new JPanel();
         bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
         ai = new JCheckBox("AI");
+        ai.doClick();
         message = new JTextField();
         message.addActionListener(this);
         JButton enter = new JButton("Enter");
