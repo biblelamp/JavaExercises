@@ -1,33 +1,39 @@
 class ExtThread {
+
     public static void main(String args[]) {
-        System.out.println("Starting main thread...");
-        MyThread t1 = new MyThread();
-        t1.setName("t1");
-        t1.start();
-        for (int i=0; i < 10; i++) {
-            System.out.println("main: " + i);
+        System.out.println("Main thread is starting...");
+        MyThread mt = new MyThread("Child #1");
+        for (int i = 0; i < 50; i++) {
+            System.out.print(".");
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                System.out.println("Exception in main thread.");
+                System.out.println("Мain thread is interrupted.");
             }
         }
-        System.out.println("Completion main thread.");
+        System.out.println("Main thread is complete.");
     }
 }
 
 class MyThread extends Thread {
+
+    // creating new thread
+    MyThread(String name) {
+        super(name);
+        start();
+    }
+
+    // starting new thread
     public void run() {
-        String name = Thread.currentThread().getName();
-        System.out.println("Starting " + name + " thread...");
-        for (int i=0; i < 10; i++) {
+        System.out.println(getName() + " is starting...");
+        for (int i = 0; i < 10; i++) {
+            System.out.println(getName() + ", counter " + i);
             try {
-                Thread.sleep(100);
+                Thread.sleep(400);
             } catch (InterruptedException ex) {
-                System.out.println("Exception in " + name + " thread.");
+                System.out.println(getName() + " is interrupted.");
             }
-            System.out.println(name + ": " + i);
         }
-        System.out.println("Completion " + name + " thread.");
+        System.out.println(getName() + " is complete.");
     }
 }
