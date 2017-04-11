@@ -26,18 +26,14 @@ class SimpleClient {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             System.out.println(CONNECTION_START);
             writer = new PrintWriter(socket.getOutputStream());
-            try {
-                do {
-                    System.out.print(PROMPT);
-                    message = scanner.nextLine();
-                    writer.println(message);
-                    writer.flush();
-                } while (!message.equals(EXIT_COMMAND));
-                writer.close();
-                socket.close();
-            } catch(Exception ex) {
-                System.out.println(ex.getMessage());
-            }
+            do {
+                System.out.print(PROMPT);
+                message = scanner.nextLine();
+                writer.println(message);
+                writer.flush();
+            } while (!message.equals(EXIT_COMMAND));
+            writer.close();
+            socket.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }    
