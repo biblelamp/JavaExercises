@@ -2,14 +2,13 @@
  * Class SimpleBot
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Apr 3, 2016
+ * @version 0.3 dated Apr 12, 2016
  */
 package bot;
 import java.util.*;
 import java.util.regex.*;
 
 public class SimpleBot {
-    final String BOT_NAME = "Bot: ";
     final String[] COMMON_PHRASES = {
         "Нет ничего ценнее слов, сказанных к месту и ко времени.",
         "Порой молчание может сказать больше, нежели уйма слов.",
@@ -23,15 +22,15 @@ public class SimpleBot {
         "Боюсь Вы что-то не договариваете."};
     final String[] ELUSIVE_ANSWERS = {
         "Вопрос непростой, прошу тайм-аут на раздумья.",
-        "Не уверен, что располагаю этой информацией.",
-        "Порой лучше что-то не знать, чем знать.",
+        "Не уверен, что располагаю такой информацией.",
+        "Может лучше поговорим о чём-то другом?"
         "Простите, но это очень личный вопрос.",
-        "Боюсь ответ может Вам не понравиться.",
+        "Не уверен, что Вам понравится ответ.",
+        "Поверьте, я сам хотел бы это знать.",
         "Вы действительно хотите это знать?",
-        "Поверьте, я тоже хочу это знать.",
         "Уверен, Вы уже догадались сами.",
         "Зачем Вам такая информация?",
-        "Давайте сохраним интригу."};
+        "A давайте сохраним интригу?"};
     final Map<String, String> ANALYSIS_PATTERNS = new HashMap<String, String>() {{
         // hello
         put("хай", "hello");
@@ -53,11 +52,15 @@ public class SimpleBot {
         put("зачем\\s.*здесь", "whatdoyoudoing");
         put("что\\s.*делаешь", "whatdoyoudoing");
         put("чем\\s.*занимаешься", "whatdoyoudoing");
+        // whatdoyoulike
+        put("что\\s.*нравится", "whatdoyoulike");
+        put("что\\s.*любишь", "whatdoyoulike");
         // whattime
         put("который\\s.*час", "whattime");
         put("сколько\\s.*время", "whattime");
-        // whattime
-        put("пока", "bye");
+        // bye
+        put("прощай", "bye");
+        put("увидимся", "bye");
         put("до\\s.*свидания", "bye");
     }};
     final Map<String, String> ANSWERS_BY_PATTERNS = new HashMap<String, String>() {{
@@ -66,6 +69,7 @@ public class SimpleBot {
         put("name", "Зовите меня Чаттер :)");
         put("howareyou", "Спасибо, что интересуетесь. У меня всё хорошо.");
         put("whatdoyoudoing", "Я пробую общаться с людьми.");
+        put("whatdoyoulike", "Мне нравиться думать что я не просто программа.");
         put("bye", "До свидания. Надеюсь, ещё увидимся.");
     }};
     Pattern pattern; // for regexp
@@ -77,8 +81,8 @@ public class SimpleBot {
         date = new Date();
     }
 
-    String tryToAnswer(String msg, boolean ai, boolean isQuestion) {
-        String say = (isQuestion)?
+    public String sayInReturn(String msg, boolean ai) {
+        String say = (msg.trim().endsWith("?"))?
             ELUSIVE_ANSWERS[random.nextInt(ELUSIVE_ANSWERS.length)]:
             COMMON_PHRASES[random.nextInt(COMMON_PHRASES.length)];
         if (ai) {
@@ -92,9 +96,5 @@ public class SimpleBot {
             }
         }
         return say;
-    }
-
-    public String sayInReturn(String msg, boolean ai) {
-        return BOT_NAME + tryToAnswer(msg, ai, msg.trim().endsWith("?"));
     }
 }
