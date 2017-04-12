@@ -2,7 +2,7 @@
  * Class SimpleBot
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Apr 12, 2016
+ * @version 0.3 dated Apr 12, 2017
  */
 package bot;
 import java.util.*;
