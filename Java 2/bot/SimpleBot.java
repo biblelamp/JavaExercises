@@ -2,7 +2,7 @@
  * Class SimpleBot
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Apr 12, 2017
+ * @version 0.3.1 dated Apr 13, 2017
  */
 package bot;
 import java.util.*;
@@ -23,15 +23,15 @@ public class SimpleBot {
     final String[] ELUSIVE_ANSWERS = {
         "Вопрос непростой, прошу тайм-аут на раздумья.",
         "Не уверен, что располагаю такой информацией.",
-        "Может лучше поговорим о чём-то другом?"
+        "Может лучше поговорим о чём-то другом?",
         "Простите, но это очень личный вопрос.",
         "Не уверен, что Вам понравится ответ.",
         "Поверьте, я сам хотел бы это знать.",
         "Вы действительно хотите это знать?",
         "Уверен, Вы уже догадались сами.",
         "Зачем Вам такая информация?",
-        "A давайте сохраним интригу?"};
-    final Map<String, String> ANALYSIS_PATTERNS = new HashMap<String, String>() {{
+        "Давайте сохраним интригу?"};
+    final Map<String, String> PATTERNS_FOR_ANALYSIS = new HashMap<String, String>() {{
         // hello
         put("хай", "hello");
         put("привет", "hello");
@@ -43,6 +43,7 @@ public class SimpleBot {
         // name
         put("как\\s.*зовут", "name");
         put("как\\s.*имя", "name");
+        put("есть\\s.*имя", "name");
         put("какое\\s.*имя", "name");
         // howareyou
         put("как\\s.*дела", "howareyou");
@@ -55,6 +56,13 @@ public class SimpleBot {
         // whatdoyoulike
         put("что\\s.*нравится", "whatdoyoulike");
         put("что\\s.*любишь", "whatdoyoulike");
+        // iamfeelling
+        put("кажется", "iamfeelling");
+        put("чувствую", "iamfeelling");
+        put("испытываю", "iamfeelling");
+        // yes
+        put("^да", "yes");
+        put("согласен", "yes");
         // whattime
         put("который\\s.*час", "whattime");
         put("сколько\\s.*время", "whattime");
@@ -70,6 +78,8 @@ public class SimpleBot {
         put("howareyou", "Спасибо, что интересуетесь. У меня всё хорошо.");
         put("whatdoyoudoing", "Я пробую общаться с людьми.");
         put("whatdoyoulike", "Мне нравиться думать что я не просто программа.");
+        put("iamfeelling", "Как давно это началось? Расскажите чуть подробнее.");
+        put("yes", "Согласие есть продукт при полном непротивлении сторон.");
         put("bye", "До свидания. Надеюсь, ещё увидимся.");
     }};
     Pattern pattern; // for regexp
@@ -88,7 +98,7 @@ public class SimpleBot {
         if (ai) {
             String message =
                 String.join(" ", msg.toLowerCase().split("[ {,|.}?]+"));
-            for (Map.Entry<String, String> o : ANALYSIS_PATTERNS.entrySet()) {
+            for (Map.Entry<String, String> o : PATTERNS_FOR_ANALYSIS.entrySet()) {
                 pattern = Pattern.compile(o.getKey());
                 if (pattern.matcher(message).find())
                     if (o.getValue().equals("whattime")) return date.toString();
