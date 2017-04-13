@@ -2,7 +2,7 @@
  * Java. Chatter: simple chatbot
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Apr 5, 2016
+ * @version 0.2.2 dated Apr 13, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -75,6 +75,7 @@ class SimpleChatBot extends JFrame implements ActionListener {
                 doc.insertString(doc.getLength(), message.getText() + "\n", 
                     new SimpleAttributeSet());
                 doc.insertString(doc.getLength(),
+                    TITLE_OF_PROGRAM.substring(0, 9) +
                     sbot.sayInReturn(message.getText(), ai.isSelected()) + "\n",
                     botStyle);
             } catch(Exception e) { }
