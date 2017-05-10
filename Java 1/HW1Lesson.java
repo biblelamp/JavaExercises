@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 1. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 18 Feb 2017
+ * @version dated 10 may 2017
  */
 public class HW1Lesson {
 
@@ -69,8 +69,7 @@ public class HW1Lesson {
      *    метод должен вернуть true, если число отрицательное
      */
     static boolean сheckNegative(int a) {
-        if (a < 0) return true;
-        return false;
+        return a < 0;
     }
 
     /**
