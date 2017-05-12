@@ -2,23 +2,31 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 21 Feb 2017
+ * @version dated May 12, 2017
  */
 import java.util.*;
 
-public class HW2Lesson {
+class HW2Lesson {
 
     public static void main(String[] args) {
+
+        // simple tasks
         invertArray();
         fillArray();
         changeArray(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1});
         fillDiagonal(5);
-        System.out.println(Arrays.toString(findMinMax(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1})));
+
+        // tasks of increased complexity
+        System.out.println(Arrays.toString(
+            findMinMax(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1})));
         System.out.println(checkBalance(new int[]{1, 1, 1, 2, 1}));
         System.out.println(checkBalance(new int[]{2, 1, 1, 2, 1}));
         System.out.println(checkBalance(new int[]{10, 10}));
-        System.out.println(Arrays.toString(shiftArray(new int[]{1, 2, 3, 4, 5}, 2)));
-        System.out.println(Arrays.toString(shiftArray(new int[]{1, 2, 3, 4, 5}, -4)));
+        System.out.println(Arrays.toString(
+            shiftArray(new int[]{1, 2, 3, 4, 5}, 2)));
+        System.out.println(Arrays.toString(
+            shiftArray(new int[]{1, 2, 3, 4, 5}, -4)));
+        calcConsole();
     }
 
     /**
@@ -33,8 +41,8 @@ public class HW2Lesson {
             array[i] = (int)(Math.random() + 0.5);
         System.out.println(Arrays.toString(array));
         for (int i = 0; i < array.length; i++)
-            array[i] = (array[i] == 1)? 0 : 1;
-            //array[i] = 1 - array[i];
+            array[i] = 1 - array[i];
+            //array[i] = (array[i] == 1)? 0 : 1;
         System.out.println(Arrays.toString(array));
     }
 
@@ -50,8 +58,8 @@ public class HW2Lesson {
     }
 
     /**
-     * 3. Задать массив [1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1] пройти по нему циклом,
-     *    и числа меньшие 6 умножить на 2
+     * 3. Задать массив [1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1] пройти по нему
+     *   циклом, и числа меньшие 6 умножить на 2
      */
     static void changeArray(int[] array) {
         for (int i = 0; i < array.length; i++)
@@ -121,7 +129,8 @@ public class HW2Lesson {
      *    Для усложнения задачи нельзя пользоваться вспомогательными массивами
      */
     static int[] shiftArray(int[] array, int shift) {
-        if (array == null || array.length < 2 || shift == 0 || shift % array.length == 0)
+        if (array == null || array.length < 2
+            || shift == 0 || shift % array.length == 0)
             return array;
         shift = shift % array.length; // optimization of the number of shifts
         for (int cnt = 0; cnt < Math.abs(shift); cnt++) {
@@ -140,4 +149,38 @@ public class HW2Lesson {
         }
         return array;
     }
+
+    /**
+     * 8. ***** Написать простой консольный калькулятор
+     */
+    static void calcConsole() {
+
+       Scanner read = new Scanner(System.in);
+       System.out.println("Enter separated by space: Integer [+|-|*|/] Integer");
+
+       int first = read.nextInt();
+       String operator = read.next();
+       int second = read.nextInt();
+
+       switch(operator) {
+           case "+":
+               System.out.println("= " + (first + second));
+               break;
+           case "-":
+               System.out.println("= " + (first - second));
+               break;
+           case "*":
+               System.out.println("= " + (first * second));
+               break;
+           case "/":
+               if (second != 0) {
+                   System.out.println("= " + (first / second));
+               } else {
+                   System.out.println("Error: Division by zero");
+               }
+               break;
+          default:
+               System.out.println("Error: Undefined operation");
+       }
+   }
 }
