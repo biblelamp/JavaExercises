@@ -2,12 +2,12 @@
  * Java. Level 1. Lesson 5. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 04 Mar 2017
+ * @version dated May 23, 2017
  */
-public class HW5Lesson {
+class HW5Lesson {
 
     public static void main(String[] args) {
-
+        // array of staff objects
         Employee[] arrEmployee = new Employee[5];
         arrEmployee[0] = new Employee("Ivanov Ivan", "Engineer",
             "iivanov@mail.com", "2312312", 30000, 30);
@@ -19,7 +19,7 @@ public class HW5Lesson {
             "ssidorov@mail.com", "2365223", 25000, 42);
         arrEmployee[4] = new Employee("Sergeev Sergey", "Trainee",
             "ssergeev@mail.com", "2365113", 15000, 25);
-
+        // view all employees looking for over 40 year
         for (Employee employee : arrEmployee)
             if (employee.getAge() > 40)
                 System.out.println(employee);
@@ -37,7 +37,8 @@ class Employee {
     private int salary;
     private int age;
 
-    public Employee(String name, String position, String email, String phone, int salary, int age) {
+    Employee(String name, String position, String email, String phone,
+            int salary, int age) {
         this.name = name;
         this.position = position;
         this.email = email;
@@ -46,12 +47,12 @@ class Employee {
         this.age = age;
     }
 
-    public int getAge() {
+    int getAge() { // getter for age
         return age;
     }
 
     @Override
-    public String toString() {
+    public String toString() { // overrided method toString()
         return (name +
             "\n| Position: " + position +
             "\n| Email: " + email +
