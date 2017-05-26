@@ -2,21 +2,18 @@
  * Java. Level 1. Lesson 6. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 10 Mar 2017
+ * @version dated May 26, 2017
  */
-public class HW6Lesson {
+class HW6Lesson {
 
     public static void main(String[] args) {
-        Animal cat = new Cat(200, 2, 0);
-        System.out.println("Cat:");
-        System.out.println("run: " + cat.run(200));
-        System.out.println("jump: " + cat.jump(3));
-        System.out.println("swim: " + cat.swim(0));
-        Animal dog = new Dog(500, 0.5f, 10);
-        System.out.println("Dog:");
-        System.out.println("run: " + dog.run(200));
-        System.out.println("jump: " + dog.jump(3));
-        System.out.println("swim: " + dog.swim(5));
+        Animal[] animal = {new Cat(200, 2, 0), new Dog(500, 0.5f, 10)};
+        for (Animal an : animal)
+            System.out.println(
+                an.getClass().getName() +
+                "\nrun: " + an.run(200) +
+                "\njump: " + an.jump(1.5f) +
+                "\nswim: " + an.swim(5));
     }
 }
 
@@ -35,17 +32,12 @@ class Dog extends Animal {
     Dog(int speed_limit, float jump_limit, int swim_limit) {
         super(speed_limit, jump_limit, swim_limit);
     }
-
-    @Override
-    protected boolean swim(int distance) {
-        return distance <= swim_limit;
-    }
 }
 
 abstract class Animal {
     private int speed_limit;
     private float jump_limit;
-    protected int swim_limit; // for direct access from heirs
+    private int swim_limit;
 
     Animal(int speed_limit, float jump_limit, int swim_limit) {
         this.speed_limit = speed_limit;
@@ -59,5 +51,7 @@ abstract class Animal {
     protected boolean jump(float height)  {
         return height <= jump_limit;
     }
-    abstract boolean swim(int distance);
+    protected boolean swim(int distance) {
+        return distance <= swim_limit;
+    }
 }
