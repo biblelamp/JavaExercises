@@ -18,8 +18,8 @@ class HW6Lesson {
 }
 
 class Cat extends Animal {
-    Cat(int speed_limit, float jump_limit, int swim_limit) {
-        super(speed_limit, jump_limit, swim_limit);
+    Cat(int run_limit, float jump_limit, int swim_limit) {
+        super(run_limit, jump_limit, swim_limit);
     }
 
     @Override
@@ -29,24 +29,24 @@ class Cat extends Animal {
 }
 
 class Dog extends Animal {
-    Dog(int speed_limit, float jump_limit, int swim_limit) {
-        super(speed_limit, jump_limit, swim_limit);
+    Dog(int run_limit, float jump_limit, int swim_limit) {
+        super(run_limit, jump_limit, swim_limit);
     }
 }
 
 abstract class Animal {
-    private int speed_limit;
+    private int run_limit;
     private float jump_limit;
     private int swim_limit;
 
-    Animal(int speed_limit, float jump_limit, int swim_limit) {
-        this.speed_limit = speed_limit;
+    Animal(int run_limit, float jump_limit, int swim_limit) {
+        this.run_limit = run_limit;
         this.jump_limit = jump_limit;
         this.swim_limit = swim_limit;
     }
 
-    protected boolean run(int speed) {
-        return speed <= speed_limit;
+    protected boolean run(int distance) {
+        return distance <= run_limit;
     }
     protected boolean jump(float height)  {
         return height <= jump_limit;
