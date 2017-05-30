@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 7. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated 11 Mar 2017
+ * @version dated May 30, 2017
  */
 public class HW7Lesson {
 
@@ -17,29 +17,39 @@ public class HW7Lesson {
             System.out.println(cat);
         }
         System.out.println(plate);
+        plate.add(40);
+        System.out.println(plate);
+        for (Cat cat : cats) {
+            cat.setFullness(false);
+            cat.eat(plate);
+            System.out.println(cat);
+        }
+        System.out.println(plate);
     }
 }
 
 class Cat {
     private String name;
     private int volume; // ability to eat for 1 time
-    private boolean satiety; // satiety status
+    private boolean fullness; // satiety status
 
     Cat(String name, int volume) {
         this.name = name;
         this.volume = volume;
-        satiety = false;
+        fullness = false;
+    }
+
+    void setFullness(boolean status) {
+        fullness = status;
     }
 
     void eat(Plate plate) {
-        //satiety = plate.decreaseFood(volume);
-        if (plate.getQuantity() >= volume)
-            satiety = plate.decreaseFood(volume);
+        fullness = plate.decreaseFood(volume);
     }
 
     @Override
     public String toString() {
-        return name + " {volume: " + volume + " satiety: " + satiety + "}";
+        return name + " {volume: " + volume + " fullness: " + fullness + "}";
     }
 }
 
@@ -48,10 +58,6 @@ class Plate {
 
     Plate(int food) {
         this.food = food;
-    }
-
-    int getQuantity() {
-        return food;
     }
 
     boolean decreaseFood(int portion) {
