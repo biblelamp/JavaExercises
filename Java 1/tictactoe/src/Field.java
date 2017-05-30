@@ -3,32 +3,27 @@
  * Class: Field
  *
  * @author Sergey Iryupin
- * @version 0.2 dated March 12, 2017
+ * @version 0.3 dated May 30, 2017
  */
 import java.awt.*;
 import java.awt.geom.*; // for Graphics2D
 
 class Field {
     private final int FIELD_SIZE;
-    private final int WINDOW_SIZE;
     private final int CELL_SIZE;
-    private final char HUMAN_DOT;
-    private final char AI_DOT;
+    private final char HUMAN_DOT = 'x';
+    private final char AI_DOT = 'o';
     private final char EMPTY_DOT = '.';
     private final String MSG_DRAW = "Draw, sorry...";
     private final String MSG_HUMAN_WON = "YOU WON!";
     private final String MSG_AI_WON = "AI WON!";
     private char[][] field;
-    private boolean gameOver;
     private String gameOverMsg;
 
-    Field(int field_size, int window_size, char human_dot, char ai_dot) {
+    Field(int field_size, int cell_size) {
         FIELD_SIZE = field_size;
-        WINDOW_SIZE = window_size;
-        CELL_SIZE = WINDOW_SIZE / FIELD_SIZE;
+        CELL_SIZE = cell_size;
         field = new char[FIELD_SIZE][FIELD_SIZE];
-        HUMAN_DOT = human_dot;
-        AI_DOT = ai_dot;
         init();
     }
 
@@ -36,32 +31,27 @@ class Field {
         for (int i = 0; i < FIELD_SIZE; i++)
             for (int j = 0; j < FIELD_SIZE; j++)
                 field[i][j] = EMPTY_DOT;
-        gameOver = false;
         gameOverMsg = null;
     }
 
     int getSize() { return FIELD_SIZE; }
 
-    boolean isGameOver() { return gameOver; }
+    char getHumanDot() { return HUMAN_DOT; }
+
+    char getAIDot() { return AI_DOT; }
+
+    boolean isGameOver() { return gameOverMsg != null; }
 
     String getGameOverMsg() { return gameOverMsg; }
 
-    void setDot(int x, int y, char ch) { // set dot and check fill and win
-        field[x][y] = ch;
-        if (isFull()) {
+    void setDot(int x, int y, char dot) { // set dot and check fill and win
+        field[x][y] = dot;
+        if (isFull())
             gameOverMsg = MSG_DRAW;
-            gameOver = true;
-        }
-        if (isWin(HUMAN_DOT)) {
+        if (isWin(HUMAN_DOT))
             gameOverMsg = MSG_HUMAN_WON;
-            gameOver = true;
-        }
-        if (isWin(AI_DOT)) {
+        if (isWin(AI_DOT))
             gameOverMsg = MSG_AI_WON;
-            gameOver = true;
-        }
-        //if (gameOver)
-        //    JOptionPane.showMessageDialog(frame, gameOverMsg);
     }
 
     boolean isCellEmpty(int x, int y) {
@@ -79,21 +69,22 @@ class Field {
 
     boolean isWin(char ch) {
         // checking horizontals / verticals
-        for (int i = 0; i < FIELD_SIZE; i++) {
-            if (field[i][0] == ch && field[i][1] == ch && field[i][2] == ch) return true;
-            if (field[0][i] == ch && field[1][i] == ch && field[2][i] == ch) return true;
-        }
+        for (int i = 0; i < FIELD_SIZE; i++)
+            if ((field[i][0] == ch && field[i][1] == ch && field[i][2] == ch) ||
+                (field[0][i] == ch && field[1][i] == ch && field[2][i] == ch))
+                return true;
         // checking diagonals
-        if(field[0][0] == ch && field[1][1] == ch && field[2][2] == ch) return true;
-        if(field[2][0] == ch && field[1][1] == ch && field[0][2] == ch) return true;
+        if ((field[0][0] == ch && field[1][1] == ch && field[2][2] == ch) ||
+            (field[2][0] == ch && field[1][1] == ch && field[0][2] == ch))
+            return true;
         return false;
     }
 
     public void paint(Graphics g) {
         g.setColor(Color.lightGray);
         for (int i = 1; i < FIELD_SIZE; i++) {
-            g.drawLine(0, i*CELL_SIZE, WINDOW_SIZE, i*CELL_SIZE);
-            g.drawLine(i*CELL_SIZE, 0, i*CELL_SIZE, WINDOW_SIZE);
+            g.drawLine(0, i*CELL_SIZE, FIELD_SIZE*CELL_SIZE, i*CELL_SIZE);
+            g.drawLine(i*CELL_SIZE, 0, i*CELL_SIZE, FIELD_SIZE*CELL_SIZE);
         }
         Graphics2D g2 = (Graphics2D) g; // use Graphics2D
         g2.setStroke(new BasicStroke(5));
