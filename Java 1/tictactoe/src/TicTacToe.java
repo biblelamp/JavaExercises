@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.2 dated March 12, 2017
+ * @version 0.3 dated May 30, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -14,19 +14,17 @@ class TicTacToe extends JFrame {
     final String TITLE_OF_PROGRAM = "Tic Tac Toe";
     final int START_POSITION = 300;
     final int WINDOW_SIZE = 300;
-    final int WINDOW_DX = 17;
-    final int WINDOW_DY = 65;
+    final int WINDOW_DX = 9;
+    final int WINDOW_DY = 57;
     final int FIELD_SIZE = 3;
     final int CELL_SIZE = WINDOW_SIZE / FIELD_SIZE;
     final String BTN_INIT = "New game";
     final String BTN_EXIT = "Exit";
-    final char HUMAN_DOT = 'x';
-    final char AI_DOT = 'o';
 
     Canvas canvas = new Canvas();
-    Field field = new Field(FIELD_SIZE, WINDOW_SIZE, HUMAN_DOT, AI_DOT);
-    Human human = new Human(HUMAN_DOT);
-    AI ai = new AI(AI_DOT);
+    Field field = new Field(FIELD_SIZE, CELL_SIZE);
+    Human human = new Human(field.getHumanDot());
+    AI ai = new AI(field.getAIDot());
 
     public static void main(String args[]) {
         new TicTacToe();
@@ -42,11 +40,9 @@ class TicTacToe extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                int x = e.getX()/CELL_SIZE;
-                int y = e.getY()/CELL_SIZE;
-                human.turn(x, y, field, ai);
+                human.turn(e.getX()/CELL_SIZE, e.getY()/CELL_SIZE, field, ai);
                 canvas.repaint();
-                if (field.getGameOverMsg() != null)
+                if (field.isGameOver())
                     JOptionPane.showMessageDialog(TicTacToe.this, field.getGameOverMsg());
             }
         });
@@ -65,11 +61,11 @@ class TicTacToe extends JFrame {
         });
 
         JPanel bp = new JPanel();
-        bp.setLayout(new GridLayout());
+        bp.setLayout(new GridLayout()); // for button panel
         bp.add(init);
         bp.add(exit);
 
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout()); // for main window
         add(bp, BorderLayout.SOUTH);
         add(canvas, BorderLayout.CENTER);
         setVisible(true);
