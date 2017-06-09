@@ -27,18 +27,18 @@ import hw1.*;
 public class HW1Lesson {
 
     public static void main(String[] args) {
-        Course course = new Course(new Doable[] {
-            new Track(50), 
-            new Water(50), 
+        Course c = new Course(new Doable[] { // creating an obstacle course
+            new Track(50),
+            new Water(50),
             new Wall(2)});
-        Team team = new Team("Animals", new Animal[] {
-            new Cat("Murzik"), 
-            new Cat("Barsik"), 
-            new Hen("Izzy"), 
+        Team t1 = new Team("Animals", new Animal[] { // creating a team
+            new Cat("Murzik"),
+            new Cat("Barsik"),
+            new Hen("Izzy"),
             new Hippo("Hippopo")});
 
-        System.out.println(team);
-        course.doIt(team);
-        team.showResult();
+        System.out.println(t1); // to show team list
+        c.doIt(t1); // ask the team to pass the obstacle course
+        t1.showResults(); // to show results
     }
 }

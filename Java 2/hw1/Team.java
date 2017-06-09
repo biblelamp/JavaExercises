@@ -26,7 +26,7 @@ public class Team {
             result += "> " + animal + " " + obstacle.doIt(animal) + "\n";
     }
 
-    public void showResult() {
+    public void showResults() {
         System.out.println(result);
     }
 
