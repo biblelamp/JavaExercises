@@ -18,13 +18,13 @@
  *    > java HW1Lesson
  *
  * @author Sergey Iryupin
- * @version 0.3 dated 28 Mar 2017
+ * @version 0.3.1 dated Jun 10, 2017
  */
-import animals.*;
-import obstances.*;
+import hw1.animals.*;
+import hw1.obstances.*;
 import hw1.*;
 
-public class HW1Lesson {
+class HW1Lesson {
 
     public static void main(String[] args) {
         Course c = new Course(new Doable[] { // creating an obstacle course
