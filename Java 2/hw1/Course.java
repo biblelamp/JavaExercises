@@ -4,7 +4,7 @@
  *   contains array of obstances
  */
 package hw1;
-import obstances.*;
+import hw1.obstances.*;
 import java.util.*;
 
 public class Course {

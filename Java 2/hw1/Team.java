@@ -4,8 +4,8 @@
  *   contains array of animals
  */
 package hw1;
-import animals.*;
-import obstances.*;
+import hw1.animals.*;
+import hw1.obstances.*;
 import java.util.*;
 
 public class Team {
