@@ -2,19 +2,39 @@
  * Java. Level 2. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 01 Apr 2017
+ * @version 0.2 dated Jun 11, 2017
  */
 import java.util.*;
+import java.io.*;
 
 public class HW2Lesson {
     static final int SIZE = 4;
     static final String[] data = {
         "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0",
-        "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3\n0 6",
-        "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0 6"};
+        "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3\n0 6",
+        "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0 6"};
+    static final String FILE_NAME = "lesson2test.txt";
 
     public static void main(String[] args) {
+        // try ro read file
+        String line;
+        String file = "";
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream(FILE_NAME)))){
+            while ((line = reader.readLine()) != null)
+                file += line + "\n";
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        if (file.length() > 0)
+            try {
+                System.out.println(calcMatrix(file));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(e);
+            }
+        // processing strings
         for (String str : data)
             try {
                 System.out.println(calcMatrix(str));
