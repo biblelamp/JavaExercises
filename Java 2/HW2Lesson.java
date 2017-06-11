@@ -7,12 +7,12 @@
 import java.util.*;
 import java.io.*;
 
-public class HW2Lesson {
+class HW2Lesson {
     static final int SIZE = 4;
     static final String[] data = {
         "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0",
-        "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3\n0 6",
+        "1 3 1 2\n2 3 2 2\n5 6 7 1",
         "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0 6"};
     static final String FILE_NAME = "lesson2test.txt";
 
