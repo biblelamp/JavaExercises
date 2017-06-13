@@ -3,11 +3,11 @@
  * Examples for lesson
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 31 Mar 2017
+ * @version dated Jun 13, 2017
  */
 import java.util.*;
- 
-class Code3Lesson {
+
+class J2Lesson3 {
 
     public static void main(String[] args) {
         ArrayListExample();
@@ -25,7 +25,7 @@ class Code3Lesson {
         al.add("C");
         al.add("D");
         al.add("E");
-        al.add(1,"А0");
+        al.add(1,"A0");
         System.out.println(al);
         al.remove("E");
         al.remove(2);
