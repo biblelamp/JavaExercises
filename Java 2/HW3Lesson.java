@@ -2,16 +2,18 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.1 dated 04 Apr 2017
+ * @version 0.1.1 dated Jun 16, 2017
  */
 import java.util.*;
 import hw3.PhoneBook;
 import hw3.PhoneRecord;
 
-public class HW3Lesson {
+class HW3Lesson {
 
     public static void main(String[] args) {
+        System.out.println("1. Counting words:");
         сountWords();
+        System.out.println("2. Phone book:");
         testPhoneBook();
     }
 
@@ -37,8 +39,9 @@ public class HW3Lesson {
         pb.addRecord("Smith", new PhoneRecord("234-22-21", "smith@mail.com"));
         pb.addRecord("Mike", new PhoneRecord("233-12-12", "mike@mail.com"));
         pb.addPhone("Mike", "+1 234 567-89-00");
-        System.out.println(pb.getPhonesByName("Mike"));
-        System.out.println(pb.getEmailsByName("Mike"));
-        System.out.println(pb.getEmailsByName("Joseph"));
+        System.out.println(pb.getPhonesByName("Mike")); // found
+        System.out.println(pb.getPhonesByName("Bill")); // not found
+        System.out.println(pb.getEmailsByName("Smith")); // found
+        System.out.println(pb.getEmailsByName("Joseph")); // not found
     }
 }
