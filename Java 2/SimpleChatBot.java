@@ -2,7 +2,7 @@
  * Java. Chatter: simple chatbot
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Apr 13, 2017
+ * @version 0.2.3 dated Jun 17, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +16,8 @@ class SimpleChatBot extends JFrame implements ActionListener {
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
+    final String CHB_AI = "AI";
+    final String BTN_ENTER = "Enter";
 
     JTextPane dialogue; // area for dialog
     JCheckBox ai;       // enable/disable AI
@@ -48,11 +50,11 @@ class SimpleChatBot extends JFrame implements ActionListener {
         // panel for checkbox, message field and button
         JPanel bp = new JPanel();
         bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
-        ai = new JCheckBox("AI");
+        ai = new JCheckBox(CHB_AI);
         ai.doClick();
         message = new JTextField();
         message.addActionListener(this);
-        JButton enter = new JButton("Enter");
+        JButton enter = new JButton(BTN_ENTER);
         enter.addActionListener(this);
         // adding all elements to the window
         bp.add(ai);
