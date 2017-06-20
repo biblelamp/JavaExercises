@@ -1,4 +1,4 @@
-class JoinThreads {
+class JoinThreads { // using join() method
 
     public static void main(String args[]) {
         System.out.println("Main thread is starting...");
