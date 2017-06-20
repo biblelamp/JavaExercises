@@ -9,9 +9,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class HW4Lesson extends JFrame implements ActionListener {
+class HW4Lesson extends JFrame implements ActionListener {
 
-    final String TITLE_OF_PROGRAM = "Client for net chat";
+    final String TITLE_OF_PROGRAM = "Client for net.chat";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
@@ -60,8 +60,8 @@ public class HW4Lesson extends JFrame implements ActionListener {
         if (message.getText().trim().length() > 0) {
             dialogue.append(message.getText() + "\n");
             try {
-                PrintWriter pw = 
-                    new PrintWriter(new FileOutputStream(LOG_FILE_NAME, true));
+                PrintWriter pw =
+                    new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
                 pw.println(message.getText());
                 pw.flush();
                 pw.close();
