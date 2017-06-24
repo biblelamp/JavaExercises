@@ -15,10 +15,10 @@ class SimpleServer {
     Socket socket;
 
     public static void main(String[] args) {
-        new SimpleServer().go();
+        new SimpleServer();
     }
 
-    void go() {
+    SimpleServer() {
         try {
             server = new ServerSocket(SERVER_PORT);
             System.out.println(SERVER_START);

@@ -4,7 +4,7 @@ import java.util.*;
 
 class SimpleClient {
 
-    final String SERVER_ADDR = "localhost"; // or "127.0.0.1"
+    final String SERVER_ADDR = "127.0.0.1"; // or "localhost"
     final int SERVER_PORT = 2048;
     final String PROMPT = "$ ";
     final String EXIT_COMMAND = "exit"; // command for exit
@@ -16,10 +16,10 @@ class SimpleClient {
     PrintWriter writer;
 
     public static void main(String[] args) {
-        new SimpleClient().go();
+        new SimpleClient();
     }
 
-    void go() {
+    SimpleClient() {
         scanner = new Scanner(System.in); // for keyboard input
         String message;
         try {
@@ -36,7 +36,7 @@ class SimpleClient {
             socket.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }    
+        }
         System.out.println(CONNECTION_CLOSED);
     }
 }
