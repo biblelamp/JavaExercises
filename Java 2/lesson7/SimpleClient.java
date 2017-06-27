@@ -14,7 +14,7 @@ class SimpleClient implements IConstants {
     Socket socket;
     PrintWriter writer;
     BufferedReader reader;
-    Scanner scanner = new Scanner(System.in); // for keyboard input
+    Scanner scanner;
     String message;
 
     public static void main(String[] args) {
@@ -22,12 +22,14 @@ class SimpleClient implements IConstants {
     }
 
     SimpleClient() {
+        scanner = new Scanner(System.in);
         System.out.println(CONNECT_TO_SERVER);
         try {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             writer = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            writer.println(getLoginAndPassword()); // send authentication data
+            reader = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+            writer.println(getLoginAndPassword()); // send: auth <login> <passwd>
             writer.flush();
             new Thread(new ServerListener()).start();
             do {
@@ -38,12 +40,12 @@ class SimpleClient implements IConstants {
             socket.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }    
+        }
         System.out.println(CONNECT_CLOSED);
     }
 
     /**
-     * getLoginAndPassword: get login and password
+     * getLoginAndPassword: read login and password from keyboard
      */
     String getLoginAndPassword() {
         System.out.print(LOGIN_PROMPT);
