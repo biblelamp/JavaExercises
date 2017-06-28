@@ -1,3 +1,10 @@
+/**
+ * Java. Level 2. Lesson 7
+ * Simple server for chat
+ *
+ * @author Sergey Iryupin
+ * @version 0.1 dated Jun 28, 2017
+ */
 import java.io.*;
 import java.net.*;
 
@@ -9,8 +16,8 @@ class SimpleServer {
     final String CLIENT_JOINED = " client joined.";
     final String CLIENT_DISCONNECTED = " disconnected";
     final String EXIT_COMMAND = "exit"; // command for exit
-    int client_count = 0;
 
+    int client_count = 0;
     ServerSocket server;
     Socket socket;
 
@@ -19,9 +26,9 @@ class SimpleServer {
     }
 
     SimpleServer() {
+        System.out.println(SERVER_START);
         try {
             server = new ServerSocket(SERVER_PORT);
-            System.out.println(SERVER_START);
             while (true) {
                 socket = server.accept();
                 client_count++;
@@ -30,15 +37,8 @@ class SimpleServer {
             } 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        } finally {
-            try {
-                server.close();
-                System.out.println(SERVER_STOP);
-                socket.close();
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
         }
+        System.out.println(SERVER_STOP);
     }
 
     /**
