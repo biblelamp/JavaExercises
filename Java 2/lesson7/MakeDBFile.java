@@ -3,7 +3,7 @@
  * Making db file with users
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jun 14, 2017
+ * @version 0.1.1 dated Jul 01, 2017
  */
 import java.sql.*;
 
@@ -11,7 +11,7 @@ class MakeDBFile {
 
     final String DRIVER_NAME = "org.sqlite.JDBC";
     final String PREFIX_NAME = "jdbc:sqlite:";
-    final String NAME_DB = "users.db";
+    final String NAME_DB = "chat.db";
     final String NAME_TABLE = "users";
 
     Connection connect;
@@ -42,7 +42,10 @@ class MakeDBFile {
         try {
             stmt.executeUpdate("INSERT INTO " + NAME_TABLE +
                 " (login, passwd) " +
-                "VALUES ('user', 'qwerty');");
+                "VALUES ('mike', 'qwerty');");
+            stmt.executeUpdate("INSERT INTO " + NAME_TABLE +
+                " (login, passwd) " +
+                "VALUES ('john', '12345');");
         } catch (Exception e) { }
 
         // print records
@@ -54,6 +57,5 @@ class MakeDBFile {
                     rs.getString("passwd"));
             }
         } catch (Exception e) { }
-        
     }
 }
