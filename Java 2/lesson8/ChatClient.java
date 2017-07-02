@@ -8,7 +8,7 @@
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Apr, 18 2017
+ * @version 0.1.1 dated Jul 02, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -20,6 +20,8 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
 
     final String TITLE_OF_PROGRAM = "Chat client";
     final String TITLE_BTN_ENTER = "Enter";
+    final String AUTH_INVITATION = "You must authenticate using command\n"+
+        "auth <login> <passwd>";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
@@ -88,7 +90,8 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
             new Thread(new ServerListener()).start();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }    
+        }
+        dialogue.append(AUTH_INVITATION + "\n");
     }
 
     /**
@@ -96,7 +99,6 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
      */
     class ServerListener implements Runnable {
         String message;
-        @Override
         public void run() {
             try {
                 while ((message = reader.readLine()) != null) {
