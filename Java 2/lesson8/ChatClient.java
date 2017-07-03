@@ -8,7 +8,7 @@
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Jul 02, 2017
+ * @version 0.2 dated Jul 03, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +20,7 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
 
     final String TITLE_OF_PROGRAM = "Chat client";
     final String TITLE_BTN_ENTER = "Enter";
-    final String AUTH_INVITATION = "You must authenticate using command\n"+
+    final String AUTH_INVITATION = "You must login using command\n"+
         "auth <login> <passwd>";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
@@ -28,6 +28,7 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
 
     JTextArea dialogue; // area for dialog
     JTextField command; // field for entering commands
+    boolean isAuthorized; // flag of authorisation
 
     Socket socket;
     PrintWriter writer;
@@ -46,7 +47,7 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(START_LOCATION, START_LOCATION, WINDOW_WIDTH, WINDOW_HEIGHT);
         addWindowListener(new WindowListener() {
-            public void windowClosing(WindowEvent event) {
+            public void windowClosing(WindowEvent event) { // if window closed
                 try {
                     writer.println(EXIT_COMMAND);
                     writer.flush();
@@ -92,6 +93,7 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
             System.out.println(ex.getMessage());
         }
         dialogue.append(AUTH_INVITATION + "\n");
+        isAuthorized = false;
     }
 
     /**
@@ -102,7 +104,9 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
         public void run() {
             try {
                 while ((message = reader.readLine()) != null) {
-                    if (!message.equals("\0"))
+                    if (message.startsWith("Hello, ")) // check authorisation
+                        isAuthorized = true;
+                    if (!message.equals("\0") && isAuthorized)
                         dialogue.append(message + "\n");
                     if (message.equals(AUTH_FAIL))
                         System.exit(-1); // terminate client
