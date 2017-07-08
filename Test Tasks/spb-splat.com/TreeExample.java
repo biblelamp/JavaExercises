@@ -1,8 +1,10 @@
 // TreeExample.java from
 //  http://www.codejava.net/java-se/swing/jtree-basic-tutorial-and-examples
 //
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.tree.*;
+import javax.swing.event.*;
 
 public class TreeExample extends JFrame {
     private JTree tree;
@@ -36,6 +38,15 @@ public class TreeExample extends JFrame {
         add(new JScrollPane(tree)); //add(tree);
         tree.setShowsRootHandles(true); // show special sign for root node
         //tree.setRootVisible(false); // hiding root node
+
+        JLabel selectedLabel = new JLabel();
+        add(selectedLabel, BorderLayout.SOUTH);
+        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                selectedLabel.setText(e.getPath().toString());
+            }
+        });
 
         setTitle("JTree Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
