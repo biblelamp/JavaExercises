@@ -1,6 +1,6 @@
 /**
  * Book: Data Structures and Algorithms in Java, by Robert LaFore
- * Chapter 3:
+ * Chapter 4:
  *  stack.java
  *  demonstrates stacks
  *  to compile this code: javac stack.java
@@ -26,7 +26,7 @@ class StackX {
     }
 
     public long peek() {                // peek at top of stack
-      return stackArray[top];
+        return stackArray[top];
     }
 
     public boolean isEmpty() {          // true if stack is empty
@@ -45,7 +45,7 @@ class StackApp {
         theStack.push(40);
         theStack.push(60);
         theStack.push(80);
-        theStack.push(90);
+        theStack.push(100);
 
         while (!theStack.isEmpty()) {      // until it's empty,
             long value = theStack.pop();   // delete item from stack 
