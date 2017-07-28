@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 1. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated May 11, 2017
+ * @version dated Jul 28, 2017
  */
 class HW1Lesson {
 
@@ -38,10 +38,10 @@ class HW1Lesson {
     }
 
     /**
-     * 3. Написать метод вычисляющий выражение  a * (b + (c / d)) и возвращающий
+     * 3. Написать метод вычисляющий выражение a * (b + (c / d)) и возвращающий
      *    результат, где a, b, c, d – входные параметры этого метода
      */
-    static int calculate(int a, int b, int c, int d) {
+    static float calculate(float a, float b, float c, float d) {
         if (d == 0) return 0;
         return a * (b + (c / d));
     }
@@ -61,8 +61,7 @@ class HW1Lesson {
      *    или отрицательное. Замечание: ноль считаем положительным числом
      */
     static void checkPositiveOrNegative(int a) {
-        if (a < 0) System.out.println(a + " is Negitive");
-        else System.out.println(a + " is Positive");
+        System.out.println(a + " is " + ((a < 0)? "Negitive" : "Positive"));
     }
 
     /**
