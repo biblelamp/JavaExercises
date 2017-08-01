@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated May 12, 2017
+ * @version dated Aug 01, 2017
  */
 import java.util.*;
 
@@ -10,22 +10,30 @@ class HW2Lesson {
 
     public static void main(String[] args) {
 
-        // simple tasks
+        // simple tasks (1..4)
         invertArray();
         fillArray();
         changeArray(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1});
         fillDiagonal(5);
 
-        // tasks of increased complexity
+        // tasks of increased complexity (5..7)
+        // find min and max (5)
         System.out.println(Arrays.toString(
             findMinMax(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1})));
-        System.out.println(checkBalance(new int[]{1, 1, 1, 2, 1}));
-        System.out.println(checkBalance(new int[]{2, 1, 1, 2, 1}));
-        System.out.println(checkBalance(new int[]{10, 10}));
+
+        // check balance (6)
+        int[][] test = {{1, 1, 1, 2, 1}, {2, 1, 1, 2, 1}, {10, 10}};
+        for (int i = 0; i < test.length; i++)
+            System.out.println(
+                Arrays.toString(test[i]) + " " + checkBalance(test[i]));
+
+        // shift array (7)
         System.out.println(Arrays.toString(
             shiftArray(new int[]{1, 2, 3, 4, 5}, 2)));
         System.out.println(Arrays.toString(
-            shiftArray(new int[]{1, 2, 3, 4, 5}, -4)));
+            shiftArray(new int[]{1, 2, 3, 4, 5}, -3)));
+
+        // console calculator (extra)
         calcConsole();
     }
 
@@ -35,11 +43,15 @@ class HW2Lesson {
      *    и условия заменить 0 на 1, 1 на 0
      */
     static void invertArray() {
-        //int[] array = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
-        int[] array = new int[10];
-        for (int i = 0; i < array.length; i++)
-            array[i] = (int)(Math.random() + 0.5);
+        // init array directly
+        int[] array = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
+        // init array using random()
+        //int[] array = new int[10];
+        //for (int i = 0; i < array.length; i++)
+        //    array[i] = (int)(Math.random() + 0.5);
         System.out.println(Arrays.toString(array));
+
+        // invert
         for (int i = 0; i < array.length; i++)
             array[i] = 1 - array[i];
             //array[i] = (array[i] == 1)? 0 : 1;
@@ -52,8 +64,8 @@ class HW2Lesson {
      */
     static void fillArray() {
         int[] array = new int[8];
-        for (int i = 0, k = 0; i < array.length; i++, k += 3)
-            array[i] = k;
+        for (int i = 0, j = 0; i < array.length; i++, j += 3)
+            array[i] = j;
         System.out.println(Arrays.toString(array));
     }
 
@@ -67,7 +79,7 @@ class HW2Lesson {
                 array[i] *= 2;
         System.out.println(Arrays.toString(array));
     }
-    
+
     /**
      * 4. Создать квадратный двумерный целочисленный массив (количество
      *    строк и столбцов одинаковое), и с помощью цикла(-ов) заполнить
@@ -103,9 +115,10 @@ class HW2Lesson {
      * 6. ** Написать метод, в который передается не пустой одномерный
      *    целочисленный массив, метод должен вернуть true если в массиве 
      *    есть место, в котором сумма левой и правой части массива равны.
-     *    Примеры: checkBalance([1, 1, 1, || 2, 1]) →  true, 
-     *    checkBalance ([2, 1, 1, 2, 1]) → false,
-     *    checkBalance ([10, || 10]) → true,
+     *    Примеры: 
+     *      checkBalance([1, 1, 1, || 2, 1]) →  true
+     *      checkBalance([2, 1, 1, 2, 1]) → false
+     *      checkBalance([10, || 10]) → true
      *    граница показана символами ||, эти символы в массив не входят
      */
     static boolean checkBalance(int[] array) {
