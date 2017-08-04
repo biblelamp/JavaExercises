@@ -1,6 +1,6 @@
 /**
  * Java 1. Lesson 4. Tic-tac-toe in console
- * written May 16, 2017
+ * written Aug 4, 2017
  */
 import java.util.*;
 
@@ -15,10 +15,10 @@ class TicTacToe {
     Random rand = new Random();
 
     public static void main(String[] args) {
-        new TicTacToe().go();
+        new TicTacToe();
     }
 
-    void go() {
+    TicTacToe() {
         initMap();
         while (true) {
             humanTurn();
@@ -63,7 +63,7 @@ class TicTacToe {
     void humanTurn() {
         int x, y;
         do {
-            System.out.println("Enter X and Y (1-3):");
+            System.out.println("Enter X and Y (1..3):");
             x = sc.nextInt() - 1;
             y = sc.nextInt() - 1;
         } while (!isCellValid(x, y));
