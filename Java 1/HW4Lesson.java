@@ -1,30 +1,31 @@
 /**
- * Java. Level 1. Lesson 4. Example of homework (Tic-tac-toe in console)
+ * Java. Level 1. Lesson 4. Example of homework
+ *  Tic-tac-toe in console with some optimisation
  *
  * @author Sergey Iryupin
- * @version dated May 20, 2017
+ * @version dated Aug 08, 2017
  */
 import java.util.*;
 
 class HW4Lesson {
 
-    final int SIZE = 3; // size of the game map
-    final char DOT_X = 'x'; // sign of human
-    final char DOT_O = 'o'; // sign of AI
+    final int SIZE = 3;         // size of the game map
+    final char DOT_X = 'x';     // sign of human
+    final char DOT_O = 'o';     // sign of AI
     final char DOT_EMPTY = '.'; // sign of empty cell
     char[][] map = new char[SIZE][SIZE];
     Scanner sc = new Scanner(System.in);
     Random rand = new Random();
 
     public static void main(String[] args) {
-        new HW4Lesson().go();
+        new HW4Lesson();
     }
 
-    void go() {
+    HW4Lesson() {
         initMap();
         while (true) {
-            humanTurn();
             printMap();
+            turnHuman();
             if (checkWin(DOT_X)) {
                 System.out.println("YOU WON!");
                 break;
@@ -33,28 +34,28 @@ class HW4Lesson {
                 System.out.println("Sorry, DRAW!");
                 break;
             }
-            aiTurn();
-            printMap();
+            turnAI();
+            //printMap();
             if (checkWin(DOT_O)) {
                 System.out.println("AI WON!");
                 break;
             }
-            // This code doesn't matter because a human always makes a move last
-            /*if (isMapFull()) {
-                System.out.println("Sorry, DRAW!");
-                break;
+            /*if (isMapFull()) {                    // this code doesn't matter
+                System.out.println("Sorry, DRAW!"); // because a human always
+                break;                              //  makes a move last
             }*/
         }
         System.out.println("GAME OVER.");
+        printMap();
     }
 
-    void initMap() {
+    void initMap() {                                // init game's field
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 map[i][j] = DOT_EMPTY;
     }
 
-    void printMap() {
+    void printMap() {                               // output game's field
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++)
                 System.out.print(map[i][j] + " ");
@@ -63,17 +64,17 @@ class HW4Lesson {
         System.out.println();
     }
 
-    void humanTurn() {
+    void turnHuman() {                              // human action
         int x, y;
         do {
-            System.out.println("Enter X and Y (1-3):");
+            System.out.println("Enter X and Y (1..3):");
             x = sc.nextInt() - 1;
             y = sc.nextInt() - 1;
         } while (!isCellValid(x, y));
         map[y][x] = DOT_X;
     }
 
-    void aiTurn() {
+    void turnAI() {                                 // AI action
         int x, y;
         do {
             x = rand.nextInt(SIZE);
@@ -82,7 +83,7 @@ class HW4Lesson {
         map[y][x] = DOT_O;
     }
 
-    boolean checkWin(char dot) {
+    boolean checkWin(char dot) {                    // check win condition
         // check horizontals and verticals
         for (int i = 0; i < SIZE; i++)
             if ((map[i][0] == dot && map[i][1] == dot && map[i][2] == dot) ||
@@ -95,7 +96,7 @@ class HW4Lesson {
         return false;
     }
 
-    boolean isMapFull() {
+    boolean isMapFull() {                           // check field filling
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 if (map[i][j] == DOT_EMPTY)
@@ -103,7 +104,7 @@ class HW4Lesson {
         return true;
     }
 
-    boolean isCellValid(int x, int y) {
+    boolean isCellValid(int x, int y) {             // check cell
         if (x < 0 || y < 0 || x >= SIZE || y >= SIZE)
             return false;
         if (map[y][x] == DOT_EMPTY)
