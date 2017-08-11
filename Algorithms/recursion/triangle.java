@@ -21,11 +21,16 @@ class TriangleApp {
     }
 
     public static int triangle(int n) {
-        if (n==1)
+        System.out.println("Entering: n = " + n);
+        if (n==1) {
+            System.out.println("Returning 1");
             return 1;
-        else
-            return (n + triangle(n-1));
+        } else {
+            int temp = n + triangle(n-1);
+            System.out.println("Returning " + temp);
+            return temp;
         }
+    }
 
     public static String getString() throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);
