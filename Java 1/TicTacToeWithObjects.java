@@ -2,129 +2,137 @@
  * Java. Game TicTacToe with objects
  *
  * @author Sergey Iryupin
- * @version 0.2 dated October 15, 2016
+ * @version 0.3 dated Aug 12, 2017
  */
 import java.util.*;
 
 class TicTacToeWithObjects {
 
-    final String HUMAN_WON = "You won!";
-    final String AI_WON = "AI won!";
-    final String DRAW_MSG = "Sorry draw...";
-    Field field = new Field();
+    final String HUMAN_WON = "YOU WON!";
+    final String AI_WON = "AI WON!";
+    final String DRAW_MSG = "Sorry DRAW...";
+    final String GAME_OVER_MSG = "GAME OVER.";
+
+    Map map = new Map();
     Human human = new Human();
     AI ai = new AI();
-    Scanner sc = new Scanner(System.in);
-    Random rand = new Random();
 
     public static void main(String[] args) {
-        new TicTacToeWithObjects().go();
+        new TicTacToeWithObjects();
     }
 
-    void go() {
-        field.print();
+    TicTacToeWithObjects() {
         while (true) {
-            human.turn();
-            field.print();
-            if (field.isWin(human.getDot())) {
+            System.out.print(map);
+            human.turn(map);
+            if (map.checkWin(human.getDot())) {
                 System.out.println(HUMAN_WON);
                 break;
             }
-            if (field.isFull()) {
+            if (map.isFull()) {
                 System.out.println(DRAW_MSG);
                 break;
             }
-            ai.turn();
-            field.print();
-            if (field.isWin(ai.getDot())) {
+            ai.turn(map);
+            if (map.checkWin(ai.getDot())) {
                 System.out.println(AI_WON);
                 break;
             }
-            if (field.isFull()) {
+            /*if (map.isFull()) {
                 System.out.println(DRAW_MSG);
                 break;
-            }
+            }*/
         }
+        System.out.println(GAME_OVER_MSG);
+        System.out.print(map);
+    }
+}
+
+class Map {
+    private final int SIZE = 3;
+    private final char EMPTY_DOT = '.';
+    private char[][] map = new char[SIZE][SIZE];
+
+    Map() {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                map[i][j] = EMPTY_DOT;
     }
 
-    class Field {
-        final int FIELD_SIZE = 3;
-        final char EMPTY_DOT = '.';
-        char[][] field = new char[FIELD_SIZE][FIELD_SIZE];
+    int getSize() { return SIZE; }
 
-        Field() {
-            for (int i = 0; i < FIELD_SIZE; i++)
-                for (int j = 0; j < FIELD_SIZE; j++)
-                    field[i][j] = EMPTY_DOT;
-        }
+    void setDot(int x, int y, char dot) { map[x][y] = dot; }
 
-        int getSize() { return FIELD_SIZE; }
-
-        void setDot(int x, int y, char ch) { field[x][y] = ch; }
-
-        boolean isCellEmpty(int x, int y) {
-            if (x < 0 || y < 0 || x > FIELD_SIZE - 1 || y > FIELD_SIZE - 1) return false;
-            if (field[x][y] == EMPTY_DOT) return true;
+    boolean isCellEmpty(int x, int y) {
+        if (x < 0 || y < 0 || x > SIZE - 1 || y > SIZE - 1)
             return false;
-        }
-
-        boolean isFull() {
-            for (int i = 0; i < FIELD_SIZE; i++)
-                for (int j = 0; j < FIELD_SIZE; j++)
-                    if (field[i][j] == EMPTY_DOT) return false;
+        if (map[x][y] == EMPTY_DOT)
             return true;
-        }
-
-        boolean isWin(char ch) {
-            // checking horizontals / verticals
-            for (int i = 0; i < FIELD_SIZE; i++) {
-                if (field[i][0] == ch && field[i][1] == ch && field[i][2] == ch) return true;
-                if (field[0][i] == ch && field[1][i] == ch && field[2][i] == ch) return true;
-            }
-            // checking diagonals
-            if(field[0][0] == ch && field[1][1] == ch && field[2][2] == ch) return true;
-            if(field[2][0] == ch && field[1][1] == ch && field[0][2] == ch) return true;
-            return false;
-        }
-
-        void print() {
-            for (int y = 0; y < FIELD_SIZE; y++) {
-                for (int x = 0; x < FIELD_SIZE; x++) 
-                    System.out.print(field[x][y]);
-                System.out.println();
-            }
-        }
+        return false;
     }
 
-    class Human {
-        final char DOT = 'x';
-
-        char getDot() { return DOT; }
-
-        void turn() {
-            int x, y;
-            do {
-                System.out.println("Enter coordinates X Y (1-"+field.getSize()+"):");
-                x = sc.nextInt() - 1;
-                y = sc.nextInt() - 1;
-            } while (!field.isCellEmpty(x, y));
-            field.setDot(x, y, DOT);
-        }
+    boolean isFull() {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                if (map[i][j] == EMPTY_DOT)
+                    return false;
+        return true;
     }
 
-    class AI {
-        final char DOT = 'o';
+    boolean checkWin(char dot) {
+        // check horizontals and verticals
+        for (int i = 0; i < SIZE; i++)
+            if ((map[i][0] == dot && map[i][1] == dot && map[i][2] == dot) ||
+                (map[0][i] == dot && map[1][i] == dot && map[2][i] == dot))
+                return true;
+        // check diagonals
+        if ((map[0][0] == dot && map[1][1] == dot && map[2][2] == dot) ||
+            (map[2][0] == dot && map[1][1] == dot && map[0][2] == dot))
+            return true;
+        return false;
+    }
 
-        char getDot() { return DOT; }
-
-        void turn() {
-            System.out.println("AI made its turn");
-            int x, y;
-            do {
-                x = rand.nextInt(field.getSize());
-                y = rand.nextInt(field.getSize());
-            } while (!field.isCellEmpty(x, y));
-            field.setDot(x, y, DOT);
+    @Override
+    public String toString() {
+        String result = "";
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++)
+                result += map[x][y] + " ";
+            result += "\n";
         }
+        return result;
+    }
+}
+
+class Human {
+    private final char DOT = 'x';
+    private Scanner sc = new Scanner(System.in);
+
+    char getDot() { return DOT; }
+
+    void turn(Map map) {
+        int x, y;
+        do {
+            System.out.println("Enter X and Y (1.."+map.getSize()+"):");
+            x = sc.nextInt() - 1;
+            y = sc.nextInt() - 1;
+        } while (!map.isCellEmpty(x, y));
+        map.setDot(x, y, DOT);
+    }
+}
+
+class AI {
+    private final char DOT = 'o';
+    private Random rand = new Random();
+
+    char getDot() { return DOT; }
+
+    void turn(Map map) {
+        int x, y;
+        do {
+            x = rand.nextInt(map.getSize());
+            y = rand.nextInt(map.getSize());
+        } while (!map.isCellEmpty(x, y));
+        map.setDot(x, y, DOT);
     }
 }
