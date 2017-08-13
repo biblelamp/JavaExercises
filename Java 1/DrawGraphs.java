@@ -2,19 +2,26 @@
  * Java. Level 1. Drawing graphs of simple functions
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Aug 11, 2017
+ * @version 0.2 dated Aug 13, 2017
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-class DrawGraphs extends JFrame {
+class DrawGraphs extends JFrame implements KeyListener {
 
     final String TITLE_OF_PROGRAM = "Drawing graphs of simple functions";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 550;
     final int WINDOW_HEIGTH = 350;
+    final int LEFT = 37;    // key codes
+    final int UP = 38;
+    final int RIGHT = 39;
+    final int DOWN = 40;
 
     Canvas canvas; // JPanel for painting
+    float stretchX = 1.2f;
+    int stretchY = 75;
 
     public static void main(String[] args) {
         new DrawGraphs();
@@ -28,9 +35,34 @@ class DrawGraphs extends JFrame {
         canvas = new Canvas();
         canvas.setBackground(Color.white);
         add(BorderLayout.CENTER, canvas);
+        addKeyListener(this);
         setVisible(true);
     }
 
+    @Override
+    public void keyPressed(KeyEvent event) { }
+
+    @Override
+    public void keyTyped(KeyEvent event) { }
+
+    @Override
+    public void keyReleased(KeyEvent event) {
+        switch (event.getKeyCode()) {
+            case LEFT: stretchX -= 0.1;
+                canvas.repaint();
+                break;
+            case RIGHT: stretchX += 0.1;
+                canvas.repaint();
+                break;
+            case UP: stretchY += 5;
+                canvas.repaint();
+                break;
+            case DOWN: stretchY -= 5;
+                canvas.repaint();
+                break;
+        }
+    }
+    
     class Canvas extends JPanel { // for painting
         @Override
         public void paint(Graphics g) {
@@ -50,17 +82,10 @@ class DrawGraphs extends JFrame {
             // converting degrees to radians
             // radians = degrees * Math.PI/180
 
-            int k = 1; // coefficient of stretching horizontally
             g.setColor(Color.blue);
-            for (int i = 10, y = 0; i < width - 10; i++) {
-                y = (int) (Math.sin(i * Math.PI/180 * k) * 75) + height / 2;
-                g.drawRect(i, y, 0, 0);
-            }
-
-            g.setColor(Color.magenta);
-            for (int i = 10, y = 0; i < width - 10; i++) {
-                y = (int) (Math.cos(i * Math.PI/180) * 75) + height / 2;
-                g.drawRect(i, y, 0, 0);
+            for (int x = -(width / 2 - 10), y = 0; x < width /2 - 10; x++) {
+                y = (int) (Math.sin(x * Math.PI/180 * stretchX) * stretchY);
+                g.drawRect(x + width / 2, y + height / 2, 0, 0);
             }
         }
     }
