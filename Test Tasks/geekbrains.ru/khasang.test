@@ -20,9 +20,9 @@ return 0;
 @Question
 Как правильно написать цикл, который отработает 10 раз?
 @Options @OnlyOne @Key=2
-for (i = 0; i < 9; i++) {}
-for (int i = 0; i < 10; i++) {}
-for (i = 0; i < 10; i++) {}
+for (i = 0; i &lt; 9; i++) {}
+for (int i = 0; i &lt; 10; i++) {}
+for (i = 0; i &lt; 10; i++) {}
 Не знаю
 
 @Question
