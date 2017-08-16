@@ -1,0 +1,51 @@
+@Description
+Тест по Java. Начальный уровень https://geekbrains.ru/tests/39
+
+@Question
+По типу результата все методы можно разделить на:
+@Options @OnlyOne @Key=3
+Статические и не статические
+Константы и переменные
+С возвращаемым значением и без
+Целочисленные и дробные
+С аргументами и без
+
+@Question
+Какой класс является суперклассом для всех классов:
+@Options @OnlyOne @Key=3
+Main
+MainClass
+Object
+Super
+Class
+
+@Question
+В какой кодировке хранятся символы в переменной типа char:
+@Options @OnlyOne @Key=4
+UTF-32
+UTF-16
+UTF-8
+ASCII
+
+@Question
+Результат сравнения - это:
+@Options @OnlyOne @Key=4
+Объект
+Число
+Символ
+Логическое значение
+Строка
+
+@Question
+Что появится в консоли в результате работы программы:
+<code>
+byte a = 127;
+a++;
+System.out.println(a);
+</code>
+@Options @OnlyOne @Key=5
+0
+127
+Ошибка времени исполнения
+128
+-128
