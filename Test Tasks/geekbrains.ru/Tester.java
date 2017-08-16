@@ -2,7 +2,7 @@
  * Java. Simple test system
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Aug 16, 2017
+ * @version 0.3 dated Aug 16, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +23,7 @@ class Tester extends JFrame implements ActionListener {
     final int WINDOW_HEIGTH = 400;
     final String BTN_RESET = "Reset";
     final String BTN_NEXT = "Next";
+    final String BTN_BACK = "Back";
 
     JLabel ctrlLabel;
     MainPanel mainPanel;
@@ -85,15 +86,18 @@ class Tester extends JFrame implements ActionListener {
 
         JPanel bp = new JPanel();
         bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
-        JButton reset = new JButton("Reset");
+        JButton reset = new JButton(BTN_RESET);
         reset.addActionListener(this);
         msg = new JTextField();
         msg.addActionListener(this);
-        JButton next = new JButton("Next");
+        JButton next = new JButton(BTN_NEXT);
         next.addActionListener(this);
+        JButton back = new JButton(BTN_BACK);
+        back.addActionListener(this);
         bp.add(reset);
         bp.add(msg);
         bp.add(next);
+        bp.add(back);
 
         add(mainPanel, BorderLayout.CENTER);
         add(bp, BorderLayout.SOUTH);
@@ -102,15 +106,15 @@ class Tester extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        
-        System.out.println(event.getActionCommand());
-        
+        // reset test
         if (event.getActionCommand().equals(BTN_RESET)) {
             test.init();
             mainLabel.setText(test.toString());
             mainPanel.repaint();
         }
-        if (event.getActionCommand().equals(BTN_NEXT))
+        // enter choice/answer and go
+        if (event.getActionCommand().equals(BTN_NEXT) ||
+            event.getActionCommand().equals(msg.getText()))
             if (!msg.getText().isEmpty()) {
                 int choice;
                 try {
@@ -118,13 +122,21 @@ class Tester extends JFrame implements ActionListener {
                 } catch (NumberFormatException ex) {
                     choice = -1;
                 }
-                if (choice > 0) {
+                if (choice > 0 && test.getPointer() < test.getSize()) {
                     test.setChoice(choice);
                     test.incPointer();
                     mainLabel.setText(test.toString());
                     mainPanel.repaint();
                     msg.setText("");
                 }
+            }
+        // go back
+        if (event.getActionCommand().equals(BTN_BACK))
+            if (test.getPointer() > 0) {
+                test.decPointer();
+                test.setChoice(0);
+                mainLabel.setText(test.toString());
+                mainPanel.repaint();
             }
     }
 
@@ -134,11 +146,11 @@ class Tester extends JFrame implements ActionListener {
             super.paint(g);
             for (int i = 0; i < test.getSize(); i++) {
                 g.setColor(Color.black);
-                g.drawOval(20 + i * 15, 15, 10, 10);
+                g.drawOval(20 + i * 12, 15, 8, 8);
                 if (test.getQuestion(i).getChoice() > 0) {
                     g.setColor((test.getQuestion(i).isRight())?
                         Color.green : Color.red);
-                    g.fillOval(20 + i * 15 + 1, 16, 8, 8);
+                    g.fillOval(20 + i * 12, 15, 8, 8);
                 }
             }
         }
@@ -187,7 +199,8 @@ class Test {
                             .setKey((int)line.charAt(idx + 5) - 48);
                 } else if (!line.isEmpty()) {
                     if (isQuestion)
-                        question += line;
+                        question += (question.isEmpty())?
+                            line : "<br />" + line;
                     if (isOptions)
                         questions.get(questions.size() - 1).addOption(line);
                 } else
@@ -219,6 +232,10 @@ class Test {
         return pointer;
     }
 
+    void decPointer() {
+        if (pointer > 0) pointer--;
+    }
+
     void incPointer() {
         if (pointer < questions.size() - 1) pointer++;
     }
@@ -229,7 +246,8 @@ class Test {
 
     @Override
     public String toString() {
-        return questions.get(pointer).toString(pointer);
+        return (pointer < questions.size())?
+            questions.get(pointer).toString(pointer) : "";
     }
 }
 
