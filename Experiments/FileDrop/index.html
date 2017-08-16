@@ -1,0 +1,213 @@
+<html>
+<head>
+	<title>FileDrop: Easy File Drag and Drop in Java</title>
+	<meta name="keywords" content="file, drag, drop, open source code, java, public domain" />
+	<meta name="description" content="FileDrop - Drag and drop files into your Java programs." />
+	<meta name="abstract" content="FileDrop - Drag and drop files into your Java programs." />
+	<meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
+	<meta http-equiv="Content-Language" content="EN" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta name="revisit-after" content="7 days" />
+	<meta name="robots" content="FOLLOW,INDEX" />
+	<meta http-equiv="Site-Enter" content="revealTrans(Duration=1.0,Transition=3)">
+	<link rel="SHORTCUT ICON" href="../../favicon.ico" />
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"> 
+	<link rel="stylesheet" media="all" type="text/css" href="../../cssmenu.css" />
+	<link rel="stylesheet" media="all" type="text/css" href="../../content.css" />
+</head>
+<body>
+
+<div id="masthead">
+	<img style="float:right" src="http://iharder.sourceforge.net/counters/counter.php?page=filedrop" height="30"/>
+	<div id="iHarderMast"><a href="../../index.html">iHarder.net</a></div>
+	<h1>FileDrop</h1><!-- Page Title Here -->
+</div>
+<div class="menuminwidth0"><div class="menuminwidth1"><div class="menuminwidth2">
+<div class="menu">
+
+<!-- ======== -->
+<!-- ========  S E C O N D    L E V E L   L I N K S  ======== -->
+<!-- ========  This version of the menu is for referencing from the second level. -->
+<!-- ========  That is, use "../../" to back everything up one leve. -->
+<!-- ======== -->
+
+<!-- ========  OpenTS-related menus ======== -->
+<ul>
+	<li><a href="http://opents.iharder.net">OpenTS<!--[if gt IE 6]><!--></a><!--<![endif]--><!--[if lt IE 7]><table border="0" cellpadding="0" cellspacing="0"><tr><td><![endif]-->
+		<ul class="leftbutton">
+			<li><a href="http://opents.iharder.net">&nbsp;Home page</a></li>
+			<li><a href="https://projects.coin-or.org/Ots">&nbsp;Project page</a></li>
+			<li><a href="http://www.coin-or.org/OpenTS/docs/index.html">&nbsp;Documentation</a></li>
+			<li><a href="http://www.coin-or.org/">&nbsp;COIN-OR Home page</a></li>		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+</ul><!-- close OpenTS menus -->
+
+
+
+<!-- ========  Mac OS X-related menus ======== -->
+<ul>
+	<li><a href="../../macosx/">Mac OS X<!--[if gt IE 6]><!--></a><!--<![endif]--><!--[if lt IE 7]><table border="0" cellpadding="0" cellspacing="0"><tr><td><![endif]-->
+		<ul>
+			<li><a href="../../macosx/threadworker/" title="ThreadWorker is an Objective-C class whose sole class-level method makes it easy to offload a task to another thread and notify your application when you've completed the task. Creating Multithreaded applications with Objective-C in Mac OS X's Cocoa framework is easier than raw C code, but there are still some difficulties that ThreadWorker will help you overcome.">&nbsp;ThreadWorker</a></li>
+			<li><a href="../../macosx/abs/" title="Address Book Scrubber will scour Mac OS X's Address Book data correcting some common problems. Specifically it can format 10-digit phone numbers in eirther a (999) 555-1212 or 999-555-1212 format. Additionally it will correct some common mistakes with labels such as 'hOme' vs. 'home' as well as some more subtle errors that can cause synching with an iPod or Palm to show no contact data on those devices.">&nbsp;Address Book Scrubber</a></li>
+			<li><a href="../../macosx/xmltree/" title="XML Tree provides an Objective-C wrapper for Apple's own C-language XML parser provided in Mac OS X. I much prefer working with Objective-C, so I was bothered to learn Apple didn't provide an Objective-C API (and if they do I'll be happy to label XMLTree obsolete).">&nbsp;XMLTree</a></li>
+			<li><a href="../../macosx/xsl/" title="Here are some quickie XSL files for turning the oh-so-common plist files into some simple HTML. They're not much, but at least you don't have to start from scratch.">&nbsp;XSL for Common Files</a></li>
+			<li><a href="../../macosx/winmacprinter/" title="Instructions on how to set up an HP DeskJet 722c printer on a Windows XP computer and make your Mac OS X computer think it's a networked, Postscript printer.">&nbsp;Share your Windows Printer</a></li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+</ul><!-- close Mac OS X menus -->
+
+
+<!-- ========  Java-related menus ======== -->
+<ul>
+	<li><a href="../../java/">Java<!--[if gt IE 6]><!--></a><!--<![endif]--><!--[if lt IE 7]><table border="0" cellpadding="0" cellspacing="0"><tr><td><![endif]-->
+		<ul>
+			<li><a href="../../java/base64/" title="Base64 is a Public Domain Java class for encoding and decoding Base64 notation. There are one-liner convenience methods as well as Input and Output Streams.">&nbsp;Base64</a></li>
+			<li><a href="../../java/filedrop/" title="FileDrop is a Java tool to make it easy to drag and drop files from your computer's OS into a Java program. With just a few lines of code you can receive an array of files (java.io.File) describing the files that the user just dropped." >&nbsp;FileDrop</a></li>
+			<li><a href="../../java/xmlizable/" title="Xmlizable is a set of Public Domain Java tools for Xmlizing, like Serializing, Java objects. There is built-in support for parsing and rebuilding basic Java data structures such as java.util.Collections and java.util.Maps. There is also an Xmlizable interface for making your own objects Xmlizable to and from XML via SAX2 events.">&nbsp;Xmlizable</a></li>
+			<li><a href="../klv/" title="KLV is a Public Domain Java class for encoding and decoding KLV binary data.">&nbsp;KLV</a></li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+</ul><!-- close Java-related menus -->
+
+
+<!-- ========  Other menus ======== -->
+<ul>
+	<li><a href="../../misc/">Other<!--[if gt IE 6]><!--></a><!--<![endif]--><!--[if lt IE 7]><table border="0" cellpadding="0" cellspacing="0"><tr><td><![endif]-->
+		<ul>
+			<li><a href="../../misc/">Miscellaneous Files</a></li>
+			<li><a href="mailto:rharder[nospam]users.sf.net" title="">&nbsp;rharder users.sf.net</a></li>
+			<li><a href="http://resume.iharder.net/" title="Mr. Harder's resume. I'm sorry to report the resume is a bit out of date as I am not looking for additional employment right now." >&nbsp;Resume</a></li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+</ul><!-- close Other menus -->
+
+</div><!-- Menu -->
+</div></div></div> <!-- close the "minwidth" wrappers -->
+
+
+
+<div id="mainbody">
+<!-- ======== -->
+<!-- ========  B E G I N   B O D Y   O F   P A G E  ======== -->
+<!-- ======== -->
+
+
+
+
+        <table>
+          <tr>
+            <td>
+<img width="156" height="163" src="filedrop.gif" alt="FileDrop">
+</img>
+</td>
+            <td> &lt;== ...drag...</td>
+            <td>
+<img width="205" height="163" src="files.gif" alt="Files">
+</img>
+</td>
+          </tr>
+        </table>
+
+ 
+        <p style="text-align:center;font-weight:bold;font-family:Arial">
+          <a href="http://prdownloads.sourceforge.net/iharder/filedrop-1.1.zip">Download now (v1.1)!</a>
+        </p>
+
+        <p style="text-align:center;font-family:Arial;font-size:smaller">
+<a href="http://sourceforge.net/project/filemodule_monitor.php?filemodule_id=30381">Have SourceForge notify you of new releases</a><br />
+	<i>Now supports Linux KDE/Gnome thanks to Nathan Blomquist.</i>
+        </p>
+
+
+	
+
+
+        <P>
+          This class makes it easy to drag and drop files from the operating
+          system to a Java program. Any <tt>java.awt.Component</tt> can be
+          dropped onto, but only <tt>javax.swing.JComponent</tt>s will indicate
+          the drop event with a changed border.
+        </P>
+        <P>
+          To use this class, construct a new <tt>FileDrop</tt> by passing
+          it the target component and a <tt>Listener</tt> to receive notification
+          when file(s) have been dropped. Here is an example:
+        </P>
+<p>Note that some operating systems and Java virtual machine combinations do not support file dragging and dropping. If you are on one of these systems, you're kind of out of luck. I'm sory.</p>
+        <P> 
+<style type="text/css">
+  .keyword {  font-weight: bold; color: blue }
+  .object {  font-weight: bold }
+  .method {  font-weight: bold }
+  .package {  font-style: italic }
+  .variable {  font-style: italic }
+  .comment {  font-style: italic; color: gray }
+  tt { font-weight: bold }
+</style>
+          <code>
+            <pre>
+      <span class="object">JPanel </span> <span class="variable">myPanel</span> = <span class="keyword">new</span> <span class="object">JPanel</span>();
+      <span class="keyword">new </span> <span class="object">FileDrop</span>( <span class="variable">myPanel</span>, <span class="keyword">new</span> <b>FileDrop.Listener</b>()
+      {   <span class="keyword">public void </span> <span class="method">filesDropped</span>( <span class="object">java.io.File</span>[] <span class="variable">files</span> )
+          {   
+              <span class="comment">// handle file drop</span>
+              ...
+          }   <span class="comment">// end filesDropped</span>
+      }); <span class="comment">// end FileDrop.Listener</span>
+            </pre>
+          </code>
+        </P>
+        <P>
+          You can specify the border that will appear when files are being dragged by
+          calling the constructor with a <tt>javax.swing.border.Border</tt>. Only
+          <tt>JComponent</tt>s will show any indication with a border.
+        </P>
+        <P>
+          You can turn on some debugging features by passing a <tt>PrintStream</tt>
+          object (such as <tt>System.out</tt>) into the full constructor. A <tt>null</tt>
+          value will result in no extra debugging information being output.
+        </P>
+
+<h2>Running the Example</h2>
+        <p>
+          The <tt>FileDrop</tt> class has a built-in demo that can be 
+          run in any of the following ways:
+          <ul>
+            <li>Double-click the <tt>filedrop.jar</tt> file.</li>
+            <li>At a command prompt, enter <tt>java -jar filedrop.jar</tt>.</li>
+            <li>With filedrop.jar in the classpath enter <tt>java Example</tt>.</li>
+          </ul>
+        </p>
+
+<h2>Also Note</h2>
+        <p>I've condensed all the functionality into one FileDrop.java class
+        to make it easier to copy the single file into your projects. Since this
+        is Public Domain, there's no need to include <em>yet another</em> jar
+        file in your project and reference a license -- just add FileDrop.java
+        to your package and you're off!</p>
+        <p>
+          One more thing: since this is Public Domain, feel free to change the
+          Java package name if it makes your life a little easier.
+        </p>
+
+<h2>A Note About Public Domain</h2>
+<p>I have released this software into the Public Domain. That means you can do whatever you want with it. Really. You don't have to match it up with any other open source license &em; just use it. You can rename the files, move the Java packages, whatever you want. If your lawyers say you have to have a license, contact me, and I'll make a special release to you under whatever reasonable license you desire: MIT, BSD, GPL, whatever.</p>
+
+
+</div><!-- close mainbody -->
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  var pageTracker = _gat._getTracker("UA-4803237-1");
+  pageTracker._initData();
+  pageTracker._trackPageview();
+</script>
+</body>
+</html>
