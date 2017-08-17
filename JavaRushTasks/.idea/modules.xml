@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" filepath="$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.JavaCore/2.JavaCore.iml" filepath="$PROJECT_DIR$/2.JavaCore/2.JavaCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" filepath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" />
+      <module fileurl="file://$PROJECT_DIR$/4.JavaCollections/4.JavaCollections.iml" filepath="$PROJECT_DIR$/4.JavaCollections/4.JavaCollections.iml" />
+      <module fileurl="file://$PROJECT_DIR$/5.OnlineInternship/5.OnlineInternship.iml" filepath="$PROJECT_DIR$/5.OnlineInternship/5.OnlineInternship.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaRushTasks.iml" filepath="$PROJECT_DIR$/JavaRushTasks.iml" />
+    </modules>
+  </component>
+</project>
