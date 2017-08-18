@@ -2,7 +2,7 @@
  * Java. Simple test system
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Aug 16, 2017
+ * @version 0.3.1 dated Aug 18, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,6 @@ class Tester extends JFrame implements ActionListener {
     final String MENU_FILE = "File";
     final String MENU_OPEN = "Open...";
     final String MENU_EXIT = "Exit";
-    final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 400;
     final int WINDOW_HEIGTH = 400;
     final String BTN_RESET = "Reset";
@@ -185,7 +184,7 @@ class Test {
             question = "";
 
             while ((line = reader.readLine()) != null) {
-
+                line = line.replaceAll("<", "&lt;");
                 if (line.startsWith(QUESTION_MARK)) {
                     isQuestion = true;
                     question = "";
