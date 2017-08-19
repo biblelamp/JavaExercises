@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.3 dated May 30, 2017
+ * @version 0.3.1 dated Aug 19, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +12,9 @@ import java.awt.event.*;
 class TicTacToe extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Tic Tac Toe";
-    final int START_POSITION = 300;
-    final int WINDOW_SIZE = 300;
-    final int WINDOW_DX = 9;
-    final int WINDOW_DY = 57;
+    final int WINDOW_SIZE = 330;
+    final int WINDOW_DX = 7;
+    final int WINDOW_DY = 55;
     final int FIELD_SIZE = 3;
     final int CELL_SIZE = WINDOW_SIZE / FIELD_SIZE;
     final String BTN_INIT = "New game";
@@ -33,7 +32,9 @@ class TicTacToe extends JFrame {
     TicTacToe() {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(START_POSITION, START_POSITION, WINDOW_SIZE + WINDOW_DX, WINDOW_SIZE + WINDOW_DY);
+        setSize(WINDOW_SIZE + WINDOW_DX, WINDOW_SIZE + WINDOW_DY);
+        setLocationRelativeTo(null); // to the center
+        setResizable(false);
 
         canvas.setBackground(Color.white);
         canvas.addMouseListener(new MouseAdapter() {
@@ -43,7 +44,8 @@ class TicTacToe extends JFrame {
                 human.turn(e.getX()/CELL_SIZE, e.getY()/CELL_SIZE, field, ai);
                 canvas.repaint();
                 if (field.isGameOver())
-                    JOptionPane.showMessageDialog(TicTacToe.this, field.getGameOverMsg());
+                    JOptionPane.showMessageDialog(
+                        TicTacToe.this, field.getGameOverMsg());
             }
         });
         JButton init = new JButton(BTN_INIT);
