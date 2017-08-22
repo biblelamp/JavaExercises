@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project name="GameBattleShip" default="run">
+
+    <!-- set propertes -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="classes" location="${build}/classes"/>
+
+    <!-- compile java file(s) to class file(s) -->
+    <target name="compile">
+        <mkdir dir="${classes}"/>
+        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
+    </target>
+
+    <!-- run class file(s) -->
+    <target name="run" depends="compile">
+        <java classname="${ant.project.name}" classpath="${classes}" fork="true"/>
+    </target>
+
+    <!-- make jar file -->
+    <target name="package" depends="compile">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main-Class" value="${ant.project.name}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- delete folders with class/jar file(s) -->
+    <target name="clean">
+        <delete dir="${build}"/>
+    </target>
+
+    <!-- repack jar file -->
+    <target name="repack" depends="clean,package"/>
+</project>
