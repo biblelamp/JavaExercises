@@ -18,3 +18,6 @@ Implementation of the famous game Minesweeper. You can see webinar "[Write game 
 
 ## GameXonix.java
 Implementation of the famous game Xonix. You can see webinar "[Write game Xonix](https://www.youtube.com/watch?v=dMROhd-d3z0)" (in Russian).
+
+## ./Ant/GameBattleShip
+Implementation of the famous game BattleShip. You can see webinar "[Write game BattleShip] (https://www.youtube.com/watch?v=ZtFqBl_lutY)" (in Russian).
