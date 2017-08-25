@@ -106,7 +106,7 @@ class DrawGraphs extends JFrame implements KeyListener {
 
             g.setColor(Color.blue);
             for (int x = -(width / 2 - 10), y = 0; x < width /2 - 10; x++) {
-                double radian = x * Math.PI/180 * stretchX;
+                double radian = Math.toRadians(x) * stretchX;
                 switch (typeGraph) {
                     case SIN:
                         g.drawString("SIN", 10, 20);
