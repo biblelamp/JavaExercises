@@ -8,12 +8,14 @@ import java.util.HashMap;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        try {
 
-        HashMap<String, String> map = new HashMap<String, String>(null);
-        map.put(null, null);
-        map.remove(null);
+            HashMap<String, String> map = new HashMap<String, String>(null);
+            map.put(null, null);
+            map.remove(null);
 
-        //напишите тут ваш код
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
     }
 }

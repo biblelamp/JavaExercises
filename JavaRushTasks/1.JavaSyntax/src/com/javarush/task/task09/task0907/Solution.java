@@ -6,10 +6,12 @@ package com.javarush.task.task09.task0907;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        try {
 
-        int a = 42 / 0;
+            int a = 42 / 0;
 
-        //напишите тут ваш код
+        } catch (ArithmeticException ex) {
+            System.out.println(ex);
+        }
     }
 }

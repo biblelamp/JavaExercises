@@ -10,8 +10,9 @@ public class Solution {
     }
 
     public static int getStackTraceDeep() {
-        //напишите тут ваш код
-        return 0;
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        System.out.println(stackTraceElements.length);
+        return stackTraceElements.length;
     }
 }
 

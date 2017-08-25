@@ -11,7 +11,15 @@ public class Solution {
     public static char[] vowels = new char[]{'а', 'я', 'у', 'ю', 'и', 'ы', 'э', 'е', 'о', 'ё'};
 
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+        for (int i = 0; i < s.length(); i++)
+            if (isVowel(s.charAt(i)))
+                System.out.print(s.charAt(i) + " ");
+        System.out.println("");
+        for (int i = 0; i < s.length(); i++)
+            if (s.charAt(i) != ' ' && !isVowel(s.charAt(i)))
+                System.out.print(s.charAt(i) + " ");
     }
 
     // метод проверяет, гласная ли буква
