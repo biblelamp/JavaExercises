@@ -24,8 +24,12 @@ public class Solution {
     }
 
     public static int safeGetElement(ArrayList<Integer> list, int index, int defaultValue) {
-        //напишите тут ваш код
-        return 0;
+        int result;
+        try {
+            result = list.get(index);
+        } catch (IndexOutOfBoundsException ex) {
+            result = defaultValue;
+        }
+        return result;
     }
-
 }

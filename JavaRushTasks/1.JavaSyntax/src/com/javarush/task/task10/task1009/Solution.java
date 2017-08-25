@@ -10,7 +10,7 @@ public class Solution {
         int b = 4;
         int c = 3;
         int e = 2;
-        double d = a + b / c / e;
+        double d = (double) a + b / c / (double) e;
         System.out.println(d);
     }
 }

@@ -13,9 +13,12 @@ public class Solution {
     }
 
     public static ArrayList<String>[] createList() {
-        //напишите тут ваш код
-
-        return null;
+        ArrayList<String>[] a = new ArrayList[10];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = new ArrayList<String>();
+            a[i].add("a" + i);
+        }
+        return a;
     }
 
     public static void printList(ArrayList<String>[] arrayOfStringList) {
