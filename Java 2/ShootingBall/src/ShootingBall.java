@@ -3,7 +3,7 @@
  *  Preparing for a some network game
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Aug 24, 2017
+ * @version 0.2 dated Aug 26, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +18,12 @@ class ShootingBall extends JFrame implements KeyListener {
     final int UP = 38;
     final int RIGHT = 39;
     final int DOWN = 40;
+    final int FIRE = 32; // space key
+    final int SHOW_DELAY = 20; // delay for animation
 
     Canvas canvas;
     Ball ball;
+    Pill pill;
 
     public static void main(String args[]) {
         new ShootingBall();
@@ -40,7 +43,19 @@ class ShootingBall extends JFrame implements KeyListener {
         setLocationRelativeTo(null); // to the center
         addKeyListener(this);
         setVisible(true);
-        ball = new Ball(100, 100, 25);
+        goGame();
+    }
+
+    void goGame() {
+        ball = new Ball(100, 100, 10); // x, y, raduis
+        pill = new Pill();
+        while (true) {
+            try {
+                Thread.sleep(SHOW_DELAY);
+            } catch (Exception e) { }
+            pill.move(5);
+            canvas.repaint();
+        }
     }
 
     @Override
@@ -53,16 +68,15 @@ class ShootingBall extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent event) {
         switch (event.getKeyCode()) {
             case LEFT: ball.turnLeft(15);
-                canvas.repaint();
                 break;
             case RIGHT: ball.turnRight(15);
-                canvas.repaint();
                 break;
             case UP: ball.forward(10);
-                canvas.repaint();
                 break;
             case DOWN: ball.backward(10);
-                canvas.repaint();
+                break;
+            case FIRE: pill = new Pill(
+                    ball.getXPill(), ball.getYPill(), ball.getAngle());
                 break;
         }
     }
@@ -72,6 +86,7 @@ class ShootingBall extends JFrame implements KeyListener {
         public void paint(Graphics g) {
             super.paint(g);
             ball.paint(g);
+            pill.paint(g);
         }
     }
 }
