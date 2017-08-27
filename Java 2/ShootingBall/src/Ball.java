@@ -3,32 +3,58 @@
  *  Class Ball
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Aug 26, 2017
+ * @version 0.3 dated Aug 27, 2017
  */
 import java.awt.Graphics;
 
 class Ball {
     private int x, y, radius, angle;
+    private int width, heigth;
 
-    Ball(int x, int y, int radius) {
+    Ball(int x, int y, int radius, int angle, int width, int heigth) {
         this.x = x;
         this.y = y;
         this.radius = radius;
-        angle = 270;
+        this.angle = angle;
+        this.width = width;
+        this.heigth = heigth;
+    }
+
+    private double getDX(int points) {
+        return points * Math.cos(Math.toRadians(angle));
+    }
+
+    private double getDY(int points) {
+        return points * Math.sin(Math.toRadians(angle));
     }
 
     void forward(int points) {
-        double dx = points * Math.cos(Math.toRadians(angle));
-        double dy = points * Math.sin(Math.toRadians(angle));
+        double dx, dy;
+        points++;
+        do {
+            points--;
+            dx = getDX(points);
+            dy = getDY(points);
+        } while (isAbroad(x + (int)dx, y + (int)dy));
         x += (int) dx;
         y += (int) dy;
     }
 
     void backward(int points) {
-        double dx = points * Math.cos(Math.toRadians(angle));
-        double dy = points * Math.sin(Math.toRadians(angle));
+        double dx, dy;
+        points++;
+        do {
+            points--;
+            dx = getDX(points);
+            dy = getDY(points);
+        } while (isAbroad(x - (int)dx, y - (int)dy));
         x -= (int) dx;
         y -= (int) dy;
+    }
+
+    boolean isAbroad(int x, int y) {
+        return (x - radius < 0) || (y - radius < 0)
+            || (x + radius > width) || (y + radius > heigth);
     }
 
     void turnLeft(int angle) {
@@ -40,11 +66,11 @@ class Ball {
     }
 
     int getXPill() {
-        return (int)(x + (radius + 4) * Math.cos(Math.toRadians(angle)));
+        return (int)(x + getDX(radius + 4));
     }
 
     int getYPill() {
-        return (int)(y + (radius + 4) * Math.sin(Math.toRadians(angle)));
+        return (int)(y + getDX(radius + 4));
     }
 
     int getAngle() {
@@ -52,11 +78,8 @@ class Ball {
     }
 
     void paint(Graphics g) {
-        double x1 = (radius - 4) * Math.cos(Math.toRadians(angle));
-        double y1 = (radius - 4) * Math.sin(Math.toRadians(angle));
-        double dx = (radius + 4) * Math.cos(Math.toRadians(angle));
-        double dy = (radius + 4) * Math.sin(Math.toRadians(angle));
         g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
-        g.drawLine(x + (int)x1, y + (int)y1, x + (int)dx, y + (int)dy);
+        g.drawLine(x + (int)getDX(radius - 4), y + (int)getDY(radius - 4),
+            x + (int)getDX(radius + 4), y + (int)getDY(radius + 4));
     }
 }
