@@ -144,7 +144,7 @@ Class
 
 @Question
 При выполнении следующего кода
-<code>
+<pre><code>
 public static void main(String[] args){
     new Thread(new Runnable() {
         @Override
@@ -159,7 +159,7 @@ public static void main(String[] args){
         }
     }).start();
 }
-<code>
+</code></pre>
 @Options @OnlyOne @Key=1
 гарантированно будет отпечатано в порядке 1 2
 нельзя гарантировать порядок вывода чисел 1 и 2
@@ -232,7 +232,7 @@ HashMap допускает в качестве ключа использоват
 
 @Question
 Выберите верное утверждение
-<code><pre>
+<pre><code>
 public static void main(String[] args){
     new Thread(new Runnable(){
         @Override
