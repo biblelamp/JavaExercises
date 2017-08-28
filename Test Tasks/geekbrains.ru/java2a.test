@@ -122,7 +122,7 @@ Class
 
 @Question
 Утверждение: статический внутренний (вложенный) класс имеет доступ ко всем полям и методам внешнего класса
-@Options @OnlyOne @Key=1
+@Options @OnlyOne @Key=2
 верно
 не верно
 
@@ -232,7 +232,7 @@ HashMap допускает в качестве ключа использоват
 
 @Question
 Выберите верное утверждение
-<code>
+<code><pre>
 public static void main(String[] args){
     new Thread(new Runnable(){
         @Override
@@ -261,7 +261,7 @@ public static void main(String[] args){
         }
     }).start();
 }
-</code>
+</code></pre>
 @Options @OnlyOne @Key=3
 нельзя гарантировать с какой цифры начнётся вывод 1 или 2, но печать будет чередоваться 1212121212 или 2121212121
 порядок печати всегда будет 1212121212
