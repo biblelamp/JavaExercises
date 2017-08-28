@@ -2,7 +2,7 @@
  * Java. Simple test system
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Aug 18, 2017
+ * @version 0.3.2 dated Aug 28, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -185,6 +185,10 @@ class Test {
 
             while ((line = reader.readLine()) != null) {
                 line = line.replaceAll("<", "&lt;");
+                line = line.replaceAll("&lt;pre>", "<pre>");   // fix for <pre>
+                line = line.replaceAll("&lt;/pre>", "</pre>"); // and </pre>
+                line = line.replaceAll("&lt;code>", "<code>");   // fix for <code>
+                line = line.replaceAll("&lt;/code>", "</code>"); // and </code>
                 if (line.startsWith(QUESTION_MARK)) {
                     isQuestion = true;
                     question = "";
