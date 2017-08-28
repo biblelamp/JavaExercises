@@ -1,0 +1,275 @@
+@Description
+Тест по Java. Средний уровень уровень https://geekbrains.ru/tests/55
+
+@Question
+Назовите две группы исключений в Java.
+@Options @OnlyOne @Key=2
+Exception и Error
+Checked и Unchecked
+Catched и Uncatched
+Handle и Unhandled
+
+@Question
+Какой метод отсутствует в классе Object?
+@Options @OnlyOne @Key=2
+toString()
+system()
+clone()
+finalize()
+
+@Question
+Какой из методов не может привести к приостановке потока?
+@Options @OnlyOne @Key=2
+wait()
+notify()
+join()
+sleep()
+
+@Question
+Исключение какого типа будет сгенерировано при выполнении следующего кода:
+<code>
+Object obj = new Integer(10);
+String str = (String) obj;
+System.out.println(str);
+</code>
+@Options @OnlyOne @Key=2
+ArrayIndexOutOfBoundsException
+ClassCastException
+IllegalArgumentException
+ни одно из представленных
+
+@Question
+Может ли блок try существовать без блока catch?
+@Options @OnlyOne @Key=1
+нет
+да
+
+@Question
+Можно ли при использовании класса в качестве элемента HashSet переопределить только метод hashCode(), без переопределения equals()?
+@Options @OnlyOne @Key=1
+нет
+да
+
+@Question
+Поля, объявленные в интерфейсах, по умолчанию имеют модификаторы:
+@Options @OnlyOne @Key=1
+public static final
+private static final
+public static
+static final
+
+@Question
+Метод Thread.sleep()
+@Options @OnlyOne @Key=3
+приостанавливает выполнение потока main
+приостанавливает работу программы
+приостанавливает работу потока, в котором был вызван без освобождения монитора
+приостанавливает работу потока, в котором был вызван с освобождением монитора
+приостанавливает выполнение всех потоков, кроме main
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=4
+если два объекта равны через equals() их hashCode() должен совпадать, если объекты не равны, их hashCode() может совпадать
+если два объекта равны через equals() их hashCode() может не совпадать
+если два объекта равны через equals() их hashCode() может совпадать
+если два объекта равны через equals() их hashCode() должен совпадать, если объекты не равны, их hashCode() может не совпадать
+
+@Question
+Для создания класса checked исключения необходимо
+@Options @OnlyOne @Key=1
+унаследовать его только от класса Exception
+указать ключевое слово checked в объвлении класса
+унаследовать его от класса checked исключения
+унаследовать его от класса RuntimeException
+
+@Question
+Коллекции могут работать только с ссылочными типами данных?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Какой пакет импортирован по умолчанию?
+@Options @OnlyOne @Key=2
+java.text
+java.lang
+java.core
+java.util
+java.io
+
+@Question
+В каком классе или интерфейсе определены методы wait(), notify() и notifyAll()?
+@Options @OnlyOne @Key=1
+Object
+Thread
+Runnable
+Class
+
+@Question
+Допустимо ли в проекте наличие нескольких методов main?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Как называется класс, объявленный внутри метода?
+@Options @OnlyOne @Key=4
+вложенный
+локальный
+нельзя объявить класс внутри метода
+внутренний
+
+@Question
+Утверждение: статический внутренний (вложенный) класс имеет доступ ко всем полям и методам внешнего класса
+@Options @OnlyOne @Key=1
+верно
+не верно
+
+@Question
+За что отвечает метод ensureCapacity(int n) в классе ArrayList?
+@Options @OnlyOne @Key=2
+увеличивает емкость коллекции на n элементов
+увеличивает емкость до n, если она меньше n
+уменьшает емкость коллекции до n, если она больше n
+возвращает true если емкость коллекции больше n
+
+@Question
+Выберите неверное утверждение относительно ключевого слова static
+@Options @OnlyOne @Key=3
+статические методы могут работать только со статическими полями
+статические поля общие для всех объектов класса
+имеется возможность переопределить(override) статические методы
+к статическому полю можно получить доступ через имя класса
+
+@Question
+При выполнении следующего кода
+<code>
+public static void main(String[] args){
+    new Thread(new Runnable() {
+        @Override
+        public void run(){
+            System.out.println(1);
+        }
+    }).start();
+    new Thread(new Runnable() {
+        @Override
+        public void run(){
+            System.out.println(2);
+        }
+    }).start();
+}
+<code>
+@Options @OnlyOne @Key=1
+гарантированно будет отпечатано в порядке 1 2
+нельзя гарантировать порядок вывода чисел 1 и 2
+печать не будет выполнена, так как не вызван метод run()
+гарантированно будет отпечатано в порядке 2 1
+
+@Question
+В ArrayList поиск по индексу выполняется за одинаковое время?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Может ли один catch заниматься обработкой и исключений типа NullPointerException, и IOException?
+@Options @OnlyOne @Key=2
+да
+нет
+
+@Question
+Может ли HashMap хранить несколько записей с одинаковым ключом?
+@Options @OnlyOne @Key=2
+нет, при добавлении записи с таким же ключом будет сгенерировано исключение
+нет, при добавлении записи с таким же ключом, старое значение будет перезаписано
+да, при выполнении метода get() вернется список значений, лежащих под указанным ключом
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=2
+у перечислений может быть конструктор с параметрами, и любым модификатором доступа
+у перечислений может быть конструктор с параметрами, и только с модификатором доступа private
+у перечислений не может быть конструктора
+у перечислений имеется только конструктор по-умолчанию
+
+@Question
+Выберите неверное утверждение
+@Options @OnlyOne @Key=1
+интерфейс Map наследуется от интерфейса Collection
+интерфейс List не наследуется от интерфейса Collection
+интерфейс Set не наследуется от интерфейса Collection
+
+@Question
+Какое ключевое слово используется для генерирования и выброса исключений?
+@Options @OnlyOne @Key=3
+throws
+cast
+throw
+exception
+
+@Question
+В перечислениях можно объявлять поля?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=2
+все утверждения верны
+HashMap допускает в качестве ключа использовать null, Hashtable - не позволяет
+и Hashtable, и HashMap не синхронизированы
+и Hashtable, и HashMap синхронизированы
+
+@Question
+Утверждения:(1) Интерфейсы могут быть унаследованы от других интерфейсов, (2) Перечисления могут быть унаследованы от других перечислений
+@Options @OnlyOne @Key=1
+оба утверждения верны
+оба утверждения неверны
+(1) - не верно, (2) - верно
+(1) - верно, (2) - не верно
+
+@Question
+Выберите верное утверждение
+<code>
+public static void main(String[] args){
+    new Thread(new Runnable(){
+        @Override
+        public void run(){
+            for(int i = 0; i < 5; i++){
+                try{
+                    Thread.sleep(5);
+                    System.out.print(1);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }).start();
+    new Thread(new Runnable(){
+        @Override
+        public void run(){
+            for(int i = 0; i < 5; i++){
+                try{
+                    Thread.sleep(5);
+                    System.out.print(2);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }).start();
+}
+</code>
+@Options @OnlyOne @Key=3
+нельзя гарантировать с какой цифры начнётся вывод 1 или 2, но печать будет чередоваться 1212121212 или 2121212121
+порядок печати всегда будет 1212121212
+порядок вывода гарантировать нельзя
+порядок печати всегда будет 2121212121
+
+@Question
+Можно ли перехватить OutOfMemoryError с помощью блока try-catch?
+@Options @OnlyOne @Key=1
+нет
+да
