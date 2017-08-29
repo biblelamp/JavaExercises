@@ -3,7 +3,7 @@
  *  Class Ball
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Aug 27, 2017
+ * @version 0.3 dated Aug 29, 2017
  */
 import java.awt.Graphics;
 
@@ -70,7 +70,7 @@ class Ball {
     }
 
     int getYPill() {
-        return (int)(y + getDX(radius + 4));
+        return (int)(y + getDY(radius + 4));
     }
 
     int getAngle() {
