@@ -2,7 +2,7 @@
  * Java. Simple test system
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Aug 28, 2017
+ * @version 0.3.3 dated Aug 31, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ class Tester extends JFrame implements ActionListener {
     final String MENU_OPEN = "Open...";
     final String MENU_EXIT = "Exit";
     final int WINDOW_WIDTH = 400;
-    final int WINDOW_HEIGTH = 400;
+    final int WINDOW_HEIGHT = 400;
     final String BTN_RESET = "Reset";
     final String BTN_NEXT = "Next";
     final String BTN_BACK = "Back";
@@ -37,7 +37,8 @@ class Tester extends JFrame implements ActionListener {
     Tester() {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGTH);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setLocationRelativeTo(null); // to the center
 
         // menu/File: open and exit
@@ -52,7 +53,7 @@ class Tester extends JFrame implements ActionListener {
                 int result = open.showDialog(null, MENU_OPEN);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = open.getSelectedFile();
-                    test.readFile(file.getName()); //"khasang.test");
+                    test.readFile(file.getAbsolutePath()); //"khasang.test");
                     mainLabel.setText(test.toString());
                     mainPanel.repaint();
                 }
