@@ -3,7 +3,7 @@
  *  Class Ball
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Aug 29, 2017
+ * @version 0.3.1 dated Aug 31, 2017
  */
 import java.awt.Graphics;
 
@@ -28,40 +28,24 @@ class Ball {
         return points * Math.sin(Math.toRadians(angle));
     }
 
-    void forward(int points) {
-        double dx, dy;
-        points++;
-        do {
-            points--;
-            dx = getDX(points);
-            dy = getDY(points);
-        } while (isAbroad(x + (int)dx, y + (int)dy));
-        x += (int) dx;
-        y += (int) dy;
-    }
-
-    void backward(int points) {
-        double dx, dy;
-        points++;
-        do {
-            points--;
-            dx = getDX(points);
-            dy = getDY(points);
-        } while (isAbroad(x - (int)dx, y - (int)dy));
-        x -= (int) dx;
-        y -= (int) dy;
-    }
-
     boolean isAbroad(int x, int y) {
         return (x - radius < 0) || (y - radius < 0)
             || (x + radius > width) || (y + radius > heigth);
     }
 
-    void turnLeft(int angle) {
-        this.angle -= angle;
+    void move(int distance) {
+        double dx, dy;
+        distance += (distance < 0)? -1 : 1;
+        do {
+            distance -= (distance < 0)? -1 : 1;
+            dx = getDX(distance);
+            dy = getDY(distance);
+        } while (isAbroad(x + (int)dx, y + (int)dy));
+        x += (int) dx;
+        y += (int) dy;
     }
 
-    void turnRight(int angle) {
+    void turn(int angle) { // -angle = left, +angle = right
         this.angle += angle;
     }
 
