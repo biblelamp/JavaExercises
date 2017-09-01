@@ -1,0 +1,280 @@
+@Description
+Тест по Java. Средний уровень уровень https://geekbrains.ru/tests/55
+
+@Question
+Коллекции могут работать только с ссылочными типами данных?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Выберите верное утверждение:
+@Options @OnlyOne @Key=2
+все утверждения верны
+HashMap допускает в качестве ключа использовать null, Hashtable - не позволяет
+и Hashtable, и HashMap не синхронизированы
+и Hashtable, и HashMap синхронизированы
+
+@Question
+Обязательно ли классу реализовывать интерфейс Comparable, чтобы его можно было использовать в TreeSet?
+@Options @OnlyOne @Key=2 <?>
+нет
+да
+
+@Question
+Что будет результатом выполнения следующего кода:
+<pre><code>
+public static void main(String[] args) {
+    try {
+        return;
+    } finally {
+        System.out.println("Finally");
+    }
+}
+</code></pre>
+@Options @OnlyOne @Key=1
+печать в консоль сообщения Finally
+RuntimeException
+сообщение Finally не будет отпечатано в консоли
+ошибка компиляции
+
+@Question
+Параметр loadFactory у отображения HashMap по-умолчанию равен:
+@Options @OnlyOne @Key=2
+0.8
+0.75
+1.0
+0.5
+
+@Question
+Какой метод нужно выполнить у класса Thread для запуска нового потока?
+@Options @OnlyOne @Key=4
+submit()
+run()
+execute()
+start()
+
+@Question
+При выполнении main-потока автоматически завершается выполнение программы
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Утверждение: единственный способ запуска новых потоков - создание класса и унаследование его от класса Thread
+@Options @OnlyOne @Key=2
+да
+нет
+
+@Question
+При выполнении следующего кода будет сгенерировано исключение:
+<pre><code>
+public static void main(String[] args){
+    int[] a = new int[10];
+    a[20] = 10;
+    a[5] = a[2] / 0;
+}
+</code></pre>
+@Options @OnlyOne @Key=1
+ArrayIndexOutOfBoundsException
+IndexOutOfBoundsException
+ArrayIndexOutOfBoundsException и ArithmetException
+ArithmetException
+
+@Question
+Может ли один catch заниматься обработкой и исключений типа NullPointerException, и IOException?
+@Options @OnlyOne @Key=2 <?>
+да
+нет
+
+@Question
+Объекты какого класса являются иммутабельными?
+@Options @OnlyOne @Key=4
+StringBuffer
+StringBuilder
+ни один из вариантов
+String
+
+@Question
+Какой пакет импортирован по умолчанию?
+@Options @OnlyOne @Key=2
+java.text
+java.lang
+java.core
+java.util
+java.io
+
+@Question
+За что отвечает метод ensureCapacity(int n) в классе ArrayList?
+@Options @OnlyOne @Key=4
+возвращает true если емкость коллекции больше n
+уменьшает емкость коллекции до n, если она больше n
+увеличивает емкость коллекции на n элементов
+увеличивает емкость коллекции до n, если она меньше n
+
+@Question
+Выберите верное утверждение:
+@Options @OnlyOne @Key=4 <?>
+если два объекта равны через equals() их hashCode() должен совпадать, если объекты не равны, их hashCode() может совпадать
+если два объекта равны через equals() их hashCode() может не совпадать
+если два объекта равны через equals() их hashCode() может совпадать
+если два объекта равны через equals() их hashCode() должен совпадать, если объекты не равны, их hashCode() может не совпадать
+
+@Question
+Что будет результатом работы предложенного кода?
+<pre><code>
+public static void main(String[] args){
+    Thread t1 = new Thread(new Runnable() {
+        @Override
+        public void run(){
+            System.out.println(1);
+        }
+    });
+    Thread t = new Thread(t1);
+    t.start();
+}
+</code></pre>
+@Options @OnlyOne @Key=3
+будет сгенерировано исключение Runt3imeException
+в консоль будет выведено число 1
+в консоль ничего не будет выведено
+ошибка компиляции, невозможно в конструктор одного потока подать доугой поток
+
+@Question
+Исключение какого типа сгенерировано при выполнение следующего кода
+<code>
+Object obj = new Integer(10);
+String str = (String) obj;
+System.out.println(str);
+</code>
+@Options @OnlyOne @Key=2
+ни одно из представленных
+ClassCastException
+ArrayIndexOutOfBoundsException
+IllegalArgumentException
+
+@Question
+Можно ли при использовании класса в качестве элемента HashSet переопределить только метод hashCode(), без переопределения equals()?
+@Options @OnlyOne @Key=1 <?>
+нет
+да
+
+@Question
+При выполнении следующего кода
+<pre><code>
+public static void main(String[] args){
+    new Thread(new Runnable() {
+        @Override
+        public void run(){
+            System.out.println(1);
+        }
+    }).start();
+    new Thread(new Runnable() {
+        @Override
+        public void run(){
+            System.out.println(2);
+        }
+    }).start();
+}
+</code></pre>
+@Options @OnlyOne @Key=2
+нельзя гарантировать порядок вывода чисел 1 и 2
+гарантированно будет отпечатано в порядке 1 2
+гарантированно будет отпечатано в порядке 2 1
+печать не будет выполнена, так как не вызван метод run()
+
+@Question
+Какое ключевое слово используется для генерирования и выброса исключений?
+@Options @OnlyOne @Key=2
+cast
+throw
+throws
+exception
+
+@Question
+Можно ли в классе, унаследованном от классов исключений, объявлять методы и поля?
+@Options @OnlyOne @Key=1 <?>
+да
+нет
+
+@Question
+Какой из предложенных блоков может запустить новый поток:
+<pre><code>
+public class Task implements Runnable {
+    @Override
+    public void run(){}
+    public static void main(String[] args){
+        //Место под блок кода
+    }
+}
+</code></pre>
+@Options @OnlyOne @Key=3 <?>
+Thread t = new Thread(Task);
+new Thread(new Task()).start;
+ни один из предложенных
+Thread t = new Thread(Task); t.start();
+Thread t = new Thread(); t.run();
+
+@Question
+Может ли поток main завершиться раньше, чем порожденные им потоки?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Подклассом класса IOException является:
+@Options @OnlyOne @Key=4
+Exception
+NullPointerException
+RuntimeException
+FileNotFoundException
+
+@Question
+Какой из вариантов создания объекта недопустим?
+@Options @OnlyOne @Key=4
+NavigableMap<String, Integer> map = new TreeMap<>();
+Map<String, Integer> map = new HashMap<>();
+HashMap<String, Integer> map = new LinkedHashMap<>();
+Collection<String, Integer> map = new HashMap<>();
+
+@Question
+Как называется класс, объявленный внутри метода?
+@Options @OnlyOne @Key=3
+внутренний
+локальный
+нельзя объявить класс внутри метода
+вложенный
+
+@Question
+Блоки try-catch могут быть вложенными?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Блок finally можно использовать без блока try?
+@Options @OnlyOne @Key=2
+да
+нет
+
+@Question
+Утверждение: количество создаваемых потоков ограничивается количеством ядер процессора
+@Options @OnlyOne @Key=2
+не верно
+верно
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=2
+ArrayList и Vector синхронизированы
+ArrayList - не синхронизирован, Vector - синхронизирован
+ArrayList и Vector не синхронизированы
+ArrayList - синхронизирован, Vector - не синхронизирован
+
+@Question
+Какие модификаторы доступа можно использовать для внешнего класса?
+@Options @OnlyOne @Key=3
+public, default
+default, protected, public
+public, private
+public, protected
