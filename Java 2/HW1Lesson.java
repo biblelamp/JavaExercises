@@ -2,23 +2,25 @@
  * Java. Level 2. Lesson 1. Example of homework
  * Preparatory actions:
  * 1. Making animals.jar based on code in lesson 1:
- *    - makind animals dir
- *    - put in the dir classes: animal, cat, hen, hippo, jumpable, swimable
- *    - using command (from the dir level above):
- *      > jar -cf animals.jar animals
+ *    - compile sourse file
+ *      > javac hw1/animals/*.java
+ *    - make package using command:
+ *      > jar -cvf animals.jar hw1/animals/*.class
  * 2. Making obstances.jar from classes track, wall, water in the same way
- * 3. Put both packages to lib/ directory
- *    Compile using this way:
- *    > javac -cp lib/animals.jar;lib/obstances.jar HW1Lesson.java
+ * 3. Move both packages to lib/ directory
+ *    > move animals.jar lib
+ *    > move obstances.jar lib
+ * 4. Compile using this command:
+ *    > javac -cp lib/animals.jar;lib/obstances.jar;. HW1Lesson.java
  *    Run compiled program this way:
  *    > java -cp lib/animals.jar;lib/obstances.jar;. HW1Lesson
- * 4. Or put both packages to [JDK]/jre/lib/ext
+ * 5. Or put both packages to [JDK]/jre/lib/ext
  *    and compile and run this way:
  *    > javac HW1Lesson.java
  *    > java HW1Lesson
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Jun 10, 2017
+ * @version 0.3.2 dated Sep 02, 2017
  */
 import hw1.animals.*;
 import hw1.obstances.*;
@@ -38,7 +40,7 @@ class HW1Lesson {
             new Hippo("Hippopo")});
 
         System.out.println(t1); // to show team list
-        c.doIt(t1); // ask the team to pass the obstacle course
-        t1.showResults(); // to show results
+        c.doIt(t1);             // ask the team to pass the obstacle course
+        t1.showResults();       // to show results
     }
 }
