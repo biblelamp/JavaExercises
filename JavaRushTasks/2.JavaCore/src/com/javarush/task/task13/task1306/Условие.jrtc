@@ -1,0 +1,17 @@
+taskKey="com.javarush.task.task13.task1306"
+
+Баг в initializeIdAndName
+
+1. Подумать, что в программе неправильно.
+2. Вынести реализацию метода initializeIdAndName в класс User.
+3. initializeIdAndName в классе User должен возвращать тип User.
+4. Поправить программу, чтобы компилировалась и работала.
+
+
+Требования:
+1.	Интерфейс DBObject должен содержать только объявление метода initializeIdAndName без реализации.
+2.	Реализуй метод initializeIdAndName в классе User.
+3.	Метод initializeIdAndName в классе User должен иметь тип возвращаемого значения User.
+4.	Метод initializeIdAndName должен присваивать значения полям id и name в соответствии с переданными ему параметрами.
+
+

@@ -1,0 +1,17 @@
+taskKey="com.javarush.task.task12.task1228"
+
+Интерфейсы к классу Human
+
+Добавь как можно больше интерфейсов к классу Human, но чтобы он не стал абстрактным классом.
+Добавлять методы в класс Human запрещается.
+
+
+Требования:
+1.	Класс Solution должен содержать интерфейс Worker с методом void workLazy().
+2.	Класс Solution должен содержать интерфейс Businessman с методом void workHard().
+3.	Класс Solution должен содержать интерфейс Secretary с методом void workLazy().
+4.	Класс Solution должен содержать интерфейс Miner с методом void workVeryHard().
+5.	Класс Solution должен содержать класс Human с методами: void workHard() и void workLazy().
+6.	Класс Human должен реализовывать три интерфейса.
+
+

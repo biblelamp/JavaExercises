@@ -1,0 +1,15 @@
+taskKey="com.javarush.task.task15.task1511"
+
+Максимально простой код-1
+
+Упрости код - убери все наследования и реализации, которые и так будут добавлены автоматически при компиляции
+PS: Взаимосвязь между объектами me и zapp - Has-a (использует): http://ru.wikipedia.org/wiki/Has-a
+
+
+Требования:
+1.	Интерфейс SpecificSerializable должен расширять(extends) интерфейс Serializable.
+2.	Класс JavaDev должен реализовывать интерфейс SepecificSerializable.
+3.	В коде не должно быть явного наследования от Object(extends Object).
+4.	Класс JuniorJavaDev не должен явно наследовать интерфейс SpecificSerializable.
+
+
