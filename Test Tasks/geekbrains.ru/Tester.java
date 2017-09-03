@@ -2,7 +2,7 @@
  * Java. Simple test system
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated Aug 31, 2017
+ * @version 0.4 dated Sep 03, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -148,8 +148,10 @@ class Tester extends JFrame implements ActionListener {
                 g.setColor(Color.black);
                 g.drawOval(20 + i * 12, 15, 8, 8);
                 if (test.getQuestion(i).getChoice() > 0) {
-                    g.setColor((test.getQuestion(i).isRight())?
-                        Color.green : Color.red);
+                    g.setColor(test.getQuestion(i).isNotSure()?
+                        Color.lightGray :
+                            (test.getQuestion(i).isRight()?
+                                Color.green : Color.red));
                     g.fillOval(20 + i * 12, 15, 8, 8);
                 }
             }
@@ -187,9 +189,8 @@ class Test {
             while ((line = reader.readLine()) != null) {
                 line = line.replaceAll("<", "&lt;");
                 line = line.replaceAll("&lt;pre>", "<pre>");   // fix for <pre>
-                line = line.replaceAll("&lt;/pre>", "</pre>"); // and </pre>
-                line = line.replaceAll("&lt;code>", "<code>");   // fix for <code>
-                line = line.replaceAll("&lt;/code>", "</code>"); // and </code>
+                line = line.replaceAll("&lt;code>", "<code>"); // fix for <code>
+                line = line.replaceAll("&lt;/", "</");         // and </...
                 if (line.startsWith(QUESTION_MARK)) {
                     isQuestion = true;
                     question = "";
@@ -201,6 +202,9 @@ class Test {
                     if (idx > 0)
                         questions.get(questions.size() - 1)
                             .setKey((int)line.charAt(idx + 5) - 48);
+                    if (line.indexOf("?") > 0)
+                        questions.get(questions.size() - 1)
+                            .setNotSure();
                 } else if (!line.isEmpty()) {
                     if (isQuestion)
                         question += (question.isEmpty())?
@@ -260,6 +264,7 @@ class Question {
     private ArrayList<String> options;
     private int key;
     private int choice;
+    private boolean notSureYet;     // not sure of the correct answer
 
     Question(String text) {         // set text of question
         this.text = text;
@@ -282,6 +287,14 @@ class Question {
         this.choice = choice;
     }
 
+    boolean isNotSure() {
+        return notSureYet;
+    }
+
+    void setNotSure() {             // set flag of uncertainty
+        notSureYet = true;
+    }
+
     boolean isRight() {
         return key == choice;
     }
@@ -293,6 +306,8 @@ class Question {
         return "<html><h2>" +
             (n + 1) + ". " +
             text + "</h2><ol>" +
-            result + "</ol></html>";
+            result + "</ol>" +
+            (notSureYet? "* No confidence in the correct answer" : "") +
+            "</html>";
     }
 }
