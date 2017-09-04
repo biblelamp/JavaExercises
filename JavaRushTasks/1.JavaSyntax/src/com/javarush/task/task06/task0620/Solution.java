@@ -14,12 +14,12 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String max = "Max is ";
+        String str = "Max is ";
         int a = Integer.parseInt(reader.readLine());
         int b = Integer.parseInt(reader.readLine());
         max = a > b ? a : b;
 
-        System.out.println(max + max);
+        System.out.println(str + max);
     }
 
 }

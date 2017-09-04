@@ -20,14 +20,18 @@ public class Solution {
             list.add(s);
         }
 
-        ArrayList<String> listUpperCase = new ArrayList<String>();
+        //ArrayList<String> listUpperCase = new ArrayList<String>();
+        ArrayList<String> doubleOrTriple = new ArrayList<String>();
         for (int i = 0; i < list.size(); i++) {
             String s = list.get(i);
-            listUpperCase.add(s.toUpperCase());
+            //listUpperCase.add(s.toUpperCase());
+            doubleOrTriple.add((s.length() % 2 == 0)? s + " " + s : s + " " + s + " " + s);
         }
 
-        for (int i = 0; i < listUpperCase.size(); i++) {
-            System.out.println(listUpperCase.get(i));
-        }
+        //for (int i = 0; i < listUpperCase.size(); i++)
+        //    System.out.println(listUpperCase.get(i));
+
+        for (int i = 0; i < doubleOrTriple.size(); i++)
+            System.out.println(doubleOrTriple.get(i));
     }
 }
