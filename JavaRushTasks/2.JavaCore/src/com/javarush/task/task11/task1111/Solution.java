@@ -10,11 +10,9 @@ public class Solution {
 
     //Адам
     public class Adam {
-
     }
 
     //Ева
-    public class Eve {
-
+    public class Eve extends Adam {
     }
 }

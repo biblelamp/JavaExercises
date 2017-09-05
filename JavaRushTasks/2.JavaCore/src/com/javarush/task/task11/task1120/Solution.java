@@ -8,27 +8,21 @@ public class Solution {
     public static void main(String[] args) {
     }
 
-    public class House {
-
+    public class House extends Assets {
     }
 
-    public class Cat {
-
+    public class Car extends Assets {
     }
 
-    public class Car {
-
+    public class Cat extends Animal {
     }
 
-    public class Dog {
-
+    public class Dog extends Animal {
     }
 
     public class Animal {
-
     }
 
     public class Assets {
-
     }
 }

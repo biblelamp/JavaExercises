@@ -8,23 +8,18 @@ public class Solution {
     public static void main(String[] args) {
     }
 
-    public class Pet extends House {
-
+    public class Pet {
     }
 
-    public class Cat extends Airplane {
-
+    public class Cat extends Pet {
     }
 
-    public class Dog extends Cat {
-
+    public class Dog extends Pet {
     }
 
-    public class House extends Dog {
-
+    public class House {
     }
 
     public class Airplane {
-
     }
 }

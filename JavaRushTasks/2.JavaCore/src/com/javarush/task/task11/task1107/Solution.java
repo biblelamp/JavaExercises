@@ -9,8 +9,8 @@ public class Solution {
     }
 
     public class Cat {
-        public String name;
-        public int age;
+        private String name;
+        private int age;
         public int weight;
 
         public Cat(String name, int age, int weight) {

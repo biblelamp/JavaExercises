@@ -9,18 +9,14 @@ public class Solution {
     }
 
     public class Pet {
-
     }
 
-    public class Cat {
+    public class Cat extends Pet {
+    }
 
+    public class Dog extends Pet {
     }
 
     public class Car {
-
-    }
-
-    public class Dog {
-
     }
 }

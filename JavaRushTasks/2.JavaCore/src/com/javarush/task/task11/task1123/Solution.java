@@ -15,11 +15,15 @@ public class Solution {
             return new Pair<Integer, Integer>(null, null);
         }
 
-        //Напишите тут ваше решение
+        int min = array[0];
+        int max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (min > array[i]) min = array[i];
+            if (max < array[i]) max = array[i];
+        }
 
-        return new Pair<Integer, Integer>(0, 0);
+        return new Pair<Integer, Integer>(min, max);
     }
-
 
     public static class Pair<X, Y> {
         public X x;

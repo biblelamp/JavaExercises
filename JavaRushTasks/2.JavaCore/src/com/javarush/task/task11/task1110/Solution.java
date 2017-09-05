@@ -9,9 +9,10 @@ public class Solution {
     }
 
     public class Cat {
+        private String name;
+        private int age, weight, speed;
 
         public Cat(String name, int age, int weight) {
-
         }
 
         public String getName() {
@@ -23,11 +24,9 @@ public class Solution {
         }
 
         public void setWeight(int weight) {
-
         }
 
         public void setSpeed(int speed) {
-
         }
     }
 }
