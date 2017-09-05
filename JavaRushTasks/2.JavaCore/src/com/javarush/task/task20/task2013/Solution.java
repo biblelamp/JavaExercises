@@ -10,6 +10,8 @@ import java.util.List;
 Externalizable Person
 */
 public class Solution {
+
+    /*
     public static class Person {
         private String firstName;
         private String lastName;
@@ -60,4 +62,5 @@ public class Solution {
     public static void main(String[] args) {
 
     }
+    */
 }

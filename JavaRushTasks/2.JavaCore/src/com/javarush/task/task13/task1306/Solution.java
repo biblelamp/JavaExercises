@@ -5,6 +5,8 @@ package com.javarush.task.task13.task1306;
 */
 
 public class Solution {
+
+    /*
     public static void main(String[] args) throws Exception {
         System.out.println(Matrix.NEO);
         System.out.println(Matrix.TRINITY);
@@ -32,5 +34,5 @@ public class Solution {
             return String.format("User has name %s, id = %d", name, id);
         }
     }
-
+    */
 }

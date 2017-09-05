@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Solution {
+    /*
     public static String firstFileName;
     public static String secondFileName;
 
@@ -36,4 +37,5 @@ public class Solution {
     }
 
     //add your code here - добавьте код тут
+    */
 }

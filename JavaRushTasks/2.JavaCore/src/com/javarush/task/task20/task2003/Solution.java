@@ -1,6 +1,8 @@
 package com.javarush.task.task20.task2003;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /* 
 Знакомство с properties

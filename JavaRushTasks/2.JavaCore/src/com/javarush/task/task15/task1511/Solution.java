@@ -7,6 +7,7 @@ import java.io.Serializable;
 */
 
 public class Solution {
+    /*
     public static void main(String[] args) {
         JuniorJavaDev me = new JuniorJavaDev();
         System.out.println(me.askHubert("What do you think about level15.lesson06.task01?"));
@@ -34,4 +35,5 @@ public class Solution {
             return hubert.answerQuestion(question);
         }
     }
+    */
 }

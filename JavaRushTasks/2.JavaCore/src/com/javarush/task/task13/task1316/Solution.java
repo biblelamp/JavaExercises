@@ -18,6 +18,7 @@ public class Solution {
 
     interface Button extends SimpleObject {
 
+        /*
         final String NAME = "Submit";
 
         public void onPress();
@@ -33,6 +34,6 @@ public class Solution {
         String onPress(Object o);
 
         private String onPress(Object o);
-
+        */
     }
 }

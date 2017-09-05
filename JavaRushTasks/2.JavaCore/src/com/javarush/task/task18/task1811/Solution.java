@@ -6,6 +6,7 @@ Wrapper (Decorator)
 
 public class Solution {
 
+    /*
     public static void main(String[] args) {
         new Thread(new DecoratorRunnableImpl(new DecoratorMyRunnableImpl(new RunnableImpl()))).start();
     }
@@ -30,5 +31,5 @@ public class Solution {
             component.run();
         }
     }
-
+    */
 }

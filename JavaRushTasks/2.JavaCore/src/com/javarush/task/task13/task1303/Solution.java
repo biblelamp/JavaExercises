@@ -5,6 +5,7 @@ package com.javarush.task.task13.task1303;
 */
 
 public class Solution {
+    /*
     public static void main(String[] args) throws Exception {
         print(new Beer());
         print(new Cola());
@@ -23,4 +24,5 @@ public class Solution {
 
     public static class Cola {
     }
+    */
 }

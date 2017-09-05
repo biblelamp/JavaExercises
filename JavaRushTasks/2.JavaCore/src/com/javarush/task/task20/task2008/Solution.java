@@ -6,6 +6,7 @@ import java.io.Serializable;
 Как сериализовать Singleton?
 */
 public class Solution implements Serializable {
+    /*
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Singleton instance = Singleton.getInstance();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -50,4 +51,5 @@ public class Solution implements Serializable {
         private Singleton() {
         }
     }
+    */
 }

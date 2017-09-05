@@ -3,6 +3,8 @@ package com.javarush.task.task13.task1327;
 import java.util.List;
 
 public class RepkaStory {
+
+    /*
     static void tell(List<Person> items) {
         Person first;
         Person second;
@@ -12,4 +14,5 @@ public class RepkaStory {
             first.pull(second);
         }
     }
+    */
 }

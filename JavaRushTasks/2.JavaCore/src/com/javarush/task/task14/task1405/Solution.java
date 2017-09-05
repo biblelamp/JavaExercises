@@ -5,6 +5,8 @@ Food
 */
 
 public class Solution {
+
+    /*
     public static void main(String[] args) {
         Food food = new Food();
         Selectable selectable = new Food();
@@ -31,4 +33,5 @@ public class Solution {
             System.out.println("food was eaten");
         }
     }
+    */
 }

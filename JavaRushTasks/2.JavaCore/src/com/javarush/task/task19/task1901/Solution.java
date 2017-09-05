@@ -5,6 +5,8 @@ TableAdapter
 */
 
 public class Solution {
+
+    /*
     public static void main(String[] args) {
         //это пример вывода
         ATable aTable = new ATable() {
@@ -35,4 +37,5 @@ public class Solution {
     public interface BTable {
         String getHeaderText();
     }
+    */
 }

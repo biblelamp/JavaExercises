@@ -6,6 +6,8 @@ import java.io.Serializable;
 Найти ошибки
 */
 public class Solution {
+
+    /*
     public static class A {
         protected String name = "A";
 
@@ -37,4 +39,5 @@ public class Solution {
         B b1 = (B)ois.readObject();
         System.out.println(b1.name);
     }
+    */
 }

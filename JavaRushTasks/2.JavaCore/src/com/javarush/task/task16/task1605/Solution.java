@@ -7,6 +7,7 @@ import java.util.Date;
 */
 
 public class Solution {
+    /*
     public static int delay = 1000;
 
     public static void main(String[] args) {
@@ -45,4 +46,5 @@ public class Solution {
             return new Date();
         }
     }
+    */
 }

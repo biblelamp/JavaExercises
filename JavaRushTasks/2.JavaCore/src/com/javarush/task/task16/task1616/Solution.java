@@ -26,6 +26,7 @@ public class Solution {
     public static class Stopwatch extends Thread {
         private int seconds;
 
+        /*
         public void run() {
             try {
                 //add your code here - добавьте код тут
@@ -33,5 +34,6 @@ public class Solution {
                 System.out.println(seconds);
             }
         }
+        */
     }
 }

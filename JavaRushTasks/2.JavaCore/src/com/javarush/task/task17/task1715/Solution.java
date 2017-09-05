@@ -8,6 +8,8 @@ import java.util.List;
 */
 
 public class Solution {
+
+    /*
     public static DrugsController drugsController = new DrugsController();
     public static boolean isStopped = false;
 
@@ -48,4 +50,5 @@ public class Solution {
         } catch (InterruptedException e) {
         }
     }
+    */
 }

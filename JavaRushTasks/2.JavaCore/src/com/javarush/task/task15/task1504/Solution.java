@@ -8,6 +8,8 @@ import java.util.List;
 */
 
 public class Solution {
+
+    /*
     public static void main(String[] args) {
         List<Book> books = new LinkedList<Book>();
         books.add(new MarkTwainBook("Tom Sawyer"));
@@ -40,4 +42,5 @@ public class Solution {
             return getOutputByBookType();
         }
     }
+    */
 }

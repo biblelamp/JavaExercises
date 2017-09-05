@@ -6,6 +6,7 @@ package com.javarush.task.task13.task1305;
 
 public class Solution {
 
+    /*
     public static void main(String[] args) throws Exception {
 
         System.out.println(new Dream().HOBBIE.toString());
@@ -29,5 +30,5 @@ public class Solution {
             return "" + INDEX;
         }
     }
-
+    */
 }

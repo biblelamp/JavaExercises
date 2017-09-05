@@ -8,6 +8,7 @@ import java.util.List;
 */
 
 public class Solution {
+    /*
     public static int countThreads = 10;
     public static int[] testArray = new int[1000];
 
@@ -51,5 +52,6 @@ public class Solution {
             }
         }
     }
+    */
 }
 

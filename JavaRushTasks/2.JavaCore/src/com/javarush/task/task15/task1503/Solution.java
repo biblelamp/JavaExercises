@@ -5,6 +5,8 @@ package com.javarush.task.task15.task1503;
 */
 
 public class Solution {
+
+    /*
     public static void main(String[] args) {
         new Solution.LuxuriousCar().printlnDesire();
         new Solution.CheapCar().printlnDesire();
@@ -31,4 +33,5 @@ public class Solution {
         public static String FERRARI_NAME = "Феррари";
         public static String LANOS_NAME = "Ланосе";
     }
+    */
 }

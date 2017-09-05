@@ -8,7 +8,7 @@ import java.io.Serializable;
 /* 
 Переопределение сериализации
 */
-public class Solution implements {
+public class Solution implements Runnable {
     private Thread runner;
     private int speed;
 
