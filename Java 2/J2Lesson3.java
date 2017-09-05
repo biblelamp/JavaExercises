@@ -3,7 +3,7 @@
  * Examples for lesson
  *
  * @author Sergey Iryupin
- * @version dated Jun 13, 2017
+ * @version dated Sep 05, 2017
  */
 import java.util.*;
 
@@ -19,17 +19,17 @@ class J2Lesson3 {
 
     // @see https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
     static void ArrayListExample() {
-        List<String> al = new ArrayList<>();
-        al.add("A");
-        al.add("B");
-        al.add("C");
-        al.add("D");
-        al.add("E");
-        al.add(1,"A0");
-        System.out.println(al);
-        al.remove("E");
-        al.remove(2);
-        System.out.println(al);
+        List<String> list = new ArrayList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
+        list.add(1,"A0");
+        System.out.println(list);
+        list.remove("E");
+        list.remove(2);
+        System.out.println(list);
     }
 
     // @see https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html
@@ -61,23 +61,25 @@ class J2Lesson3 {
     // @see https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
     static void HashMapExample() {
         Map<String, String> hm = new HashMap<>();
-        hm.put("Russia", "Moscow");
-        hm.put("France", "Paris");
-        hm.put("Germany", "Berlin");
-        hm.put("Norway", "Oslo");
+        hm.put("Moscow", "Russia");
+        hm.put("Rostov", "Russia");
+        hm.put("Paris", "France");
+        hm.put("Berlin", "Germany");
+        hm.put("Oslo", "Norway");
         Set<Map.Entry<String, String>> set = hm.entrySet();
-        for(Map.Entry<String, String> o : set)
+        for (Map.Entry<String, String> o : set)
             System.out.println(o.getKey() + ": " + o.getValue());
         System.out.println(hm);
+        System.out.println(hm.get("Paris"));
     }
 
     // @see https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html
     static void TreeMapExample() {
         Map<String, String> tm = new TreeMap<>();
-        tm.put("Russia", "Moscow");
-        tm.put("France", "Paris");
-        tm.put("Germany", "Berlin");
-        tm.put("Norway", "Oslo");
+        tm.put("Moscow", "Russia");
+        tm.put("Paris", "France");
+        tm.put("Berlin", "Germany");
+        tm.put("Oslo", "Norway");
         Set<Map.Entry<String, String>> set = tm.entrySet();
         for(Map.Entry<String, String> o : set)
             System.out.println(o.getKey() + ": " + o.getValue());
