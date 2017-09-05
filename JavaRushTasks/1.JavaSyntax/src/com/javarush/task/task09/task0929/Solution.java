@@ -9,17 +9,23 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        InputStream fileInputStream = null;
 
-        String sourceFileName = reader.readLine();
+        do {
+            String sourceFileName = reader.readLine();
+            try {
+                fileInputStream = getInputStream(sourceFileName);
+            } catch (IOException ex) {
+                System.out.println("Файл не существует.");
+            }
+        } while (fileInputStream == null);
+
         String destinationFileName = reader.readLine();
-
-        InputStream fileInputStream = getInputStream(sourceFileName);
         OutputStream fileOutputStream = getOutputStream(destinationFileName);
 
-        while (fileInputStream.available() > 0) {
-            int data = fileInputStream.read();
+        int data;
+        while ((data = fileInputStream.read()) != -1)
             fileOutputStream.write(data);
-        }
 
         fileInputStream.close();
         fileOutputStream.close();

@@ -1,6 +1,8 @@
 package com.javarush.task.task10.task1019;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /* 
 Функциональности маловато!
@@ -9,10 +11,17 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Map<String, Integer> map = new HashMap<String, Integer>();
 
-        int id = Integer.parseInt(reader.readLine());
-        String name = reader.readLine();
+        while (true) {
+            String s = reader.readLine();
+            if (s.isEmpty())
+                break;
+            String name = reader.readLine();
+            map.put(name, Integer.parseInt(s));
+        }
 
-        System.out.println("Id=" + id + " Name=" + name);
+        for (Map.Entry<String, Integer> item : map.entrySet())
+            System.out.println(item.getValue() + " " + item.getKey());
     }
 }
