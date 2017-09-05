@@ -2,22 +2,23 @@
  * Java. Level 2. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jun 11, 2017
+ * @version 0.3 dated Sep 05, 2017
  */
-import java.util.*;
 import java.io.*;
+import java.util.Arrays;
 
 class HW2Lesson {
     static final int SIZE = 4;
-    static final String[] data = {
+    static final String[] DATA = {
         "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 a 2 2\n5 6 7 1\n3 3 1 0",
         "1 3 1 2\n2 3 2 2\n5 6 7 1",
-        "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1 0 6"};
+        "1 3 1 2\n2 3 2 2\n5 6 7 1\n3 3 1"};
     static final String FILE_NAME = "lesson2test.txt";
 
     public static void main(String[] args) {
-        // try ro read file
+
+        // reading matrix from file
         String line;
         String file = "";
         try (BufferedReader reader = new BufferedReader(
@@ -25,45 +26,58 @@ class HW2Lesson {
                         new FileInputStream(FILE_NAME)))){
             while ((line = reader.readLine()) != null)
                 file += line + "\n";
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
         if (file.length() > 0)
             try {
-                System.out.println(calcMatrix(file));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(e);
+                System.out.println(calcMatrix(strToMatrix(file)));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                System.out.println(ex.getMessage());
             }
-        // processing strings
-        for (String str : data)
+
+        // processing strings from DATA
+        for (String str : DATA)
             try {
-                System.out.println(calcMatrix(str));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(e);
+                System.out.println(calcMatrix(strToMatrix(str)));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                System.out.println(ex.getMessage());
             }
     }
 
-    static float calcMatrix(String str) 
-        throws NumberFormatException, ArrayIndexOutOfBoundsException {
-
-        String[][] matrix = new String[SIZE][SIZE];
-        float result = 0;
-        // converting a string to an array
+    static String[][] strToMatrix(String str) { // convert String into Matrix
         String[] lines = str.split("\n");
-        if (lines.length != SIZE)
-            throw new ArrayIndexOutOfBoundsException(
-                "The number of rows doesn't match");
+        String[][] matrix = new String[lines.length][];
         for (int i = 0; i < lines.length; i++) {
             matrix[i] = lines[i].split(" ");
             System.out.println(Arrays.toString(matrix[i]));
-            if (matrix[i].length != SIZE)
+        }
+        return matrix;
+    }
+
+    static int calcMatrix(String[][] matrix)
+        throws NumberFormatException, ArrayIndexOutOfBoundsException {
+
+        int result = 0;
+
+        // checking the number of rows
+        if (matrix.length != SIZE)
+            throw new ArrayIndexOutOfBoundsException(
+                "The number of rows doesn't match");
+
+        // processing the matrix
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i].length != SIZE) // checking the number of columns
                 throw new ArrayIndexOutOfBoundsException(
                     "The number of colums in row " + (i+1) + " doesn't match");
+            for (int j = 0; j < matrix[i].length; j++)
+                try {
+                    result += Integer.parseInt(matrix[i][j]);
+                } catch (NumberFormatException ex) {
+                    throw new NumberFormatException(
+                        "Bad symbol(s) in row " + (i+1) + " column " + (j+1));
+                }
         }
-        // counting the result (sum of all elements divided of 2)
-        for (String[] line : matrix)
-            for (String item : line)
-                result += Integer.parseInt(item);
-        return result/2;
+        return result;
     }
 }
