@@ -43,14 +43,9 @@ public class Solution {
 
         @Override
         public String toString() {
-            if (mother == null && father == null)
-                return "Cat name is " + name + ", no mother, no father";
-            else if (mother == null)
-                return "Cat name is " + name + ", no mother, father is " + father.name;
-            else if (father == null)
-                return "Cat name is " + name + ", mother is " + mother.name + ", no father";
-            else
-                return "Cat name is " + name + ", mother is " + mother.name + ", father is " + father.name;
+            return "Cat name is " + name +
+                ((mother == null)? ", no mother" : ", mother is " + mother.name) +
+                ((father == null)? ", no father" : ", father is " + father.name);
         }
     }
 }
