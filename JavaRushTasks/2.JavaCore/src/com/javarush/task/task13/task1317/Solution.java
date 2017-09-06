@@ -11,17 +11,21 @@ public class Solution {
         System.out.println(new Today(WeatherType.FROZEN));
     }
 
-    static class Today {
+    static class Today implements Weather {
         private String type;
 
         Today(String type) {
             this.type = type;
         }
 
-        //@Override
-        //public String toString() {
-        //    return String.format("%s for today", this.getWeatherType());
-        //}
-    }
+        @Override
+        public String toString() {
+            return String.format("%s for today", this.getWeatherType());
+        }
 
+        @Override
+        public String getWeatherType() {
+            return type;
+        }
+    }
 }

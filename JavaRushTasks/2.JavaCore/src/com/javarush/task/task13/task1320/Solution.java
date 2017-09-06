@@ -6,20 +6,27 @@ Neo
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        //System.out.println(Matrix.NEO);
+        System.out.println(Matrix.NEO);
     }
 
     static class Matrix {
-        //public static DBObject NEO = new User().initializeIdAndName(1, "Neo");
+        public static DBObject NEO = new User().initializeIdAndName(1, "Neo");
     }
 
     interface DBObject {
-        DBObject initializeIdAndName(long id, String name);
+        User initializeIdAndName(long id, String name);
     }
 
-    static class User {
+    static class User implements DBObject {
         long id;
         String name;
+
+        @Override
+        public User initializeIdAndName(long id, String name) {
+            this.id = id;
+            this.name = name;
+            return this;
+        }
 
         @Override
         public String toString() {

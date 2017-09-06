@@ -7,8 +7,6 @@ import java.awt.*;
 */
 
 public class Solution {
-
-    /*
     public static void main(String[] args) throws Exception {
         Fox bigFox = new BigFox();
         System.out.println(bigFox.getName());
@@ -26,10 +24,9 @@ public class Solution {
         }
     }
 
-    public static class BigFox {
-        public Color() {
+    public static class BigFox extends Fox {
+        public Color getColor() {
             return Color.GRAY;
         }
     }
-    */
 }

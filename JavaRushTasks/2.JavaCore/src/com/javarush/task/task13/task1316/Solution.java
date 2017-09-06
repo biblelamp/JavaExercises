@@ -18,22 +18,20 @@ public class Solution {
 
     interface Button extends SimpleObject {
 
-        /*
         final String NAME = "Submit";
 
-        public void onPress();
+        //public void onPress();
 
-        protected void onPress();
+        //protected void onPress();
 
         void onPress();
 
-        private void onPress();
+        //private void onPress();
 
-        protected String onPress(Object o);
+        //protected String onPress(Object o);
 
-        String onPress(Object o);
+        //String onPress(Object o);
 
-        private String onPress(Object o);
-        */
+        //private String onPress(Object o);
     }
 }
