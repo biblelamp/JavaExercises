@@ -5,7 +5,6 @@ package com.javarush.task.task13.task1303;
 */
 
 public class Solution {
-    /*
     public static void main(String[] args) throws Exception {
         print(new Beer());
         print(new Cola());
@@ -19,10 +18,15 @@ public class Solution {
         boolean isAlcoholic();
     }
 
-    public static class Beer {
+    public static class Beer implements Drink {
+        public boolean isAlcoholic() {
+            return true;
+        }
     }
 
-    public static class Cola {
+    public static class Cola implements Drink {
+        public boolean isAlcoholic() {
+            return false;
+        }
     }
-    */
 }

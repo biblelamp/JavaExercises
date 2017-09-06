@@ -5,11 +5,9 @@ package com.javarush.task.task13.task1305;
 */
 
 public class Solution {
-
-    /*
     public static void main(String[] args) throws Exception {
 
-        System.out.println(new Dream().HOBBIE.toString());
+        System.out.println(Dream.HOBBIE.toString());
         System.out.println(new Hobbie().toString());
 
     }
@@ -18,10 +16,10 @@ public class Solution {
     }
 
     interface Dream {
-        private static Hobbie HOBBIE = new Hobbie();
+        public static Hobbie HOBBIE = new Hobbie();
     }
 
-    class Hobbie extends Desire implements Dream {
+    static class Hobbie implements Desire, Dream {
         static int INDEX = 1;
 
         @Override
@@ -30,5 +28,4 @@ public class Solution {
             return "" + INDEX;
         }
     }
-    */
 }
