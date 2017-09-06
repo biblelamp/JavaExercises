@@ -14,7 +14,18 @@ public class Solution {
     }
 
     public static void printObjectType(Object o) {
-        //Напишите тут ваше решение
+        String s = o.getClass().getSimpleName();
+        String name = "Неопределено";
+        switch (s) {
+            case "Cat": name = "Кошка";
+                break;
+            case "Dog": name = "Собака";
+                break;
+            case "Bird": name = "Птица";
+                break;
+            case "Lamp": name = "Лампа";
+        }
+        System.out.println(name);
     }
 
     public static class Cat {

@@ -21,15 +21,23 @@ public class Solution {
         public void eat();
     }
 
-    public class Dog {
+    public class Dog implements Move, Eat {
+        public void move() {}
+        public void eat() {}
     }
 
-    public class Duck {
+    public class Duck implements Fly, Move, Eat{
+        public void fly() {}
+        public void move() {}
+        public void eat() {}
     }
 
-    public class Car {
+    public class Car implements Move {
+        public void move() {}
     }
 
-    public class Airplane {
+    public class Airplane implements Fly, Move {
+        public void fly() {}
+        public void move() {}
     }
 }
