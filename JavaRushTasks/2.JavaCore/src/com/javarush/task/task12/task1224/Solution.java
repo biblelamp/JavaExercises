@@ -14,9 +14,18 @@ public class Solution {
     }
 
     public static String getObjectType(Object o) {
-        //напишите тут ваш код
-
-        return "хз";
+        String s = o.getClass().getSimpleName();
+        String name = "хз";
+        switch (s) {
+            case "Cat": name = "Кот";
+                break;
+            case "Tiger": name = "Тигр";
+                break;
+            case "Lion": name = "Лев";
+                break;
+            case "Bull": name = "Бык";
+        }
+        return name;
     }
 
     public static class Cat {

@@ -26,11 +26,10 @@ public class Solution {
         public void workVeryHard();
     }
 
-    public static class Human {
+    public static class Human implements Businessman, Secretary, Worker {
 
         public void workHard() {
         }
-
         public void workLazy() {
         }
     }
