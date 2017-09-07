@@ -5,11 +5,10 @@ package com.javarush.task.task14.task1406;
 */
 
 public class Solution {
-    /*
     public static void main(String[] args) {
-        Object obj = //Add your code here
+        Object obj = new Jerry();
 
-                Mouse mouse = (Mouse) obj;
+        Mouse mouse = (Mouse) obj;
         GreyMouse greyMouse = (GreyMouse) mouse;
         Jerry jerry = (Jerry) greyMouse;
 
@@ -32,5 +31,4 @@ public class Solution {
 
     static class Jerry extends GreyMouse {
     }
-    */
 }

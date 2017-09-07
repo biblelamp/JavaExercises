@@ -14,23 +14,21 @@ public class Solution {
     }
 
     public static Building getSchool() {
-        //измените null на объект класса Building или School
-        return null;
+        return new School();
     }
 
     public static Building getBuilding() {
-        //измените null на объект класса Building или School
-        return null;
+        return new Building();
     }
 
-    static class School /*Добавьте сюда ваш код*/ {
+    static class School extends Building {
         @Override
         public String toString() {
             return "School";
         }
     }
 
-    static class Building /*Добавьте сюда ваш код*/ {
+    static class Building {
         @Override
         public String toString() {
             return "Building";

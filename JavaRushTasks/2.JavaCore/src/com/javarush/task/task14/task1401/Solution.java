@@ -6,11 +6,12 @@ Bingo!
 
 public class Solution {
     public static void main(String[] args) {
-        Object animal = new Pet();
+        Object animal = new Tiger();
         boolean isCat = animal instanceof Cat;
         boolean isTiger = animal instanceof Tiger;
         boolean isPet = animal instanceof Pet;
 
+        //System.out.println(isCat + ":" + isTiger + ":" + isPet);
         printResults(isCat, isTiger, isPet);
     }
 
@@ -26,5 +27,4 @@ public class Solution {
 
     static class Tiger extends Cat {
     }
-
 }

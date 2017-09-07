@@ -4,9 +4,21 @@ package com.javarush.task.task14.task1404;
 Коты
 */
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class Solution {
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String name;
+        while (true) {
+            name = reader.readLine();
+            if (!name.isEmpty()) {
+                Cat cat = CatFactory.getCatByKey(name);
+                System.out.println(cat);
+            } else
+                break;
+        }
     }
 
     static class CatFactory {
