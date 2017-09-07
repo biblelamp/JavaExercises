@@ -12,11 +12,10 @@ public class Solution {
 
     public interface Animal {
         Color getColor();
-
         Integer getAge();
     }
 
-    public static class Fox {
+    public static abstract class Fox implements Animal {
         public String getName() {
             return "Fox";
         }
