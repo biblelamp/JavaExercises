@@ -24,5 +24,4 @@ public interface Person {
             System.out.println("Wonderful life!");
         }
     }
-
 }
