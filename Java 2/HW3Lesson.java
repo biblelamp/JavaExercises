@@ -2,18 +2,17 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Jun 16, 2017
+ * @version 0.2 dated Sep 09, 2017
  */
 import java.util.*;
-import hw3.PhoneBook;
-import hw3.PhoneRecord;
+//import hw3.*;
 
 class HW3Lesson {
 
     public static void main(String[] args) {
         System.out.println("1. Counting words:");
         сountWords();
-        System.out.println("2. Phone book:");
+        System.out.println("\n2. Phone book:");
         testPhoneBook();
     }
 
@@ -34,6 +33,16 @@ class HW3Lesson {
     }
 
     static void testPhoneBook() {
+        SimplePhoneBook spb = new SimplePhoneBook();
+        spb.add("Mathew", "863 233 3301");
+        spb.add("Mark", "863 212 1102");
+        spb.add("Luke", "863 243 2803");
+        spb.add("John", "863 240 2704");
+        spb.add("Luke", "863 248 4512");
+        System.out.println(spb);
+        System.out.println("Phones of Luke's:");
+        System.out.println(spb.get("Luke"));
+        /*
         PhoneBook pb = new PhoneBook();
         pb.addRecord("John", new PhoneRecord("234-22-12", "john@mail.com"));
         pb.addRecord("Smith", new PhoneRecord("234-22-21", "smith@mail.com"));
@@ -43,5 +52,31 @@ class HW3Lesson {
         System.out.println(pb.getPhonesByName("Bill")); // not found
         System.out.println(pb.getEmailsByName("Smith")); // found
         System.out.println(pb.getEmailsByName("Joseph")); // not found
+        */
+    }
+}
+
+class SimplePhoneBook {
+    Map<String, String> pb;
+
+    SimplePhoneBook() {
+        pb = new HashMap<>();
+    }
+
+    void add(String name, String phone) {
+        pb.put(phone, name);
+    }
+    
+    List<String> get(String name) {
+        List<String> list = new ArrayList<>();
+        for (Map.Entry<String, String> entry : pb.entrySet())
+            if (name.equals(entry.getValue()))
+                list.add(entry.getKey());
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return pb.toString();
     }
 }
