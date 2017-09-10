@@ -5,8 +5,6 @@ package com.javarush.task.task14.task1416;
 */
 
 public class Solution {
-
-    /*
     public static void main(String[] args) {
         Swimmable animal = new Orca();
         animal.swim();
@@ -41,13 +39,26 @@ public class Solution {
         abstract Swimmable getCurrentAnimal();
     }
 
-    static class Orca {
+    static class Orca extends OceanAnimal implements Swimmable {
+        @Override
+        Swimmable getCurrentAnimal() {
+            return this;
+        }
     }
 
-    static class Whale {
+    static class Whale extends OceanAnimal implements Swimmable {
+        @Override
+        Swimmable getCurrentAnimal() {
+            return this;
+        }
     }
 
-    static class Otter {
+    static class Otter implements Swimmable, Walkable {
+        @Override
+        public void walk() {
+        }
+        @Override
+        public void swim() {
+        }
     }
-    */
 }
