@@ -10,7 +10,32 @@ import java.io.IOException;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        //напиште тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+
+        while (true) {
+            str = reader.readLine();
+            if (str.equals("exit"))
+                break;
+            try {
+                if (str.indexOf(".") > 0) {
+                    Double value = Double.parseDouble(str);
+                    print(value);
+                    continue;
+                }
+                int value = Integer.parseInt(str);
+                if (value > 0 && value < 128) {
+                    print((short) value);
+                    continue;
+                }
+                if (value >= 128 || value <= 0) {
+                    print(value);
+                    continue;
+                }
+            } catch (NumberFormatException ex) {
+            }
+            print(str);
+        }
     }
 
     public static void print(Double value) {

@@ -8,7 +8,7 @@ public class Solution {
     public static int A = 0;
 
     static {
-        //throw an exception here - выбросьте эксепшн тут
+        if (true) throw new NullPointerException();
     }
 
     public static int B = 5;
