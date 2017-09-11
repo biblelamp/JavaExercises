@@ -2,6 +2,7 @@ package com.javarush.task.task15.task1510;
 
 /* 
 Все лишнее - прочь!
+Убрать в методе main лишние строки, для которых метод add не реализован.
 */
 
 public class Solution {
@@ -9,7 +10,7 @@ public class Solution {
         add((short) 1, 2f);
         add(1, 2);
         add(2d, 2);
-        //add("1", 2d);
+        //add("1", 2d); // unrealized method
         add((byte) 1, 2d);
     }
 

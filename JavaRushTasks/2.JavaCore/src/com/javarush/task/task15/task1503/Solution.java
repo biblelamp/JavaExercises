@@ -5,8 +5,6 @@ package com.javarush.task.task15.task1503;
 */
 
 public class Solution {
-
-    /*
     public static void main(String[] args) {
         new Solution.LuxuriousCar().printlnDesire();
         new Solution.CheapCar().printlnDesire();
@@ -14,15 +12,29 @@ public class Solution {
         new Solution.Lanos().printlnDesire();
     }
 
-    public static class Ferrari {
-        public void printlnDesire() {
-            //add your code here
+    public static class LuxuriousCar {
+        void printlnDesire() {
+            System.out.println(Constants.WANT_STRING + Constants.LUXURIOUS_CAR);
         }
     }
 
-    public static class Lanos {
+    public static class Ferrari extends LuxuriousCar {
+        @Override
         public void printlnDesire() {
-            //add your code here
+            System.out.println(Constants.WANT_STRING + Constants.FERRARI_NAME);
+        }
+    }
+
+    public static class CheapCar {
+        void printlnDesire() {
+            System.out.println(Constants.WANT_STRING + Constants.CHEAP_CAR);
+        }
+    }
+
+    public static class Lanos extends CheapCar {
+        @Override
+        public void printlnDesire() {
+            System.out.println(Constants.WANT_STRING + Constants.LANOS_NAME);
         }
     }
 
@@ -33,5 +45,4 @@ public class Solution {
         public static String FERRARI_NAME = "Феррари";
         public static String LANOS_NAME = "Ланосе";
     }
-    */
 }

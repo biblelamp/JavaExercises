@@ -7,7 +7,6 @@ import java.io.Serializable;
 */
 
 public class Solution {
-    /*
     public static void main(String[] args) {
         JuniorJavaDev me = new JuniorJavaDev();
         System.out.println(me.askHubert("What do you think about level15.lesson06.task01?"));
@@ -17,13 +16,13 @@ public class Solution {
     public interface SpecificSerializable extends Serializable {
     }
 
-    public static class JavaDev extends Object implements SpecificSerializable {
+    public static class JavaDev implements SpecificSerializable {
         String answerQuestion(String question) {
             return String.format("I'll be thinking of [%s]", question);
         }
     }
 
-    public static class JuniorJavaDev extends Object, JavaDev implements SpecificSerializable {
+    public static class JuniorJavaDev extends JavaDev {
         JavaDev zapp = new JavaDev();
         JavaDev hubert = new JavaDev();
 
@@ -35,5 +34,4 @@ public class Solution {
             return hubert.answerQuestion(question);
         }
     }
-    */
 }
