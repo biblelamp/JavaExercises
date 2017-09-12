@@ -259,7 +259,7 @@ Collection<String, Integer> map = new HashMap<>();
 
 @Question
 Утверждение: количество создаваемых потоков ограничивается количеством ядер процессора
-@Options @OnlyOne @Key=2
+@Options @OnlyOne @Key=1
 не верно
 верно
 
