@@ -7,7 +7,6 @@ import java.util.Date;
 */
 
 public class Solution {
-    /*
     public static int delay = 1000;
 
     public static void main(String[] args) {
@@ -25,11 +24,10 @@ public class Solution {
 
     public interface MusicalInstrument extends Runnable {
         Date startPlaying();
-
         Date stopPlaying();
     }
 
-    public static class Violin {
+    public static class Violin implements MusicalInstrument {
         private String owner;
 
         public Violin(String owner) {
@@ -45,6 +43,13 @@ public class Solution {
             System.out.println(this.owner + " stops playing");
             return new Date();
         }
+
+        @Override
+        public void run() {
+            Date start = startPlaying();
+            sleepNSeconds(1);
+            Date stop = stopPlaying();
+            System.out.println("Playing " + (stop.getTime() - start.getTime()) + " ms");
+        }
     }
-    */
 }

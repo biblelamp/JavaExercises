@@ -10,6 +10,7 @@ public class Solution {
 
     public static void main(String[] args) throws InterruptedException {
         Politician ivanov = new Politician("Иванов");
+        ivanov.join();
         Politician petrov = new Politician("Петров");
         Politician sidorov = new Politician("Сидоров");
 
@@ -45,4 +46,3 @@ public class Solution {
         }
     }
 }
-
