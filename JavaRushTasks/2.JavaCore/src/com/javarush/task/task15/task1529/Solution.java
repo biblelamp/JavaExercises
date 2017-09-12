@@ -10,16 +10,23 @@ import java.io.InputStreamReader;
 
 public class Solution {
     public static void main(String[] args) {
-
     }
-    
+
     static {
-        //add your code here - добавьте код тут
+        reset();
     }
 
     public static Flyable result;
 
     public static void reset() {
-        //add your code here - добавьте код тут
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String str = br.readLine();
+            if (str.equals("helicopter"))
+                result = new Helicopter();
+            if (str.equals("plane"))
+                result = new Plane(Integer.parseInt(br.readLine()));
+            br.close();
+        } catch (IOException ex) {}
     }
 }

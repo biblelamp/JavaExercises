@@ -24,5 +24,10 @@ public class Solution {
         public Hrivna getMoney() {
             return this;
         }
+
+        @Override
+        public Double getAmount() {
+            return amount;
+        }
     }
 }
