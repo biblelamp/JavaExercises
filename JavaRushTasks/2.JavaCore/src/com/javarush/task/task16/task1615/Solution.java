@@ -14,13 +14,15 @@ public class Solution {
     }
 
     private static void waiting() {
-        //add your code here - добавь код тут
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
     }
 
     private static void takingOff() {
-        //fix this method - исправь этот метод
         try {
-            Thread.sleep(10000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
         }
     }
@@ -72,4 +74,3 @@ public class Solution {
         }
     }
 }
-

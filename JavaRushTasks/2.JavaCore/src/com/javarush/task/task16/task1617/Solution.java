@@ -9,7 +9,8 @@ public class Solution {
 
     public static void main(String[] args) throws InterruptedException {
         RacingClock clock = new RacingClock();
-        //add your code here - добавь код тут
+        Thread.sleep(3500);
+        clock.interrupt();
     }
 
     public static class RacingClock extends Thread {
@@ -18,7 +19,15 @@ public class Solution {
         }
 
         public void run() {
-            //add your code here - добавь код тут
+            try {
+                while (countSeconds > 0) {
+                    System.out.print((countSeconds--) + " ");
+                    Thread.sleep(1000);
+                }
+                System.out.print("Марш!");
+            } catch (InterruptedException e) {
+                System.out.print("Прервано!");
+            }
         }
     }
 }

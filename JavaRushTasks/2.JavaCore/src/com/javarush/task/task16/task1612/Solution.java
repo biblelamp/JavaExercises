@@ -10,9 +10,9 @@ public class Solution {
     public static void main(String[] args) throws InterruptedException {
         Runner ivanov = new Runner("Ivanov", 4);
         Runner petrov = new Runner("Petrov", 2);
-        //на старт!
-        //внимание!
-        //марш!
+        // get ready!
+        // attention!
+        // GO!
         ivanov.start();
         petrov.start();
         Thread.sleep(2000);
@@ -39,7 +39,7 @@ public class Solution {
 
         private void doStep() throws InterruptedException {
             stepNumber++;
-            //add your code here - добавь код тут
+            Thread.sleep(1000 / owner.getSpeed());
             System.out.println(owner.getName() + " делает шаг №" + stepNumber + "!");
         }
     }

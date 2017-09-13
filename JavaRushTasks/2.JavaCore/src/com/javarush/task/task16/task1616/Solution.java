@@ -26,14 +26,15 @@ public class Solution {
     public static class Stopwatch extends Thread {
         private int seconds;
 
-        /*
         public void run() {
             try {
-                //add your code here - добавьте код тут
+                while (true) {
+                    Thread.sleep(1000);
+                    seconds++;
+                }
             } catch (InterruptedException e) {
                 System.out.println(seconds);
             }
         }
-        */
     }
 }
