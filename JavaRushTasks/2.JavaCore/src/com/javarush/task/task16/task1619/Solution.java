@@ -12,13 +12,15 @@ public class Solution {
         ourInterruptMethod();
     }
 
-    public static void ourInterruptMethod() {
+    public static boolean isWorking = true;
 
+    public static void ourInterruptMethod() {
+        isWorking = false;
     }
 
     public static class TestThread implements Runnable {
         public void run() {
-            while (true) {
+            while (isWorking) {
                 try {
                     System.out.println("he-he");
                     Thread.sleep(500);

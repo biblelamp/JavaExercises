@@ -48,7 +48,20 @@ public class Solution {
 
         @Override
         public void run() {
-            //Add your code here - добавь код тут
+            try {
+                for (String action : OnlineGame.steps) {
+                    System.out.println(getName() + ":" + action);
+                    Thread.sleep(1000 / rating);
+                }
+
+                if (!OnlineGame.isWinnerFound)
+                    System.out.println(getName() + ":победитель!");
+                OnlineGame.isWinnerFound = true;
+
+            } catch (InterruptedException e) {
+                System.out.println(getName() + ":проиграл");
+                return;
+            }
         }
     }
 }
