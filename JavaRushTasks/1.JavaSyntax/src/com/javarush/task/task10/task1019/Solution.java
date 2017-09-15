@@ -11,7 +11,7 @@ import java.util.Map;
 public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
 
         while (true) {
             String s = reader.readLine();
