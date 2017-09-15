@@ -10,7 +10,7 @@ public class Solution {
         println(new SuspensionBridge());
     }
 
-    static void println(Bridge bridge) {
+    public static void println(Bridge bridge) {
         System.out.println(bridge.getCarsCount());
     }
 }

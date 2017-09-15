@@ -15,9 +15,8 @@ public class Solution {
 
         while (true) {
             key = reader.readLine();
-            if (key.equals("cartoon")|| key.equals("thriller")|| key.equals("soapOpera"))
-                movie = MovieFactory.getMovie(key);
-            else
+            movie = MovieFactory.getMovie(key);
+            if (!key.equals("cartoon") && !key.equals("thriller") && !key.equals("soapOpera"))
                 break;
             System.out.println(movie.getClass().getSimpleName());
         }
