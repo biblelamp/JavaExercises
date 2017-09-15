@@ -41,7 +41,16 @@ public class Solution {
         private List<String> result = new ArrayList<String>();
 
         public void run() {
-            //add your code here - добавьте код тут
+            while (!isInterrupted()) {
+                try {
+                    if (reader.ready()) {
+                        result.add(reader.readLine());
+                        countReadStrings.incrementAndGet();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         @Override
