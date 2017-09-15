@@ -6,15 +6,15 @@ Int и Integer
 
 public class Solution {
     public static void main(String[] args) {
-        print("Java");
         print(8);
-    }
-
-    public static void print(String s) {
-        System.out.println(s);
+        print((Integer) 12);
     }
 
     public static void print(int i) {
+        System.out.println(i);
+    }
+
+    public static void print(Integer i) {
         System.out.println(i);
     }
 }

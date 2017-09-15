@@ -13,10 +13,14 @@ public class Solution {
 
     public static class Cow {
         public String getName() {
-            return "Я не корова, Я - кит.";
+            return "Я - корова";
         }
     }
 
     public static class Whale extends Cow {
+        @Override
+        public String getName() {
+            return "Я не корова, Я - кит.";
+        }
     }
 }

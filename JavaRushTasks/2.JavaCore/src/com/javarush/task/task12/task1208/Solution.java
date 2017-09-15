@@ -16,10 +16,6 @@ public class Solution {
         System.out.println(i);
     }
 
-    public static void print(byte b) {
-        System.out.println(b);
-    }
-
     public static void print(char c) {
         System.out.println(c);
     }
