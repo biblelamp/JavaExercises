@@ -29,7 +29,8 @@ public class Solution {
     public static void sort(String[] array) {
         for (int i = 0; i < array.length - 1; i++)
             for (int j = i + 1; j < array.length; j++)
-                if ((isNumber(array[i]) && isNumber(array[j]) && isGreaterThan(array[j], array[i])) ||
+                if ((isNumber(array[i]) && isNumber(array[j]) &&
+                        Integer.parseInt(array[i]) < Integer.parseInt(array[j])) ||
                     (!isNumber(array[i]) && !isNumber(array[j]) && isGreaterThan(array[i], array[j]))) {
                     String temp = array[i];
                     array[i] = array[j];
@@ -41,7 +42,6 @@ public class Solution {
     public static boolean isGreaterThan(String a, String b) {
         return a.compareTo(b) > 0;
     }
-
 
     // Переданная строка - это число?
     public static boolean isNumber(String s) {
