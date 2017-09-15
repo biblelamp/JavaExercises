@@ -10,8 +10,7 @@ public class Solution {
 
     public class Cat {
         private String name;
-        private int age;
-        public int weight;
+        private int age, weight;
 
         public Cat(String name, int age, int weight) {
             this.name = name;
