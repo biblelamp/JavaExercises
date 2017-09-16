@@ -9,21 +9,21 @@ public class Solution {
     }
 
     public static class CountUpRunnable implements Runnable {
-        private int countIndexDown = 0;
+        private int countIndexUp = 0;
 
         public void run() {
             try {
                 while (true) {
-                    System.out.println(toString());
-                    countIndexDown += 1;
-                    if (countIndexDown > Solution.number) return;
                     Thread.sleep(500);
+                    countIndexUp += 1;
+                    System.out.println(toString());
+                    if (countIndexUp == Solution.number) return;
                 }
             } catch (InterruptedException e) { }
         }
 
         public String toString() {
-            return Thread.currentThread().getName() + ": " + countIndexDown;
+            return Thread.currentThread().getName() + ": " + countIndexUp;
         }
     }
 

@@ -33,7 +33,7 @@ public class Solution {
             }
         }
 
-        void printResult() {
+        public void printResult() {
             System.out.println(result);
         }
     }

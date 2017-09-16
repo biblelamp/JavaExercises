@@ -29,8 +29,8 @@ public class Solution {
         public void run() {
             try {
                 while (true) {
-                    Thread.sleep(1000);
                     seconds++;
+                    Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
                 System.out.println(seconds);

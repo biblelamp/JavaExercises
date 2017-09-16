@@ -14,7 +14,6 @@ public class Solution {
         firstThread.start();
         firstThread.join();
         secondThread.start();
-        secondThread.join();
     }
 
     public static void printList(List<String> list, String threadName) {

@@ -12,7 +12,7 @@ public class Solution {
 
     private static void investigateWorld() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
