@@ -3,22 +3,18 @@ import java.io.*;
 
 class HelloServer {
 
-    ServerSocket server;
-    Socket socket;
-    PrintWriter writer;
-    
     public static void main(String[] args) {
         new HelloServer();
     }
 
     HelloServer() {
         try {
-            server = new ServerSocket(2048);
+            ServerSocket server = new ServerSocket(1024);
             System.out.println("Server started.");
             while (true) {
-                socket = server.accept();
+                Socket socket = server.accept();
                 System.out.println("Client connected.");
-                writer = new PrintWriter(socket.getOutputStream());
+                PrintWriter writer = new PrintWriter(socket.getOutputStream());
                 writer.println("Server says: Hello");
                 writer.close();
             }
