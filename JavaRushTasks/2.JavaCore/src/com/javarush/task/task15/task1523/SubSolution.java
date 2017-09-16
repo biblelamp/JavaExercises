@@ -8,8 +8,10 @@ public class SubSolution extends Solution {
     }
 
     public SubSolution(boolean b) {
+        super(b);
     }
 
-    private SubSolution(float f) {
+    protected SubSolution(float f) {
+        super(f);
     }
 }

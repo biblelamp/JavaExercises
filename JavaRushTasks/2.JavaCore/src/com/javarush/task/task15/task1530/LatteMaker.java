@@ -6,16 +6,16 @@ package com.javarush.task.task15.task1530;
 public class LatteMaker extends DrinkMaker {
     @Override
     public void getRightCup() {
-        System.out.println("Берем чашку для латте");
+        System.out.println("Р‘РµСЂРµРј С‡Р°С€РєСѓ РґР»СЏ Р»Р°С‚С‚Рµ");
     }
 
     @Override
     public void putIngredient() {
-        System.out.println("Делаем кофе");
+        System.out.println("Р”РµР»Р°РµРј РєРѕС„Рµ");
     }
 
     @Override
     public void pour() {
-        System.out.println("Заливаем молоком с пенкой");
+        System.out.println("Р—Р°Р»РёРІР°РµРј РјРѕР»РѕРєРѕРј СЃ РїРµРЅРєРѕР№");
     }
 }
