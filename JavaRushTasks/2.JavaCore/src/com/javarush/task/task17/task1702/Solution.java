@@ -8,7 +8,6 @@ import java.util.List;
 */
 
 public class Solution {
-    /*
     public static int countThreads = 10;
     public static int[] testArray = new int[1000];
 
@@ -41,6 +40,13 @@ public class Solution {
         for (Thread thread : threads) thread.join();
     }
 
+    public static class SortThread extends Thread {
+        @Override
+        public void run() {
+            Solution.sort(testArray);
+        }
+    }
+
     public static void sort(int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
@@ -52,6 +58,4 @@ public class Solution {
             }
         }
     }
-    */
 }
-
