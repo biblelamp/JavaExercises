@@ -18,7 +18,10 @@ public class Solution {
 
     public static class TestedThread extends Thread {
         public TestedThread(Thread.UncaughtExceptionHandler handler) {
-            setUncaughtExceptionHandler(handler);
+            //setUncaughtExceptionHandler(handler); //
+            // Почему читаем тут:
+            //https://help.javarush.ru/questions/57934/level16-lesson13-bonus03-%D1%87%D1%82%D0%BE-%D1%82%D1%83%D1%82-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82
+            setDefaultUncaughtExceptionHandler(handler);
             start();
         }
 
