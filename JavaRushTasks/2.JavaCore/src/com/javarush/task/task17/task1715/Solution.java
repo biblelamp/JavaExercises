@@ -8,8 +8,6 @@ import java.util.List;
 */
 
 public class Solution {
-
-    /*
     public static DrugsController drugsController = new DrugsController();
     public static boolean isStopped = false;
 
@@ -26,12 +24,26 @@ public class Solution {
         isStopped = true;
     }
 
-    public static class Apteka {
-
+    public static class Apteka implements Runnable {
+        @Override
+        public void run() {
+           while (!isStopped) {
+               drugsController.buy(getRandomDrug(), getRandomCount());
+               waitAMoment();
+               waitAMoment();
+               waitAMoment();
+           }
+        }
     }
 
-    public static class Person {
-
+    public static class Person implements Runnable {
+        @Override
+        public void run() {
+            while (!isStopped) {
+                drugsController.sell(getRandomDrug(), getRandomCount());
+                waitAMoment();
+            }
+        }
     }
 
     public static int getRandomCount() {
@@ -50,5 +62,4 @@ public class Solution {
         } catch (InterruptedException e) {
         }
     }
-    */
 }

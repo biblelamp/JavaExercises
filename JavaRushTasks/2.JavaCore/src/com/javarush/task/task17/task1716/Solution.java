@@ -21,13 +21,13 @@ public class Solution {
         param1++;
     }
 
-    double method3() {
+    synchronized double method3() {
         double random = Math.random();
         param += 40.7;
         return random + param;
     }
 
-    private void method4() {
+    private synchronized void method4() {
         sb.append(1).append(1).append(1).append(1);
     }
 
@@ -35,7 +35,7 @@ public class Solution {
         new StringBuffer().append(param2).append(param2).append(param2);
     }
 
-    public String method6(int param2) {
+    public synchronized String method6(int param2) {
         System.out.println("Thinking....");
         method7(5e-2);
         sb = new StringBuilder("Got it!.");
@@ -47,7 +47,5 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-
     }
-
 }

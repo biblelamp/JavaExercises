@@ -4,10 +4,10 @@ package com.javarush.task.task17.task1714;
 Comparable
 */
 
-public class Beach {
-    private String name;      //название
-    private float distance;   //расстояние
-    private int quality;    //качество
+public class Beach implements Comparable<Beach> {
+    private String name;    // название
+    private float distance; // расстояние
+    private int quality;    // качество
 
     public Beach(String name, float distance, int quality) {
         this.name = name;
@@ -15,31 +15,35 @@ public class Beach {
         this.quality = quality;
     }
 
-    public String getName() {
+    public synchronized String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public synchronized void setName(String name) {
         this.name = name;
     }
 
-    public float getDistance() {
+    public synchronized float getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public synchronized void setDistance(float distance) {
         this.distance = distance;
     }
 
-    public int getQuality() {
+    public synchronized int getQuality() {
         return quality;
     }
 
-    public void setQuality(int quality) {
+    public synchronized void setQuality(int quality) {
         this.quality = quality;
     }
 
     public static void main(String[] args) {
+    }
 
+    @Override
+    public synchronized int compareTo(Beach o) {
+        return (int)(distance*quality - o.getDistance()*o.getQuality());
     }
 }

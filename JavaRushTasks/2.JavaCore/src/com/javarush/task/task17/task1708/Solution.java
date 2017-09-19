@@ -10,12 +10,11 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-
     }
 
     public static class Note {
 
-        public List<String> notes = new ArrayList<String>();
+        volatile public List<String> notes = new ArrayList<String>();
 
         public void addNote(int index, String note) {
             System.out.println("Сейчас будет добавлена заметка [" + note + "] На позицию " + index);
