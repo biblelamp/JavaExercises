@@ -9,7 +9,7 @@ class HelloClient {
 
     HelloClient() {
         try {
-            Socket socket = new Socket("127.0.0.1", 2048);
+            Socket socket = new Socket("127.0.0.1", 1024);
             BufferedReader reader = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
             String str = reader.readLine();
