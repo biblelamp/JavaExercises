@@ -3,7 +3,6 @@ package com.javarush.task.task17.task1720;
 public class Bankomat {
 
     static BankAccount account = new BankAccount("Amigo");
-
     public static volatile boolean isStopped;
 
     public static void main(String[] args) throws InterruptedException {
@@ -31,7 +30,6 @@ public class Bankomat {
             }
         }
     };
-
 
     public static class SpendThread extends Thread {
 

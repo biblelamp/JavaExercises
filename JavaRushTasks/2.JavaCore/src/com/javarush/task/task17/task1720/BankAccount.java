@@ -15,7 +15,7 @@ public class BankAccount {
         this.owner = owner;
     }
 
-    public void deposit(BigDecimal money) {
+    public synchronized void deposit(BigDecimal money) {
         BigDecimal newBalance = balance.add(money);
         System.out.println("Добавляем " + money + ", на счету " + newBalance);
         balance = newBalance;
