@@ -46,7 +46,7 @@ IllegalArgumentException
 
 @Question
 Можно ли при использовании класса в качестве элемента HashSet переопределить только метод hashCode(), без переопределения equals()?
-@Options @OnlyOne @Key=1 <?>
+@Options @OnlyOne @Key=2
 нет
 да
 
@@ -60,7 +60,7 @@ static final
 
 @Question
 Метод Thread.sleep()
-@Options @OnlyOne @Key=3 <?>
+@Options @OnlyOne @Key=3
 приостанавливает выполнение потока main
 приостанавливает работу программы
 приостанавливает работу потока, в котором был вызван без освобождения монитора
@@ -69,7 +69,7 @@ static final
 
 @Question
 Выберите верное утверждение
-@Options @OnlyOne @Key=4 <?>
+@Options @OnlyOne @Key=1
 если два объекта равны через equals() их hashCode() должен совпадать, если объекты не равны, их hashCode() может совпадать
 если два объекта равны через equals() их hashCode() может не совпадать
 если два объекта равны через equals() их hashCode() может совпадать
