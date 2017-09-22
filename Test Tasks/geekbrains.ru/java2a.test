@@ -114,7 +114,7 @@ Class
 
 @Question
 Как называется класс, объявленный внутри метода?
-@Options @OnlyOne @Key=3
+@Options @OnlyOne @Key=2 http://www.quizful.net/post/inner-classes-java
 внутренний
 локальный
 нельзя объявить класс внутри метода
