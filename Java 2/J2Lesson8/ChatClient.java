@@ -8,7 +8,7 @@
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jul 03, 2017
+ * @version 0.2.1 dated Sep 23, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -18,17 +18,17 @@ import java.io.*;
 
 class ChatClient extends JFrame implements ActionListener, IConstants {
 
-    final String TITLE_OF_PROGRAM = "Chat client";
-    final String TITLE_BTN_ENTER = "Enter";
-    final String AUTH_INVITATION = "You must login using command\n"+
-        "auth <login> <passwd>";
+    final String TITLE_OF_PROGRAM = "Client for net.chat";
     final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
+    final String BTN_ENTER = "Enter";
+    final String AUTH_INVITATION = "You must login using command\n"+
+        "auth <login> <passwd>";
 
     JTextArea dialogue; // area for dialog
-    JTextField command; // field for entering commands
-    boolean isAuthorized; // flag of authorisation
+    JTextField message; // field for entering messages
+    boolean isAuthorized; // flag of authorization
 
     Socket socket;
     PrintWriter writer;
@@ -69,27 +69,30 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
         // panel for connamd field and button
         JPanel bp = new JPanel();
         bp.setLayout(new BoxLayout(bp, BoxLayout.X_AXIS));
-        command = new JTextField();
-        command.addActionListener(this);
-        JButton enter = new JButton(TITLE_BTN_ENTER);
+        message = new JTextField();
+        message.addActionListener(this);
+        JButton enter = new JButton(BTN_ENTER);
         enter.addActionListener(this);
         // adding all elements to the window
-        bp.add(command);
+        bp.add(message);
         bp.add(enter);
         add(BorderLayout.CENTER, scrollBar);
         add(BorderLayout.SOUTH, bp);
         setVisible(true);
-        // connect to server
-        Connect();
+        Connect(); // connect to the Server
     }
 
+    /**
+     * Connect to the Server
+     */
     void Connect() {
         try {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             writer = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            new Thread(new ServerListener()).start();
-        } catch (Exception ex) {
+            reader = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+            new Thread(new ServerListener()).start(); // start Server listener
+        } catch (Exception ex) { 
             System.out.println(ex.getMessage());
         }
         dialogue.append(AUTH_INVITATION + "\n");
@@ -118,15 +121,15 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
     }
 
     /**
-     * Listener of events from menu, command field and enter button
+     * Listener of events from message field and enter button
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (command.getText().trim().length() > 0) {
-            writer.println(command.getText());
+        if (message.getText().trim().length() > 0) {
+            writer.println(message.getText());
             writer.flush();
-            command.setText("");
         }
-        command.requestFocusInWindow();
+        message.setText("");
+        message.requestFocusInWindow();
     }
 }
