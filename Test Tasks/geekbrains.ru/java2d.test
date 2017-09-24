@@ -1,0 +1,256 @@
+@Description
+Тест по Java. Средний уровень уровень https://geekbrains.ru/tests/55
+
+@Question
+В перечислениях можно объявить поля?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Подклассом класса IOException является:
+@Options @OnlyOne @Key=1
+FileNotFoundException
+Exception
+RuntimeException
+NullPointerException
+
+@Question
+Подклассом класса RuntimeException является
+@Options @OnlyOne @Key=3
+IOException
+FileNotFoundException
+NullPointerException
+Exception
+
+@Question
+Как называется класс, объявленный внутри метода?
+@Options @OnlyOne @Key=4
+нельзя объявить класс внутри метода
+внутренний
+вложенный
+локальный
+
+@Question
+Допустимо ли в проекте наличие нескольких методов main?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Может ли один catch заниматься обработкой и исключений типа NullPointerException, и IOException?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Блок finally можно использовать без блока try?
+@Options @OnlyOne @Key=2
+да
+нет
+
+@Question
+При удалении элемента ArrayList методом remove()
+@Options @OnlyOne @Key=4
+все элементы равные указанному
+случайный элемент, равный указанному
+метод remove() удаляет элемент только по индексу
+удаляется первый найденный элемент
+
+@Question
+В чем особенность daemon-потока?
+@Options @OnlyOne @Key=3 
+не может быть остановлен
+может быть перезапущен сколько угодно раз
+завершит свою работу по завершению работы всех обычных потоков
+запускается при старте приложения
+
+@Question
+Выберите неверный способ создания объекта:
+@Options @OnlyOne @Key=1
+HashSet<String> s = new TreeSet<String>()
+HashSet<String> s = new LinkedHashSet<String>()
+Set<String> s = new TreeSet<String>()
+Set<String> s = new HashSet<String>()
+
+@Question
+Параметр loadFactory у отображения HashMap по-умолчанию равен:
+@Options @OnlyOne @Key=3
+0.8
+1.0
+0.75
+0.5
+
+@Question
+Какой из методов не может привести к приостановке потока?
+@Options @OnlyOne @Key=4
+wait()
+join()
+sleep()
+notify()
+
+@Question
+Что будет результатом выполнения следующего кода:
+<pre><code>
+public static void main(String[] args) {
+    try {
+        return;
+    } finally {
+        System.out.println("Finally");
+    }
+}
+</code></pre>
+@Options @OnlyOne @Key=1
+печать в консоль сообщения Finally
+RuntimeException
+ошибка компиляции
+сообщение Finally не будет отпечатано в консоли
+
+@Question
+Объекты какого класса являются иммутабельными?
+@Options @OnlyOne @Key=3
+StringBuffer
+StringBulder
+String
+ни один из вариантов
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=4
+и внутренний и внешний класс имеют доступ только к статическим членам другого класса
+внутренный класс имеет доступ только к открытым полям и методам внешнего класса, внешний класс имеет полный доступ ко всем полям и методам внутреннего
+внутренный класс имеет доступ ко всем полям и методам внешнего класса, внешний класс не имеет прямого доступ ко всем полям и методам внутреннего класса
+внутренный класс имеет полный доступ ко всем полям и методам внешнего класса, внешний класс имеет полный доступ ко всем полям и методам внутреннего
+
+@Question
+LinkedHashSet хранит элементы в порядке
+@Options @OnlyOne @Key=1
+добавления
+случайном
+отсортированном через compareTo()
+отсортированном по возрастанию hashCode()
+
+@Question
+Назовите две группы исключений в Java:
+@Options @OnlyOne @Key=4
+Handle и Unhandled
+Catched и Uncatched
+Exception и Error
+Checked и Unchecked
+
+@Question
+Укажите суперкласс для классов Exception и Error?
+@Options @OnlyOne @Key=1
+Throwable
+Checked
+Catched
+Errors
+
+@Question
+Можно ли бросить объект типа Error?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Запуск потоков возможен только из main-потока
+@Options @OnlyOne @Key=2
+да
+нет
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=1
+HashMap допускает в качестве ключа использовать null, Hashtable - не позволяет
+все утверждения верны
+и Hashtable, и HashMap не синхронизированы
+и Hashtable, и HashMap синхронизированы
+
+@Question
+При выполнении следующего кода будет сгенерировано исключение:
+<pre><code>
+public static void main(String[] args) {
+    int[] a = new int[10];
+    a[20] = 10;
+    a[5] = a[2] / 0;
+}
+</code></pre>
+@Options @OnlyOne @Key=3
+IndexOutOfBoundsException
+ArithmetException
+ArrayIndexOutOfBoundsException
+ArrayIndexOutOfBoundsException и ArithmetException
+
+@Question
+Какой из вариантов создания объекта недопустим?
+@Options @OnlyOne @Key=1
+Collection<String, Integer> map = new HashMap<>();
+Map<String, Integer> map = new HashMap<>();
+NavigableMap<String, Integer> map = new TreeMap<>();
+HashMap<String, Integer> map = new LinkedHashMap<>();
+
+@Question
+Какой метод в HashMap предоставляет возможность получить ключ по значению?
+@Options @OnlyOne @Key=1
+такой метод не предусмотрен
+getKey()
+get()
+findKey()
+
+@Question
+Утверждение: статический внутренний (вложенный) класс имеет доступ ко всем полям и методам внешнего класса
+@Options @OnlyOne @Key=1
+не верно
+верно
+
+@Question
+Что будет результатом работы предложенного кода?
+<pre><code>
+public static void main(String[] args){
+    Thread t1 = new Thread(new Runnable()){
+        @Override
+        public void run(){
+            System.out.println(1);
+        }
+    });
+    Thread t = new Thread(t1);
+    t.start();
+}
+</code></pre>
+@Options @OnlyOne @Key=1
+в консоль будет выведено число 1
+будет сгенерировано исключение RuntimeException
+ошибка компиляции, невозможно в конструктор одного потока подать другой поток
+в консоль ничего не будет выведено
+
+@Question
+Если несколько потоков должны работать с отображением Map, какой из классов желательно использовать?
+@Options @OnlyOne @Key=1
+java.util.concurrent.ConcurrentHashMap
+java.util.ParallelHashMap
+java.util.LinkedHashMap
+java.util.HashMap
+
+@Question
+Какой метод нужно выполнить у класса Thread для запуска нового потока?
+@Options @OnlyOne @Key=1
+start()
+run()
+execute()
+submit()
+
+@Question
+За что отвечает метод ensureCapacity(int n) в классе ArrayList?
+@Options @OnlyOne @Key=1
+увеличивает емкость коллекции до n, если она меньше n
+возвращает true если емкость коллекции больше n
+увеличивает емкость коллекции на n элементов
+уменьшает емкость коллекции до n, если она больше n
+
+@Question
+Выберите верное утверждение о ключевом слове final
+@Options @OnlyOne @Key=1
+нельзя объявить абстрактный класс с модификаторами final
+можно переопределить методы с модификатором final
+можно менять значение final поля
+абстрактный класс может быть объявлен с модификатором final
