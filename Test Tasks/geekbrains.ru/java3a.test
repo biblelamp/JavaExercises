@@ -1,0 +1,239 @@
+@Description
+Тест по Java. Сложный уровень https://geekbrains.ru/tests/58
+
+@Question
+Какая из коллекций является синхронизированной?
+@Options @OnlyOne @Key=1
+Vector
+ArrayList
+SynchronizedArrayList
+HashSet
+
+@Question
+Может ли ThreadPool создавать daemon-потоки
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+С какими типами данных не могут работать обобщения?
+@Options @OnlyOne @Key=3
+final
+ссылочными
+примитивными
+abstract
+
+@Question
+Какие ограничения накладываются на обобщённые классы?
+@Options @OnlyOne @Key=1
+внутри класса нельзя создавать объекты и массивы обобщенного типа
+нельзя создавать объекты обобщенных классов
+классы не могут быть обобщенными
+объекты обобщенных классов нельзя добавлять в коллекции
+нельзя создавать объект обобщенного класса, не указав обобщенный тип
+
+@Question
+Что возвращает метод executeUpdate()?
+@Options @OnlyOne @Key=4
+тип выполненной операции
+true при успешно выполненном  запросе, и false в противном случае
+ничего не возвращает
+количество измененных записей в БД
+
+@Question
+При использовании CachedThreadPool
+@Options @OnlyOne @Key=2
+можно установить максимальное количество потоков, но нельзя уменьшить количество уже созданных потоков
+нельзя установить максимальное количество потоков, и нельзя уменьшить количество уже созданных потоков
+можно установить максимальное количество потоков, и уменьшить количество уже созданных потоков
+можно уменьшить количество уже созданных потоков, но нельзя установить максимальное количество потоков
+
+@Question
+Выберите неправильный вариант запроса
+@Options @OnlyOne @Key=1
+INSERT INTO students name = 'Bob', score = 20;
+SELECT name FROM students WHERE score < 50;
+INSERT INTO students (name, score) VALUES ('Bob', 20);
+SELECT * FROM students;
+SELECT name FROM students;
+
+@Question
+Возможно ли вернуть данные обратно во входящий поток, после их прочтения?
+@Options @OnlyOne @Key=1
+нет
+да
+
+@Question
+Какой из типов данных не является интерфейсом?
+@Options @OnlyOne @Key=3
+Statement
+ResultSet
+DriverManager
+Connection
+
+@Question
+Какой класс или интерфейс предоставляет средства управления транзакциями: setAutoCommit(), commit(), rollback()?
+@Options @OnlyOne @Key=4
+Transaction
+DriverManager
+Statement
+Connection
+
+@Question
+Что из себя представляет объект класса File
+@Options @OnlyOne @Key=1
+абстрактное описание пути к файлу
+ссылку на конкретный файл или каталог
+нельзя создать объект типа File, поскольку класс File является абстрактным
+ссылку на конкретный файл
+
+@Question
+В чем смысл использования ReentrantReadWriteLock?
+@Options @OnlyOne @Key=4
+позволяет ограничить доступ к критической секции только на использование одной операции, либо для чтения, либо для записи
+не позволяет читать данные, пока хотя бы один поток записывает данные, при этом количество пишущих потоков не граничено
+позволяет узнать какая операция (чтение или запись) производится в критической секции в настоящее время
+позволяет многим потокам одновременно получить доступ на чтение, и только одному на запись, при этом в единицу времени может производиться либо только чтение, либо только запись
+
+@Question
+У какого из типов данных нельзя запросить класс:
+@Options @OnlyOne @Key=4
+Class
+String
+void
+все представленные типы имеют классы
+char
+int[]
+
+@Question
+В чем особенность ScheduledExecutorService?
+@Options @OnlyOne @Key=3
+позволяет менять количество активных потоков
+хранит в себе результаты выполнения потоков
+позволяет запускать задачи по расписанию
+позволяет запускать задачи через интерфейс Callable
+
+@Question
+Можно ли с помощью reflection вызвать статический метод класса?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+Как называется абстрактный базовый класс для чтения потоков данных в байтовом представлении?
+@Options @OnlyOne @Key=4
+Reader
+Stream
+FileInputStream
+InputStream
+Thread
+
+@Question
+Какой запрос позволит очистить таблицу students в SQLite?
+@Options @OnlyOne @Key=2
+REMOVE students;
+DELETE * FROM students;
+DELETE FROM students;
+DELETE * IN students;
+DELETE students;
+
+@Question
+Что такое deadlock?
+@Options @OnlyOne @Key=2
+состояние, когда один поток ожидает разблокировки ресурса, захваченного другим потоком
+состояние, когда два потока ожидают разблокировки ресурсов, захваченных самими потоками
+бесконечный цикл
+
+@Question
+Какой класс не входит в пакет java.lang.reflect?
+@Options @OnlyOne @Key=1
+Package
+Constructor
+Method
+Object
+Field
+Class
+
+@Question
+При использовании ReentrantReadWriteLock
+@Options @OnlyOne @Key=4
+все утверждения не верны
+при захвате writeLock все потоки, захватившие readLock, освоббождаются
+потоки могут одновременно захватывать и readLock и writeLock
+только один поток может получить доступ к записи, и множество потоков могут получить одновременный доступ к чтению
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=2
+метод Statement.execute() вернет true если запрос удалось выполнить, и false в противном случае
+метод Statement.execute() вернет true если результатов выполнения запроса является ResultSet, и false в противном случае
+метод Statement.execute() вернет true если запрос сформирован корректно, и false в противном случае
+
+@Question
+Выберите неправильный вариант запроса
+@Options @OnlyOne @Key=3
+SELECT * FROM students;
+UPDATE students SET score = 100 WHERE name = 'Bob';
+UPDATE score = 100 INTO students WHERE name 'Bob';
+DELETE FROM students;
+
+@Question
+Для чего используется Callable.call()?
+@Options @OnlyOne @Key=2
+то же, что и Runnable.run(), т.к. они появились в разных версиях Java
+для запуска задачи в отдельном потоке, которая возвращает результат выполнения
+для запуска задачи в отдельном потоке, которая возвращает статус Callable.Success/Called/Failed
+
+@Question
+Выберите неверное утверждение
+@Options @OnlyOne @Key=2
+RandomAccessFile реализует интерфейсы DataInput и DataOutput
+RandomAccessFile реализует интерфейс Closeable
+RandomAccessFile предоставляет одновременный доступ на чтение и запись
+RandomAccessFile реализует интерфейсы InputStream и OutputStream
+
+@Question
+Какой метод должен быть переопределен классом, реализующим интерфейс Runnable для выполнения задачи в отдельном потоке?
+@Options @OnlyOne @Key=1
+void run()
+int run()
+boolean run()
+void run(int priority)
+
+@Question
+Какой класс или интерфейс позволяет отсылать запросы в БД?
+@Options @OnlyOne @Key=4
+SecureStatement
+PrecompiledStatement
+RollableStatement
+QuerySstatement
+PreparedStatement
+
+@Question
+Можно ли с помощью reflection изменить private после объекта?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+В чем особенность SequenceInputStream?
+@Options @OnlyOne @Key=3
+позволяет зацикленно читать один и тот же файл
+позволяет работать с несколькими потоками ввода, как с одним
+позволяет выбрать направление чтения файла, от начала к концу, либо с конца в начало
+предоставляет последовательный доступ к файлу
+
+@Question
+В каком случае при вызове DriverManager.getConnection() появляется ошибка "No Suitable Driver"?
+@Options @OnlyOne @Key=2
+неверная комбинация имя пользователя/пароль
+необходимый драйвер не зарегистрирован
+JDBC URL содержит ошибку
+
+@Question
+Что делает метод reset() в классе ObjectOutputStream?
+@Options @OnlyOne @Key=4
+очищает файл, в который производилась запись
+повторно записывает объекты в файл
+делает откат к ранее установленному состоянию
+сбрасывает информацию об уже записанных объектах в файл
