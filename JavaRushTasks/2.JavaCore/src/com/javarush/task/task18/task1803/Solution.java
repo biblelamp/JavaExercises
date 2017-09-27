@@ -2,6 +2,7 @@ package com.javarush.task.task18.task1803;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 */
 
 public class Solution {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         Map<Integer, Integer> hm = new HashMap<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         FileInputStream file = new FileInputStream(reader.readLine());
