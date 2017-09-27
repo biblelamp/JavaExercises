@@ -8,17 +8,17 @@ public class Waiter implements Runnable {
         Manager manager = Manager.getInstance();
 
         while (continueWorking || !manager.getDishesQueue().isEmpty()) {
-            if (!manager.getDishesQueue().isEmpty()) {       //относим готовый заказ
+            if (!manager.getDishesQueue().isEmpty()) {       // to bring a ready order
                 Dishes dishes = manager.getDishesQueue().poll();
                 System.out.println("Официант отнес заказ для стола №" + dishes.getTableNumber());
-            } else {                                         //берем новый заказ
+            } else {                                         // to get a new order
                 Table table = manager.getNextTable();
                 Order order = table.getOrder();
                 System.out.println("Получен заказ от стола №" + order.getTableNumber());
                 manager.getOrderQueue().add(order);
             }
             try {
-                Thread.sleep(100);  //walking to the next table
+                Thread.sleep(100);                          // walking to the next table
             } catch (InterruptedException e) {
             }
         }

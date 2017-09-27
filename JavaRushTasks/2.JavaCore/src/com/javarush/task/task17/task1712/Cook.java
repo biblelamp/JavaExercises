@@ -29,10 +29,12 @@ public class Cook implements Runnable {
 
     private void cooking() throws InterruptedException {
         Manager manager = Manager.getInstance();
-        Order order = manager.getOrderQueue().poll();      // повар берет заказ из очереди
-        System.out.println(String.format("Заказ будет готовиться %d мс для стола №%d", order.getTime(), order.getTableNumber()));
-        Thread.sleep(order.getTime());     // готовим блюдо
-        Dishes dishes = new Dishes(order.getTableNumber());       //  это готовое блюдо
+        Order order = manager.getOrderQueue().poll();           // cook gets order from a queue
+        System.out.println(String.format(
+                "Заказ будет готовиться %d мс для стола №%d", order.getTime(), order.getTableNumber()));
+        Thread.sleep(order.getTime());                          // to cook dish
+        Dishes dishes = new Dishes(order.getTableNumber());     // this is a cooked dish
+        manager.getDishesQueue().add(dishes);                   // fix! add dish to dishes queue
         System.out.println(String.format("Заказ для стола №%d готов", dishes.getTableNumber()));
     }
 }

@@ -11,8 +11,8 @@ public class Manager {      //singleton
     private final List<Table> restaurantTables = new ArrayList<Table>(10);
     private int currentIndex = 0;
 
-    private final Queue<Order> orderQueue = new ConcurrentLinkedQueue<Order>();        // очередь с заказами
-    private final Queue<Dishes> dishesQueue = new ConcurrentLinkedQueue<Dishes>();     // очередь с готовыми блюдами
+    private final Queue<Order> orderQueue = new ConcurrentLinkedQueue<Order>();    // очередь с заказами
+    private final Queue<Dishes> dishesQueue = new ConcurrentLinkedQueue<Dishes>();  // очередь с готовыми блюдами
 
     public synchronized static Manager getInstance() {
         return ourInstance;
