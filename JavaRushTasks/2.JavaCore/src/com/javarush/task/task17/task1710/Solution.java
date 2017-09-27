@@ -35,7 +35,6 @@ public class Solution {
 
         // update
         if (args[0].equals("-u")) {
-            int index = Integer.parseInt(args[1]);
             Person person = allPeople.get(Integer.parseInt(args[1]));
             person.setName(args[2]);
             person.setBirthDay(dateFormat.parse(args[4]));
