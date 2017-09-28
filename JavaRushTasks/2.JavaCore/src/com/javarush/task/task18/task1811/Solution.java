@@ -5,8 +5,6 @@ Wrapper (Decorator)
 */
 
 public class Solution {
-
-    /*
     public static void main(String[] args) {
         new Thread(new DecoratorRunnableImpl(new DecoratorMyRunnableImpl(new RunnableImpl()))).start();
     }
@@ -15,6 +13,20 @@ public class Solution {
         @Override
         public void run() {
             System.out.println("RunnableImpl body");
+        }
+    }
+
+    public static class DecoratorMyRunnableImpl implements Runnable {
+        private Runnable component;
+
+        public DecoratorMyRunnableImpl(Runnable component) {
+            this.component = component;
+        }
+
+        @Override
+        public void run() {
+            System.out.print("DecoratorMyRunnableImpl body ");
+            component.run();
         }
     }
 
@@ -31,5 +43,4 @@ public class Solution {
             component.run();
         }
     }
-    */
 }
