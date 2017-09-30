@@ -2,19 +2,33 @@
  * Java. Level 1. Lesson 1. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Jul 28, 2017
+ * @version dated Sep 30, 2017
  */
 class HW1Lesson {
 
     public static void main(String[] args) {
+        // call for task №2
         createVariable();
+        // call for task №3
         System.out.println(calculate(1, 2, 3, 4));
+
+        // tests for task №4
+        System.out.println(checkSum(5, 3));
         System.out.println(checkSum(10, 5));
+        System.out.println(checkSum(10, 15));
+
+        // tests for task №5
         checkPositiveOrNegative(10);
         checkPositiveOrNegative(-5);
+
+        // tests for task №5
         System.out.println(сheckNegative(-1));
         System.out.println(сheckNegative(5));
+
+        // call for task №7
         welcomeName("World");
+
+        // tests for task №8
         checkLeapYear(1900); // div 4 but div 100
         checkLeapYear(1996); // div 4 and not div 100
         checkLeapYear(2000); // div 400
@@ -26,14 +40,14 @@ class HW1Lesson {
      *    byte, short, int, long, float, double, char, boolean, string
      */
     static void createVariable() {
-        byte b = 127;
-        short s = 1024; // 2^8
-        int i = 65536; // 2^16
-        long l = 4294967296L; // 2^32
-        float f = 123.45F;
-        double d = 567.89;
-        char c = 'a';
-        boolean bo = true;
+        byte    b = 127;
+        short   s = 1024; // 2^8
+        int     i = 65536; // 2^16
+        long    l = 4294967296L; // 2^32
+        float   f = 123.45F;
+        double  d = 567.89;
+        char    c = 'a';
+        boolean bool = true;
         String str = "Hello";
     }
 
