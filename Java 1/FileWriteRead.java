@@ -1,3 +1,9 @@
+/**
+ * Java. Level 1. Lesson 3. Example of writing/reading file
+ *
+ * @author Sergey Iryupin
+ * @version dated Oct 03, 2017
+ */
 import java.io.*;
 
 class FileWriteRead {
@@ -17,7 +23,7 @@ class FileWriteRead {
         try {
             int b;
             FileReader file = new FileReader("text.txt");
-            while ((int b = file.read()) != -1)
+            while ((b = file.read()) != -1)
                 System.out.print((char)b);
             file.close();
         } catch (IOException ex) {
