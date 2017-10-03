@@ -2,9 +2,10 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Aug 01, 2017
+ * @version dated Oct 03, 2017
  */
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 class HW2Lesson {
 
@@ -186,11 +187,10 @@ class HW2Lesson {
                System.out.println("= " + (first * second));
                break;
            case "/":
-               if (second != 0) {
+               if (second != 0)
                    System.out.println("= " + (first / second));
-               } else {
+               else
                    System.out.println("Error: Division by zero");
-               }
                break;
           default:
                System.out.println("Error: Undefined operation");
