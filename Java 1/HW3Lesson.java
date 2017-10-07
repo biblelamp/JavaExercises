@@ -2,11 +2,11 @@
  * Java. Level 1. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated May 16, 2017
+ * @version dated Oct 07, 2017
  */
 import java.util.*;
 
-public class HW3Lesson {
+class HW3Lesson {
     static Random random = new Random();
     static Scanner sc = new Scanner(System.in);
 
@@ -49,7 +49,7 @@ public class HW3Lesson {
                     if (number == guess) {
                         System.out.println("You won!");
                     } else {
-                        System.out.println("Your number is " + ((guess < number)?
+                        System.out.println("Your number is " + ((guess > number)?
                             "greater" : "less."));
                         count++;
                     }
