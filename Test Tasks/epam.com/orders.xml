@@ -2,18 +2,18 @@
 <orders>
   <order>
     <client>Пупкин А.</client>
-    <items>4 11 15 1</items>
+    <item>4</item><item>11</item><item>15</item><item>1</item>
   </order>
   <order>
     <client>Кривенко С.</client>
-    <items>5 8 12 14 3</items>
+    <item>5</item><item>8</item><item>12</item><item>14</item><item>3</item>
   </order>
   <order>
     <client>Гайченов П.</client>
-    <items>9 10 1 2</items>
+    <item>9</item><item>10</item><item>1</item><item>2</item>
   </order>
   <order>
     <client>Сухожилов Л.</client>
-    <items>4 8 11 14 2</items>
+    <item>4</item><item>8</item><item>11</item><item>14</item><item>2</item>
   </order>
 </orders>
