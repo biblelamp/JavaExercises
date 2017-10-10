@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+  <items>
+    <item id="1">
+      <name>Рулет с изюмом</name>
+      <weight>75</weight>
+      <price>15</price>
+    <item id="2">
+      <name>Пирог с повидлом</name>
+      <weight>60</weight>
+      <price>13</price>
+    <item id="3">
+      <name>Пирог с яблоками</name>
+      <weight>60</weight>
+      <price>13</price>
+    <item id="4">
+      <name>Салат Изюминка</name>
+      <weight>100</weight>
+      <price>35</price>
+    <item id="5">
+      <name>Салат Лукошко</name>
+      <weight>100</weight>
+      <price>40</price>
+    <item id="6">
+      <name>Салат Капустный с помидором</name>
+      <weight>100</weight>
+      <price>19</price>
+    <item id="7">
+      <name>Суп харчо с говядиной</name>
+      <weight>250</weight>
+      <price>31</price>
+    <item id="8">
+      <name>Суп куриный с грибами</name>
+      <weight>250</weight>
+      <price>34</price>
+    <item id="9">
+      <name>Суп болгарский вегетарианский</name>
+      <weight>250</weight>
+      <price>21</price>
+    <item id="10">
+      <name>Рыбное филе с помидоркой</name>
+      <weight>80</weight>
+      <price>54</price>
+    <item id="11">
+      <name>Печень по-королевски</name>
+      <weight>150</weight>
+      <price>54</price>
+    <item id="12">
+      <name>Свинина запеченная «По-гусарски»</name>
+      <weight>80</weight>
+      <price>68</price>
+    <item id="13">
+      <name>Греча с маслом</name>
+      <weight>170</weight>
+      <price>17</price>
+    <item id="14">
+      <name>Макароны отварные</name>
+      <weight>170</weight>
+      <price>15</price>
+    <item id="15">
+      <name>Рис отварной с маслом</name>
+      <weight>170</weight>
+      <price>16</price>
+    </item>
+  </items>
+</menu>
