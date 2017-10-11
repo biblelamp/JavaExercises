@@ -3,7 +3,7 @@
  * The main class which makes 2 reports according test task
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 10, 2017
+ * @version 0.2 dated Oct 11, 2017
  */
 class MainApp {
 
@@ -12,8 +12,9 @@ class MainApp {
 
     public static void main(String[] args) {
         Menu menu = new Menu(MENU_FILE);
-        System.out.println(menu);
         Orders orders = new Orders(ORDERS_FILE);
-        System.out.println(orders);
+        Report report = new Report(menu, orders);
+        report.print4Cook();
+        report.print4Client();
     }
 }
