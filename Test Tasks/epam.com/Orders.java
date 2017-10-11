@@ -3,7 +3,7 @@
  * The class provides work with the orders list
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 10, 2017
+ * @version 0.2 dated Oct 11, 2017
  */
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -38,6 +38,20 @@ class Orders {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public Map<String, Integer> getDishes(Menu menu) { // get list of dishes
+        Map<String, Integer> dishes = new HashMap<>();
+        for (Map.Entry<String, String[]> item : orders.entrySet())
+            for (String id : item.getValue()) {
+                Integer value = dishes.get(id);
+                dishes.put(id, (value == null)? 1 : value + 1);
+            }
+        return dishes;
+    }
+
+    public Map<String, String[]> getOrders() { // get all orders
+        return orders;
     }
 
     @Override
