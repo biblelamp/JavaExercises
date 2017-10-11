@@ -3,7 +3,7 @@
  * The class provides work with the menu list
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 10, 2017
+ * @version 0.2 dated Oct 11, 2017
  */
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -41,6 +41,18 @@ class Menu {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String getName(String id) {      // get name of dish by id
+        MenuRecord record = menu.get(id);
+        if (record != null) return record.getName();
+        return null;
+    }
+
+    public int getPrice(String id) {      // get price of dish by id
+        MenuRecord record = menu.get(id);
+        if (record != null) return record.getPrice();
+        return -1;
     }
 
     @Override
