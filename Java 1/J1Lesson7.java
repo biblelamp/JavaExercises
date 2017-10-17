@@ -9,12 +9,51 @@ import java.io.*;
 class J1Lesson7 {
 
     public static void main(String[] args) {
-        testString(120000);
-        testStringBuilder(120000);
-        //testFileReader("file.name");
-        //testBufferedReader("file.name");
+        Cat cat = new Cat("Barsik", 5);
+        Plate plate = new Plate(50);
+        System.out.println(plate);
+        cat.eat(plate);
+        System.out.println(plate);
+
+        //Test.testString(120000);
+        //Test.testStringBuilder(120000);
+        //Test.testBufferedReader("E:\\Audacity\\audacity.exe");
+        //Test.testFileReader("E:\\Audacity\\audacity.exe");
+    }
+}
+
+class Cat {
+    private String name;
+    private int appetite;
+
+    Cat(String name, int appetite) {
+        this.name = name;
+        this.appetite = appetite;
     }
 
+    void eat(Plate plate) {
+        plate.decreaseFood(appetite);
+    }
+}
+
+class Plate {
+    private int food;
+
+    Plate(int food) {
+        this.food = food;
+    }
+
+    void decreaseFood(int food) {
+        this.food -= food;
+    }
+
+    @Override
+    public String toString() {
+        return "Plate: " + food;
+    }
+}
+
+class Test {
     /**
      * Testing class String (immutable)
      */
@@ -22,6 +61,7 @@ class J1Lesson7 {
         System.out.print("Testing String...");
         long t1 = System.currentTimeMillis();
         long m1 = Runtime.getRuntime().freeMemory();
+        System.out.print(m1 + ":");
 
         String a = "";
         for (int i = 0; i < cycles; i++)
@@ -29,6 +69,7 @@ class J1Lesson7 {
 
         long t2 = System.currentTimeMillis();
         long m2 = Runtime.getRuntime().freeMemory();
+        System.out.print(m2);
         System.out.print("It took " + (t2 - t1) + " mc ");
         System.out.println("and " + (m1 - m2)/1024 + " Kb");
     }
@@ -42,8 +83,8 @@ class J1Lesson7 {
         long m1 = Runtime.getRuntime().freeMemory();
 
         StringBuilder a = new StringBuilder("");
-            for (int i = 0; i < cycles; i++)
-                a.append("w");
+        for (int i = 0; i < cycles; i++)
+            a.append("w");
 
         long t2 = System.currentTimeMillis();
         long m2 = Runtime.getRuntime().freeMemory();
