@@ -42,7 +42,7 @@ public class Solution {
                 }
             }
 
-            if (result instanceof A) {
+            if (result instanceof C) { // this is line with mistake (it was A)
                 C p = (C) result;
                 System.out.println(p.getClass().getSimpleName());
             }
