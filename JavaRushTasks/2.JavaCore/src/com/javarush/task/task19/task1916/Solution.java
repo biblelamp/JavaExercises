@@ -16,12 +16,12 @@ public class Solution {
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        //String fileName1 = reader.readLine();
-        //String fileName2 = reader.readLine();
+        String fileName1 = reader.readLine();
+        String fileName2 = reader.readLine();
         reader.close();
 
-        String fileName1 = "file1.txt"; // for debugging
-        String fileName2 = "file2.txt";
+        //String fileName1 = "file1.txt"; // for debugging
+        //String fileName2 = "file2.txt";
 
         List<String> fs1 = new ArrayList<String>();
         List<String> fs2 = new ArrayList<String>();
@@ -37,7 +37,8 @@ public class Solution {
         file2.close();
 
         int j = 0;
-        for (int i = 0; i < fs1.size(); i++) {
+        int i;
+        for (i = 0; i < fs1.size(); i++) {
             if (fs1.get(i).equals(fs2.get(j))) {
                 lines.add(new LineItem(Type.SAME, fs1.get(i)));
                 if (j + 1 < fs2.size())
@@ -56,10 +57,12 @@ public class Solution {
                  }
             }
         }
+        if (i == fs1.size() && j < fs2.size()) // ckeck the last added string
+            lines.add(new LineItem(Type.ADDED, fs2.get(j)));
 
         // output for debugging
-        for (LineItem line : lines)
-            System.out.println(line.type + " " + line.line);
+        //for (LineItem line : lines)
+        //    System.out.println(line.type + " " + line.line);
     }
 
     public static enum Type {
