@@ -2,23 +2,29 @@
  * Java. Level 1. Lesson 7. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Aug 19, 2017
+ * @version dated Oct 20, 2017
  */
-public class HW7Lesson {
+class HW7Lesson {
 
     public static void main(String[] args) {
         Cat[] cats = {
             new Cat("Barsik", 15), new Cat("Murzik", 10), new Cat("Vasily", 20)
         };
-        Plate plate = new Plate(30);
+        Plate plate = new Plate(50, 30);
         System.out.println(plate);
+
+        // feeding cats first time
         for (Cat cat : cats) {
             cat.eat(plate);
             System.out.println(cat);
         }
+
+        // adding food in the plate
         System.out.println(plate);
         plate.add(40);
         System.out.println(plate);
+
+        // feeding cats second time
         for (Cat cat : cats) {
             cat.setFullness(false);
             cat.eat(plate);
@@ -29,13 +35,13 @@ public class HW7Lesson {
 }
 
 class Cat {
-    private String name;
-    private int volume; // ability to eat for 1 time
-    private boolean fullness; // satiety status
+    protected String name;
+    protected int appetite; // ability to eat for 1 time
+    protected boolean fullness; // satiety status
 
-    Cat(String name, int volume) {
+    Cat(String name, int appetite) {
         this.name = name;
-        this.volume = volume;
+        this.appetite = appetite;
         fullness = false;
     }
 
@@ -45,19 +51,22 @@ class Cat {
 
     void eat(Plate plate) {
         if (!fullness)
-            fullness = plate.decreaseFood(volume);
+            fullness = plate.decreaseFood(appetite);
     }
 
     @Override
     public String toString() {
-        return name + " {volume: " + volume + " fullness: " + fullness + "}";
+        return "{name=" + name + ", appetite=" +
+            appetite + ", fullness=" + fullness + "}";
     }
 }
 
 class Plate {
-    private int food;
+    protected int volume;
+    protected int food;
 
-    Plate(int food) {
+    Plate(int volume, int food) {
+        this.volume = volume;
         this.food = food;
     }
 
@@ -68,7 +77,8 @@ class Plate {
     }
 
     void add(int food) {
-        this.food += food;
+        if (this.food + food <= volume)
+            this.food += food;
     }
 
     @Override
