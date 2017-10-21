@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Aug 19, 2017
+ * @version 0.3.2 dated Oct 21, 2017
  */
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ class TicTacToe extends JFrame {
     final String BTN_INIT = "New game";
     final String BTN_EXIT = "Exit";
 
-    Canvas canvas = new Canvas();
+    Panel panel = new Panel();
     Field field = new Field(FIELD_SIZE, CELL_SIZE);
     Human human = new Human(field.getHumanDot());
     AI ai = new AI(field.getAIDot());
@@ -36,13 +36,13 @@ class TicTacToe extends JFrame {
         setLocationRelativeTo(null); // to the center
         setResizable(false);
 
-        canvas.setBackground(Color.white);
-        canvas.addMouseListener(new MouseAdapter() {
+        panel.setBackground(Color.white);
+        panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 human.turn(e.getX()/CELL_SIZE, e.getY()/CELL_SIZE, field, ai);
-                canvas.repaint();
+                panel.repaint();
                 if (field.isGameOver())
                     JOptionPane.showMessageDialog(
                         TicTacToe.this, field.getGameOverMsg());
@@ -50,30 +50,32 @@ class TicTacToe extends JFrame {
         });
         JButton init = new JButton(BTN_INIT);
         init.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 field.init();
-                canvas.repaint();
+                panel.repaint();
             }
         });
         JButton exit = new JButton(BTN_EXIT);
         exit.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
 
-        JPanel bp = new JPanel();
-        bp.setLayout(new GridLayout()); // for button panel
-        bp.add(init);
-        bp.add(exit);
+        JPanel panelBtn = new JPanel();
+        panelBtn.setLayout(new GridLayout()); // for panel of buttons
+        panelBtn.add(init);
+        panelBtn.add(exit);
 
         setLayout(new BorderLayout()); // for main window
-        add(bp, BorderLayout.SOUTH);
-        add(canvas, BorderLayout.CENTER);
+        add(panelBtn, BorderLayout.SOUTH);
+        add(panel, BorderLayout.CENTER);
         setVisible(true);
     }
 
-    class Canvas extends JPanel { // for painting
+    class Panel extends JPanel { // for painting
         @Override
         public void paint(Graphics g) {
             super.paint(g);
