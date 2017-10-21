@@ -3,7 +3,7 @@
  * Class: AI
  *
  * @author Sergey Iryupin
- * @version 0.1 dated March 11, 2017
+ * @version 0.1.1 dated Oct 21, 2017
  */
 import java.util.*;
 
@@ -18,7 +18,7 @@ class AI {
         do {
             x = random.nextInt(field.getSize());
             y = random.nextInt(field.getSize());
-        } while (!field.isCellEmpty(x, y));
+        } while (!field.isCellValid(x, y));
         field.setDot(x, y, DOT);
     }
 }
