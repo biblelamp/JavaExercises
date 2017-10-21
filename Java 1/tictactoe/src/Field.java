@@ -3,7 +3,7 @@
  * Class: Field
  *
  * @author Sergey Iryupin
- * @version 0.3 dated May 30, 2017
+ * @version 0.3.1 dated Oct 21, 2017
  */
 import java.awt.*;
 import java.awt.geom.*; // for Graphics2D
@@ -17,20 +17,20 @@ class Field {
     private final String MSG_DRAW = "Draw, sorry...";
     private final String MSG_HUMAN_WON = "YOU WON!";
     private final String MSG_AI_WON = "AI WON!";
-    private char[][] field;
+    private char[][] map;
     private String gameOverMsg;
 
     Field(int field_size, int cell_size) {
         FIELD_SIZE = field_size;
         CELL_SIZE = cell_size;
-        field = new char[FIELD_SIZE][FIELD_SIZE];
+        map = new char[FIELD_SIZE][FIELD_SIZE];
         init();
     }
 
     void init() {
         for (int i = 0; i < FIELD_SIZE; i++)
             for (int j = 0; j < FIELD_SIZE; j++)
-                field[i][j] = EMPTY_DOT;
+                map[i][j] = EMPTY_DOT;
         gameOverMsg = null;
     }
 
@@ -45,38 +45,38 @@ class Field {
     String getGameOverMsg() { return gameOverMsg; }
 
     void setDot(int x, int y, char dot) { // set dot and check fill and win
-        field[x][y] = dot;
-        if (isFull())
+        map[x][y] = dot;
+        if (isMapFull())
             gameOverMsg = MSG_DRAW;
-        if (isWin(HUMAN_DOT))
+        if (checkWin(HUMAN_DOT))
             gameOverMsg = MSG_HUMAN_WON;
-        if (isWin(AI_DOT))
+        if (checkWin(AI_DOT))
             gameOverMsg = MSG_AI_WON;
     }
 
-    boolean isCellEmpty(int x, int y) {
-        if (x < 0 || y < 0 || x > FIELD_SIZE - 1 || y > FIELD_SIZE - 1) return false;
-        if (field[x][y] == EMPTY_DOT) return true;
-        return false;
-    }
-
-    boolean isFull() {
+    boolean isMapFull() {
         for (int i = 0; i < FIELD_SIZE; i++)
             for (int j = 0; j < FIELD_SIZE; j++)
-                if (field[i][j] == EMPTY_DOT) return false;
+                if (map[i][j] == EMPTY_DOT) return false;
         return true;
     }
 
-    boolean isWin(char ch) {
+    boolean checkWin(char dot) {
         // checking horizontals / verticals
         for (int i = 0; i < FIELD_SIZE; i++)
-            if ((field[i][0] == ch && field[i][1] == ch && field[i][2] == ch) ||
-                (field[0][i] == ch && field[1][i] == ch && field[2][i] == ch))
+            if ((map[i][0] == dot && map[i][1] == dot && map[i][2] == dot) ||
+                (map[0][i] == dot && map[1][i] == dot && map[2][i] == dot))
                 return true;
         // checking diagonals
-        if ((field[0][0] == ch && field[1][1] == ch && field[2][2] == ch) ||
-            (field[2][0] == ch && field[1][1] == ch && field[0][2] == ch))
+        if ((map[0][0] == dot && map[1][1] == dot && map[2][2] == dot) ||
+            (map[2][0] == dot && map[1][1] == dot && map[0][2] == dot))
             return true;
+        return false;
+    }
+
+    boolean isCellValid(int x, int y) {
+        if (x < 0 || y < 0 || x > FIELD_SIZE - 1 || y > FIELD_SIZE - 1) return false;
+        if (map[x][y] == EMPTY_DOT) return true;
         return false;
     }
 
@@ -90,12 +90,12 @@ class Field {
         g2.setStroke(new BasicStroke(5));
         for (int y = 0; y < FIELD_SIZE; y++) {
             for (int x = 0; x < FIELD_SIZE; x++) {
-                if (field[x][y] == HUMAN_DOT) {
+                if (map[x][y] == HUMAN_DOT) {
                     g.setColor(Color.blue);
                     g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4, (x+1)*CELL_SIZE-CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4));
                     g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4, (x+1)*CELL_SIZE-CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4));
                 }
-                if (field[x][y] == AI_DOT) {
+                if (map[x][y] == AI_DOT) {
                     g.setColor(Color.red);
                     g2.draw(new Ellipse2D.Float(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4, CELL_SIZE/2, CELL_SIZE/2));
                 }
