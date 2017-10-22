@@ -18,13 +18,18 @@ public class Solution {
             InputStream inputStream = new FileInputStream(your_file_name);
 
             Human ivanov = new Human("Ivanov", new Asset("home"), new Asset("car"));
+            //Human ivanov = new Human(null, new Asset("home"), new Asset("car"));
+            //Human ivanov = new Human("Ivanov", null);
+            //Human ivanov = new Human();
             ivanov.save(outputStream);
             outputStream.flush();
 
             Human somePerson = new Human();
             somePerson.load(inputStream);
-            //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
             inputStream.close();
+
+            //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
+            System.out.println(ivanov.equals(somePerson));
 
         } catch (IOException e) {
             //e.printStackTrace();
@@ -34,7 +39,6 @@ public class Solution {
             System.out.println("Oops, something wrong with save/load method");
         }
     }
-
 
     public static class Human {
         public String name;
@@ -70,11 +74,31 @@ public class Solution {
         }
 
         public void save(OutputStream outputStream) throws Exception {
-            //implement this method - реализуйте этот метод
+            PrintWriter print = new PrintWriter(outputStream);
+            if (name != null)
+                print.write("yes\n" + name + "\n");
+            else
+                print.write("no\n");
+            for (Asset asset : assets)
+                print.write(asset.getName() + "\n" +
+                        asset.getPrice() + "\n");
+            print.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
-            //implement this method - реализуйте этот метод
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            if (reader.ready()) {
+                String str = reader.readLine();
+                if (str.equals("yes"))
+                    name = reader.readLine();
+            }
+
+            while (reader.ready()) {
+                Asset asset = new Asset(reader.readLine());
+                asset.setPrice(Double.parseDouble(reader.readLine()));
+                assets.add(asset);
+            }
         }
     }
 }
