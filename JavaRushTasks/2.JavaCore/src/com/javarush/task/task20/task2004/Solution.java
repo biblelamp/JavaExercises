@@ -32,6 +32,10 @@ public class Solution {
             outputStream.close();
             inputStream.close();
 
+            System.out.println(ClassWithStatic.staticString);
+            System.out.println(loadedObject.i);
+            System.out.println(loadedObject.j);
+
         } catch (IOException e) {
             //e.printStackTrace();
             System.out.println("Oops, something wrong with my file");
@@ -47,11 +51,19 @@ public class Solution {
         public int j;
 
         public void save(OutputStream outputStream) throws Exception {
-            //implement this method - реализуйте этот метод
+            PrintWriter pw = new PrintWriter(outputStream);
+            pw.println(staticString);
+            pw.println(i);
+            pw.println(j);
+            pw.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
-            //implement this method - реализуйте этот метод
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            ClassWithStatic.staticString = br.readLine();
+            i = Integer.parseInt(br.readLine());
+            j = Integer.parseInt(br.readLine());
+            br.close();
         }
 
         @Override
