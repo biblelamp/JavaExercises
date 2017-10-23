@@ -12,15 +12,11 @@ public class Solution {
     public static void main(String[] args) {
         //исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
         try {
-
             File your_file_name = File.createTempFile("your_file_name", null);
             OutputStream outputStream = new FileOutputStream(your_file_name);
             InputStream inputStream = new FileInputStream(your_file_name);
 
-            Human ivanov = new Human("Ivanov", new Asset("home"), new Asset("car"));
-            //Human ivanov = new Human(null, new Asset("home"), new Asset("car"));
-            //Human ivanov = new Human("Ivanov", null);
-            //Human ivanov = new Human();
+            Human ivanov = new Human("Ivanov", new Asset("home", 999_999.99), new Asset("car", 2999.99));
             ivanov.save(outputStream);
             outputStream.flush();
 
@@ -30,6 +26,9 @@ public class Solution {
 
             //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
             System.out.println(ivanov.equals(somePerson));
+            System.out.println(somePerson.name);
+            for (Asset asset : somePerson.assets)
+                System.out.println(asset.getName() + "," + asset.getPrice());
 
         } catch (IOException e) {
             //e.printStackTrace();
@@ -47,6 +46,13 @@ public class Solution {
         public Human() {
         }
 
+        public Human(String name, Asset... assets) {
+            this.name = name;
+            if (assets != null) {
+                this.assets.addAll(Arrays.asList(assets));
+            }
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -56,7 +62,6 @@ public class Solution {
 
             if (name != null ? !name.equals(human.name) : human.name != null) return false;
             return assets != null ? assets.equals(human.assets) : human.assets == null;
-
         }
 
         @Override
@@ -66,39 +71,22 @@ public class Solution {
             return result;
         }
 
-        public Human(String name, Asset... assets) {
-            this.name = name;
-            if (assets != null) {
-                this.assets.addAll(Arrays.asList(assets));
-            }
-        }
-
         public void save(OutputStream outputStream) throws Exception {
-            PrintWriter print = new PrintWriter(outputStream);
-            if (name != null)
-                print.write("yes\n" + name + "\n");
-            else
-                print.write("no\n");
+            PrintStream writer = new PrintStream(outputStream);
+            writer.println(name);
             for (Asset asset : assets)
-                print.write(asset.getName() + "\n" +
-                        asset.getPrice() + "\n");
-            print.close();
+                writer.println(asset.getName() + "\n" + asset.getPrice());
+            writer.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            if (reader.ready()) {
-                String str = reader.readLine();
-                if (str.equals("yes"))
-                    name = reader.readLine();
+            name = reader.readLine();
+            while(reader.ready()){
+                assets.add(new Asset(reader.readLine(),
+                        Double.parseDouble(reader.readLine())));
             }
-
-            while (reader.ready()) {
-                Asset asset = new Asset(reader.readLine());
-                asset.setPrice(Double.parseDouble(reader.readLine()));
-                assets.add(asset);
-            }
+            reader.close();
         }
     }
 }

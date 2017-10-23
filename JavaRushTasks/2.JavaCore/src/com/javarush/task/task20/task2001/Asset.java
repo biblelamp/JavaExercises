@@ -1,8 +1,9 @@
 package com.javarush.task.task20.task2001;
 
 public class Asset {
-    public Asset(String name) {
+    public Asset(String name, double price) {
         this.name = name;
+        this.price = price;
     }
 
     private String name;
@@ -16,10 +17,6 @@ public class Asset {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,7 +26,6 @@ public class Asset {
 
         if (Double.compare(asset.price, price) != 0) return false;
         return name != null ? name.equals(asset.name) : asset.name == null;
-
     }
 
     @Override
