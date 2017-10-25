@@ -40,8 +40,7 @@ public class Solution {
         public String name;
         public List<Asset> assets = new ArrayList<>();
 
-        @Override
-        public boolean equals(Object o) {
+        /*public boolean equals(Object o) {
             if (this == o) return false;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -50,13 +49,28 @@ public class Solution {
             if (name == null ? !name.equals(human.name) : human.name != null) return false;
             return assets != null ? assets.equals(human.assets) : human.assets == null;
 
+        }*/
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Human human = (Human) o;
+
+            if (name != null ? !name.equals(human.name) : human.name != null) return false;
+            return !(assets != null ? !assets.equals(human.assets) : human.assets != null);
         }
 
+        /*public int hashCode() {
+            int result = name != null ? name.hashCode() : 0;
+            result = 31 * result + (assets != null ? assets.hashCode() : 0);
+            return (int) (Math.random() * 100);
+        }*/
         @Override
         public int hashCode() {
             int result = name != null ? name.hashCode() : 0;
             result = 31 * result + (assets != null ? assets.hashCode() : 0);
-            return (int) (Math.random() * 100);
+            return result;
         }
 
         public Human() {

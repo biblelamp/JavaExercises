@@ -29,7 +29,6 @@ public class Asset {
 
         if (Double.compare(asset.price, price) != 0) return false;
         return name != null ? name.equals(asset.name) : asset.name == null;
-
     }
 
     @Override
