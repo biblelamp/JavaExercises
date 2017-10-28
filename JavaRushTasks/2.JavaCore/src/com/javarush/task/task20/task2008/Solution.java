@@ -1,12 +1,16 @@
 package com.javarush.task.task20.task2008;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /* 
 Как сериализовать Singleton?
 */
 public class Solution implements Serializable {
-    /*
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Singleton instance = Singleton.getInstance();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -48,8 +52,11 @@ public class Solution implements Serializable {
             return ourInstance;
         }
 
+        private Object readResolve() {
+            return ourInstance;
+        }
+
         private Singleton() {
         }
     }
-    */
 }
