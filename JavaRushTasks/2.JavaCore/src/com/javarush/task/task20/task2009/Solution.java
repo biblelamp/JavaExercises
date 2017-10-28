@@ -12,6 +12,9 @@ public class Solution {
         public int j;
     }
 
+    // must read
+    // http://javateaching.blogspot.ru/2011/12/serialization-static-field.html
+
     public static void main(String[] args) {
     }
 }
