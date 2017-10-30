@@ -11,14 +11,15 @@ Externalizable Person
 */
 public class Solution {
 
-    /*
-    public static class Person {
+    public static class Person implements Externalizable {
         private String firstName;
         private String lastName;
         private int age;
         private Person mother;
         private Person father;
         private List<Person> children;
+
+        public Person() { }
 
         public Person(String firstName, String lastName, int age) {
             this.firstName = firstName;
@@ -40,10 +41,10 @@ public class Solution {
 
         @Override
         public void writeExternal(ObjectOutput out) throws IOException {
-            out.writeObject(mother);
-            out.writeObject(father);
             out.writeChars(firstName);
             out.writeChars(lastName);
+            out.writeObject(mother);
+            out.writeObject(father);
             out.writeInt(age);
             out.writeObject(children);
         }
@@ -52,15 +53,13 @@ public class Solution {
         public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
             firstName = in.readLine();
             lastName = in.readLine();
-            father = (Person)in.readObject();
             mother = (Person)in.readObject();
+            father = (Person)in.readObject();
             age = in.readInt();
             children = (List)in.readObject();
         }
     }
 
     public static void main(String[] args) {
-
     }
-    */
 }
