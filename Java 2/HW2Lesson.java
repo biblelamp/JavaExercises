@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Sep 05, 2017
+ * @version 0.3.1 dated Oct 31, 2017
  */
 import java.io.*;
 import java.util.Arrays;
@@ -18,20 +18,22 @@ class HW2Lesson {
 
     public static void main(String[] args) {
 
-        // reading matrix from file
-        String line;
-        String file = "";
+        // reading from file to buffer
+        StringBuffer buffer = new StringBuffer();
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(
-                        new FileInputStream(FILE_NAME)))){
-            while ((line = reader.readLine()) != null)
-                file += line + "\n";
+                new FileReader(FILE_NAME))) {
+
+            while (reader.ready())
+                buffer.append(reader.readLine() + "\n");
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        if (file.length() > 0)
+
+        // processing the data from buffer
+        if (buffer.length() > 0)
             try {
-                System.out.println(calcMatrix(strToMatrix(file)));
+                System.out.println(calcMatrix(strToMatrix(buffer.toString())));
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
                 System.out.println(ex.getMessage());
             }
