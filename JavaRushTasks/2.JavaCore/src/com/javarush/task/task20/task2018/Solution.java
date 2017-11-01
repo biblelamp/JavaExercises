@@ -1,5 +1,10 @@
 package com.javarush.task.task20.task2018;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /* 
@@ -7,7 +12,6 @@ import java.io.Serializable;
 */
 public class Solution {
 
-    /*
     public static class A {
         protected String name = "A";
 
@@ -20,6 +24,16 @@ public class Solution {
         public B(String name) {
             super(name);
             this.name += name;
+        }
+
+        private void writeObject(ObjectOutputStream out) throws IOException {
+            out.defaultWriteObject();
+            out.writeObject(name);
+        }
+
+        private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+            in.defaultReadObject ();
+            name = (String) in.readObject();
         }
     }
 
@@ -39,5 +53,4 @@ public class Solution {
         B b1 = (B)ois.readObject();
         System.out.println(b1.name);
     }
-    */
 }
