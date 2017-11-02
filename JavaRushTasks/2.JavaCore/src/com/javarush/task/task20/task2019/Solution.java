@@ -19,7 +19,7 @@ public class Solution implements Serializable {
         fileOutput.close();
         outputStream.close();
 
-        //loading
+        // loading
         FileInputStream fiStream = new FileInputStream("your.file.name");
         ObjectInputStream objectStream = new ObjectInputStream(fiStream);
 
@@ -28,7 +28,7 @@ public class Solution implements Serializable {
         fiStream.close();
         objectStream.close();
 
-        //Attention!!
+        // attention!
         System.out.println(loadedObject.size());
     }
 
@@ -38,7 +38,7 @@ public class Solution implements Serializable {
         return m;
     }
 
-    public void Solution() {
+    public Solution() { // remove void
         m.put("Mickey", "Mouse");
         m.put("Mickey", "Mantle");
     }
