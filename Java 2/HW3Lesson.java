@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Sep 09, 2017
+ * @version 0.2.1 dated Nov 03, 2017
  */
 import java.util.*;
 //import hw3.*;
@@ -18,11 +18,11 @@ class HW3Lesson {
 
     static void сountWords() {
         Integer value;
-        Map<String, Integer> hm = new TreeMap<>();
+        Map<String, Integer> hm = new TreeMap<>(); // HashMap better for speed
         String text = "If you really want to learn, and you want to learn " +
         "more quickly and more deeply, pay attention to how you pay " +
         "attention. Think about how you think. Learn how you learn.";
-        String[] words = text.toLowerCase().split("[ {,|.}?]+");
+        String[] words = text.toLowerCase().split("\\W+");
         for (String word : words) {
             value = hm.get(word);
             hm.put(word, ((value == null)? 1 : value + 1));
@@ -66,7 +66,7 @@ class SimplePhoneBook {
     void add(String name, String phone) {
         pb.put(phone, name);
     }
-    
+
     List<String> get(String name) {
         List<String> list = new ArrayList<>();
         for (Map.Entry<String, String> entry : pb.entrySet())
