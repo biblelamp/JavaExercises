@@ -2,26 +2,45 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Nov 03, 2017
+ * @version 0.3 dated Nov 04, 2017
  */
 import java.util.*;
-//import hw3.*;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
+//import hw3.*; // old variant homework
 
 class HW3Lesson {
 
-    public static void main(String[] args) {
+    static final String TEXT = "If you really want to learn, and you want " +
+        "to learn more quickly and more deeply, pay attention to how you " +
+        "pay attention. Think about how you think. Learn how you learn.";
+    static final String FILE_NAME = "lesson3text.txt";
+
+    public static void main(String[] args) throws IOException {
+
+        // 1 task
         System.out.println("1. Counting words:");
-        сountWords();
+        сountWords(TEXT);
+
+        // read file to list
+        List<String> lines =
+            Files.readAllLines(Paths.get(FILE_NAME), StandardCharsets.UTF_8);
+
+        // convert List to Array and Array to string
+        String[] strings = new String[lines.size()];
+        strings = lines.toArray(strings);
+        сountWords(Arrays.toString(strings));
+
+        // 2 task
         System.out.println("\n2. Phone book:");
         testPhoneBook();
     }
 
-    static void сountWords() {
+    static void сountWords(String text) {
         Integer value;
         Map<String, Integer> hm = new TreeMap<>(); // HashMap better for speed
-        String text = "If you really want to learn, and you want to learn " +
-        "more quickly and more deeply, pay attention to how you pay " +
-        "attention. Think about how you think. Learn how you learn.";
         String[] words = text.toLowerCase().split("\\W+");
         for (String word : words) {
             value = hm.get(word);
