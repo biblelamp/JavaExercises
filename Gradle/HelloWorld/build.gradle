@@ -9,6 +9,11 @@
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+// To run compiled classes, using command: gradle run
+// @see https://docs.gradle.org/current/userguide/application_plugin.html
+apply plugin: 'application'
+mainClassName = "Main"
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
