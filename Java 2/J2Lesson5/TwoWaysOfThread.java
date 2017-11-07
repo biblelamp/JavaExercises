@@ -8,8 +8,10 @@
 class TwoWaysOfThread {
 
     public static void main(String args[]) {
-        Thread t1 = new Thread(new MyRunnableClass());
-        MyThread t2 = new MyThread();
+        Thread t1 = new Thread(new MyRunnableClass(), "Thread #1");
+        MyThread t2 = new MyThread("Thread #2");
+        System.out.println(t1.getName());
+        System.out.println(t2.getName());
         t1.start();
         t2.start();
         //t1.run();
@@ -31,6 +33,11 @@ class MyRunnableClass implements Runnable {
 }
 
 class MyThread extends Thread {
+
+    MyThread(String name) {
+        super(name);
+    }
+
     @Override
     public void run() {
         for (int i = 0; i < 10; i++)
