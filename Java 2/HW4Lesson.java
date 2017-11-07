@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 4. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jun 20, 2017
+ * @version 0.1.1 dated Nov 07, 2017
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -59,12 +59,10 @@ class HW4Lesson extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (message.getText().trim().length() > 0) {
             dialogue.append(message.getText() + "\n");
-            try {
-                PrintWriter pw =
-                    new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
+            try (PrintWriter pw =
+                    new PrintWriter(new FileWriter(LOG_FILE_NAME, true))) {
                 pw.println(message.getText());
                 pw.flush();
-                pw.close();
             } catch (IOException ex) { }
         }
         message.setText("");
