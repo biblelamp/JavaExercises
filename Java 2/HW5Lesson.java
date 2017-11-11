@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 5. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jun 24, 2017
+ * @version 0.2.1 dated Nov 11, 2017
  */
 import java.util.Arrays;
 
@@ -13,6 +13,7 @@ class HW5Lesson implements Runnable {
     float[] arr = new float[SIZE];
     float[] a1 = new float[HALF_SIZE];
     float[] a2 = new float[HALF_SIZE];
+    float testA65;
 
     public static void main(String[] args) {
         HW5Lesson hw = new HW5Lesson();
@@ -27,7 +28,7 @@ class HW5Lesson implements Runnable {
             arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) *
                 Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         System.out.println("Way 1 took " + (System.currentTimeMillis() - a) + " mc");
-        //System.out.println(Arrays.toString(arr));
+        testA65 = arr[HALF_SIZE + 65];
     }
 
     void doWithThreads() { // using two threads
@@ -46,9 +47,10 @@ class HW5Lesson implements Runnable {
         System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
         System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
         System.out.println("Way 2 took " + (System.currentTimeMillis() - a) + " mc");
-        //System.out.println(Arrays.toString(arr));
+        System.out.println(testA65 == arr[HALF_SIZE + 65]);
     }
 
+    @Override
     public void run() {
         for (int i = 0; i < HALF_SIZE; i++)
             if (Thread.currentThread().getName() == "one")
