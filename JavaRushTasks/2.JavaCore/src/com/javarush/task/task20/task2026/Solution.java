@@ -16,6 +16,14 @@ public class Solution {
     }
 
     public static int getRectangleCount(byte[][] a) {
-        return 0;
+        int rectangleCount = 0;
+        for (int y = 0; y < a.length; y++)
+            for (int x = 0; x < a[y].length; x++)
+                if (a[y][x] == 1)
+                    if ((x == 0 || a[y][x-1] == 0) && (y == 0 || a[y-1][x] == 0) &&
+                        (x == a[y].length - 1 || a[y][x+1] == 1 || a[y][x+1] == 0) &&
+                        (y == a.length - 1 || a[y+1][x] == 1 || a[y+1][x] == 0))
+                            rectangleCount++;
+        return rectangleCount;
     }
 }
