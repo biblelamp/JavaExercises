@@ -1,9 +1,9 @@
 /**
- * Java. Level 2. Lesson 7
+ * Java. Level 2. Lesson 6
  * Simple server for chat
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jun 28, 2017
+ * @version 0.1 dated Nov 18, 2017
  */
 import java.io.*;
 import java.net.*;
@@ -17,23 +17,19 @@ class SimpleServer {
     final String CLIENT_DISCONNECTED = " disconnected";
     final String EXIT_COMMAND = "exit"; // command for exit
 
-    int client_count = 0;
-    ServerSocket server;
-    Socket socket;
-
     public static void main(String[] args) {
         new SimpleServer();
     }
 
     SimpleServer() {
+        int clientCount = 0;
         System.out.println(SERVER_START);
         try {
-            server = new ServerSocket(SERVER_PORT);
+            ServerSocket server = new ServerSocket(SERVER_PORT);
             while (true) {
-                socket = server.accept();
-                client_count++;
-                System.out.println("#" + client_count + CLIENT_JOINED);
-                new Thread(new ClientHandler(socket)).start();
+                Socket socket = server.accept();
+                System.out.println("#" + (++clientCount) + CLIENT_JOINED);
+                new Thread(new ClientHandler(socket, clientCount)).start();
             } 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -50,13 +46,13 @@ class SimpleServer {
         Socket socket;
         String name;
 
-        ClientHandler(Socket clientSocket) {
+        ClientHandler(Socket clientSocket, int clientCount) {
             try {
                 socket = clientSocket;
                 reader = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
                 writer = new PrintWriter(socket.getOutputStream());
-                name = "Client #" + client_count;
+                name = "Client #" + clientCount;
             } catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
