@@ -1,9 +1,9 @@
 /**
- * Java. Level 2. Lesson 7
+ * Java. Level 2. Lesson 8
  * Simple server for chat
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Apr, 18 2017
+ * @version 0.3 dated Nov 18, 2017
  */
 import java.io.*;
 import java.net.*;
@@ -11,10 +11,7 @@ import java.sql.*;
 import java.util.*;
 
 class SimpleServer implements IConstants {
-
-    ServerSocket server;
-    Socket socket;
-    List<ClientHandler> clients;
+    List<ClientHandler> clients; // list of clients
 
     public static void main(String[] args) {
         new SimpleServer();
@@ -22,15 +19,15 @@ class SimpleServer implements IConstants {
 
     SimpleServer() {
         System.out.println(SERVER_START);
-        new Thread(new CommandHandler()).start();
-        clients = new ArrayList<>(); // list of clients
+        clients = new ArrayList<>();
         try {
-            server = new ServerSocket(SERVER_PORT);
+            ServerSocket server = new ServerSocket(SERVER_PORT);
+            new Thread(new CommandHandler(server)).start(); // server management commands
             while (true) {
-                socket = server.accept();
+                Socket socket = server.accept();
                 System.out.println("#" + (clients.size() + 1) + CLIENT_JOINED);
                 ClientHandler client = new ClientHandler(socket);
-                clients.add(client); // new client in list
+                clients.add(client); // adding new client in list
                 new Thread(client).start();
             }
         } catch (Exception ex) {
@@ -41,6 +38,12 @@ class SimpleServer implements IConstants {
 
     /**
      * checkAuthentication: check login and password
+     *
+     * @param  login for checking
+     * @param  passwd for checking
+     *
+     * @return if the pair login/passwd is found in the database,
+     *         authentication is successful
      */
     private boolean checkAuthentication(String login, String passwd) {
         Connection connect;
@@ -69,14 +72,20 @@ class SimpleServer implements IConstants {
      * CommandHandler: processing of commands from server console
      */
     class CommandHandler implements Runnable {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner;
+        ServerSocket server;
+
+        CommandHandler(ServerSocket server) {
+            this.server = server;
+            scanner = new Scanner(System.in);
+        }
 
         @Override
         public void run() {
             String command;
             do
                 command = scanner.nextLine();
-            while (!command.equals(EXIT_COMMAND));
+            while (!command.equalsIgnoreCase(EXIT_COMMAND));
             try {
                 server.close();
             } catch (Exception ex) {
@@ -88,7 +97,7 @@ class SimpleServer implements IConstants {
     /**
      * broadcastMsg: sending a message to all clients
      */
-    void broadcastMsg(String msg) {
+    private void broadcastMsg(String msg) {
         for (ClientHandler client : clients)
             client.sendMsg(msg);
     }
@@ -114,7 +123,7 @@ class SimpleServer implements IConstants {
             }
         }
 
-        void sendMsg(String msg) {
+        private void sendMsg(String msg) {
             try {
                 writer.println(msg);
                 writer.flush();
