@@ -3,7 +3,7 @@
  * Simple server for chat
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Nov 18, 2017
+ * @version 0.2.1 dated Nov 21, 2017
  */
 import java.io.*;
 import java.net.*;
@@ -41,22 +41,22 @@ class SimpleServer implements IConstants {
      *         authentication is successful
      */
     private boolean checkAuthentication(String login, String passwd) {
-        Connection connect;
         boolean result = false;
         try {
             // connect db
             Class.forName(DRIVER_NAME);
-            connect = DriverManager.getConnection(SQLITE_DB);
+            Connection connect = DriverManager.getConnection(SQLITE_DB);
             // looking for login && passwd in db
-            Statement stmt = connect.createStatement();
-            ResultSet rs = stmt.executeQuery(SQL_SELECT.replace("?", login));
+            PreparedStatement pstmt = connect.prepareStatement(SQL_SELECT);
+            pstmt.setString(1, login);
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next())
                 result = rs.getString(PASSWD_COL).equals(passwd);
             // close all
             rs.close();
-            stmt.close();
+            pstmt.close();
             connect.close();
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
             return false;
         }
