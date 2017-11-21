@@ -12,7 +12,7 @@ interface IConstants {
     final String PASSWD_PROMPT = "Passwd: ";
     final String AUTH_SIGN = "auth";
     final String AUTH_FAIL = "Authentication failure.";
-    final String SQL_SELECT = "SELECT * FROM users WHERE login = '?'";
+    final String SQL_SELECT = "SELECT * FROM users WHERE login=?";
     final String PASSWD_COL = "passwd";
     final String CONNECT_TO_SERVER = "Connection to server established.";
     final String CONNECT_CLOSED = "Connection closed.";
