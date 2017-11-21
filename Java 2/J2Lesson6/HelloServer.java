@@ -1,9 +1,9 @@
 /**
  * Java. Level 2. Lesson 6. Networking
- * Class HelloServer: send message to client
+ * Class HelloServer: send message to the client
  *
  * @author Sergey Iryupin
- * @version dated Nov 10, 2017
+ * @version dated Nov 21, 2017
  */
 import java.net.*;
 import java.io.*;
@@ -15,8 +15,7 @@ class HelloServer {
     }
 
     HelloServer() {
-        try {
-            ServerSocket server = new ServerSocket(1024); // more than 1023
+        try (ServerSocket server = new ServerSocket(1024)) {
             System.out.println("Server started.");
             while (true) {
                 Socket socket = server.accept();

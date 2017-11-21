@@ -3,7 +3,7 @@
  * Class HelloClient: connect and ge hello from server
  *
  * @author Sergey Iryupin
- * @version dated Nov 10, 2017
+ * @version dated Nov 21, 2017
  */
 import java.net.*;
 import java.io.*;
@@ -15,8 +15,7 @@ class HelloClient {
     }
 
     HelloClient() {
-        try {
-            Socket socket = new Socket("127.0.0.1", 1024); // or localhost
+        try (Socket socket = new Socket("127.0.0.1", 1024)) {
             BufferedReader reader = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
             System.out.println(reader.readLine());
