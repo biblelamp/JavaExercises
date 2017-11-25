@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 1. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Sep 30, 2017
+ * @version dated Nov 25, 2017
  */
 class HW1Lesson {
 
@@ -11,6 +11,8 @@ class HW1Lesson {
         createVariable();
         // call for task №3
         System.out.println(calculate(1, 2, 3, 4));
+        System.out.println(calculate(1, 2, 3, 0));
+        System.out.println(calculate(1, 2, 0, 0));
 
         // tests for task №4
         System.out.println(checkSum(5, 3));
@@ -40,10 +42,10 @@ class HW1Lesson {
      *    byte, short, int, long, float, double, char, boolean, string
      */
     static void createVariable() {
-        byte    b = 127;
-        short   s = 1024; // 2^8
-        int     i = 65536; // 2^16
-        long    l = 4294967296L; // 2^32
+        byte    b = Byte.MAX_VALUE;    // 2^7 - 1
+        short   s = Short.MAX_VALUE;   // 2^15 - 1
+        int     i = Integer.MAX_VALUE; // 2^31 - 1
+        long    l = Long.MAX_VALUE;    // 2^63 - 1
         float   f = 123.45F;
         double  d = 567.89;
         char    c = 'a';
@@ -55,8 +57,7 @@ class HW1Lesson {
      * 3. Написать метод вычисляющий выражение a * (b + (c / d)) и возвращающий
      *    результат, где a, b, c, d – входные параметры этого метода
      */
-    static float calculate(float a, float b, float c, float d) {
-        if (d == 0) return 0;
+    static double calculate(double a, double b, double c, double d) {
         return a * (b + (c / d));
     }
 
