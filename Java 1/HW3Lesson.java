@@ -2,9 +2,10 @@
  * Java. Level 1. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Oct 07, 2017
+ * @version dated Dec 01, 2017
  */
 import java.util.*;
+import java.io.*;
 
 class HW3Lesson {
     static Random random = new Random();
@@ -14,8 +15,7 @@ class HW3Lesson {
         while (true) {
             System.out.print("Make a choice:\n"+
                 "1. Guess the Number\n2. Guess the Word\n3. Exit\n: ");
-            String choice = sc.next();
-            switch (choice) {
+            switch (sc.next()) {
                 case "1":
                     guessTheNumber();
                     break;
@@ -36,7 +36,6 @@ class HW3Lesson {
      *    «Повторить игру еще раз? 1 – да / 0 – нет» (1 – повторить, 0 – нет).
      */
     static void guessTheNumber() {
-        String repeat = "0";
         do {
             int count = 0;
             int guess = -1;
@@ -61,12 +60,11 @@ class HW3Lesson {
             if (count == 3)
                 System.out.println("You lost!");
             System.out.print("Repeat the game?\n[1 - yes / 0 - no]: ");
-            repeat = sc.next();
-        } while (repeat.equals("1"));
+        } while (sc.next().equals("1"));
     }
 
     /**
-     * 2. * Создать массив из слов
+     * 2. * Прочитать массив слов из файла
      *      String[] words = {"apple", "orange", "lemon", "banana", "apricot",
      *      "avocado", "broccoli", "carrot", "cherry", "garlic", "grape",
      *      "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive",
@@ -86,12 +84,12 @@ class HW3Lesson {
      *    используем только маленькие буквы
      */
     static void guessTheWord() {
-        String[] words = {
-            "apple", "orange", "lemon", "banana", "apricot",
+        String[] words = readFromFile(new File("hw3text.txt"));
+         /*{"apple", "orange", "lemon", "banana", "apricot",
             "avocado", "broccoli", "carrot", "cherry", "garlic",
             "grape", "melon", "leak", "kiwi", "mango",
             "mushroom", "nut", "olive", "pea", "peanut",
-            "pear", "pepper", "pineapple", "pumpkin", "potato"};
+            "pear", "pepper", "pineapple", "pumpkin", "potato"};*/
         String guess = null;
         String word = words[random.nextInt(words.length)];
         System.out.println(Arrays.toString(words));
@@ -105,5 +103,17 @@ class HW3Lesson {
                     word.charAt(i) : ((word.equals(guess))? "" : "#"));
             System.out.println();
         } while (!word.equals(guess));
+    }
+
+    /**
+     * read text file to array using Scanner + StringBuffer
+     */
+    static String[] readFromFile(File file) {
+        StringBuffer str = new StringBuffer();
+        try (Scanner read = new Scanner(file)) {
+            while (read.hasNext())
+                str.append(read.nextLine() + "\n");
+        } catch (IOException ex) {}
+        return str.toString().split("\n");
     }
 }
