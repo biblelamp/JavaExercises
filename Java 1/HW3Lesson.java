@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Dec 01, 2017
+ * @version dated Dec 02, 2017
  */
 import java.util.*;
 import java.io.*;
@@ -97,23 +97,27 @@ class HW3Lesson {
             System.out.print("Guess the word: ");
             guess = sc.next();
             for (int i = 0; i < 15; i++)
-                System.out.print(
-                    (i < word.length() && i < guess.length() 
-                        && word.charAt(i) == guess.charAt(i))?
-                    word.charAt(i) : ((word.equals(guess))? "" : "#"));
+                if (i < word.length() && i < guess.length() &&
+                        word.charAt(i) == guess.charAt(i))
+                    System.out.print(word.charAt(i));
+                else
+                    System.out.print((word.equals(guess))? "" : "#");
             System.out.println();
         } while (!word.equals(guess));
     }
 
     /**
-     * read text file to array using Scanner + StringBuffer
+     * reading text file to array using Scanner
+     *
+     * @param   file     object File for reading
+     * @return  String[] array from file
      */
     static String[] readFromFile(File file) {
-        StringBuffer str = new StringBuffer();
+        String str = "";
         try (Scanner read = new Scanner(file)) {
             while (read.hasNext())
-                str.append(read.nextLine() + "\n");
+                str += read.nextLine() + "\n";
         } catch (IOException ex) {}
-        return str.toString().split("\n");
+        return str.split("\n");
     }
 }
