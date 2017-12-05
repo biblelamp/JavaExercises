@@ -3,3 +3,6 @@
 *.life
 *.ctxt
 *.bluej
+target
+*.iml
+.idea
