@@ -4,5 +4,7 @@
 *.ctxt
 *.bluej
 target
+build
 *.iml
 .idea
+.gradle
