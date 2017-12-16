@@ -6,10 +6,20 @@
     <property name="build" location="build"/>
     <property name="classes" location="${build}/classes"/>
 
+    <!-- define place with files for junit -->
+    <path id="junit.path">
+        <!-- put there two jar files junit & hamcrest-core -->
+        <fileset dir="${ant.library.dir}\junit">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
     <!-- compile java file(s) to class file(s) -->
     <target name="compile">
         <mkdir dir="${classes}"/>
-        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
+        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false">
+            <classpath refid="junit.path" />
+        </javac>
     </target>
 
     <!-- run class file(s) -->
@@ -20,6 +30,7 @@
     <!-- junit test -->
     <target name="test" depends="compile">
         <junit printsummary="on">
+            <classpath refid="junit.path" />
             <classpath>
                 <pathelement location="${classes}"/>
             </classpath>
