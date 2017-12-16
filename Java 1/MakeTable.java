@@ -2,7 +2,7 @@
  * Java. Making a table of hw results
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Dec 10, 2017
+ * @version 0.2.1 dated Dec 16, 2017
  */
 import java.io.*;
 import java.util.*;
@@ -78,9 +78,13 @@ class MakeTable {
         for (int i = 1; i < table[row].length; i++)
             if (table[row][i] != null)
                 switch (table[row][i]) {
+                    case "":
+                    case "null":
+                        break;
                     case "weak":
                     case "overdue": result += 3;
                         break;
+                    case "medium":
                     case "middle": result += 4;
                         break;
                     case "good": result += 5;
