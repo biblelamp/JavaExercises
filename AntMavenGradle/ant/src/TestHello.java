@@ -1,4 +1,4 @@
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestHello {
@@ -6,6 +6,6 @@ public class TestHello {
     @Test
     public void testHello() {
         HelloWorld hello = new HelloWorld();
-        assertEquals("Hello, World!", hello.sayHello());
+        Assert.assertEquals("Hello, World!", hello.sayHello());
     }
 }
