@@ -28,6 +28,7 @@ JDK, JRE, JVM. Установка JDK, программа HelloWorld, понят
 
 Git, быстрый старт. Курс https://geekbrains.ru/courses/66
 Apache Ant: быстрый старт. Вебинар https://geekbrains.ru/events/517
+Сборка Java проектов: быстрый взгляд на Ant, Maven и Gradle. Вебинар https://geekbrains.ru/events/758
 
 Прочитанная дополнительная литература (одна из книг по выбору):
 
