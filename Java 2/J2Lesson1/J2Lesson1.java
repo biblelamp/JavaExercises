@@ -1,7 +1,7 @@
 import animals.*;
 import obstacles.*;
 /**
- * Write a description of class J2Lesson1 here.
+ * Java 2. Lesson 1. Main class
  *
  * @author Sergey Iryupin
  * @version dated Dec 19, 2017

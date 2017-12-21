@@ -5,7 +5,7 @@ package animals;
  * @author (your name here)
  * @version (version number or date here)
  */
-public abstract class Animal {
+public abstract class Animal implements Runable {
     protected String name;
     protected int run_limit;
 
