@@ -1,5 +1,5 @@
 import animals.*;
-import obstances.*;
+import obstacles.*;
 /**
  * Write a description of class Main here.
  *

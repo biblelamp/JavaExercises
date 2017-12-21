@@ -1,4 +1,4 @@
-package obstances;
+package obstacles;
 import animals.*;
 /**
  * Write a description of class Water here.
