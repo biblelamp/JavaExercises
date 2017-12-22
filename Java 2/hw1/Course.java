@@ -1,10 +1,10 @@
 /**
  * Java. Level 2. Lesson 1. Example of homework
  * Class Course:
- *   contains array of obstances
+ *   contains array of obstacles
  */
 package hw1;
-import hw1.obstances.*;
+import hw1.obstacles.*;
 import java.util.*;
 
 public class Course {

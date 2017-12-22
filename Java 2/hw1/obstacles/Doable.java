@@ -1,4 +1,4 @@
-package hw1.obstances;
+package hw1.obstacles;
 import hw1.animals.*;
 /**
  * Interface Doable

@@ -5,7 +5,7 @@
  */
 package hw1;
 import hw1.animals.*;
-import hw1.obstances.*;
+import hw1.obstacles.*;
 import java.util.*;
 
 public class Team {
