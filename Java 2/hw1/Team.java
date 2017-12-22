@@ -9,13 +9,12 @@ import hw1.obstacles.*;
 import java.util.*;
 
 public class Team {
-    private Animal[] animals;
     private String name;
+    private Animal[] animals;
     private String result;
 
     public Team(String name, Animal[] animals) {
         this.name = name;
-        this.animals = new Animal[animals.length];
         this.animals = animals;
         result = "";
     }

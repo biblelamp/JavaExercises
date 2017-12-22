@@ -8,20 +8,19 @@ import hw1.obstacles.*;
 import java.util.*;
 
 public class Course {
-    Doable[] course;
+    Doable[] obstacles;
 
-    public Course(Doable[] objects) {
-        course = new Doable[objects.length];
-        course = objects;
+    public Course(Doable[] obstacles) {
+        this.obstacles = obstacles;
     }
 
     public void doIt(Team team) {
-        for (Doable obstacle : course)
+        for (Doable obstacle : obstacles)
             team.doIt(obstacle);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(course);
+        return Arrays.toString(obstacles);
     }
 }
