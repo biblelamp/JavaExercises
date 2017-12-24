@@ -2,7 +2,7 @@
  * Java. Making a table of hw results
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Dec 16, 2017
+ * @version 0.2.2 dated Dec 24, 2017
  */
 import java.io.*;
 import java.util.*;
@@ -102,11 +102,8 @@ class MakeTable {
     @Override
     public String toString() {
         String result = "";
-        for (int i = 0; i < table.length; i++) {
-            if (table[i][0] == null)
-                break;
+        for (int i = 0; i < table.length && table[i][0] != null; i++)
             result += Arrays.toString(table[i]) + " " + countPoints(i) + "\n";
-        }
         return result;
     }
 }
