@@ -3,7 +3,7 @@
  * Examples for lesson
  *
  * @author Sergey Iryupin
- * @version dated Sep 05, 2017
+ * @version dated Dec 26, 2017
  */
 import java.util.*;
 
@@ -25,9 +25,11 @@ class J2Lesson3 {
         list.add("C");
         list.add("D");
         list.add("E");
-        list.add(1,"A0");
+        System.out.println(list);
+        list.add(1, "A1");
         System.out.println(list);
         list.remove("E");
+        System.out.println("We'll remove " + list.get(2));
         list.remove(2);
         System.out.println(list);
     }
