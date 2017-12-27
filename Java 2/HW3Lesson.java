@@ -2,10 +2,11 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Nov 04, 2017
+ * @version 0.3.1 dated Dec 27, 2017
  */
 import java.util.*;
 import java.io.IOException;
+import java.io.FileWriter;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
@@ -58,9 +59,9 @@ class HW3Lesson {
         spb.add("Luke", "863 243 2803");
         spb.add("John", "863 240 2704");
         spb.add("Luke", "863 248 4512");
-        System.out.println(spb);
         System.out.println("Phones of Luke's:");
         System.out.println(spb.get("Luke"));
+        spb.export("phonebook.txt");
         /*
         PhoneBook pb = new PhoneBook();
         pb.addRecord("John", new PhoneRecord("234-22-12", "john@mail.com"));
@@ -92,6 +93,14 @@ class SimplePhoneBook {
             if (name.equals(entry.getValue()))
                 list.add(entry.getKey());
         return list;
+    }
+
+    void export(String fileName) {
+        try (FileWriter file = new FileWriter(fileName)) {
+            file.write(toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
