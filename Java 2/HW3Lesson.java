@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Dec 28, 2017
+ * @version 0.3.3 dated Dec 28, 2017
  */
 import java.util.*;
 import java.io.IOException;
@@ -65,7 +65,7 @@ class HW3Lesson {
         spb.add("Luke", "863 248 4512");
         System.out.println("Phones of Luke's:");
         System.out.println(spb.get("Luke"));
-        spb.exportXML("phonebook.xml");
+        spb.exportXMLManually("phonebook.xml");
         /*
         PhoneBook pb = new PhoneBook();
         pb.addRecord("John", new PhoneRecord("234-22-12", "john@mail.com"));
@@ -109,6 +109,7 @@ class SimplePhoneBook {
 
     // @see https://docs.oracle.com/cd/E13222_01/wls/docs100/xml/stax.html
     // @see http://technojeeves.com/index.php/54-serialize-a-java-collection-with-the-streaming-api
+    // write using the Streaming API for XML (StAX)
     void exportXML(String fileName) {
         try (BufferedWriter file = new BufferedWriter(
                 new OutputStreamWriter(
@@ -133,9 +134,9 @@ class SimplePhoneBook {
             for (Map.Entry<String, String> e : pb.entrySet()) {
                 xsw.writeCharacters("\t");
                 xsw.writeStartElement("phone");
-                xsw.writeAttribute("name", e.getValue().toString());
-                //xsw.writeAttribute("key", e.getKey().toString());
-                xsw.writeCharacters(e.getKey().toString());
+                xsw.writeAttribute("name", e.getValue());
+                //xsw.writeAttribute("key", e.getKey());
+                xsw.writeCharacters(e.getKey());
                 xsw.writeEndElement();
                 xsw.writeCharacters("\n");
             }
@@ -144,6 +145,26 @@ class SimplePhoneBook {
             xsw.writeEndDocument();
             xsw.close();
         } catch (XMLStreamException | IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    // write to XML manually
+    void exportXMLManually(String fileName) {
+        try (BufferedWriter file = new BufferedWriter(
+                new OutputStreamWriter(
+                new FileOutputStream(fileName), "UTF8"))) {
+
+            // write the default XML declaration, comment and root element
+            file.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            file.write("<!--This is a phone book-->\n");
+            file.write("<phones>\n");
+            // write all records as list of entry
+            for (Map.Entry<String, String> e : pb.entrySet())
+                file.write("\t<phone name=\"" + e.getValue() + "\">" +
+                    e.getKey() + "</phone>\n");
+            file.write("</phones>\n");
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
