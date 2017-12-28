@@ -2,14 +2,18 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Dec 27, 2017
+ * @version 0.3.2 dated Dec 28, 2017
  */
 import java.util.*;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.BufferedWriter;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
+import javax.xml.stream.*;
 //import hw3.*; // old variant homework
 
 class HW3Lesson {
@@ -61,7 +65,7 @@ class HW3Lesson {
         spb.add("Luke", "863 248 4512");
         System.out.println("Phones of Luke's:");
         System.out.println(spb.get("Luke"));
-        spb.export("phonebook.txt");
+        spb.exportXML("phonebook.xml");
         /*
         PhoneBook pb = new PhoneBook();
         pb.addRecord("John", new PhoneRecord("234-22-12", "john@mail.com"));
@@ -100,6 +104,47 @@ class SimplePhoneBook {
             file.write(toString());
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    // @see https://docs.oracle.com/cd/E13222_01/wls/docs100/xml/stax.html
+    // @see http://technojeeves.com/index.php/54-serialize-a-java-collection-with-the-streaming-api
+    void exportXML(String fileName) {
+        try (BufferedWriter file = new BufferedWriter(
+                new OutputStreamWriter(
+                new FileOutputStream(fileName), "UTF8"))) {
+            XMLStreamWriter xsw = XMLOutputFactory
+                .newInstance()
+                .createXMLStreamWriter(file);
+
+            // write the default XML declaration
+            xsw.writeStartDocument("utf-8", "1.0");
+            xsw.writeCharacters("\n");
+
+            // write a comment
+            xsw.writeComment("This is a phone book");
+            xsw.writeCharacters("\n");
+
+            // write the root element "phones"
+            xsw.writeStartElement("phones");
+            xsw.writeCharacters("\n");
+            
+            // write all records as list of entry
+            for (Map.Entry<String, String> e : pb.entrySet()) {
+                xsw.writeCharacters("\t");
+                xsw.writeStartElement("phone");
+                xsw.writeAttribute("name", e.getValue().toString());
+                //xsw.writeAttribute("key", e.getKey().toString());
+                xsw.writeCharacters(e.getKey().toString());
+                xsw.writeEndElement();
+                xsw.writeCharacters("\n");
+            }
+            xsw.writeEndElement();
+            xsw.writeCharacters("\n");
+            xsw.writeEndDocument();
+            xsw.close();
+        } catch (XMLStreamException | IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
