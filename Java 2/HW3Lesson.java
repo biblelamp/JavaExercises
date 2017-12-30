@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 3. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated Dec 28, 2017
+ * @version 0.3.4 dated Dec 30, 2017
  */
 import java.util.*;
 import java.io.IOException;
@@ -48,8 +48,9 @@ class HW3Lesson {
         Map<String, Integer> hm = new TreeMap<>(); // HashMap better for speed
         String[] words = text.toLowerCase().split("\\W+");
         for (String word : words) {
-            value = hm.get(word);
-            hm.put(word, ((value == null)? 1 : value + 1));
+            //value = hm.get(word);
+            //hm.put(word, ((value == null)? 1 : value + 1));
+            hm.put(word, hm.getOrDefault(word, 0) + 1);
         }
         System.out.println(hm);
         System.out.println("The phrase has " + words.length + " words and " +
@@ -65,6 +66,7 @@ class HW3Lesson {
         spb.add("Luke", "863 248 4512");
         System.out.println("Phones of Luke's:");
         System.out.println(spb.get("Luke"));
+        System.out.println(spb);
         spb.exportXMLManually("phonebook.xml");
         /*
         PhoneBook pb = new PhoneBook();
