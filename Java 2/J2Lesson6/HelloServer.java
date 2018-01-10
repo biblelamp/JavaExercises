@@ -16,7 +16,7 @@ class HelloServer {
 
     HelloServer() {
         try (ServerSocket server = new ServerSocket(1024)) {
-            String ipAddress = InetAddress.getLocalHost().getHostAddress();
+            String ipAddress = getPublicIP();
             System.out.println("Server started on IP " + ipAddress);
             while (true) {
                 Socket socket = server.accept();
@@ -28,5 +28,12 @@ class HelloServer {
         } catch (IOException ex) {
             System.out.println(ex);
         }
+    }
+
+    private String getPublicIP() throws IOException {
+        URL checkURL = new URL("http://checkip.amazonaws.com");
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(checkURL.openStream()));
+        return reader.readLine();
     }
 }
