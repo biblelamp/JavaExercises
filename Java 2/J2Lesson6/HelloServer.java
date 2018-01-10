@@ -1,9 +1,9 @@
 /**
  * Java. Level 2. Lesson 6. Networking
- * Class HelloServer: send message to the client
+ * Class HelloServer: waiting and sending message to the client
  *
  * @author Sergey Iryupin
- * @version dated Nov 21, 2017
+ * @version dated Jan 10, 2018
  */
 import java.net.*;
 import java.io.*;
@@ -16,12 +16,13 @@ class HelloServer {
 
     HelloServer() {
         try (ServerSocket server = new ServerSocket(1024)) {
-            System.out.println("Server started.");
+            String ipAddress = InetAddress.getLocalHost().getHostAddress();
+            System.out.println("Server started on IP " + ipAddress);
             while (true) {
                 Socket socket = server.accept();
                 PrintWriter writer = new PrintWriter(socket.getOutputStream());
-                writer.println("Server says: Hello");
-                System.out.println("Message was sent to the client.");
+                writer.println("Server from IP " + ipAddress + " says: Hello");
+                System.out.println("Message sent to client.");
                 writer.close();
             }
         } catch (IOException ex) {
