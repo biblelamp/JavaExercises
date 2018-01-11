@@ -2,7 +2,7 @@
  * Java. Making a table of hw results
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Dec 24, 2017
+ * @version 0.2.3 dated Jan 10, 2018
  */
 import java.io.*;
 import java.util.*;
@@ -12,8 +12,8 @@ class MakeTable {
     final int ROWS = 50;
     final int COLUMNS = 9;
     final String CHECKED_FOLDER =
-    "C:\\Users\\lamp\\YandexDisk\\Учебники\\Java\\ДЗ\\11 Группа";
-    //"C:\\Documents and Settings\\SIrupin.DRF\\YandexDisk\\Учебники\\Java\\ДЗ\\11 Группа";
+    //"C:\\Users\\lamp\\YandexDisk\\Учебники\\Java\\ДЗ\\11 Группа";
+    "C:\\Documents and Settings\\SIrupin.DRF\\YandexDisk\\Учебники\\Java\\ДЗ\\12 Группа";
     String[][] table = new String[50][COLUMNS];
 
     public static void main(String[] args) {
@@ -81,17 +81,23 @@ class MakeTable {
                     case "":
                     case "null":
                         break;
-                    case "weak":
-                    case "overdue": result += 3;
+                    case "weak": result += 3;
+                        break;
+                    case "overdue": result += 3.5;
                         break;
                     case "medium":
                     case "middle": result += 4;
+                        break;
+                    case "medium+":
+                    case "middle+": result += 4.5;
                         break;
                     case "good": result += 5;
                         break;
                     case "good+": result += 5.5;
                         break;
                     case "excellent": result += 6;
+                        break;
+                    case "excellent+": result += 6.5;
                         break;
                     default: System.out.println("Unknown mark '" +
                         table[row][i] + "' in " + row + ":" + i);
