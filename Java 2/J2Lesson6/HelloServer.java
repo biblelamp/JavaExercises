@@ -3,7 +3,7 @@
  * Class HelloServer: waiting and sending message to the client
  *
  * @author Sergey Iryupin
- * @version dated Jan 10, 2018
+ * @version dated Jan 12, 2018
  */
 import java.net.*;
 import java.io.*;
@@ -16,7 +16,7 @@ class HelloServer {
 
     HelloServer() {
         try (ServerSocket server = new ServerSocket(1024)) {
-            String ipAddress = getPublicIP();
+            String ipAddress = getPublicIP("http://checkip.amazonaws.com");
             System.out.println("Server started on IP " + ipAddress);
             while (true) {
                 Socket socket = server.accept();
@@ -30,8 +30,8 @@ class HelloServer {
         }
     }
 
-    private String getPublicIP() throws IOException {
-        URL checkURL = new URL("http://checkip.amazonaws.com");
+    private String getPublicIP(String url) throws IOException {
+        URL checkURL = new URL(url);
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(checkURL.openStream()));
         return reader.readLine();
