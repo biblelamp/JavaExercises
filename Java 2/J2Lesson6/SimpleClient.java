@@ -3,7 +3,7 @@
  * Simple chat client
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jun 28, 2017
+ * @version 0.1 dated Jan 13, 2018
  */
 import java.io.*;
 import java.net.*;
@@ -18,20 +18,15 @@ class SimpleClient {
     final String CONNECT_CLOSED = "Connection closed.";
     final String EXIT_COMMAND = "exit"; // command for exit
 
-    Socket socket;
-    Scanner scanner;
-    PrintWriter writer;
-    String message;
-
     public static void main(String[] args) {
         new SimpleClient();
     }
 
     SimpleClient() {
-        scanner = new Scanner(System.in); // for keyboard input
-        try {
-            socket = new Socket(SERVER_ADDR, SERVER_PORT);
-            writer = new PrintWriter(socket.getOutputStream());
+        String message;
+        try (Socket socket = new Socket(SERVER_ADDR, SERVER_PORT);
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            Scanner scanner = new Scanner(System.in)) {
             System.out.println(CONNECT_TO_SERVER);
             do {
                 System.out.print(CLIENT_PROMPT);
@@ -39,8 +34,6 @@ class SimpleClient {
                 writer.println(message);
                 writer.flush();
             } while (!message.equals(EXIT_COMMAND));
-            writer.close();
-            socket.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
