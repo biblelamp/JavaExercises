@@ -3,7 +3,7 @@
  * Simple server for chat
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Nov 18, 2017
+ * @version 0.1 dated Jan 13, 2018
  */
 import java.io.*;
 import java.net.*;
@@ -24,8 +24,7 @@ class SimpleServer {
     SimpleServer() {
         int clientCount = 0;
         System.out.println(SERVER_START);
-        try {
-            ServerSocket server = new ServerSocket(SERVER_PORT);
+        try (ServerSocket server = new ServerSocket(SERVER_PORT)) {
             while (true) {
                 Socket socket = server.accept();
                 System.out.println("#" + (++clientCount) + CLIENT_JOINED);
