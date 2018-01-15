@@ -2,7 +2,7 @@
  * Java. Making a table of hw results
  *
  * @author Sergey Iryupin
- * @version 0.2.3 dated Jan 10, 2018
+ * @version 0.2.4 dated Jan 15, 2018
  */
 import java.io.*;
 import java.util.*;
@@ -11,6 +11,7 @@ class MakeTable {
 
     final int ROWS = 50;
     final int COLUMNS = 9;
+    final String DELIMITER = "-";
     final String CHECKED_FOLDER =
     //"C:\\Users\\lamp\\YandexDisk\\Учебники\\Java\\ДЗ\\11 Группа";
     "C:\\Documents and Settings\\SIrupin.DRF\\YandexDisk\\Учебники\\Java\\ДЗ\\12 Группа";
@@ -44,7 +45,9 @@ class MakeTable {
     }
 
     void addRecord(String str, int num) {
-        String[] pair = str.split("-");
+        if (str.indexOf(DELIMITER) < 0)
+            str += DELIMITER + " ";
+        String[] pair = str.split(DELIMITER);
         for (int i = 0; i < table.length; i++) {
             if (table[i][0] == null) {
                 table[i][0] = pair[0].trim();
