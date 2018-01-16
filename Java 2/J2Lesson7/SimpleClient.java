@@ -1,44 +1,42 @@
 /**
  * Java. Level 2. Lesson 7
- * Simple chat client
+ * Simple chat client v2
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Apr, 14 2017
+ * @version 0.2.1 dated Jan 16, 2018
  */
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.net.Socket;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 class SimpleClient implements IConstants {
-
-    Socket socket;
-    PrintWriter writer;
-    BufferedReader reader;
-    Scanner scanner;
-    String message;
 
     public static void main(String[] args) {
         new SimpleClient();
     }
 
     SimpleClient() {
-        scanner = new Scanner(System.in);
-        System.out.println(CONNECT_TO_SERVER);
-        try {
-            socket = new Socket(SERVER_ADDR, SERVER_PORT);
-            writer = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader(
+        String message;
+        try (Socket socket = new Socket(SERVER_ADDR, SERVER_PORT);
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            BufferedReader reader = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
-            writer.println(getLoginAndPassword()); // send: auth <login> <passwd>
+            Scanner scanner = new Scanner(System.in)) {
+            System.out.println(CONNECT_TO_SERVER);
+            // sending: auth <login> <passwd>
+            writer.println(getLoginAndPassword(scanner));
             writer.flush();
-            new Thread(new ServerListener()).start();
+            new Thread(new ServerListener(reader)).start();
             do {
                 message = scanner.nextLine();
                 writer.println(message);
                 writer.flush();
             } while (!message.equals(EXIT_COMMAND));
             socket.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         System.out.println(CONNECT_CLOSED);
@@ -47,7 +45,7 @@ class SimpleClient implements IConstants {
     /**
      * getLoginAndPassword: read login and password from keyboard
      */
-    String getLoginAndPassword() {
+    private String getLoginAndPassword(Scanner scanner) {
         System.out.print(LOGIN_PROMPT);
         String login = scanner.nextLine();
         System.out.print(PASSWD_PROMPT);
@@ -58,8 +56,15 @@ class SimpleClient implements IConstants {
      * ServerListener: get messages from Server
      */
     class ServerListener implements Runnable {
+        BufferedReader reader;
+
+        ServerListener(BufferedReader reader) {
+            this.reader = reader;
+        }
+
         @Override
         public void run() {
+            String message;
             try {
                 while ((message = reader.readLine()) != null) {
                     System.out.print(message.equals("\0")?
@@ -67,7 +72,7 @@ class SimpleClient implements IConstants {
                     if (message.equals(AUTH_FAIL))
                         System.exit(-1); // terminate client
                 }
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
