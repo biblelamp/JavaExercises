@@ -3,11 +3,12 @@
  * Simple chat client
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 13, 2018
+ * @version 0.1 dated Jan 16, 2018
  */
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.net.Socket;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 class SimpleClient {
 
@@ -34,7 +35,7 @@ class SimpleClient {
                 writer.println(message);
                 writer.flush();
             } while (!message.equals(EXIT_COMMAND));
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         System.out.println(CONNECT_CLOSED);
