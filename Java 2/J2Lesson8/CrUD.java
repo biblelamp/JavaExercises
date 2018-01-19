@@ -1,24 +1,27 @@
 /**
  * Java. Level 2. Lesson 8
- * CrUD — Create, Update, Delete
+ * CRUD — Create, Read, Update, Delete
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Sep 23, 2017
+ * @version 0.2 dated Jan 19, 2018
  */
 import java.util.*;
 import java.sql.*;
 
-class CrUD implements IConstants {
+class CRUD implements IConstants {
 
-    final String TABLE_NAME = "users";
-    final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+    final String NAME_TABLE = "users";
+    final String SQL_CREATE_TABLE =
+        "DROP TABLE IF EXISTS " + NAME_TABLE + ";" +
+        "CREATE TABLE " + NAME_TABLE +
         "(login  CHAR(6) PRIMARY KEY NOT NULL," +
         " passwd CHAR(6) NOT NULL);";
-    final String SQL_SELECT = "SELECT * FROM " + TABLE_NAME + ";";
+    final String SQL_SELECT = "SELECT * FROM " + NAME_TABLE + ";";
+    final String DB_CREATED = "Darabase created.";
     final String RECORD_ADDED = "Record added.";
     final String RECORD_DELETED = "Record deleted.";
     final String RECORD_UPDATED = "Record updated.";
-    final String UNKNOWN_COMMAND = "Unknown command, use [-a-,-u,-d,-l] only.";
+    final String UNKNOWN_COMMAND = "Unknown command, use [-c,-a,-r,-u,-d] only.";
     final String LOGIN_COL = "login";
 
     Connection connect;
@@ -27,10 +30,10 @@ class CrUD implements IConstants {
     String sql;
 
     public static void main(String[] args) {
-        new CrUD(args);
+        new CRUD(args);
     }
 
-    CrUD(String[] args) {
+    CRUD(String[] args) {
         if (args.length == 0) {
             Scanner sc = new Scanner(System.in);
             System.out.print("> ");
@@ -38,30 +41,37 @@ class CrUD implements IConstants {
             args = line.split(" ");
         }
 
-        if (args[0].equals("-a")) {
-            openDBFile(SQLITE_DB);
-            createTable(SQL_CREATE_TABLE);
-            add(args[1], args[2]);
-            System.out.println(RECORD_ADDED);
-        } else
-            if (args[0].equals("-u")) {
-            openDBFile(SQLITE_DB);
-            update(args[1], args[2]);
-            System.out.println(RECORD_UPDATED);
-        } else
-            if (args[0].equals("-d")) {
-            openDBFile(SQLITE_DB);
-            delete(args[1]);
-            System.out.println(RECORD_DELETED);
-        } else
-            if (args[0].equals("-l")) {
-            openDBFile(SQLITE_DB);
-            list();
-        } else
-            System.out.println(UNKNOWN_COMMAND);
+        switch (args[0]) {
+            case "-c": 
+                openDBFile(SQLITE_DB)
+                    .createTable(SQL_CREATE_TABLE);
+                System.out.println(DB_CREATED);
+                break;
+            case "-a": 
+                openDBFile(SQLITE_DB)
+                    .add(args[1], args[2]);
+                System.out.println(RECORD_ADDED);
+                break;
+            case "-r": 
+                openDBFile(SQLITE_DB)
+                    .list();
+                break;
+            case "-u": 
+                openDBFile(SQLITE_DB)
+                    .update(args[1], args[2]);
+                System.out.println(RECORD_UPDATED);
+                break;
+            case "-d": 
+                openDBFile(SQLITE_DB)
+                    .delete(args[1]);
+                System.out.println(RECORD_DELETED);
+                break;
+            default:
+                System.out.println(UNKNOWN_COMMAND);
+        }
     }
 
-    void openDBFile(String dbName) { // open database
+    private CRUD openDBFile(String dbName) { // open/create database
         try {
             Class.forName(DRIVER_NAME);
             connect = DriverManager.getConnection(dbName);
@@ -69,9 +79,10 @@ class CrUD implements IConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
     }
 
-    void createTable(String sqlCreateTable) { // create table
+    private void createTable(String sqlCreateTable) { // create table
         try {
             stmt.executeUpdate(sqlCreateTable);
         } catch (Exception e) { 
@@ -79,9 +90,9 @@ class CrUD implements IConstants {
         }
     }
 
-    void add(String login, String passwd) { // add record
+    private void add(String login, String passwd) { // add record
         try {
-            stmt.executeUpdate("INSERT INTO " + TABLE_NAME +
+            stmt.executeUpdate("INSERT INTO " + NAME_TABLE +
                 " (login, passwd) " +
                 "VALUES ('" + login + "', '" + passwd + "');");
         } catch (Exception e) {
@@ -89,9 +100,9 @@ class CrUD implements IConstants {
         }
     }
 
-    void update(String login, String passwd) { // update record/passwd by login
+    private void update(String login, String passwd) { // update passwd by login
         try {
-            stmt.executeUpdate("UPDATE " + TABLE_NAME +
+            stmt.executeUpdate("UPDATE " + NAME_TABLE +
                 " set PASSWD='" + passwd +
                 "' where LOGIN='" + login + "';");
         } catch (Exception e) {
@@ -99,21 +110,22 @@ class CrUD implements IConstants {
         }
     }
 
-    void delete(String login) { // delete record by login
+    private void delete(String login) { // delete record by login
         try {
-            stmt.executeUpdate("DELETE from " + TABLE_NAME +
+            stmt.executeUpdate("DELETE from " + NAME_TABLE +
                 " where LOGIN='" + login + "';");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    void list() { // list all records
+    private void list() { // show all records
         try {
-            System.out.println("LOGIN\tPASSWD");
+            System.out.println("LOGIN\t\tPASSWD");
             rs = stmt.executeQuery(SQL_SELECT);
             while (rs.next())
-                System.out.println(rs.getString(LOGIN_COL) + "\t\t" +
+                System.out.println(
+                    rs.getString(LOGIN_COL) + "\t\t" +
                     rs.getString(PASSWD_COL));
         } catch (Exception e) {
             e.printStackTrace();
