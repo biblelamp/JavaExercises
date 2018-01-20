@@ -8,7 +8,7 @@
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Sep 23, 2017
+ * @version 0.2.2 dated Jan 20, 2018
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -86,6 +86,8 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
      * Connect to the Server
      */
     void Connect() {
+        dialogue.append(AUTH_INVITATION + "\n");
+        isAuthorized = false;
         try {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             writer = new PrintWriter(socket.getOutputStream());
@@ -93,10 +95,8 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
                 new InputStreamReader(socket.getInputStream()));
             new Thread(new ServerListener()).start(); // start Server listener
         } catch (Exception ex) { 
-            System.out.println(ex.getMessage());
+            dialogue.append(ex.getMessage() + "\n");
         }
-        dialogue.append(AUTH_INVITATION + "\n");
-        isAuthorized = false;
     }
 
     /**
@@ -117,6 +117,7 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+            System.exit(-1); // terminate client
         }
     }
 
@@ -126,8 +127,10 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (message.getText().trim().length() > 0) {
-            writer.println(message.getText());
-            writer.flush();
+            try {
+                writer.println(message.getText());
+                writer.flush();
+            } catch (Exception ex) {}
         }
         message.setText("");
         message.requestFocusInWindow();
