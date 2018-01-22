@@ -8,7 +8,7 @@
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Jan 20, 2018
+ * @version 0.2.3 dated Jan 22, 2018
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -46,20 +46,15 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(START_LOCATION, START_LOCATION, WINDOW_WIDTH, WINDOW_HEIGHT);
-        addWindowListener(new WindowListener() {
-            public void windowClosing(WindowEvent event) { // if window closed
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 try {
                     writer.println(EXIT_COMMAND);
                     writer.flush();
-                    socket.close();
                 } catch (Exception ex) {}
             }
-            public void windowDeactivated(WindowEvent event) {}
-            public void windowActivated(WindowEvent event) {}
-            public void windowDeiconified(WindowEvent event) {}
-            public void windowIconified(WindowEvent event) {}
-            public void windowClosed(WindowEvent event) {}
-            public void windowOpened(WindowEvent event) {}
         });
         // area for dialog
         dialogue = new JTextArea();
