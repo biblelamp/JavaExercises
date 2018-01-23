@@ -24,8 +24,8 @@ Collection<String, Integer> map = new HashMap<>();
 NavigableMap<String, Integer> map = new TreeMap<>();
 
 @Question
-Можно ли запустить поток через объект тип Thread повторно, после его завершения?
-@Options @OnlyOne @Key=1 <?>
+Можно ли запустить поток через объект типа Thread повторно, после его завершения?
+@Options @OnlyOne @Key=2 <?>
 да
 нет
 
