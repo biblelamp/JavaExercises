@@ -80,8 +80,8 @@ NullPointerException
 завершит свою работу по завершению работы всех обычных потоков
 
 @Question
-Запуск потоков возможен только из main-потока
-@Options @OnlyOne @Key=1
+Запуск потоков возможен только из main-потока.
+@Options @OnlyOne @Key=2
 да
 нет
 
