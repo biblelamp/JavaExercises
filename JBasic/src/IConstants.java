@@ -9,11 +9,13 @@ interface IConstants {
     // for class JBasic
     String CMD_NEW = "new";
     String CMD_LIST = "list";
+    String CMD_VALUES = "values";
     String CMD_DELETE = "delete";
     String CMD_SAVE = "save";
     String CMD_LOAD = "load";
     String CMD_RUN = "run";
     String CMD_EXIT = "exit";
+    String ERR_UNKNOWN_COMMAND = "Error: unknown command";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";
