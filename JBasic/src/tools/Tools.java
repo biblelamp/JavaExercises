@@ -1,12 +1,14 @@
+package tools;
+
 /**
- * Tools - service methods
+ * tools.Tools - service methods
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
  */
-class Tools {
+public class Tools {
 
-    static int getLineNumber(String str) {
+    public static int getLineNumber(String str) {
         try {
             return Integer.parseInt(getPartOfString(str));
         } catch (NumberFormatException ex) {
@@ -14,7 +16,7 @@ class Tools {
         }
     }
 
-    static String getPartOfString(String str, int idx, String delimiter) {
+    public static String getPartOfString(String str, int idx, String delimiter) {
         String[] pieces = str.split(delimiter);
         try {
             return pieces[idx];
@@ -23,11 +25,11 @@ class Tools {
         }
     }
 
-    static String getPartOfString(String str, int idx) {
+    public static String getPartOfString(String str, int idx) {
         return getPartOfString(str, idx, " ");
     }
 
-    static String getPartOfString(String str) {
+    public static String getPartOfString(String str) {
         return getPartOfString(str, 0);
     }
 }

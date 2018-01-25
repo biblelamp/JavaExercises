@@ -1,5 +1,7 @@
+package model;
+
 /**
- * ProgramLines - working with programLines lines
+ * model.ProgramLines - working with programLines lines
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
@@ -9,18 +11,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-class ProgramLines implements IConstants {
+import static tools.IConstants.*;
+import tools.Tools;
+
+public class ProgramLines {
     Map<Integer, String> program;
 
-    ProgramLines() {
+    public ProgramLines() {
         program = new TreeMap<>();
     }
 
-    void deleteAll() {
+    public void deleteAll() {
         program.clear();
     }
 
-    void delete(String str) {
+    public void delete(String str) {
         try {
             program.remove(Integer.parseInt(Tools.getPartOfString(str, 1)));
         } catch (NumberFormatException ex) {
@@ -28,12 +33,12 @@ class ProgramLines implements IConstants {
         }
     }
 
-    void list() {
+    public void list() {
         for(Integer line : program.keySet())
             System.out.println(line + " " + program.get(line));
     }
 
-    void save(String str) {
+    public void save(String str) {
         String[] part = str.split(" ");
         try (PrintWriter write = new PrintWriter(
                 Tools.getPartOfString(str, 1) + FILE_EXT)) {
@@ -44,7 +49,7 @@ class ProgramLines implements IConstants {
         }
     }
 
-    void load(String str) {
+    public void load(String str) {
         try (Scanner read = new Scanner(
                 new File(Tools.getPartOfString(str, 1) + FILE_EXT))) {
             deleteAll();
@@ -57,15 +62,15 @@ class ProgramLines implements IConstants {
         }
     }
 
-    void add(String str) {
+    public void add(String str) {
         program.put(Tools.getLineNumber(str), str.substring(str.indexOf(" ") + 1));
     }
 
-    String get(int key) {
+    public String get(int key) {
         return program.get(key);
     }
 
-    Set<Integer> keySet() {
+    public Set<Integer> keySet() {
         return program.keySet();
     }
 }

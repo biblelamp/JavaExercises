@@ -1,5 +1,7 @@
+package core;
+
 /**
- * Interpreter - executing of the programLines
+ * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
@@ -8,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Interpreter implements IConstants {
+import static tools.IConstants.*;
+import tools.Tools;
+import model.ProgramLines;
+import model.Variables;
+
+public class Interpreter {
     ProgramLines programLines;
     Variables variables;
 
@@ -17,7 +24,7 @@ class Interpreter implements IConstants {
         this.variables = variables;
     }
 
-    void run() {
+    public void run() {
         List<Integer> lines = new ArrayList(programLines.keySet());
         int idx = 0;
         int resut = 0;
@@ -30,7 +37,7 @@ class Interpreter implements IConstants {
         }
     }
 
-    int execute(String str) {
+    public int execute(String str) {
         switch (Tools.getPartOfString(str)) {
             case OPER_PRINT:
                 print(str);
@@ -49,7 +56,7 @@ class Interpreter implements IConstants {
         return 0;
     }
 
-    void print(String str) {
+    public void print(String str) {
         String part = "";
         boolean isString = false;
         str += " ";
@@ -78,14 +85,14 @@ class Interpreter implements IConstants {
         System.out.println();
     }
 
-    void input(String name) {
+    public void input(String name) {
         Scanner scr = new Scanner(System.in);
         System.out.print("? ");
         String value = scr.nextLine();
         variables.put(name, calculateNumericExpression(value));
     }
 
-    int goTo(String str) {
+    public int goTo(String str) {
         try {
             int line = Integer.parseInt(str);
             programLines.get(line);
@@ -95,17 +102,17 @@ class Interpreter implements IConstants {
         }
     }
 
-    int ifThen(String str) {
+    public int ifThen(String str) {
         return 0;
     }
 
-    void let(String str) {
+    public void let(String str) {
         String name = Tools.getPartOfString(str, 0, "=").trim();
         String expression = Tools.getPartOfString(str, 1, "=").trim();
         variables.put(name, calculateNumericExpression(expression));
     }
 
-    float calculateNumericExpression(String str) {
+    private float calculateNumericExpression(String str) {
         try {
             return Float.parseFloat(str);
         } catch (NumberFormatException ex) {
@@ -114,7 +121,7 @@ class Interpreter implements IConstants {
         return -1;
     }
 
-    boolean calculateBooleanExpression(String str) {
+    private boolean calculateBooleanExpression(String str) {
         return false;
     }
 }

@@ -1,5 +1,7 @@
+package model;
+
 /**
- * Variables - working with variables
+ * model.Variables - working with variables
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
@@ -7,18 +9,18 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class Variables {
+public class Variables {
     Map<String, Float> variables;
 
-    Variables() {
+    public Variables() {
         variables = new HashMap<>();
     }
 
-    void put(String name, float value) {
+    public void put(String name, float value) {
         variables.put(name, value);
     }
 
-    float get(String name) {
+    public float get(String name) {
         try {
             return variables.get(name);
         } catch (NullPointerException ex) {
@@ -26,7 +28,7 @@ class Variables {
         }
     }
 
-    void print() {
+    public void print() {
         System.out.println(variables);
     }
 }

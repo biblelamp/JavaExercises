@@ -1,10 +1,12 @@
+package tools;
+
 /**
- * IConstants - set of constants
+ * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
  */
-interface IConstants {
+public interface IConstants {
 
     // for class JBasic
     String CMD_NEW = "new";
@@ -21,6 +23,7 @@ interface IConstants {
     String FILE_EXT = ".bas";
 
     // for class Interpreter
+    String OPER_REM = "rem";
     String OPER_INPUT = "input";
     String OPER_PRINT = "print";
     String OPER_IF = "if";

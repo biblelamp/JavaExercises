@@ -6,7 +6,13 @@
  */
 import java.util.Scanner;
 
-class JBasic implements IConstants {
+import static tools.IConstants.*;
+import tools.Tools;
+import core.Interpreter;
+import model.ProgramLines;
+import model.Variables;
+
+public class JBasic {
     ProgramLines programLines;
     Variables variables;
     Interpreter interpreter;
@@ -15,7 +21,7 @@ class JBasic implements IConstants {
         new JBasic();
     }
 
-    JBasic() {
+    public JBasic() {
         variables = new Variables();
         programLines = new ProgramLines();
         interpreter = new Interpreter(programLines, variables);
