@@ -4,7 +4,7 @@ package model;
  * model.Variables - working with variables
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 25, 2018
+ * @version 0.1.1 dated Jan 26, 2018
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +21,7 @@ public class Variables {
     }
 
     public float get(String name) {
-        try {
-            return variables.get(name);
-        } catch (NullPointerException ex) {
-            return 0;
-        }
+        return variables.getOrDefault(name, 0f);
     }
 
     public void print() {
