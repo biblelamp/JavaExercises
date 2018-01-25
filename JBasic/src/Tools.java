@@ -8,13 +8,13 @@ class Tools {
 
     static int getLineNumber(String str) {
         try {
-            return Integer.parseInt(getPieceOfString(str));
+            return Integer.parseInt(getPartOfString(str));
         } catch (NumberFormatException ex) {
             return 0;
         }
     }
 
-    static String getPieceOfString(String str, int idx, String delimiter) {
+    static String getPartOfString(String str, int idx, String delimiter) {
         String[] pieces = str.split(delimiter);
         try {
             return pieces[idx];
@@ -23,11 +23,11 @@ class Tools {
         }
     }
 
-    static String getPieceOfString(String str, int idx) {
-        return getPieceOfString(str, idx, " ");
+    static String getPartOfString(String str, int idx) {
+        return getPartOfString(str, idx, " ");
     }
 
-    static String getPieceOfString(String str) {
-        return getPieceOfString(str, 0, " ");
+    static String getPartOfString(String str) {
+        return getPartOfString(str, 0);
     }
 }
