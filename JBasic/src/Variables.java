@@ -14,12 +14,8 @@ class Variables {
         variables = new HashMap<>();
     }
 
-    void put(String name, String value) {
-        try {
-            variables.put(name, Float.parseFloat(value));
-        } catch (NumberFormatException ex) {
-            System.out.println(ex.getMessage());
-        }
+    void put(String name, float value) {
+        variables.put(name, value);
     }
 
     float get(String name) {
