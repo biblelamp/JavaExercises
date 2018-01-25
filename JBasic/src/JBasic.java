@@ -23,16 +23,19 @@ class JBasic implements IConstants {
         String str;
         do {
             System.out.print("> ");
-            str = scr.nextLine();
-            switch (Tools.getPieceOfString(str)) {
+            str = scr.nextLine().trim();
+            switch (Tools.getPartOfString(str)) {
                 case CMD_NEW:
                     programLines.deleteAll();
+                    break;
+                case CMD_DELETE:
+                    programLines.delete(str);
                     break;
                 case CMD_LIST:
                     programLines.list();
                     break;
-                case CMD_DELETE:
-                    programLines.delete(str);
+                case CMD_VALUES:
+                    variables.print();
                     break;
                 case CMD_SAVE:
                     programLines.save(str);
@@ -45,9 +48,17 @@ class JBasic implements IConstants {
                     break;
                 case CMD_EXIT:
                     break;
+                case OPER_PRINT:
+                    interpreter.print(str);
+                    break;
+                case OPER_INPUT:
+                    interpreter.input(Tools.getPartOfString(str, 1));
+                    break;
                 default:
                     if (Tools.getLineNumber(str) > 0)
                         programLines.add(str);
+                    else
+                        System.out.println(ERR_UNKNOWN_COMMAND);
             }
         } while (!str.equals(CMD_EXIT));
     }
