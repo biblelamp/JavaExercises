@@ -1,5 +1,5 @@
 /**
- * ProgramLines - working with program lines
+ * ProgramLines - working with programLines lines
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-class ProgramLines {
-    final String FILE_EXT = ".bas";
+class ProgramLines implements IConstants {
     Map<Integer, String> program;
 
     ProgramLines() {

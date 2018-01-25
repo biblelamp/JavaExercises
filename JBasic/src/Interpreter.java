@@ -2,17 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Interpreter - executing of the program
+ * Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
  * @version 0.1 dated Jan 25, 2018
  */
-class Interpreter {
-    final String OPER_INPUT = "input";
-    final String OPER_PRINT = "print";
-    final String OPER_IF = "if";
-    final String OPER_GOTO = "goto";
-
+class Interpreter implements IConstants {
     ProgramLines programLines;
     Variables variables;
 

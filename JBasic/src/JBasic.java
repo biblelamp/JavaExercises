@@ -6,16 +6,8 @@
  */
 import java.util.Scanner;
 
-class JBasic {
-    final String CMD_NEW = "new";
-    final String CMD_LIST = "list";
-    final String CMD_DELETE = "delete";
-    final String CMD_SAVE = "save";
-    final String CMD_LOAD = "load";
-    final String CMD_RUN = "run";
-    final String CMD_EXIT = "exit";
-
-    ProgramLines program;
+class JBasic implements IConstants {
+    ProgramLines programLines;
     Variables variables;
     Interpreter interpreter;
 
@@ -25,8 +17,8 @@ class JBasic {
 
     JBasic() {
         variables = new Variables();
-        program = new ProgramLines();
-        interpreter = new Interpreter(program, variables);
+        programLines = new ProgramLines();
+        interpreter = new Interpreter(programLines, variables);
         Scanner scr = new Scanner(System.in);
         String str;
         do {
@@ -34,19 +26,19 @@ class JBasic {
             str = scr.nextLine();
             switch (Tools.getPieceOfString(str)) {
                 case CMD_NEW:
-                    program.deleteAll();
+                    programLines.deleteAll();
                     break;
                 case CMD_LIST:
-                    program.list();
+                    programLines.list();
                     break;
                 case CMD_DELETE:
-                    program.delete(str);
+                    programLines.delete(str);
                     break;
                 case CMD_SAVE:
-                    program.save(str);
+                    programLines.save(str);
                     break;
                 case CMD_LOAD:
-                    program.load(str);
+                    programLines.load(str);
                     break;
                 case CMD_RUN:
                     interpreter.run();
@@ -55,7 +47,7 @@ class JBasic {
                     break;
                 default:
                     if (Tools.getLineNumber(str) > 0)
-                        program.add(str);
+                        programLines.add(str);
             }
         } while (!str.equals(CMD_EXIT));
     }
