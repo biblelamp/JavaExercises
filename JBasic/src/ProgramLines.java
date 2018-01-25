@@ -22,21 +22,21 @@ class ProgramLines implements IConstants {
 
     void delete(String str) {
         try {
-            program.remove(Integer.parseInt(Tools.getPieceOfString(str, 1)));
+            program.remove(Integer.parseInt(Tools.getPartOfString(str, 1)));
         } catch (NumberFormatException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     void list() {
-        for(Map.Entry<Integer, String> line : program.entrySet())
-            System.out.println(line.getKey() + " " + line.getValue());
+        for(Integer line : program.keySet())
+            System.out.println(line + " " + program.get(line));
     }
 
     void save(String str) {
         String[] part = str.split(" ");
         try (PrintWriter write = new PrintWriter(
-                Tools.getPieceOfString(str, 1) + FILE_EXT)) {
+                Tools.getPartOfString(str, 1) + FILE_EXT)) {
             for(Map.Entry<Integer, String> line : program.entrySet())
                 write.println(line.getKey() + " " + line.getValue());
         } catch (IOException ex) {
@@ -46,7 +46,7 @@ class ProgramLines implements IConstants {
 
     void load(String str) {
         try (Scanner read = new Scanner(
-                new File(Tools.getPieceOfString(str, 1) + FILE_EXT))) {
+                new File(Tools.getPartOfString(str, 1) + FILE_EXT))) {
             deleteAll();
             while (read.hasNext()) {
                 String line = read.nextLine();
