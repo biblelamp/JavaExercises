@@ -4,7 +4,7 @@ package model;
  * model.ProgramLines - working with programLines lines
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 25, 2018
+ * @version 0.2 dated Jan 26, 2018
  */
 import java.io.File;
 import java.io.IOException;
@@ -19,18 +19,6 @@ public class ProgramLines {
 
     public ProgramLines() {
         program = new TreeMap<>();
-    }
-
-    public void deleteAll() {
-        program.clear();
-    }
-
-    public void delete(String str) {
-        try {
-            program.remove(Integer.parseInt(Tools.getPartOfString(str, 1)));
-        } catch (NumberFormatException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     public void list() {
@@ -63,7 +51,22 @@ public class ProgramLines {
     }
 
     public void add(String str) {
-        program.put(Tools.getLineNumber(str), str.substring(str.indexOf(" ") + 1));
+        if (str.split(" ").length > 1)
+            program.put(Tools.getLineNumber(str), str.substring(str.indexOf(" ") + 1));
+        else
+            delete(str);
+    }
+
+    public void delete(String str) {
+        try {
+            program.remove(Integer.parseInt(str));
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void deleteAll() {
+        program.clear();
     }
 
     public String get(int key) {

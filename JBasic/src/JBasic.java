@@ -27,15 +27,13 @@ public class JBasic {
         interpreter = new Interpreter(programLines, variables);
         Scanner scr = new Scanner(System.in);
         String str;
+        System.out.println(MSG_START);
         do {
-            System.out.print("> ");
+            System.out.println(MSG_READY);
             str = scr.nextLine().trim();
             switch (Tools.getPartOfString(str)) {
                 case CMD_NEW:
                     programLines.deleteAll();
-                    break;
-                case CMD_DELETE:
-                    programLines.delete(str);
                     break;
                 case CMD_LIST:
                     programLines.list();
