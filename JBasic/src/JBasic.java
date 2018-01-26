@@ -2,7 +2,7 @@
  * JBasic - the simplest BASIC on Java
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jan 25, 2018
+ * @version 0.3 dated Jan 26, 2018
  */
 import java.util.Scanner;
 
@@ -62,7 +62,7 @@ public class JBasic {
                     if (Tools.getLineNumber(str) > 0)
                         programLines.add(str);
                     else
-                        System.out.println(ERR_UNKNOWN_COMMAND);
+                        System.out.println(ERR_ILLEGAL_COMMAND);
             }
         } while (!str.equals(CMD_EXIT));
     }

@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 25, 2018
+ * @version 0.2 dated Jan 26, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +67,13 @@ public class Interpreter {
                     if (isString)
                         part += str.charAt(i);
                     else if (!part.isEmpty()) {
-                        System.out.print(variables.get(part) + " ");
-                        part = "";
+                        if (variables.isNameValid(part)) {
+                            System.out.print(variables.get(part) + " ");
+                            part = "";
+                        } else {
+                            System.out.println(ERR_ILLEGAL_VARIABLE);
+                            return;
+                        }
                     }
                     break;
                 case '"':
@@ -86,10 +91,13 @@ public class Interpreter {
     }
 
     public void input(String name) {
-        Scanner scr = new Scanner(System.in);
-        System.out.print("? ");
-        String value = scr.nextLine();
-        variables.put(name, calculateNumericExpression(value));
+        if (variables.isNameValid(name)) {
+            Scanner scr = new Scanner(System.in);
+            System.out.print("? ");
+            String value = scr.nextLine();
+            variables.put(name, calculateNumericExpression(value));
+        } else
+            System.out.println(ERR_ILLEGAL_VARIABLE);
     }
 
     public int goTo(String str) {
@@ -109,7 +117,10 @@ public class Interpreter {
     public void let(String str) {
         String name = Tools.getPartOfString(str, 0, "=").trim();
         String expression = Tools.getPartOfString(str, 1, "=").trim();
-        variables.put(name, calculateNumericExpression(expression));
+        if (variables.isNameValid(name))
+            variables.put(name, calculateNumericExpression(expression));
+        else
+            System.out.println(ERR_ILLEGAL_VARIABLE);
     }
 
     private float calculateNumericExpression(String str) {

@@ -24,6 +24,10 @@ public class Variables {
         return variables.getOrDefault(name, 0f);
     }
 
+    public boolean isNameValid(String name) {
+        return name.matches("^[a-zA-Z][0-9]?");
+    }
+
     public void print() {
         System.out.println(variables);
     }

@@ -18,7 +18,10 @@ public interface IConstants {
     String CMD_LOAD = "load";
     String CMD_RUN = "run";
     String CMD_EXIT = "exit";
-    String ERR_UNKNOWN_COMMAND = "Error: unknown command";
+
+    // error messages
+    String ERR_ILLEGAL_COMMAND = "Error: Illegal Instruction";
+    String ERR_ILLEGAL_VARIABLE = "Error: Illegal Variable";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";
