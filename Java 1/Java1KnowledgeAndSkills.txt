@@ -24,6 +24,12 @@ JDK, JRE, JVM. Установка JDK, программа HelloWorld, понят
 
 Наследование от JFrame, создание пустого окна, библиотека javax.swing. JPanel, JLabel, JButton и другие элементы библиотеки java.awt. BorderLayout и другие компоновщики элементов. Обработка кликов по кнопке и кликов мыши по элементу. Рисование на JPanel.
 
+Обратить внимание:
+
+Code Conventions for the Java Programming Language:
+ENG http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html
+RU http://translatedby.com/you/java-code-conventions/into-ru/
+
 Факультативно:
 
 Git, быстрый старт. Курс https://geekbrains.ru/courses/66
