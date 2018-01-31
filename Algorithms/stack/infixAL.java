@@ -72,7 +72,7 @@ class InToPost {                 // infix to postfix conversion
                     theStack.push(ch);   // push it
                     break;
                 case ')':                // it's a right paren
-                    gotParen(ch);        // go pop operators
+                    gotParen();          // go pop operators
                     break;
                 default:                 // must be an operand
                     output = output + ch;// write it to output
@@ -87,18 +87,14 @@ class InToPost {                 // infix to postfix conversion
         return output;                   // return postfix
     }
 
-    public  void gotOper(char opThis, int prec1) { // got operator from input
+    public void gotOper(char opThis, int prec1) { // got operator from input
         while (theStack.size() > 0) {
             char opTop = theStack.pop();
             if (opTop == '(') {          // if it's a '('
                 theStack.push(opTop);    // restore '('
                 break;
             } else {                     // it's an operator
-                int prec2;               // precedence of new op
-                if (opTop == '+' || opTop == '-')  // find new op prec
-                    prec2 = 1;
-                else
-                    prec2 = 2;
+                int prec2 = (opTop == '+' || opTop == '-')? 1 : 2;
                 if (prec2 < prec1) {     // if prec of new op less
                                          //    than prec of old
                     theStack.push(opTop);// save newly-popped op
@@ -110,7 +106,7 @@ class InToPost {                 // infix to postfix conversion
         theStack.push(opThis);           // push new operator
     }
 
-    public void gotParen(char ch) {      // got right paren from input
+    public void gotParen() {             // got right paren from input
         while (theStack.size() > 0) {
             char chx = theStack.pop();
             if (chx == '(')              // if popped '('
@@ -127,8 +123,8 @@ class InfixApp {
         while(true) {
             System.out.print("Enter infix: ");
             System.out.flush();
-            input = getString();        // read a string from kbd
-            if (input.equals(""))       // quit if [Enter]
+            input = getString();         // read a string from kbd
+            if (input.equals(""))        // quit if [Enter]
                 break;
             // make a translator
             InToPost theTrans = new InToPost(input);
