@@ -2,9 +2,11 @@
  * Java. Level 1. Lesson 3. Example of writing/reading file
  *
  * @author Sergey Iryupin
- * @version dated Oct 03, 2017
+ * @version dated Feb 02, 2018
  */
-import java.io.*;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
 class FileWriteRead {
 
