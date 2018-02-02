@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Oct 03, 2017
+ * @version dated Feb 02, 2018
  */
 import java.util.Arrays;
 import java.util.Scanner;
@@ -128,6 +128,8 @@ class HW2Lesson {
         int sumArray = 0, sumLeft = 0;
         for (int i : array)
             sumArray += i;
+        if ((sumArray == 0) && (sumArray % 2 != 0)) // by DSerov
+            return false;
         for (int i = 0; i < array.length - 1; i++) {
             sumLeft += array[i];
             if (sumLeft*2 == sumArray)
@@ -147,19 +149,13 @@ class HW2Lesson {
             || shift == 0 || shift % array.length == 0)
             return array;
         shift = shift % array.length; // optimization of the number of shifts
-        for (int cnt = 0; cnt < Math.abs(shift); cnt++) {
-            if (shift > 0) {
-                int tmp = array[array.length - 1];
-                for (int i = array.length - 1; i > 0; i--)
-                    array[i] = array[i - 1];
-                array[0] = tmp;
-            }
-            if (shift < 0) {
-                int tmp = array[0];
-                for (int i = 1; i < array.length; i++)
-                    array[i - 1] = array[i];
-                array[array.length - 1] = tmp;
-            }
+        if (shift < 0)
+            shift += array.length; // by Gusar Mikhail
+        for (int cnt = 0; cnt < shift; cnt++) {
+            int tmp = array[array.length - 1];
+            for (int i = array.length - 1; i > 0; i--)
+                array[i] = array[i - 1];
+            array[0] = tmp;
         }
         return array;
     }
