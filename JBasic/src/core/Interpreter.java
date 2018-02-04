@@ -4,13 +4,15 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jan 26, 2018
+ * @version 0.2.1 dated Jan 31, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static tools.IConstants.*;
+
+import tools.Calculate;
 import tools.Tools;
 import model.ProgramLines;
 import model.Variables;
@@ -67,13 +69,15 @@ public class Interpreter {
                     if (isString)
                         part += str.charAt(i);
                     else if (!part.isEmpty()) {
-                        if (variables.isNameValid(part)) {
+                        Calculate calculate = new Calculate();
+                        calculate.calculatePostfix(calculate.convertInfixToPostfix(part));
+                        /*if (variables.isNameValid(part)) {
                             System.out.print(variables.get(part) + " ");
                             part = "";
                         } else {
                             System.out.println(ERR_ILLEGAL_VARIABLE);
                             return;
-                        }
+                        }*/
                     }
                     break;
                 case '"':
@@ -95,7 +99,7 @@ public class Interpreter {
             Scanner scr = new Scanner(System.in);
             System.out.print("? ");
             String value = scr.nextLine();
-            variables.put(name, calculateNumericExpression(value));
+            //variables.put(name, calculateNumericExpression(value));
         } else
             System.out.println(ERR_ILLEGAL_VARIABLE);
     }
@@ -117,22 +121,10 @@ public class Interpreter {
     public void let(String str) {
         String name = Tools.getPartOfString(str, 0, "=").trim();
         String expression = Tools.getPartOfString(str, 1, "=").trim();
-        if (variables.isNameValid(name))
+        /*if (variables.isNameValid(name))
             variables.put(name, calculateNumericExpression(expression));
         else
             System.out.println(ERR_ILLEGAL_VARIABLE);
-    }
-
-    private float calculateNumericExpression(String str) {
-        try {
-            return Float.parseFloat(str);
-        } catch (NumberFormatException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return -1;
-    }
-
-    private boolean calculateBooleanExpression(String str) {
-        return false;
+        */
     }
 }
