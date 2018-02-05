@@ -4,14 +4,42 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 31, 2018
+ * @version 0.2 dated Feb 05, 2018
  */
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Calculate {
     private List<String> list;
     private LinkedList<Character> stackOper;
+
+    public float calculatePostfix(List<String> list) {
+        LinkedList<Float> stack = new LinkedList<>();
+        float second;
+        System.out.println(list);
+        for (String str : list) {
+            switch (str) {
+                case "+":
+                    stack.push(stack.pop() + stack.pop());
+                    break;
+                case "*":
+                    stack.push(stack.pop() * stack.pop());
+                    break;
+                case "-":
+                    second = stack.pop();
+                    stack.push(stack.pop() - second);
+                    break;
+                case "/":
+                    second = stack.pop();
+                    stack.push(stack.pop() / second);
+                    break;
+                default:
+                    stack.push(Float.parseFloat(str));
+            }
+        }
+        return stack.pop();
+    }
 
     public List<String> convertInfixToPostfix(String input) {
         list = new LinkedList<>();
@@ -80,11 +108,5 @@ public class Calculate {
                 list.add(chx.toString());
             }
         }
-    }
-
-    public float calculatePostfix(List<String> list) {
-        System.out.print(list);
-        float result = 0;
-        return result;
     }
 }

@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Jan 31, 2018
+ * @version 0.2.2 dated Feb 05, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,8 @@ public class Interpreter {
                         part += str.charAt(i);
                     else if (!part.isEmpty()) {
                         Calculate calculate = new Calculate();
-                        calculate.calculatePostfix(calculate.convertInfixToPostfix(part));
+                        System.out.print(
+                                calculate.calculatePostfix(calculate.convertInfixToPostfix(part)));
                         /*if (variables.isNameValid(part)) {
                             System.out.print(variables.get(part) + " ");
                             part = "";
