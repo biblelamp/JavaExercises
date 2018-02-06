@@ -1,8 +1,11 @@
 /**
  * Java 1. Lesson 4. Tic-tac-toe in console
- * written Aug 4, 2017
+ *
+ * @author Sergey Iryupin
+ * @version dated Feb 02, 2017
  */
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
 
 class TicTacToe {
 
@@ -22,7 +25,6 @@ class TicTacToe {
         initMap();
         while (true) {
             humanTurn();
-            printMap();
             if (checkWin(DOT_X)) {
                 System.out.println("YOU WON!");
                 break;
@@ -37,12 +39,13 @@ class TicTacToe {
                 System.out.println("AI WON!");
                 break;
             }
-            /*if (isMapFull()) {
+            if (isMapFull()) {
                 System.out.println("Sorry, DRAW!");
                 break;
-            }*/
+            }
         }
         System.out.println("GAME OVER.");
+        printMap();
     }
 
     void initMap() {
@@ -105,8 +108,6 @@ class TicTacToe {
     boolean isCellValid(int x, int y) {
         if (x < 0 || y < 0 || x >= SIZE || y >= SIZE)
             return false;
-        if (map[y][x] == DOT_EMPTY)
-            return true;
-        return false;
+        return map[y][x] == DOT_EMPTY; // by DSerov
     }
 }
