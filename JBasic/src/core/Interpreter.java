@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Feb 05, 2018
+ * @version 0.2.3 dated Feb 08, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Interpreter {
     }
 
     public void run() {
-        List<Integer> lines = new ArrayList(programLines.keySet());
+        List<Integer> lines = new ArrayList<>(programLines.keySet());
         int idx = 0;
         int resut = 0;
         while (idx < lines.size() && resut != -1) {
@@ -69,16 +69,10 @@ public class Interpreter {
                     if (isString)
                         part += str.charAt(i);
                     else if (!part.isEmpty()) {
-                        Calculate calculate = new Calculate();
+                        Calculate calculate = new Calculate(variables);
                         System.out.print(
-                                calculate.calculatePostfix(calculate.convertInfixToPostfix(part)));
-                        /*if (variables.isNameValid(part)) {
-                            System.out.print(variables.get(part) + " ");
-                            part = "";
-                        } else {
-                            System.out.println(ERR_ILLEGAL_VARIABLE);
-                            return;
-                        }*/
+                             calculate.calculatePostfix(
+                                  calculate.convertInfixToPostfix(part)));
                     }
                     break;
                 case '"':
@@ -100,7 +94,10 @@ public class Interpreter {
             Scanner scr = new Scanner(System.in);
             System.out.print("? ");
             String value = scr.nextLine();
-            //variables.put(name, calculateNumericExpression(value));
+            Calculate calculate = new Calculate(variables);
+            variables.put(name,
+				calculate.calculatePostfix(
+                     calculate.convertInfixToPostfix(value)));
         } else
             System.out.println(ERR_ILLEGAL_VARIABLE);
     }
