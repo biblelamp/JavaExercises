@@ -3,9 +3,10 @@
  *  Tic-tac-toe in console with simple AI
  *
  * @author Sergey Iryupin
- * @version dated Dec 05, 2017
+ * @version dated Feb 07, 2018
  */
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
 
 class HW4Lesson {
 
@@ -18,7 +19,7 @@ class HW4Lesson {
     final String MSG_YOU_WON = "YOU WON!";
     final String MSG_AI_WON = "AI WON!";
     final String MSG_DRAW = "Sorry, DRAW!";
-    final String MSG_GAME_OVER ="GAME OVER.";
+    final String MSG_GAME_OVER = "GAME OVER.";
     char[][] map = new char[SIZE][SIZE];
     Scanner sc = new Scanner(System.in);
     Random rand = new Random();
@@ -143,8 +144,6 @@ class HW4Lesson {
     boolean isCellValid(int x, int y) {             // check cell
         if (x < 0 || y < 0 || x >= SIZE || y >= SIZE)
             return false;
-        if (map[y][x] == DOT_EMPTY)
-            return true;
-        return false;
+        return map[y][x] == DOT_EMPTY; // by DSerov
     }
 }
