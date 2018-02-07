@@ -8,10 +8,16 @@
  * 5. List of products in the given price range // -list <price1> <price2>
  *
  * @author Sergey Iryupin
- * @version Feb 06, 2018
+ * @version Feb 07, 2018
  */
 import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
 public class HW2Lesson {
 
@@ -29,49 +35,101 @@ public class HW2Lesson {
             COL_PRICE + " REAL" +
         ");";
     final String SQL_CLEAR_TABLE = "DELETE FROM " + TABLE_NAME;
+    final String SQL_SELECT = "SELECT * FROM " + TABLE_NAME + " WHERE title=?";
+    final String SQL_UPDATE =
+        "UPDATE " + TABLE_NAME + " SET price=? WHERE title=?";
+    final String SQL_LIST_IN_RANGE =
+        "SELECT * FROM " + TABLE_NAME + " WHERE price>=? AND price<=?";
 
     final String CMD_CREATE = "-create";
     final String CMD_INIT = "-init";
 
+    Connection connect;
     Statement stmt;
 
     public static void main(String[] args) {
         HW2Lesson hw = new HW2Lesson(DRIVER_NAME, DB_NAME);
-        hw.createTable();
-        hw.initTable(50);
+        //hw.createTable();
+        //hw.initTable(50);
+        //System.out.println(hw.getPriceByName("product10"));
+        //hw.setPriceByName("product10", 105.5f);
+        //System.out.println(hw.getPriceByName("product10"));
+        List<String> list = hw.getListInRange(100, 500);
+        for (String item : list)
+            System.out.println(item);
     }
 
     HW2Lesson(String driverName, String dbName) { // get connection
         stmt = null;
         try {
             Class.forName(driverName);
-            stmt = DriverManager.getConnection(dbName).createStatement();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            connect = DriverManager.getConnection(dbName);
+            stmt = connect.createStatement();
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
-    void createTable() { // stage 1 - create table
+    void createTable() { // stage 1. create table
         try {
             stmt.executeUpdate(SQL_CREATE_TABLE);
-        } catch (Exception ex) { 
-            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
-    void initTable(int quantity) { // stage 2 - init table
+    void initTable(int quantity) { // stage 2. init table
         try {
             stmt.executeUpdate(SQL_CLEAR_TABLE);
             for (int i = 1; i <= quantity; i++)
                 stmt.executeUpdate("INSERT INTO " + TABLE_NAME +
                     " (" + COL_TITLE + ", " + COL_PRICE + ") " +
                     "VALUES ('product" + i + "', '" + i*10 + "');");
-        } catch (Exception ex) { 
-            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
     
-    float getPriceByName(String name) { // stage 3 - get price by name
-        return 0;
+    float getPriceByName(String name) { // stage 3. get price by name
+        float price = -1;
+        try {
+            PreparedStatement pstmt = connect.prepareStatement(SQL_SELECT);
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next())
+                price = rs.getFloat(COL_PRICE);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return price;
+    }
+
+    void setPriceByName(String name, float price) { // stage 4. set price by name
+        try {
+            PreparedStatement pstmt = connect.prepareStatement(SQL_UPDATE);
+            pstmt.setFloat(1, price);
+            pstmt.setString(2, name);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    List<String> getListInRange(float priceFrom, float priceTo) { // stage 5. list in range
+        List<String> list = new ArrayList<>();
+        try {
+            PreparedStatement pstmt = connect.prepareStatement(SQL_LIST_IN_RANGE);
+            pstmt.setFloat(1, priceFrom);
+            pstmt.setFloat(2, priceTo);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next())
+                list.add(
+                    rs.getInt(COL_ID) + "\t" +
+                    rs.getString(COL_TITLE) + "\t" +
+                    rs.getFloat(COL_PRICE));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }
