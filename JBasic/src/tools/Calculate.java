@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Feb 08, 2018
+ * @version 0.3.1 dated Feb 08, 2018
  */
 
 import java.util.LinkedList;
@@ -13,8 +13,8 @@ import java.util.List;
 import model.Variables;
 
 public class Calculate {
-    private List<String> list;
-    private LinkedList<Character> stackOper;
+    private static List<String> list;
+    private static LinkedList<Character> stackOper;
     private Variables variables;
     
     public Calculate(Variables variables) {
@@ -52,7 +52,7 @@ public class Calculate {
         return stack.pop();
     }
 
-    public List<String> convertInfixToPostfix(String input) {
+    public static List<String> convertInfixToPostfix(String input) {
         list = new LinkedList<>();
         stackOper = new LinkedList<>();
         String part = "";
@@ -100,7 +100,7 @@ public class Calculate {
         return list;
     }
 
-    private void getOperator(char operator, int precedence) {
+    private static void getOperator(char operator, int precedence) {
         while (stackOper.size() > 0) {
             Character opTop = stackOper.pop();
             if (opTop == '(') {
@@ -118,7 +118,7 @@ public class Calculate {
         stackOper.push(operator);
     }
 
-    private void getRightParenthesis() {
+    private static void getRightParenthesis() {
         while (stackOper.size() > 0) {
             Character chx = stackOper.pop();
             if (chx == '(')
