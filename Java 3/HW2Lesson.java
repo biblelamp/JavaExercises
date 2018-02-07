@@ -41,25 +41,50 @@ public class HW2Lesson {
     final String SQL_LIST_IN_RANGE =
         "SELECT * FROM " + TABLE_NAME + " WHERE price>=? AND price<=?";
 
-    final String CMD_CREATE = "-create";
-    final String CMD_INIT = "-init";
+    static final String CMD_CREATE = "-create";
+    static final String CMD_INIT = "-init";
+    static final String CMD_GETPRICE = "-getprice";
+    static final String CMD_SETPRICE = "-setprice";
+    static final String CMD_LIST = "-list";
+    static final String MSG_NOTFOUND = "Not found";
 
     Connection connect;
     Statement stmt;
 
     public static void main(String[] args) {
         HW2Lesson hw = new HW2Lesson(DRIVER_NAME, DB_NAME);
-        //hw.createTable();
-        //hw.initTable(50);
-        //System.out.println(hw.getPriceByName("product10"));
-        //hw.setPriceByName("product10", 105.5f);
-        //System.out.println(hw.getPriceByName("product10"));
-        List<String> list = hw.getListInRange(100, 500);
-        for (String item : list)
-            System.out.println(item);
+        if (args.length > 0)
+            switch (args[0]) {
+                case CMD_CREATE:
+                    hw.createTable();
+                    break;
+                case CMD_INIT:
+                    if (args.length > 1)
+                        hw.initTable(Integer.parseInt(args[1]));
+                    break;
+                case CMD_GETPRICE:
+                    if (args.length > 1) {
+                        float price = hw.getPriceByName(args[1]);
+                        System.out.println((price < 0)? MSG_NOTFOUND : price);
+                    }
+                    break;
+                case CMD_SETPRICE:
+                    if (args.length > 2)
+                        hw.setPriceByName(args[1], Float.parseFloat(args[2]));
+                    break;
+                case CMD_LIST:
+                    if (args.length > 2) {
+                        for (String item : hw.getListInRange(
+                                Float.parseFloat(args[1]),
+                                Float.parseFloat(args[2])))
+                            System.out.println(item);
+                    }
+                    break;
+            }
     }
 
     HW2Lesson(String driverName, String dbName) { // get connection
+        connect = null;
         stmt = null;
         try {
             Class.forName(driverName);
@@ -89,7 +114,7 @@ public class HW2Lesson {
             ex.printStackTrace();
         }
     }
-    
+
     float getPriceByName(String name) { // stage 3. get price by name
         float price = -1;
         try {
