@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.3 dated Feb 08, 2018
+ * @version 0.2.4 dated Feb 08, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +68,11 @@ public class Interpreter {
                 case ',':
                     if (isString)
                         part += str.charAt(i);
-                    else if (!part.isEmpty()) {
-                        Calculate calculate = new Calculate(variables);
+                    else if (!part.isEmpty())
                         System.out.print(
-                             calculate.calculatePostfix(
-                                  calculate.convertInfixToPostfix(part)));
-                    }
+							new Calculate(variables)
+								.calculatePostfix(
+									Calculate.convertInfixToPostfix(part)));
                     break;
                 case '"':
                     if (isString) {
@@ -93,11 +92,11 @@ public class Interpreter {
         if (variables.isNameValid(name)) {
             Scanner scr = new Scanner(System.in);
             System.out.print("? ");
-            String value = scr.nextLine();
-            Calculate calculate = new Calculate(variables);
+            String expression = scr.nextLine();
             variables.put(name,
-				calculate.calculatePostfix(
-                     calculate.convertInfixToPostfix(value)));
+				new Calculate(variables)
+					.calculatePostfix(
+						Calculate.convertInfixToPostfix(expression)));
         } else
             System.out.println(ERR_ILLEGAL_VARIABLE);
     }
@@ -119,10 +118,12 @@ public class Interpreter {
     public void let(String str) {
         String name = Tools.getPartOfString(str, 0, "=").trim();
         String expression = Tools.getPartOfString(str, 1, "=").trim();
-        /*if (variables.isNameValid(name))
-            variables.put(name, calculateNumericExpression(expression));
+        if (variables.isNameValid(name))
+            variables.put(name,
+				new Calculate(variables)
+					.calculatePostfix(
+						Calculate.convertInfixToPostfix(expression)));
         else
             System.out.println(ERR_ILLEGAL_VARIABLE);
-        */
     }
 }
