@@ -29,6 +29,7 @@ public interface IConstants {
     // for class Interpreter
     String OPER_REM = "rem";
     String OPER_INPUT = "input";
+    String OPER_LET = "let";
     String OPER_PRINT = "print";
     String OPER_IF = "if";
     String OPER_GOTO = "goto";

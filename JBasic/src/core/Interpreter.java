@@ -117,6 +117,8 @@ public class Interpreter {
 
     public void let(String str) {
         String name = Tools.getPartOfString(str, 0, "=").trim();
+        if (name.startsWith(OPER_LET))
+			name = name.substring(OPER_LET.length()).trim();
         String expression = Tools.getPartOfString(str, 1, "=").trim();
         if (variables.isNameValid(name))
             variables.put(name,
