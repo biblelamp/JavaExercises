@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.4 dated Feb 08, 2018
+ * @version 0.2.5 dated Feb 08, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -116,16 +116,22 @@ public class Interpreter {
     }
 
     public void let(String str) {
+		String expression = null;
         String name = Tools.getPartOfString(str, 0, "=").trim();
         if (name.startsWith(OPER_LET))
 			name = name.substring(OPER_LET.length()).trim();
-        String expression = Tools.getPartOfString(str, 1, "=").trim();
-        if (variables.isNameValid(name))
-            variables.put(name,
-				new Calculate(variables)
-					.calculatePostfix(
-						Calculate.convertInfixToPostfix(expression)));
-        else
-            System.out.println(ERR_ILLEGAL_VARIABLE);
+		try {
+			expression = Tools.getPartOfString(str, 1, "=").trim();
+			if (variables.isNameValid(name))
+				variables.put(name,
+					new Calculate(variables)
+						.calculatePostfix(
+							Calculate.convertInfixToPostfix(expression)));
+			else
+				System.out.println(ERR_ILLEGAL_VARIABLE);
+		} catch (NullPointerException ex) {
+			System.out.println(ERR_INVALID_EXPRESSION);
+		}
+
     }
 }
