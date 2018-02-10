@@ -9,11 +9,12 @@
  * 6. Run points 1..5 using hibernate
  *
  * @author Sergey Iryupin
- * @version Feb 09, 2018
+ * @version Feb 10, 2018
  */
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,15 +29,74 @@ import model.Product;
 public class HW2App {
     Session session = null;
 
+    final String DRIVER_NAME = "org.sqlite.JDBC";
+    final String DB_NAME = "jdbc:sqlite:goods.db";
+
+    public static void main(String[] args) {
+        new HW2App();
+        System.exit(0);
+    }
+
+    public HW2App() {
+        session = createHibernateSession(DRIVER_NAME, DB_NAME);
+        if (session != null) {
+            initTable(10);
+            System.out.println(getPriceByName("product5"));
+            if (session.isOpen())
+                session.close();
+        }
+    }
+
+    /**
+     * Stage 2. init table
+     */
+    void initTable(int quantity) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        for (int i = 1; i <= quantity; i++)
+            session.save(new Product("product" + i, i*10));
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    /**
+     * stage 3. get price by name
+     */
+    float getPriceByName(String title) {
+        float price = -1;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("FROM " +
+            Product.class.getSimpleName() + " WHERE title = :title")
+                .setParameter("title", title);
+        List<Product> result = query.getResultList();
+        if (result.size() > 0)
+            price = result.get(0).getPrice();
+        session.getTransaction().commit();
+        session.close();
+        return price;
+    }
+
+    /**
+     * Seeking record
+     */
+    private void recordFind(final int id) {
+        System.out.println("\nReading record by ID:");
+        Product Product = (Product) session.load(Product.class, id);
+        System.out.println(Product);
+    }
+
     /**
      * Creating a session
+     * @param  String driverName
+     * @param  String dbName
      * @return org.hibernate.Session
      */
-    private Session createHibernateSession() {
+    private Session createHibernateSession(String driverName, String dbName) {
         try {
             Map<String, String> settings = new HashMap<String, String>();
-            settings.put("hibernate.connection.driver_class", "org.sqlite.JDBC");
-            settings.put("hibernate.connection.url", "jdbc:sqlite:goods.db");
+            settings.put("hibernate.connection.driver_class", driverName);
+            settings.put("hibernate.connection.url", dbName);
             settings.put("hibernate.connection.username", "");
             settings.put("hibernate.connection.password", "");
             settings.put("hibernate.show_sql", "true");
@@ -64,61 +124,5 @@ public class HW2App {
         }
         System.out.println("Session created successfully.");
         return session;
-    }
-
-    /**
-     * Adding records to the table
-     */
-    private void recordsAdd() {
-        try {
-            System.out.println("Adding to the table of database:");
-            Transaction tx = session.beginTransaction();
-            for (int i = 1; i < 6; i++)
-                session.save(new Product("product" + i, i*10));
-            tx.commit();
-            System.out.println("Records added.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Reading records
-     */
-    private void recordsRead() {
-        System.out.println("\nReading records from table:");
-        String query = "select p from " + Product.class.getSimpleName() + " p";
-
-        @SuppressWarnings("unchecked")
-        List<Product> list = (List<Product>)session.createQuery(query).list();
-        System.out.println(list);
-    }
-
-    /**
-     * Seeking record
-     */
-    private void recordFind(final int id) {
-        System.out.println("\nReading record by ID:");
-        Product Product = (Product) session.load(Product.class, id);
-        System.out.println(Product);
-    }
-
-    /**
-     * Constructor
-     */
-    public HW2App() {
-        session = createHibernateSession();
-        if (session != null) {
-            recordsAdd();
-            //recordsRead();
-            //recordFind(Integer.valueOf(Products[1][0]));
-            if (session.isOpen())
-                session.close();
-        }
-    }
-
-    public static void main(String[] args) {
-        new HW2App();
-        System.exit(0);
     }
 }
