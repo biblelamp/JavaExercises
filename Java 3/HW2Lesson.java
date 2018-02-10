@@ -1,14 +1,14 @@
 /**
- * Java. Level 3. Lesson 1. Homework
+ * Java. Level 3. Lesson 2. Homework
  *
  * 1. Create a product table (id, title, cost) // -create
- * 2. Clear the table and fill it with 1000 products // -init
+ * 2. Clear the table and fill it with 1000 products // -init <quantity>
  * 3. Get the price of the product by name // -getprice <name>
  * 4. Change the price of product // -setprice <name> <price>
  * 5. List of products in the given price range // -list <price1> <price2>
  *
  * @author Sergey Iryupin
- * @version Feb 07, 2018
+ * @version Feb 10, 2018
  */
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -35,9 +35,11 @@ public class HW2Lesson {
             COL_PRICE + " REAL" +
         ");";
     final String SQL_CLEAR_TABLE = "DELETE FROM " + TABLE_NAME;
-    final String SQL_SELECT = "SELECT * FROM " + TABLE_NAME + " WHERE title=?";
+    final String SQL_INSERT = "INSERT INTO " + TABLE_NAME +
+        " (" + COL_TITLE + ", " + COL_PRICE + ") " + "VALUES (?, ?);";
+    final String SQL_SELECT = "SELECT * FROM " + TABLE_NAME + " WHERE title=?;";
     final String SQL_UPDATE =
-        "UPDATE " + TABLE_NAME + " SET price=? WHERE title=?";
+        "UPDATE " + TABLE_NAME + " SET price=? WHERE title=?;";
     final String SQL_LIST_IN_RANGE =
         "SELECT * FROM " + TABLE_NAME + " WHERE price>=? AND price<=?";
 
@@ -79,7 +81,6 @@ public class HW2Lesson {
                                 Float.parseFloat(args[2])))
                             System.out.println(item);
                     }
-                    break;
             }
     }
 
@@ -106,10 +107,12 @@ public class HW2Lesson {
     void initTable(int quantity) { // stage 2. init table
         try {
             stmt.executeUpdate(SQL_CLEAR_TABLE);
-            for (int i = 1; i <= quantity; i++)
-                stmt.executeUpdate("INSERT INTO " + TABLE_NAME +
-                    " (" + COL_TITLE + ", " + COL_PRICE + ") " +
-                    "VALUES ('product" + i + "', '" + i*10 + "');");
+            PreparedStatement pstmt = connect.prepareStatement(SQL_INSERT);
+            for (int i = 1; i <= quantity; i++) {
+                pstmt.setString(1, "product" + i);
+                pstmt.setFloat(2, i*10);
+                pstmt.executeUpdate();
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
