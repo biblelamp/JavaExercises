@@ -34,9 +34,11 @@ public class HW2Lesson {
             COL_TITLE + " TEXT," +
             COL_PRICE + " REAL" +
         ");";
-    final String SQL_CLEAR_TABLE = "DELETE FROM " + TABLE_NAME;
+    final String SQL_CLEAR_TABLE =
+        "DELETE FROM " + TABLE_NAME + ";" +
+        "DELETE FROM sqlite_sequence WHERE name='" + TABLE_NAME + "'"; // reset
     final String SQL_INSERT = "INSERT INTO " + TABLE_NAME +
-        " (" + COL_TITLE + ", " + COL_PRICE + ") " + "VALUES (?, ?);";
+        " (" + COL_TITLE + ", " + COL_PRICE + ") VALUES (?, ?);";
     final String SQL_SELECT = "SELECT * FROM " + TABLE_NAME + " WHERE title=?;";
     final String SQL_UPDATE =
         "UPDATE " + TABLE_NAME + " SET price=? WHERE title=?;";
@@ -96,7 +98,7 @@ public class HW2Lesson {
         }
     }
 
-    void createTable() { // stage 1. create table
+    void createTable() {                          // stage 1. create table
         try {
             stmt.executeUpdate(SQL_CREATE_TABLE);
         } catch (SQLException ex) {
@@ -104,7 +106,7 @@ public class HW2Lesson {
         }
     }
 
-    void initTable(int quantity) { // stage 2. init table
+    void initTable(int quantity) {                // stage 2. init & fill table
         try {
             stmt.executeUpdate(SQL_CLEAR_TABLE);
             PreparedStatement pstmt = connect.prepareStatement(SQL_INSERT);
@@ -118,7 +120,7 @@ public class HW2Lesson {
         }
     }
 
-    float getPriceByName(String name) { // stage 3. get price by name
+    float getPriceByName(String name) {           // stage 3. get price by name
         float price = -1;
         try {
             PreparedStatement pstmt = connect.prepareStatement(SQL_SELECT);
@@ -131,8 +133,8 @@ public class HW2Lesson {
         }
         return price;
     }
-
-    void setPriceByName(String name, float price) { // stage 4. set price by name
+                                                  // stage 4. set price by name
+    void setPriceByName(String name, float price) {
         try {
             PreparedStatement pstmt = connect.prepareStatement(SQL_UPDATE);
             pstmt.setFloat(1, price);
@@ -142,8 +144,8 @@ public class HW2Lesson {
             ex.printStackTrace();
         }
     }
-
-    List<String> getListInRange(float priceFrom, float priceTo) { // stage 5. list in range
+                                                  // stage 5. list in range
+    List<String> getListInRange(float priceFrom, float priceTo) {
         List<String> list = new ArrayList<>();
         try {
             PreparedStatement pstmt = connect.prepareStatement(SQL_LIST_IN_RANGE);
