@@ -61,6 +61,12 @@
         </executions>    
         <configuration>
           <mainClass>${main-class}</mainClass>
+          <!-- mvn exec:java -Dexec.args="-init 10" -->
+          <!--
+          <arguments>
+            <argument>-create</argument>
+          </arguments>
+          -->
         </configuration>
       </plugin>
     </plugins>
