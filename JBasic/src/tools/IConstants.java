@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Feb 08, 2018
+ * @version 0.4 dated Feb 14, 2018
  */
 public interface IConstants {
 
@@ -28,10 +28,23 @@ public interface IConstants {
     String FILE_EXT = ".bas";
 
     // for class Interpreter
-    String OPER_REM = "rem";
-    String OPER_INPUT = "input";
     String OPER_LET = "let";
+    String OPER_READ = "read";
+    String OPER_DATA = "data";
+    String OPER_INPUT = "input";
     String OPER_PRINT = "print";
-    String OPER_IF = "if";
     String OPER_GOTO = "goto";
+    String OPER_IF = "if";
+    String OPER_THEN = "then";
+    String OPER_FOR = "for";
+    String OPER_TO = "to";
+    String OPER_STEP = "step";
+    String OPER_NEXT = "next";
+    String OPER_END = "end";
+    String OPER_STOP = "stop";
+    String OPER_DEF = "def";
+    String OPER_GOSUB = "gosub";
+    String OPER_RETURN = "return";
+    String OPER_DIM = "dim";
+    String OPER_REM = "rem";
 }
