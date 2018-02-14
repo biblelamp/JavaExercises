@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 5. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Feb 13, 2018
+ * @version dated Feb 14, 2018
  * @link https://github.com/<your_nik> || null
  */
 import java.io.FileWriter;
@@ -54,11 +54,12 @@ class HW5Lesson {
         // parsing CSV lines
         int index = 0;
         employees = new Employee[lines.size()];
-        for(String line: lines){
+        for (String line : lines) {
             String[] field = line.split(",");
             employees[index] = new Employee(
                 field[0], field[1], field[2], field[3],
                 Integer.parseInt(field[4]), Integer.parseInt(field[5]));
+            index++;
         }
     }
 }
