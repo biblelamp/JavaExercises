@@ -12,7 +12,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <main-class>HW2App</main-class>
+    <main-class>HW2Lesson</main-class>
   </properties>
 
   <dependencies>
