@@ -29,6 +29,8 @@ public class Product {
     @Setter
     private float price;
 
+    public Product() {}
+
     public Product(String title, float price) {
         this.title = title;
         this.price = price;
