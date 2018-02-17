@@ -3,6 +3,7 @@
  *
  * @author Sergey Iryupin
  * @version dated Dec 12, 2017
+ * @link https://github.com/<your_nic> || null
  */
 class HW6Lesson {
 
@@ -40,9 +41,9 @@ interface Animal {
 }
 
 abstract class AnimalImpl implements Animal {
-    private int run_limit;
-    private float jump_limit;
-    private int swim_limit;
+    protected int run_limit;
+    protected float jump_limit;
+    protected int swim_limit;
 
     AnimalImpl(int run_limit, float jump_limit, int swim_limit) {
         this.run_limit = run_limit;
