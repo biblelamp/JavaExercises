@@ -8,25 +8,29 @@
  *    the console (the page will count 1800 characters)
  *
  * @author Sergey Iryupin
- * @version Feb 18, 2018
+ * @version Feb 20, 2018
  */
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.File;
+import java.io.SequenceInputStream;
 import java.io.RandomAccessFile;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class HW3Lesson {
 
     public static void main(String[] args) {
         HW3Lesson hw = new HW3Lesson();
-        /*
         hw.readFileInByteArray("hw3lesson.txt");
-        hw.mergeFiles(new String[]{"hw3lesson5.txt",
+        hw.mergeFiles(new String[]{"hw3lesson1-5.txt",
             "hw3lesson.txt", "hw3lesson.txt", "hw3lesson.txt",
             "hw3lesson.txt", "hw3lesson.txt"});
-        */
         hw.readByPages("E:\\Java\\The War of the Worlds.txt");
     }
 
@@ -49,27 +53,33 @@ public class HW3Lesson {
     }
 
     /**
-     * 2. Merge 5 files into one (files about 100 bytes)
+     * 2. Merge 5 files into one (files about 100 bytes), using
+     *    class SequenceInputStream
      * @param files[]
      */
     void mergeFiles(String[] files) {
+        List<InputStream> al = new ArrayList<>();
         byte[] buffer = new byte[200];
         int count = 0;
-        try (FileOutputStream output = new FileOutputStream(files[0])) {
+        try {
             for (int i = 1; i < files.length; i++)
-                try (FileInputStream input = new FileInputStream(files[i])) {
-                    count = input.read(buffer);
-                    output.write(buffer, 0, count);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                al.add(new FileInputStream(files[i]));
+        } catch (IOException ex) {
+                ex.printStackTrace();
+        }
+        Enumeration<InputStream> list = Collections.enumeration(al);
+        try (FileOutputStream output = new FileOutputStream(files[0]);
+                SequenceInputStream input = new SequenceInputStream(list)) {
+            int rb;
+            while ((rb = input.read()) != -1)
+                output.write(rb);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     /**
-     * 3. Read text files by pages
+     * 3. Read text files by pages, using class RandomAccessFile
      * @param fileName
      */
     void readByPages(String fileName) {
