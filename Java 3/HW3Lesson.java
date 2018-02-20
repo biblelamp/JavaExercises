@@ -59,8 +59,6 @@ public class HW3Lesson {
      */
     void mergeFiles(String[] files) {
         List<InputStream> al = new ArrayList<>();
-        byte[] buffer = new byte[200];
-        int count = 0;
         try {
             for (int i = 1; i < files.length; i++)
                 al.add(new FileInputStream(files[i]));
@@ -95,10 +93,8 @@ public class HW3Lesson {
             if (page > 0)
                 try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
                     raf.seek((page - 1) * PAGE_SIZE);
-                    int count = raf.read(buffer);
-                    for (int i = 0; i < count; i++)
-                        System.out.print((char)buffer[i]);
-                    System.out.println();
+                    raf.read(buffer);
+                    System.out.println(new String(buffer));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
