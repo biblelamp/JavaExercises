@@ -57,10 +57,11 @@ public class HW4Lesson {
     void printFile(File file, int times) {
         synchronized (file) {
             for (int i = 0; i < times; i++)
-                try (PrintWriter pw =
-                            new PrintWriter(new FileWriter(file, true))) {
-                    pw.println(Thread.currentThread().getName() + " - " + i);
-                } catch (IOException ex) {
+                try (FileWriter pw = new FileWriter(file, true)) {
+                    pw.write(
+                        Thread.currentThread().getName() + ": " + i + "\n");
+                    Thread.sleep(20);
+                } catch (IOException | InterruptedException ex) {
                     ex.printStackTrace();
                 }
         }
