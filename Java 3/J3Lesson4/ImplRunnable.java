@@ -11,7 +11,8 @@ class RunnableClass implements Runnable {
         for (int i = 0; i < 5; i++)
             try {
                 Thread.sleep(100);
-                System.out.println("new thread: " + i);
+                System.out.println(
+                    Thread.currentThread().getName() + " thread: " + i);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
