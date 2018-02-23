@@ -15,6 +15,11 @@
  * @version Feb 22, 2018
  * @link https://github.com/biblelamp
  */
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.File;
+
 public class HW4Lesson {
     final Object monitor = new Object();
     volatile char currentLetter = 'A';
@@ -26,6 +31,11 @@ public class HW4Lesson {
         new Thread(() -> hw.printLetter('A', 'B', 5)).start();
         new Thread(() -> hw.printLetter('B', 'C', 5)).start();
         new Thread(() -> hw.printLetter('C', 'A', 5)).start();
+
+        // 2 stage
+        new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
+        new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
+        new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
     }
 
     void printLetter(char mainLetter, char nextLetter, int times) {
@@ -41,6 +51,18 @@ public class HW4Lesson {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    void printFile(File file, int times) {
+        synchronized (file) {
+            for (int i = 0; i < times; i++)
+                try (PrintWriter pw =
+                            new PrintWriter(new FileWriter(file, true))) {
+                    pw.println(Thread.currentThread().getName() + " - " + i);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
         }
     }
 }
