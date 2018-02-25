@@ -1,10 +1,10 @@
 import java.util.concurrent.CountDownLatch;
 
-class SimpleCDL {
+class CountDownLatchDemo {
     public static void main(String[] args) {
         final int THREADS_COUNT = 6;
         final CountDownLatch cdl = new CountDownLatch(THREADS_COUNT);
-        System.out.println("Начинаем");
+        System.out.println("Start...");
         for (int i = 0; i < THREADS_COUNT; i++) {
             final int w = i;
             new Thread(() -> {
@@ -22,6 +22,6 @@ class SimpleCDL {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Work completed");
+        System.out.println("End.");
     }
 }
