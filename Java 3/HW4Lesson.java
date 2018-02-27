@@ -27,17 +27,16 @@ public class HW4Lesson {
     public static void main(String[] args) throws InterruptedException {
         HW4Lesson hw = new HW4Lesson();
 
-        /*
         // 1 stage
         new Thread(() -> hw.printLetter('A', 'B', 5)).start();
         new Thread(() -> hw.printLetter('B', 'C', 5)).start();
         new Thread(() -> hw.printLetter('C', 'A', 5)).start();
+        System.out.println();
 
         // 2 stage
         new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
         new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
         new Thread(() -> hw.printFile(new File("hw4lesson.txt"), 10)).start();
-        */
 
         // 3 stage
         MFD mfd = new MFD();
