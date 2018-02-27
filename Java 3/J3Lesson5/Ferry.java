@@ -26,6 +26,7 @@ class Ferry {
                 Thread.sleep(500);
                 System.out.println("Ferry ferrying cars!");
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
