@@ -45,7 +45,7 @@ class Parking {
                             PARKING_PLACES[i] = true;  // занимаем его
                             parkingNumber = i;         // наличие свободного места
                             System.out.printf(         // гарантирует семафор 
-                                "Car №%d parked in place %d.\n", carNumber, i);
+                                "Car №%d parked in place %d.\n", carNumber, i + 1);
                             break;
                         }
                 }
