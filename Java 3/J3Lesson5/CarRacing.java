@@ -10,8 +10,6 @@ public class CarRacing {
         Car[] cars = new Car[CARS_COUNT];
         for (int i = 0; i < cars.length; i++) {
             cars[i] = new Car(race, 20 + (int) (Math.random() * 10));
-        }
-        for (int i = 0; i < cars.length; i++) {
             new Thread(cars[i]).start();
         }
         System.out.println("Attention >>> The race began!");
@@ -65,7 +63,7 @@ abstract class Stage {
         return description;
     }
 
-    public abstract void go(Car c);
+    public abstract void go(Car car);
 }
 
 class Road extends Stage {
@@ -76,11 +74,13 @@ class Road extends Stage {
     }
 
     @Override
-    public void go(Car c) {
+    public void go(Car car) {
         try {
-            System.out.println(c.getName() + " started the stage: " + description);
-            Thread.sleep(length / c.getSpeed() * 1000);
-            System.out.println(c.getName() + " finished the stage: " + description);
+            System.out.println(
+                car.getName() + " started the stage: " + description);
+            Thread.sleep(length / car.getSpeed() * 1000);
+            System.out.println(
+                car.getName() + " finished the stage: " + description);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -95,18 +95,19 @@ class Tunnel extends Stage {
     }
 
     @Override
-    public void go(Car c) {
+    public void go(Car car) {
         try {
             try {
-                System.out.println(c.getName() + " prepares for the stage (waits): " +
-                        description);
-                System.out.println(c.getName() + " started the stage: " + description);
-                Thread.sleep(length / c.getSpeed() * 1000);
+                System.out.println(car.getName() +
+                    " prepares for the stage (waits): " + description);
+                System.out.println(car.getName() +
+                    " started the stage: " + description);
+                Thread.sleep(length / car.getSpeed() * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                System.out.println(c.getName() + " finished the stage: " +
-                        description);
+                System.out.println(car.getName() +
+                    " finished the stage: " + description);
             }
         } catch (Exception e) {
             e.printStackTrace();
