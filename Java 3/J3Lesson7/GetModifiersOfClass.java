@@ -3,6 +3,7 @@
  * Explore the capabilities of class Class
  *
  * @see https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html
+ * @see https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Modifier.html
  */
 import java.lang.reflect.Modifier;
 
