@@ -47,23 +47,27 @@
        Глава 11
     2. Брюс Эккель, Философия Java
        Глава 21
-    3. Справочник по синхронизаторам java.util.concurrent.*
-    https://habrahabr.ru/post/277669/
-    4. Обзор java.util.concurrent.*
-    https://habrahabr.ru/company/luxoft/blog/157273/
+    3. Герберт Шилдт, Java 8. Полное руководство
+       Глава 28
+    4. Справочник по синхронизаторам java.util.concurrent.*
+       https://habrahabr.ru/post/277669/
+    5. Обзор java.util.concurrent.*
+       https://habrahabr.ru/company/luxoft/blog/157273/
 
 6. Обзор средств разработки
 
     Литература:
     1. Блинов, Романчик, Java. Методы программирования
-       Приложение 1
+       Приложения 1, 2
 
 7. Reflection API и аннотации
 
     Литература:
+    1. Брюс Эккель, Философия Java
+       Главы 14, 20
 
 8. Подготовка к собеседованию
 
-    Ссылки:
-    https://jsehelper.blogspot.ru/2016/01/java-core-1.html
-    http://javastudy.ru/category/interview/
+    1. Вопросы и ответы на собеседовании:
+       https://jsehelper.blogspot.ru/2016/01/java-core-1.html
+       http://javastudy.ru/category/interview/
