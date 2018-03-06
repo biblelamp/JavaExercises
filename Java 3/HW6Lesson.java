@@ -2,7 +2,8 @@
  * Java. Level 3. Lesson 6. Homework
  * 1. Write a method which returns part of integers array after the last == 4.
  *    If there are no numbers in the array 4, - throw RuntimeException
- * 2. Write an array validation method.
+ * 2. Write an array validation method. If the array consists only of numbers 1 and 4
+ *    then the method returns true if not - false
  *
  * @author Sergey Iryupin
  * @version Mar 06, 2018
@@ -21,7 +22,7 @@ public class HW6Lesson {
         System.out.println(
             hw.validateArrayByOneAndFour(new int[]{1, 4, 4, 4, 1, 4}));
         System.out.println(
-            hw.validateArrayByOneAndFour(new int[]{1, 4, 4, 5, 1, 4}));
+            hw.validateArrayByOneAndFour(new int[]{1, 4, 5}));
     }
 
     int[] getNumberAfrerLastFour(int[] array) throws RuntimeException {
@@ -37,9 +38,15 @@ public class HW6Lesson {
     }
 
     boolean validateArrayByOneAndFour(int[] array) {
+        boolean containsOne = false;
+        boolean containsFour = false;
         for (int i : array)
-            if (i != 1 && i != 4)
+            if (i == 1)
+                containsOne = true;
+            else if (i == 4)
+                containsFour = true;
+            else
                 return false;
-        return true;
+        return containsOne && containsFour;
     }
 }
