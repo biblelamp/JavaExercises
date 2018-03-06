@@ -7,19 +7,19 @@ import java.lang.annotation.RetentionPolicy;
 public class AnnotationMark {
     public static void main(String[] args) {
         Method[] methods = AnnotationMark.class.getDeclaredMethods();
-        for (Method o : methods) {
-            if (o.getAnnotation(MarkingAnnotation.class) != null) {
+        for (Method o : methods)
+            if (o.getAnnotation(MarkingAnnotation.class) != null)
                 System.out.println(o);
-            }
-        }
     }
 
     @MarkingAnnotation
-    public void markedMethod() { }
-    
-    public void unmarkedMethod() { }
+    public void firstMethod() { }
+
+    @MarkingAnnotation
+    public void secondMethod() { }
+    public void thirdMethod() { }
 }
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@interface MarkingAnnotation {}
+@interface MarkingAnnotation { }
