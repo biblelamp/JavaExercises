@@ -18,7 +18,7 @@ public class HW6Lesson {
         System.out.println(Arrays.toString(hw.getNumberAfrerLastFour(
                 new int[]{1, 2, 4, 4, 2, 3, 4, 1, 7})));
         System.out.println(Arrays.toString(hw.getNumberAfrerLastFour(
-                new int[]{1, 2, 4, 4, 2, 3, 1, 7})));
+                new int[]{1, 2, 4, 4})));
         System.out.println(
             hw.validateArrayByOneAndFour(new int[]{1, 4, 4, 4, 1, 4}));
         System.out.println(
@@ -26,15 +26,14 @@ public class HW6Lesson {
     }
 
     int[] getNumberAfrerLastFour(int[] array) throws RuntimeException {
-        int idx = -1;
-        for (int i = 0; i < array.length; i++)
-            if (array[i] == 4)
-                idx = i + 1;
-        if (idx == -1)
-            throw new RuntimeException("There are no numbers 4");
-        int[] result = new int[array.length - idx];
-        System.arraycopy(array, idx, result, 0, result.length);
-        return result;
+        for (int i = array.length - 1; i >= 0; i--)
+            if (array[i] == 4) {
+                int idx = i + 1;
+                int[] result = new int[array.length - idx];
+                System.arraycopy(array, idx, result, 0, result.length);
+                return result;
+            }
+        throw new RuntimeException("There are no numbers 4");
     }
 
     boolean validateArrayByOneAndFour(int[] array) {
