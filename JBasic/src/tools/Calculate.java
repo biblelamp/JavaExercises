@@ -4,11 +4,13 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Feb 08, 2018
+ * @version 0.3.2 dated Feb 18, 2018
  */
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static tools.IConstants.*;
 
 import model.Variables;
 
@@ -127,5 +129,9 @@ public class Calculate {
                 list.add(chx.toString());
             }
         }
+    }
+
+    public static boolean isComparison(String expression) {
+        return expression.matches("(.*)(" + SIGN_EQU + "|" + SIGN_LSS + "|" + SIGN_GRT + ")(.*)");
     }
 }

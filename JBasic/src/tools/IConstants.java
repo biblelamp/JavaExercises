@@ -47,4 +47,12 @@ public interface IConstants {
     String OPER_RETURN = "return";
     String OPER_DIM = "dim";
     String OPER_REM = "rem";
+
+    // for compare
+    String SIGN_EQU = "=";
+    String SIGN_LSS = "<";
+    String SIGN_GRT = ">";
+    String SIGN_LQU = "<=";
+    String SIGN_GQU = ">=";
+    String SIGN_NQU = "<>";
 }

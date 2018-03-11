@@ -68,11 +68,13 @@ public class Interpreter {
                 case ',':
                     if (isString)
                         part += str.charAt(i);
-                    else if (!part.isEmpty())
+                    else if (!part.isEmpty()) {
+                        System.out.println(Calculate.isComparison(part));
                         System.out.print(
-							new Calculate(variables)
-								.calculatePostfix(
-									Calculate.convertInfixToPostfix(part)));
+                                new Calculate(variables)
+                                        .calculatePostfix(
+                                                Calculate.convertInfixToPostfix(part)));
+                    }
                     break;
                 case '"':
                     if (isString) {
