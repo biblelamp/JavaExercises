@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.5 dated Feb 08, 2018
+ * @version 0.2.6 dated Mar 13, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -69,11 +69,17 @@ public class Interpreter {
                     if (isString)
                         part += str.charAt(i);
                     else if (!part.isEmpty()) {
-                        System.out.println(Calculate.isComparison(part));
-                        System.out.print(
+                        if (Calculate.isComparison(part))
+							System.out.print(
+								new Calculate(variables)
+									.calculateBoolean(part)
+							);
+                        else
+							System.out.print(
                                 new Calculate(variables)
                                         .calculatePostfix(
-                                                Calculate.convertInfixToPostfix(part)));
+                                                Calculate.convertInfixToPostfix(part))
+                            );
                     }
                     break;
                 case '"':
