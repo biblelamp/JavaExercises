@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated Mar 13, 2018
+ * @version 0.3.4 dated Mar 13, 2018
  */
 
 import java.util.LinkedList;
@@ -132,8 +132,10 @@ public class Calculate {
     }
 
     public static boolean isComparison(String expression) {
-        return expression.matches("(.*)(" + SIGN_EQU + "|" +
-			SIGN_LSS + "|" + SIGN_GRT + ")(.*)");
+        return expression.matches("(.*)(" + 
+			SIGN_EQU + "|" +		// =
+			SIGN_LSS + "|" +		// <
+			SIGN_GRT + ")(.*)");	// >
     }
 
     public boolean calculateBoolean(String expression) {
@@ -148,6 +150,30 @@ public class Calculate {
 					Calculate.convertInfixToPostfix(
 						expression.substring(posEQU + 1)));
 			return (Float.compare(left, right) == 0);		
+		}
+		int posLSS = expression.indexOf(SIGN_LSS);
+		if (posLSS > -1) {
+			float left = 
+				calculatePostfix(
+					Calculate.convertInfixToPostfix(
+						expression.substring(0, posLSS)));
+			float right = 
+				calculatePostfix(
+					Calculate.convertInfixToPostfix(
+						expression.substring(posLSS + 1)));
+			return (Float.compare(left, right) < 0);		
+		}
+		int posGRT = expression.indexOf(SIGN_GRT);
+		if (posGRT > -1) {
+			float left = 
+				calculatePostfix(
+					Calculate.convertInfixToPostfix(
+						expression.substring(0, posGRT)));
+			float right = 
+				calculatePostfix(
+					Calculate.convertInfixToPostfix(
+						expression.substring(posGRT + 1)));
+			return (Float.compare(left, right) > 0);		
 		}
 		return false;
 	}
