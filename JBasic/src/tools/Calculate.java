@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated Mar 13, 2018
+ * @version 0.3.5 dated Mar 14, 2018
  */
 
 import java.util.LinkedList;
@@ -139,42 +139,39 @@ public class Calculate {
     }
 
     public boolean calculateBoolean(String expression) {
+        float left = 0;
+        float right = 0;
+        int pos = -1;
+        int typeOfComparison = 0;
 		int posEQU = expression.indexOf(SIGN_EQU);
+        int posLSS = expression.indexOf(SIGN_LSS);
+        int posGRT = expression.indexOf(SIGN_GRT);
 		if (posEQU > -1) {
-			float left = 
+            pos = posEQU;
+            typeOfComparison = 1;
+        } else if (posLSS > -1) {
+            pos = posLSS;
+            typeOfComparison = 2;
+        } else if (posGRT > -1) {
+            pos = posGRT;
+            typeOfComparison = 3;
+        }
+        if (typeOfComparison > 0) {
+			left =
 				calculatePostfix(
 					Calculate.convertInfixToPostfix(
-						expression.substring(0, posEQU)));
-			float right = 
+						expression.substring(0, pos)));
+			right =
 				calculatePostfix(
 					Calculate.convertInfixToPostfix(
-						expression.substring(posEQU + 1)));
-			return (Float.compare(left, right) == 0);		
+						expression.substring(pos + 1)));
+
 		}
-		int posLSS = expression.indexOf(SIGN_LSS);
-		if (posLSS > -1) {
-			float left = 
-				calculatePostfix(
-					Calculate.convertInfixToPostfix(
-						expression.substring(0, posLSS)));
-			float right = 
-				calculatePostfix(
-					Calculate.convertInfixToPostfix(
-						expression.substring(posLSS + 1)));
-			return (Float.compare(left, right) < 0);		
-		}
-		int posGRT = expression.indexOf(SIGN_GRT);
-		if (posGRT > -1) {
-			float left = 
-				calculatePostfix(
-					Calculate.convertInfixToPostfix(
-						expression.substring(0, posGRT)));
-			float right = 
-				calculatePostfix(
-					Calculate.convertInfixToPostfix(
-						expression.substring(posGRT + 1)));
-			return (Float.compare(left, right) > 0);		
-		}
+		switch (typeOfComparison) {
+            case 1: return (Float.compare(left, right) == 0);
+            case 2: return (Float.compare(left, right) < 0);
+            case 3: return (Float.compare(left, right) > 0);
+        }
 		return false;
 	}
 }
