@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.6 dated Mar 13, 2018
+ * @version 0.2.7 dated Mar 14, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -61,25 +61,32 @@ public class Interpreter {
     public void print(String str) {
         String part = "";
         boolean isString = false;
-        str += " ";
+        str += "\n";
         for (int i = str.indexOf(" ") + 1; i < str.length(); i++)
             switch (str.charAt(i)) {
-                case ' ':
+                case '\n':
+                case ' ': // note! expression cann't contain spaces
                 case ',':
-                    if (isString)
+                    if (isString) {
                         part += str.charAt(i);
-                    else if (!part.isEmpty()) {
-                        if (Calculate.isComparison(part))
-							System.out.print(
-								new Calculate(variables)
-									.calculateBoolean(part)
-							);
-                        else
-							System.out.print(
-                                new Calculate(variables)
-                                        .calculatePostfix(
-                                                Calculate.convertInfixToPostfix(part))
-                            );
+                        break;
+                    } else {
+                        if (!part.isEmpty()) {
+                            if (Calculate.isComparison(part))
+                                System.out.print(
+                                        new Calculate(variables)
+                                                .calculateBoolean(part)
+                                );
+                            else
+                                System.out.print(
+                                        new Calculate(variables)
+                                                .calculatePostfix(
+                                                        Calculate.convertInfixToPostfix(part))
+                                );
+                            System.out.print((str.charAt(i) == ',')? "\t" : " ");
+                            part = "";
+                        } else
+                            System.out.print((str.charAt(i) == ',')? "\t" : "");
                     }
                     break;
                 case '"':
