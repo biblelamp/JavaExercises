@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.7 dated Mar 14, 2018
+ * @version 0.2.8 dated Mar 14, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -64,38 +64,39 @@ public class Interpreter {
         str += "\n";
         for (int i = str.indexOf(" ") + 1; i < str.length(); i++)
             switch (str.charAt(i)) {
-                case '\n':
-                case ' ': // note! expression cann't contain spaces
-                case ',':
-                    if (isString) {
-                        part += str.charAt(i);
-                        break;
-                    } else {
-                        if (!part.isEmpty()) {
-                            if (Calculate.isComparison(part))
-                                System.out.print(
-                                        new Calculate(variables)
-                                                .calculateBoolean(part)
-                                );
-                            else
-                                System.out.print(
-                                        new Calculate(variables)
-                                                .calculatePostfix(
-                                                        Calculate.convertInfixToPostfix(part))
-                                );
-                            System.out.print((str.charAt(i) == ',')? "\t" : " ");
-                            part = "";
-                        } else
-                            System.out.print((str.charAt(i) == ',')? "\t" : "");
-                    }
-                    break;
                 case '"':
-                    if (isString) {
-                        System.out.print(part);
+                case ' ':
+                case ',':
+                case '\n':
+                    if (str.charAt(i) == '"')
+                        if (isString) {
+                            System.out.print(part);
+                            part = "";
+                            isString = false;
+                            break;
+                        } else
+                            isString = true;
+                    if (str.charAt(i) == ' ') {
+                        if (isString)
+                            part += str.charAt(i);
+                        break;
+                    }
+                    if (!part.isEmpty()) {
+                        if (Calculate.isComparison(part))
+                            System.out.print(
+                                new Calculate(variables)
+                                    .calculateBoolean(part)
+                            );
+                        else
+                            System.out.print(
+                                new Calculate(variables)
+                                    .calculatePostfix(
+                                        Calculate.convertInfixToPostfix(part))
+                            );
+                        System.out.print((str.charAt(i) == ',')? "\t" : " ");
                         part = "";
-                        isString = false;
                     } else
-                        isString = true;
+                        System.out.print((str.charAt(i) == ',')? "\t" : "");
                     break;
                 default:
                     part += str.charAt(i);
