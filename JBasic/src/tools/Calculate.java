@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.5 dated Mar 14, 2018
+ * @version 0.3.6 dated Mar 15, 2018
  */
 
 import java.util.LinkedList;
@@ -142,11 +142,27 @@ public class Calculate {
         float left = 0;
         float right = 0;
         int pos = -1;
+        int length = 1;
         int typeOfComparison = 0;
 		int posEQU = expression.indexOf(SIGN_EQU);
         int posLSS = expression.indexOf(SIGN_LSS);
         int posGRT = expression.indexOf(SIGN_GRT);
-		if (posEQU > -1) {
+        int posLQU = expression.indexOf(SIGN_LQU);
+        int posGQU = expression.indexOf(SIGN_GQU);
+        int posNQU = expression.indexOf(SIGN_NQU);
+		if (posLQU > -1) {
+            pos = posLQU;
+            typeOfComparison = 4;
+            length = 2;
+        } else if (posGQU > -1) {
+            pos = posGQU;
+            typeOfComparison = 5;
+            length = 2;
+        } else if (posNQU > -1) {
+            pos = posNQU;
+            typeOfComparison = 6;
+            length = 2;
+        } else if (posEQU > -1) {
             pos = posEQU;
             typeOfComparison = 1;
         } else if (posLSS > -1) {
@@ -156,7 +172,7 @@ public class Calculate {
             pos = posGRT;
             typeOfComparison = 3;
         }
-        if (typeOfComparison > 0) {
+        if (pos > -1) {
 			left =
 				calculatePostfix(
 					Calculate.convertInfixToPostfix(
@@ -164,13 +180,16 @@ public class Calculate {
 			right =
 				calculatePostfix(
 					Calculate.convertInfixToPostfix(
-						expression.substring(pos + 1)));
+						expression.substring(pos + length)));
 
 		}
 		switch (typeOfComparison) {
             case 1: return (Float.compare(left, right) == 0);
             case 2: return (Float.compare(left, right) < 0);
             case 3: return (Float.compare(left, right) > 0);
+            case 4: return (Float.compare(left, right) <= 0);
+            case 5: return (Float.compare(left, right) >= 0);
+            case 6: return (Float.compare(left, right) != 0);
         }
 		return false;
 	}
