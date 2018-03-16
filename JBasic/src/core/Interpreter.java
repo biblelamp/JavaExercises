@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.8 dated Mar 14, 2018
+ * @version 0.2.9 dated Mar 16, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,7 @@ public class Interpreter {
             case OPER_GOTO:
                 return goTo(Tools.getPartOfString(str, 1));
             case OPER_IF:
-                ifThen(str);
-                break;
+                return ifThen(str);
             default:
                 let(str);
         }
@@ -128,7 +127,20 @@ public class Interpreter {
     }
 
     public int ifThen(String str) {
-        return 0;
+        str = str.substring(2); // skip if
+        try {
+            String lineStr = Tools.getPartOfString(str, 1, OPER_THEN).trim();
+            String expression = Tools.getPartOfString(str, 0, OPER_THEN).trim();
+            int line = Integer.parseInt(lineStr);
+            boolean result = new Calculate(variables).calculateBoolean(expression);
+            if (result) {
+                programLines.get(line);
+                return line;
+            } else
+                return 0;
+        } catch (NumberFormatException | NullPointerException ex) {
+            return -1;
+        }
     }
 
     public void let(String str) {
