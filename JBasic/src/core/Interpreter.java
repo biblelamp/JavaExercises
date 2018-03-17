@@ -46,6 +46,9 @@ public class Interpreter {
         switch (Tools.getPartOfString(str)) {
             case OPER_DATA:
                 break;
+            case OPER_READ:
+                data.read(Tools.getPartOfString(str, 1));
+                break;
             case OPER_PRINT:
                 print(str);
                 break;

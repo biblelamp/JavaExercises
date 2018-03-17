@@ -13,10 +13,12 @@ import static tools.IConstants.*;
 import tools.Tools;
 
 public class Data {
+    Variables variables;
     List<Float> data;
     int pointer;
 
-    public Data() {
+    public Data(Variables variables) {
+        this.variables = variables;
         data = new ArrayList<>();
     }
 
@@ -35,5 +37,11 @@ public class Data {
             }
         }
         pointer = 0;
+    }
+
+    public void read(String str) {
+        String[] names = str.split(",");
+        for (int i = 0; i < names.length; i++)
+            variables.put(names[i], data.get(pointer++));
     }
 }

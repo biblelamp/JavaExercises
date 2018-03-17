@@ -26,7 +26,7 @@ public class JBasic {
     public JBasic() {
         programLines = new ProgramLines();
         variables = new Variables();
-        data = new Data();
+        data = new Data(variables);
         interpreter = new Interpreter(programLines, variables, data);
         Scanner scr = new Scanner(System.in);
         String str;
