@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.6 dated Mar 15, 2018
+ * @version 0.3.7 dated Mar 17, 2018
  */
 
 import java.util.LinkedList;
@@ -65,7 +65,8 @@ public class Calculate {
                     if (!part.isEmpty()) {
                         list.add(part);
                         part = "";
-                    }
+                    } else
+                        list.add("0");
                     getOperator(input.charAt(i), 1);
                     break;
                 case '*':
