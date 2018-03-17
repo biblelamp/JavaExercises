@@ -32,9 +32,9 @@ public class Interpreter {
         data.init(programLines);
         List<Integer> lines = new ArrayList<>(programLines.keySet());
         int idx = 0;
-        int resut = 0;
-        while (idx < lines.size() && resut != -1) {
-            int result = execute(programLines.get(lines.get(idx)));
+        int result = 0;
+        while (idx < lines.size() && result != -1) {
+            result = execute(programLines.get(lines.get(idx)));
             if (result == 0)
                 idx++;
             else if (result > 0)
@@ -47,8 +47,7 @@ public class Interpreter {
             case OPER_DATA:
                 break;
             case OPER_READ:
-                data.read(Tools.getPartOfString(str, 1));
-                break;
+                return data.read(str.substring(OPER_READ.length()));
             case OPER_PRINT:
                 print(str);
                 break;

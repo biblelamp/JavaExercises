@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import static tools.IConstants.*;
-import tools.Tools;
 
 public class Data {
     Variables variables;
@@ -26,7 +25,7 @@ public class Data {
         for (Integer line : programLines.keySet()) {
             String str = programLines.get(line);
             if (str.startsWith(OPER_DATA)) {
-                String list = Tools.getPartOfString(str, 1);
+                String list = str.substring(OPER_DATA.length());
                 String[] numbers = list.split(",");
                 for (int i = 0; i < numbers.length; i++)
                     try {
@@ -39,9 +38,15 @@ public class Data {
         pointer = 0;
     }
 
-    public void read(String str) {
+    public int read(String str) {
         String[] names = str.split(",");
         for (int i = 0; i < names.length; i++)
-            variables.put(names[i], data.get(pointer++));
+            if (pointer < data.size())
+                variables.put(names[i].trim(), data.get(pointer++));
+            else {
+                System.out.println(ERR_NO_DATA);
+                return -1;
+            }
+        return 0;
     }
 }
