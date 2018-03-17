@@ -6,7 +6,6 @@ package tools;
  * @author Sergey Iryupin
  * @version 0.3.7 dated Mar 17, 2018
  */
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class Calculate {
     public float calculatePostfix(List<String> list) {
         LinkedList<Float> stack = new LinkedList<>();
         float second;
-        //System.out.println(list);
         for (String str : list) {
             switch (str) {
                 case "+":

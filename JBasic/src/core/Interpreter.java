@@ -4,29 +4,32 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.9 dated Mar 16, 2018
+ * @version 0.2.10 dated Mar 17, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static tools.IConstants.*;
-
 import tools.Calculate;
 import tools.Tools;
 import model.ProgramLines;
 import model.Variables;
+import model.Data;
 
 public class Interpreter {
     ProgramLines programLines;
     Variables variables;
+    Data data;
 
-    public Interpreter(ProgramLines programLines, Variables variables) {
+    public Interpreter(ProgramLines programLines, Variables variables, Data data) {
         this.programLines = programLines;
         this.variables = variables;
+        this.data = data;
     }
 
     public void run() {
+        data.init(programLines);
         List<Integer> lines = new ArrayList<>(programLines.keySet());
         int idx = 0;
         int resut = 0;
@@ -41,6 +44,8 @@ public class Interpreter {
 
     public int execute(String str) {
         switch (Tools.getPartOfString(str)) {
+            case OPER_DATA:
+                break;
             case OPER_PRINT:
                 print(str);
                 break;
