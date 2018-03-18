@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.1 dated Mar 17, 2018
+ * @version 0.4.2 dated Mar 18, 2018
  */
 public interface IConstants {
 
@@ -24,6 +24,7 @@ public interface IConstants {
     String ERR_ILLEGAL_VARIABLE = "Error: Illegal Variable";
     String ERR_INVALID_EXPRESSION = "Error: Invalid Expression";
     String ERR_NO_DATA = "Error: No Data";
+    String ERR_UNDEFINED_FUNCTION = "Error: Undefined Function";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";
