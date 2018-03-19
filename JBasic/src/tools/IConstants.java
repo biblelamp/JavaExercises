@@ -50,6 +50,12 @@ public interface IConstants {
     String OPER_DIM = "dim";
     String OPER_REM = "rem";
 
+    // built-in functions
+    String FN_SQR = "sqr";
+    String FN_INT = "int";
+    String FN_SIN = "sin";
+    String FN_COS = "cos";
+
     // for compare
     String SIGN_EQU = "=";
     String SIGN_LSS = "<";
