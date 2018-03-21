@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.2 dated Mar 18, 2018
+ * @version 0.4.3 dated Mar 21, 2018
  */
 public interface IConstants {
 
@@ -53,8 +53,14 @@ public interface IConstants {
     // built-in functions
     String FN_SQR = "sqr";
     String FN_INT = "int";
+    String FN_ABS = "abs";
     String FN_SIN = "sin";
     String FN_COS = "cos";
+    String FN_TAN = "tan";
+    String FN_ATN = "atn";
+    String FN_LOG = "log";
+    String FN_EXP = "exp";
+    String FN_RND = "rnd";
 
     // for compare
     String SIGN_EQU = "=";
