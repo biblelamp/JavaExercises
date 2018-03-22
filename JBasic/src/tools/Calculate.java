@@ -11,6 +11,7 @@ import java.util.List;
 
 import static tools.IConstants.*;
 
+import model.Def;
 import model.Variables;
 
 public class Calculate {
@@ -47,7 +48,7 @@ public class Calculate {
                         stack.push(Float.parseFloat(str));
                     } catch (NumberFormatException ex) {
                         if (str.startsWith(FUNC_FN)) {
-                            //stack.push(stack.pop());
+                            stack.push(Def.calculate(str, stack.pop()));
                             break;
                         }
                         switch (str) {
@@ -92,7 +93,7 @@ public class Calculate {
                 case '(':
                     if (!part.isEmpty()) {
                         if (part.equals(FN_SQR) ||
-                            part.equals(FN_INT) ||
+                                part.equals(FN_INT) ||
                                 part.startsWith(FUNC_FN))
                             stackFunc.push(part);
                         else

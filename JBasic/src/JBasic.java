@@ -2,7 +2,7 @@
  * JBasic - the simplest BASIC on Java
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Mar 17, 2018
+ * @version 0.3.2 dated Mar 22, 2018
  */
 import java.util.Scanner;
 
@@ -12,12 +12,14 @@ import core.Interpreter;
 import model.ProgramLines;
 import model.Variables;
 import model.Data;
+import model.Def;
 
 public class JBasic {
+    Interpreter interpreter;
     ProgramLines programLines;
     Variables variables;
-    Interpreter interpreter;
     Data data;
+    Def def;
 
     public static void main(String[] args) {
         new JBasic();
@@ -27,7 +29,8 @@ public class JBasic {
         programLines = new ProgramLines();
         variables = new Variables();
         data = new Data(variables);
-        interpreter = new Interpreter(programLines, variables, data);
+        def = new Def();
+        interpreter = new Interpreter(programLines, variables, data, def);
         Scanner scr = new Scanner(System.in);
         String str;
         System.out.println(MSG_START);

@@ -13,20 +13,15 @@ import static tools.IConstants.*;
 
 public class Def {
     private Map<String, String> def;
-    private ProgramLines programLines;
 
-    public Def(ProgramLines programLines) {
-        this.programLines = programLines;
+    public void init(ProgramLines programLines) {
         def = new HashMap<>();
-    }
-
-    public void init() {
-        def.clear();
         for (Integer line : programLines.keySet()) {
             String str = programLines.get(line);
-            if (str.startsWith(FUNC_FN)) {
-
-            }
+            if (str.startsWith(OPER_DEF))
+                def.put(str.substring(str.indexOf(FUNC_FN),
+                        str.indexOf(FUNC_FN) + 3),
+                        str.substring(str.indexOf(FUNC_FN)));
         }
     }
 

@@ -11,24 +11,29 @@ import java.util.List;
 import java.util.Scanner;
 
 import static tools.IConstants.*;
+
 import tools.Calculate;
 import tools.Tools;
 import model.ProgramLines;
 import model.Variables;
 import model.Data;
+import model.Def;
 
 public class Interpreter {
     ProgramLines programLines;
     Variables variables;
     Data data;
+    Def def;
 
-    public Interpreter(ProgramLines programLines, Variables variables, Data data) {
+    public Interpreter(ProgramLines programLines, Variables variables, Data data, Def def) {
         this.programLines = programLines;
         this.variables = variables;
         this.data = data;
+        this.def = def;
     }
 
     public void run() {
+        def.init(programLines);
         data.init(programLines);
         List<Integer> lines = new ArrayList<>(programLines.keySet());
         int idx = 0;
