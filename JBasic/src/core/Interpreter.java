@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.10 dated Mar 17, 2018
+ * @version 0.2.11 dated Mar 22, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,7 @@ public class Interpreter {
     public int execute(String str) {
         switch (Tools.getPartOfString(str)) {
             case OPER_DATA:
+            case OPER_DEF:
                 break;
             case OPER_READ:
                 return data.read(str.substring(OPER_READ.length()));

@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.3 dated Mar 21, 2018
+ * @version 0.4.4 dated Mar 22, 2018
  */
 public interface IConstants {
 
@@ -49,6 +49,9 @@ public interface IConstants {
     String OPER_RETURN = "return";
     String OPER_DIM = "dim";
     String OPER_REM = "rem";
+
+    // defined functions
+    String FUNC_FN = "fn";
 
     // built-in functions
     String FN_SQR = "sqr";
