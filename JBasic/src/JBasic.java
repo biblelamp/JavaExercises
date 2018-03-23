@@ -32,10 +32,11 @@ public class JBasic {
         def = new Def();
         interpreter = new Interpreter(programLines, variables, data, def);
         Scanner scr = new Scanner(System.in);
-        String str;
+        String str = "";
         System.out.println(MSG_START);
         do {
-            System.out.println(MSG_READY);
+            if (Tools.getLineNumber(str) == 0)
+                System.out.println(MSG_READY);
             str = scr.nextLine().trim();
             switch (Tools.getPartOfString(str)) {
                 case CMD_NEW:
@@ -43,9 +44,6 @@ public class JBasic {
                     break;
                 case CMD_LIST:
                     programLines.list();
-                    break;
-                case CMD_VALUES:
-                    variables.print();
                     break;
                 case CMD_SAVE:
                     programLines.save(str);
@@ -60,6 +58,9 @@ public class JBasic {
                     break;
                 case CMD_EXIT:
                     break;
+                case CMD_VALUES:
+                    variables.print();
+                    break;
                 case OPER_PRINT:
                     interpreter.print(str);
                     break;
@@ -67,7 +68,7 @@ public class JBasic {
                     interpreter.input(Tools.getPartOfString(str, 1));
                     break;
                 default:
-                    if (Tools.getLineNumber(str) > 0)
+                    if (Tools.getLineNumber(str) > 0) // add/delete program line
                         programLines.add(str);
                     else
                         System.out.println(ERR_ILLEGAL_COMMAND);
