@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.11 dated Mar 22, 2018
+ * @version 0.2.12 dated Mar 24, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -96,12 +96,12 @@ public class Interpreter {
                     if (!part.isEmpty()) {
                         if (Calculate.isComparison(part))
                             System.out.print(
-                                new Calculate(variables)
+                                new Calculate(variables, def)
                                     .calculateBoolean(part)
                             );
                         else
                             System.out.print(
-                                new Calculate(variables)
+                                new Calculate(variables, def)
                                     .calculatePostfix(
                                         Calculate.convertInfixToPostfix(part))
                             );
@@ -122,7 +122,7 @@ public class Interpreter {
             System.out.print("? ");
             String expression = scr.nextLine();
             variables.put(name,
-				new Calculate(variables)
+				new Calculate(variables, def)
 					.calculatePostfix(
 						Calculate.convertInfixToPostfix(expression)));
         } else
@@ -145,7 +145,8 @@ public class Interpreter {
             String lineStr = Tools.getPartOfString(str, 1, OPER_THEN).trim();
             String expression = Tools.getPartOfString(str, 0, OPER_THEN).trim();
             int line = Integer.parseInt(lineStr);
-            boolean result = new Calculate(variables).calculateBoolean(expression);
+            boolean result = new Calculate(variables, def)
+                    .calculateBoolean(expression);
             if (result) {
                 programLines.get(line);
                 return line;
@@ -165,7 +166,7 @@ public class Interpreter {
 			expression = Tools.getPartOfString(str, 1, "=").trim();
 			if (variables.isNameValid(name))
 				variables.put(name,
-					new Calculate(variables)
+					new Calculate(variables, def)
 						.calculatePostfix(
 							Calculate.convertInfixToPostfix(expression)));
 			else

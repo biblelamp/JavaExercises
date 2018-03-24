@@ -6,6 +6,9 @@ package model;
  * @author Sergey Iryupin
  * @version 0.2 dated Mar 24, 2018
  */
+import tools.Calculate;
+import tools.Tools;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,18 +33,27 @@ public class Def {
         }
     }
 
-    public static float calculate(String fn, float x) {
+    public float calculate(String fn, float x) {
 
-        // define name and value of parameter
+        // define name of parameter and expression
+        String function = def.get(fn);
+        String name = function.substring(4, 5);
+        String expression = Tools.getPartOfString(function, 1, "=").trim();
 
         // store value of variable with same name
+        float save = variables.get(name);
 
         // save value in the variable
+        variables.put(name, x);
 
         // calculate expression
+        float result = new Calculate(variables, this)
+                .calculatePostfix(
+                        Calculate.convertInfixToPostfix(expression));
 
         // restore value of the variable
+        variables.put(name, save);
 
-        return 0;
+        return result;
     }
 }

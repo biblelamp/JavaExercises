@@ -19,9 +19,11 @@ public class Calculate {
     private static LinkedList<String> stackFunc;
     private static LinkedList<Character> stackOper;
     private Variables variables;
+    private Def def;
     
-    public Calculate(Variables variables) {
+    public Calculate(Variables variables, Def def) {
 		this.variables = variables;
+		this.def = def;
 	}
 
     public float calculatePostfix(List<String> list) {
@@ -48,7 +50,7 @@ public class Calculate {
                         stack.push(Float.parseFloat(str));
                     } catch (NumberFormatException ex) {
                         if (str.startsWith(FUNC_FN)) {
-                            stack.push(Def.calculate(str, stack.pop()));
+                            stack.push(def.calculate(str, stack.pop()));
                             break;
                         }
                         switch (str) {
