@@ -37,6 +37,10 @@ public class Def {
 
         // define name of parameter and expression
         String function = def.get(fn);
+        if (function == null) {
+            System.out.println(ERR_UNDEFINED_FUNCTION);
+            return 0;
+        }
         String name = function.substring(4, 5);
         String expression = Tools.getPartOfString(function, 1, "=").trim();
 
