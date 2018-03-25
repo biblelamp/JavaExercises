@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.12 dated Mar 24, 2018
+ * @version 0.2.13 dated Mar 25, 2018
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +42,13 @@ public class Interpreter {
             result = execute(programLines.get(lines.get(idx)));
             if (result == 0)
                 idx++;
-            else if (result > 0)
+            else if (result > 0) {
                 idx = lines.indexOf(result);
+                if (idx < 0) {
+                    System.out.println(ERR_UNDEFINED_LINE_NUMBER);
+                    return;
+                }
+            }
         }
     }
 

@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.4 dated Mar 22, 2018
+ * @version 0.4.5 dated Mar 25, 2018
  */
 public interface IConstants {
 
@@ -25,6 +25,7 @@ public interface IConstants {
     String ERR_INVALID_EXPRESSION = "Error: Invalid Expression";
     String ERR_NO_DATA = "Error: No Data";
     String ERR_UNDEFINED_FUNCTION = "Error: Undefined Function";
+    String ERR_UNDEFINED_LINE_NUMBER = "Error: Undefined Line Number";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";
