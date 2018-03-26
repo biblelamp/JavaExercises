@@ -84,6 +84,24 @@ public class Interpreter {
                     System.out.println(ERR_ILLEGAL_RETURN);
                     return -1;
                 }
+            case OPER_FOR:
+
+                // define name of counter
+
+                // looking for tne next
+
+                // define init, finish and step values
+
+                // save values in for-stack
+
+                break; // temporary stub
+            case OPER_NEXT:
+
+                // check size for-stack
+
+                // get values and check condition of finish
+
+                break; // temporary stub
             case OPER_END:
                 return -1;
             default:
