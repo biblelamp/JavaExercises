@@ -86,11 +86,17 @@ public class Interpreter {
                 }
             case OPER_FOR:
 
-                // define name of counter
+                // define name and init value of counter
+                String[] dividedByTo = str.substring(3).split(OPER_TO);
+                String[] counter = dividedByTo[0].split("=");
+                String counterName = counter[0].trim();
+                float counterValue = new Calculate(variables, def)
+                        .calculatePostfix(
+                                Calculate.convertInfixToPostfix(counter[1].trim()));
 
                 // looking for tne next
 
-                // define init, finish and step values
+                // define finish and step values
 
                 // save values in for-stack
 
