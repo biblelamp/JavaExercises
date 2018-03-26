@@ -90,15 +90,17 @@ public class Interpreter {
                 String[] dividedByTo = str.substring(3).split(OPER_TO);
                 String[] counter = dividedByTo[0].split("=");
                 String counterName = counter[0].trim();
-                float counterValue = new Calculate(variables, def)
+                float counterInit = new Calculate(variables, def)
                         .calculatePostfix(
-                                Calculate.convertInfixToPostfix(counter[1].trim()));
+                                Calculate.convertInfixToPostfix(counter[1]));
 
                 // searching and checking the next
                 int next = -1;
                 for (int i = idx + 1; i < lines.size(); i++)
                     if (programLines.get(lines.get(i)).startsWith(OPER_NEXT))
-                        if (programLines.get(lines.get(i)).substring(4).trim()
+                        if (programLines.get(lines.get(i))
+                                .substring(4)
+                                .trim()
                                 .equals(counterName))
                             next = i + 1;
                 if (next < 0) {
@@ -107,6 +109,18 @@ public class Interpreter {
                 }
 
                 // define finish and step values
+                String[] afterTo = dividedByTo[1].split(OPER_STEP);
+                float counterFinish = new Calculate(variables, def)
+                        .calculatePostfix(
+                                Calculate.convertInfixToPostfix(afterTo[0]));
+                float step = 1;
+                if (afterTo.length > 1)
+                    step = new Calculate(variables, def)
+                            .calculatePostfix(
+                                    Calculate.convertInfixToPostfix(afterTo[1]));
+
+                // init counter
+                variables.put(counterName, counterInit);
 
                 // save values in for-stack
 
