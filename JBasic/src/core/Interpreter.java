@@ -84,6 +84,8 @@ public class Interpreter {
                     System.out.println(ERR_ILLEGAL_RETURN);
                     return -1;
                 }
+            case OPER_END:
+                return -1;
             default:
                 let(str);
         }
