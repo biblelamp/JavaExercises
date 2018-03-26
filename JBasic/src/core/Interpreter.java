@@ -4,10 +4,11 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.13 dated Mar 25, 2018
+ * @version 0.2.14 dated Mar 26, 2018
  */
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import static tools.IConstants.*;
@@ -20,6 +21,8 @@ import model.Data;
 import model.Def;
 
 public class Interpreter {
+    LinkedList<Integer> gosub;
+    List<Integer> lines;
     ProgramLines programLines;
     Variables variables;
     Data data;
@@ -35,11 +38,12 @@ public class Interpreter {
     public void run() {
         def.init(programLines);
         data.init(programLines);
-        List<Integer> lines = new ArrayList<>(programLines.keySet());
+        lines = new ArrayList<>(programLines.keySet());
+        gosub = new LinkedList<>();
         int idx = 0;
         int result = 0;
         while (idx < lines.size() && result != -1) {
-            result = execute(programLines.get(lines.get(idx)));
+            result = execute(programLines.get(lines.get(idx)), idx);
             if (result == 0)
                 idx++;
             else if (result > 0) {
@@ -48,11 +52,12 @@ public class Interpreter {
                     System.out.println(ERR_UNDEFINED_LINE_NUMBER);
                     return;
                 }
-            }
+            } else
+                break;
         }
     }
 
-    public int execute(String str) {
+    public int execute(String str, int idx) {
         switch (Tools.getPartOfString(str)) {
             case OPER_DATA:
             case OPER_DEF:
@@ -69,6 +74,16 @@ public class Interpreter {
                 return goTo(Tools.getPartOfString(str, 1));
             case OPER_IF:
                 return ifThen(str);
+            case OPER_GOSUB:
+                gosub.push(idx + 1);
+                return goTo(Tools.getPartOfString(str, 1));
+            case OPER_RETURN:
+                if (gosub.size() > 0)
+                    return lines.get(gosub.pop());
+                else {
+                    System.out.println(ERR_ILLEGAL_RETURN);
+                    return -1;
+                }
             default:
                 let(str);
         }
