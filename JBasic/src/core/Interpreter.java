@@ -94,7 +94,17 @@ public class Interpreter {
                         .calculatePostfix(
                                 Calculate.convertInfixToPostfix(counter[1].trim()));
 
-                // looking for tne next
+                // searching and checking the next
+                int next = -1;
+                for (int i = idx + 1; i < lines.size(); i++)
+                    if (programLines.get(lines.get(i)).startsWith(OPER_NEXT))
+                        if (programLines.get(lines.get(i)).substring(4).trim()
+                                .equals(counterName))
+                            next = i + 1;
+                if (next < 0) {
+                    System.out.println(ERR_FOR_WITHOUT_NEXT);
+                    return -1;
+                }
 
                 // define finish and step values
 
