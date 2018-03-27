@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.7 dated Mar 26, 2018
+ * @version 0.4.8 dated Mar 27, 2018
  */
 public interface IConstants {
 
@@ -28,6 +28,7 @@ public interface IConstants {
     String ERR_UNDEFINED_LINE_NUMBER = "Error: Undefined Line Number";
     String ERR_ILLEGAL_RETURN = "Error: Illegal Return";
     String ERR_FOR_WITHOUT_NEXT = "Error: For Without Next";
+    String ERR_NOT_MATCH_WITH_FOR = "Error: Not Match With For";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";

@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.14 dated Mar 26, 2018
+ * @version 0.2.15 dated Mar 27, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import model.Data;
 import model.Def;
 
 public class Interpreter {
+    LinkedList<String> forNext;
     LinkedList<Integer> gosub;
     List<Integer> lines;
     ProgramLines programLines;
@@ -40,6 +41,7 @@ public class Interpreter {
         data.init(programLines);
         lines = new ArrayList<>(programLines.keySet());
         gosub = new LinkedList<>();
+        forNext = new LinkedList<>();
         int idx = 0;
         int result = 0;
         while (idx < lines.size() && result != -1) {
@@ -123,13 +125,19 @@ public class Interpreter {
                 variables.put(counterName, counterInit);
 
                 // save values in for-stack
+                forNext.push(counterName + " " + counterFinish + " " + step + " " + next);
 
-                break; // temporary stub
+                break;
             case OPER_NEXT:
 
                 // check size for-stack
+                if (forNext.size() < 1) {
+                    System.out.println(ERR_NOT_MATCH_WITH_FOR);
+                    return -1;
+                }
 
                 // get values and check condition of finish
+                String forStr = forNext.pop();
 
                 break; // temporary stub
             case OPER_END:
