@@ -125,7 +125,8 @@ public class Interpreter {
                 variables.put(counterName, counterInit);
 
                 // save values in for-stack
-                forNext.push(counterName + " " + counterFinish + " " + step + " " + next);
+                forNext.push(counterName + " " + counterFinish + " " + step + " " +
+                        lines.get((idx + 1)));
 
                 break;
             case OPER_NEXT:
@@ -136,10 +137,34 @@ public class Interpreter {
                     return -1;
                 }
 
-                // get values and check condition of finish
-                String forStr = forNext.pop();
+                // get name of counter
+                String nextName = Tools.getPartOfString(str, 1);
 
-                break; // temporary stub
+                // get values from stack
+                String[] forStr = forNext.pop().split(" ");
+                float counterVal = variables.get(forStr[0]);
+                float finishVal = Float.parseFloat(forStr[1]);
+                float stepVal = Float.parseFloat(forStr[2]);
+                int backLine = Integer.parseInt(forStr[3]);
+
+                // checking the name of the counter
+                if (!nextName.equals(forStr[0])) {
+                    System.out.println(ERR_NOT_MATCH_WITH_FOR);
+                    return -1;
+                }
+
+                // check condition of the end of the cycle
+                if (counterVal + stepVal > finishVal)
+                    return 0;
+
+                // changing the value of the counter
+                variables.put(forStr[0], counterVal + stepVal);
+
+                // save values in for-stack
+                forNext.push(forStr[0] + " " + finishVal + " " + stepVal + " " + backLine);
+
+                // back to the beginning of the cycle
+                return backLine;
             case OPER_END:
                 return -1;
             default:
