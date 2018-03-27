@@ -4,7 +4,7 @@ package tools;
  * tools.Tools - service methods
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 25, 2018
+ * @version 0.2 dated Mar 27, 2018
  */
 public class Tools {
 
@@ -31,5 +31,12 @@ public class Tools {
 
     public static String getPartOfString(String str) {
         return getPartOfString(str, 0);
+    }
+
+    public static String floatToString(float number) {
+        if (Math.floor(number) == number)
+            return Integer.toString(Math.round(number));
+        else
+            return Float.toString(number);
     }
 }

@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.15 dated Mar 27, 2018
+ * @version 0.2.16 dated Mar 27, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -203,10 +203,10 @@ public class Interpreter {
                                     .calculateBoolean(part)
                             );
                         else
-                            System.out.print(
+                            System.out.print(Tools.floatToString(
                                 new Calculate(variables, def)
                                     .calculatePostfix(
-                                        Calculate.convertInfixToPostfix(part))
+                                        Calculate.convertInfixToPostfix(part)))
                             );
                         System.out.print((str.charAt(i) == ',')? "\t" : " ");
                         part = "";
