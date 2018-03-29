@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.16 dated Mar 27, 2018
+ * @version 0.2.17 dated Mar 29, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -124,9 +124,13 @@ public class Interpreter {
                 // init counter
                 variables.put(counterName, counterInit);
 
+                // checking the possibility to enter to the loop
+                if (counterInit > counterFinish)
+                    return lines.get(next);
+
                 // save values in for-stack
                 forNext.push(counterName + " " + counterFinish + " " + step + " " +
-                        lines.get((idx + 1)));
+                        lines.get(idx + 1));
 
                 break;
             case OPER_NEXT:
