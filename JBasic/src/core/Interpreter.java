@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.17 dated Mar 29, 2018
+ * @version 0.2.18 dated Mar 31, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import model.ProgramLines;
 import model.Variables;
 import model.Data;
 import model.Def;
+import model.Dim;
 
 public class Interpreter {
     LinkedList<String> forNext;
@@ -28,17 +29,21 @@ public class Interpreter {
     Variables variables;
     Data data;
     Def def;
+    Dim dim;
 
-    public Interpreter(ProgramLines programLines, Variables variables, Data data, Def def) {
+    public Interpreter(ProgramLines programLines, Variables variables,
+                       Data data, Def def, Dim dim) {
         this.programLines = programLines;
         this.variables = variables;
         this.data = data;
         this.def = def;
+        this.dim = dim;
     }
 
     public void run() {
-        def.init(programLines);
         data.init(programLines);
+        def.init(programLines);
+        dim.init(programLines);
         lines = new ArrayList<>(programLines.keySet());
         gosub = new LinkedList<>();
         forNext = new LinkedList<>();
@@ -63,6 +68,7 @@ public class Interpreter {
         switch (Tools.getPartOfString(str)) {
             case OPER_DATA:
             case OPER_DEF:
+            case OPER_DIM:
                 break;
             case OPER_READ:
                 return data.read(str.substring(OPER_READ.length()));
