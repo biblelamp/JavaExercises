@@ -4,7 +4,7 @@ package tools;
  * tools.Calculate - convert infix to postfix
  *
  * @author Sergey Iryupin
- * @version 0.3.13 dated Mar 30, 2018
+ * @version 0.3.14 dated Mar 31, 2018
  */
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
 import static tools.IConstants.*;
 
 import model.Def;
+import model.Function;
 import model.Variables;
 
 public class Calculate {
@@ -57,19 +58,7 @@ public class Calculate {
                             stack.push(def.calculate(str, stack.pop()));
                             break;
                         }
-                        switch (str) {
-                            case FN_SQR:
-                                stack.push((float)Math.sqrt(stack.pop()));
-                                break;
-                            case FN_INT:
-                                stack.push((float)Math.floor(stack.pop()));
-                                break;
-                            case FN_SIN:
-                                stack.push((float)Math.sin(stack.pop()));
-                                break;
-                            default:
-                                stack.push(variables.get(str));
-                        }
+                        Function.calculate(str, stack, variables);
                     }
             }
         return stack.pop();
@@ -102,10 +91,7 @@ public class Calculate {
                     break;
                 case '(':
                     if (!part.isEmpty()) {
-                        if (part.equals(FN_SQR) ||
-                                part.equals(FN_INT) ||
-                                part.equals(FN_SIN) ||
-                                part.startsWith(FUNC_FN))
+                        if (Function.isFunction(part))
                             stackFunc.push(part);
                         else
                             list.add(part);
