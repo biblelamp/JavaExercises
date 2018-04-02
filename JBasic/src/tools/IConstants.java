@@ -13,7 +13,6 @@ public interface IConstants {
     String MSG_READY = "Ready";
     String CMD_NEW = "new";
     String CMD_LIST = "list";
-    String CMD_VALUES = "values";
     String CMD_SAVE = "save";
     String CMD_LOAD = "load";
     String CMD_RUN = "run";
@@ -29,6 +28,7 @@ public interface IConstants {
     String ERR_ILLEGAL_RETURN = "Error: Illegal Return";
     String ERR_FOR_WITHOUT_NEXT = "Error: For Without Next";
     String ERR_NOT_MATCH_WITH_FOR = "Error: Not Match With For";
+    String ERR_SUBSCRIPT_ERROR = "Error: Subscript Error";
 
     // for class ProgramLines
     String FILE_EXT = ".bas";

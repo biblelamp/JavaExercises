@@ -61,9 +61,6 @@ public class JBasic {
                     break;
                 case CMD_EXIT:
                     break;
-                case CMD_VALUES:
-                    variables.print();
-                    break;
                 case OPER_PRINT:
                     interpreter.print(str);
                     break;
