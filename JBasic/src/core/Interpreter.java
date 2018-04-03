@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.18 dated Mar 31, 2018
+ * @version 0.2.18 dated Apr 3, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -69,6 +69,7 @@ public class Interpreter {
             case OPER_DATA:
             case OPER_DEF:
             case OPER_DIM:
+            case OPER_REM:
                 break;
             case OPER_READ:
                 return data.read(str.substring(OPER_READ.length()));
