@@ -4,7 +4,7 @@ package model;
  * model.Dim - working with arrays
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Apr 01, 2018
+ * @version 0.2.1 dated Apr 04, 2018
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -31,5 +31,12 @@ public class Dim {
                             items[i].trim().substring(2));
             }
         }
+    }
+
+    public float get(String name, String idx) {
+        return 0;
+    }
+
+    public void put(String name, String idx) {
     }
 }
