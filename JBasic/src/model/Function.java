@@ -4,7 +4,7 @@ package model;
  * model.Function - working with with built-in functions
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Apr 05, 2018
+ * @version 0.1.2 dated Apr 06, 2018
  */
 import java.util.LinkedList;
 
@@ -15,6 +15,7 @@ public class Function {
     public static boolean isFunction(String str) {
         return str.equals(FN_SQR) ||
                 str.equals(FN_INT) ||
+                str.equals(FN_ABS) ||
                 str.equals(FN_SIN) ||
                 str.equals(FN_COS) ||
                 str.startsWith(FUNC_FN);
@@ -27,6 +28,9 @@ public class Function {
                 break;
             case FN_INT:
                 stack.push((float)Math.floor(stack.pop()));
+                break;
+            case FN_ABS:
+                stack.push(Math.abs(stack.pop()));
                 break;
             case FN_SIN:
                 stack.push((float)Math.sin(stack.pop()));
