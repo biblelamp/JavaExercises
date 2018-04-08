@@ -1,0 +1,62 @@
+@Description
+“ест по Java. —редний уровень уровень https://geekbrains.ru/tests/55
+
+@Question
+¬ыберите неверное утверждение
+@Options @OnlyOne @Key=3
+LinkedHashSet хранит элементы в пор€дке добавлени€
+TreeSet представл€ет собой отсортированное множество
+в HashSet элементы упор€дочены по возрастанию
+в HashSet хран€тс€ только уникальные элементы
+
+@Question
+ƒопустимо объ€вление пустых интерфейсов?
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+ѕри попытке вызвать метод у не созданного объекта будет сгенерировано исключение:
+@Options @OnlyOne @Key=1
+NullPointerException
+IllegalArgumentException
+IOException
+ClassCastException
+
+@Question
+ акое условие необходимо выполнить дл€ использовани€ класса в качестве ключа HashMap?
+@Options @OnlyOne @Key=1
+переопределить методы hashCode() и equals()
+переопределить только метод equals()
+переопределить только метод hashCode()
+реализовать интерфейс Serializable
+
+@Question
+¬ыберите верное утверждение
+@Options @OnlyOne @Key=4
+RuntimeException - checked, Exception - unchecked
+RuntimeException - unchecked, Exception - unchecked
+RuntimeException - checked, Exception - checked
+RuntimeException - unchecked, Exception - checked
+
+@Question
+ѕри выполнении static synchronized метода в роли монитора выступает?
+@Options @OnlyOne @Key=2
+объект, у которого вызвали этот метод
+класс
+нельз€ указывать модификатор synchronized у static метода
+одно из полей объекта
+
+@Question
+¬ыберите верное утверждение
+@Options @OnlyOne @Key=4
+внутренний класс имеет полный доступ ко всем пол€м и методам внешнего класса, внешний класс имеет полный доступ ко всем пол€м и методам внутреннего
+и внутренний и внешний класс имеют доступ только к статическим членам другого класса
+внутренний класс имеет доступ только к открытым пол€м внешнего класса, внешний класс имеет полный доступ ко всем пол€м и методам внутреннего
+внутренний класс имеет доступ ко всем пол€м и методам внешнего класса, внешний класс не имеет пр€мого доступа к пол€м и методам внутреннего класса
+
+@Question
+—уществует ли возможность унаследовать класс от абстрактного и не реализовать абстрактные методы родительского класса?
+@Options @OnlyOne @Key=1
+нет
+да
