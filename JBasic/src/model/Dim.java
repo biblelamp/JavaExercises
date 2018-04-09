@@ -4,7 +4,7 @@ package model;
  * model.Dim - working with arrays
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Apr 07, 2018
+ * @version 0.2.3 dated Apr 07, 2018
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +40,18 @@ public class Dim {
                 }
             }
         }
+    }
+
+    public boolean isItemValid(String name) {
+        return false;
+    }
+
+    public int getX(String name) {
+        return 0;
+    }
+
+    public int getY(String name) {
+        return 0;
     }
 
     public float get(String name, int idX, int idY) {

@@ -4,7 +4,7 @@ package model;
  * model.Data - working with data set
  *
  * @author Sergey Iryupin
- * @version 0.1.2 dated Apr 09, 2018
+ * @version 0.1.3 dated Apr 09, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import static tools.IConstants.*;
 
 public class Data {
+    Dim dim;
     Variables variables;
     List<Float> data;
     int pointer;
 
-    public Data(Variables variables) {
+    public Data(Variables variables, Dim dim) {
         this.variables = variables;
+        this.dim = dim;
         data = new ArrayList<>();
     }
 
@@ -47,6 +49,8 @@ public class Data {
             if (pointer < data.size())
                 if (variables.isNameValid(names[i].trim()))
                     variables.put(names[i].trim(), data.get(pointer++));
+                else if (dim.isItemValid(names[i]))
+                    dim.put(names[i], dim.getX(names[i]), dim.getY(names[i]), data.get(pointer++));
                 else {
                     System.out.println(ERR_ILLEGAL_VARIABLE);
                     return -1;
