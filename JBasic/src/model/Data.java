@@ -4,7 +4,7 @@ package model;
  * model.Data - working with data set
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Apr 09, 2018
+ * @version 0.1.2 dated Apr 09, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -21,7 +21,8 @@ public class Data {
         data = new ArrayList<>();
     }
 
-    public void init(ProgramLines programLines) {
+    public boolean init(ProgramLines programLines) {
+        data.clear();
         for (Integer line : programLines.keySet()) {
             String str = programLines.get(line);
             if (str.startsWith(OPER_DATA)) {
@@ -31,11 +32,13 @@ public class Data {
                     try {
                         data.add(Float.parseFloat(numbers[i]));
                     } catch (NumberFormatException ex) {
-                        data.add(0f);
+                        System.out.println(ERR_ILLEGAL_CONSTANT);
+                        return false;
                     }
             }
         }
         pointer = 0;
+        return true;
     }
 
     public int read(String str) {

@@ -4,7 +4,7 @@ package tools;
  * tools.IConstants - set of constants
  *
  * @author Sergey Iryupin
- * @version 0.4.8 dated Mar 27, 2018
+ * @version 0.4.9 dated Apr 09, 2018
  */
 public interface IConstants {
 
@@ -20,6 +20,7 @@ public interface IConstants {
 
     // error messages
     String ERR_ILLEGAL_COMMAND = "Error: Illegal Instruction";
+    String ERR_ILLEGAL_CONSTANT = "Error: Illegal Constant";
     String ERR_ILLEGAL_VARIABLE = "Error: Illegal Variable";
     String ERR_INVALID_EXPRESSION = "Error: Invalid Expression";
     String ERR_NO_DATA = "Error: No Data";

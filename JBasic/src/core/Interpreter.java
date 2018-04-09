@@ -4,7 +4,7 @@ package core;
  * core.Interpreter - executing of the programLines
  *
  * @author Sergey Iryupin
- * @version 0.2.18 dated Apr 3, 2018
+ * @version 0.2.19 dated Apr 09, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -41,7 +41,8 @@ public class Interpreter {
     }
 
     public void run() {
-        data.init(programLines);
+        if (!data.init(programLines))
+            return;
         def.init(programLines);
         dim.init(programLines);
         lines = new ArrayList<>(programLines.keySet());
