@@ -4,7 +4,7 @@ package model;
  * model.Data - working with data set
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Mar 17, 2018
+ * @version 0.1.1 dated Apr 09, 2018
  */
 import java.util.List;
 import java.util.ArrayList;
@@ -42,7 +42,12 @@ public class Data {
         String[] names = str.split(",");
         for (int i = 0; i < names.length; i++)
             if (pointer < data.size())
-                variables.put(names[i].trim(), data.get(pointer++));
+                if (variables.isNameValid(names[i].trim()))
+                    variables.put(names[i].trim(), data.get(pointer++));
+                else {
+                    System.out.println(ERR_ILLEGAL_VARIABLE);
+                    return -1;
+                }
             else {
                 System.out.println(ERR_NO_DATA);
                 return -1;
