@@ -1,0 +1,192 @@
+@Description
+Тест по Java. Сложный уровень https://geekbrains.ru/tests/58
+
+@Question
+Какова основная задача интерфейса PreparedStatement?
+@Options @OnlyOne @Key=3
+выполнение хранимых процедур
+получение информации о состоянии БД
+выполнять параметрические запросы
+получение информации о таблицах
+
+@Question
+Какой модификатор позволяет пропустить поле при сериализации?
+@Options @OnlyOne @Key=5
+volatile
+depricated
+excluded
+protected
+transient
+
+@Question
+Какой метод следует использовать для выполнения запросов INSERT и UPDATE?
+@Options @OnlyOne @Key=3
+executeQuery()
+executeResult()
+executeUpdate()
+execute()
+
+@Question
+Какой из типов данных не является интерфейсом?
+@Options @OnlyOne @Key=4
+Connection
+Statement
+ResultSet
+DriverManager
+
+@Question
+Какой запрос позволит очистить таблицу students в SQLLite?
+@Options @OnlyOne @Key=2
+Delete * FROM students;
+Delete from students;
+Delete students;
+Delete * IN students;
+REMOVE students;
+
+@Question
+Для чего предназначен DataInputStream?
+@Options @OnlyOne @Key=3
+для преобраования текстового потока в бинарный
+для чтения обьектов из бинарного потока
+для чтения примитивных типов данных из бинарного потока
+
+@Question
+Что произойдет при попытке повторного создания таблицы через запрос CREATE TABLE students (... если такая таблица уже существует?
+@Options @OnlyOne @Key=4 <?>
+ничего не произойдет
+таблица будет пересоздана с очисткой данных
+будет брошено IOException
+будет брошено SQLException
+
+@Question
+При использовании ReentrantReadWriteLock
+@Options @OnlyOne @Key=3
+все утверждения не верны
+при захвате writelock  все потоки, захватившие readlock, освобождаются
+только один поток может получить доступ к записи, и множество потоков могут получить одновременный доступ к чтению
+потоки могут одновременно захватить и readLock и writeLock
+
+@Question
+Что произойдет при выполнении задачи через интерфейс Callable и попытке запросить результат работы потока с помощью метода  get() до его завершения?
+@Options @OnlyOne @Key=2
+будет брошено IllegalStateException
+поток, запросивший результат выполнения, перейдет в режим ожидания
+вернется null
+будет брошено InterruptedException
+
+@Question
+Какой фреймворк предназначен для написания юнит-тестов
+@Options @OnlyOne @Key=3
+JTest
+Maven
+JUnit
+Gradle
+Selenium
+
+@Question
+Выберите верное утверждение
+@Options @OnlyOne @Key=2
+Class.getDeclaredMethods() позволяет получить массив всех открытых методов обьявленных только внутри класса, Class.getMethods() позволяет получить массив всех открытых методов класса, в том числе доставшихся ему от родительских классов
+Class.getDeclaredMethods() позволяет получить массив всех методов класса, Class.getMethods() позволяет получить массив всех открытых методов класса, в том числе доставщихся ему от родительских классов
+Class.getDeclaredMethods() позволяет получить массив всех методов обьявленых только внутри класса, Class.getMethods() позволяет получить массив всех открытых методов класса, в том числе доставшихся ему от родительских классов
+Class.getDeclaredMethods() позволяет получить массив всех открытых методов обьявленных только внутри класса, Class.getMethods() позволяет получить массив всех открытых методов класса, обьявленных только внутри класса
+
+@Question
+Можно ли с помощью reflection изменить private поле обьекта?
+@Options @OnlyOne @Key=2
+нет
+да
+
+@Question
+Какая проверка отсуствует в классе Assert?
+@Options @OnlyOne @Key=3
+assertSame
+assertArrayEquals
+assertReference
+assertEquals
+assertNotNull
+assertTrue
+
+@Question
+Может ли ThreadPool создавать daemon-потоки
+@Options @OnlyOne @Key=1
+да
+нет
+
+@Question
+В чем особенность ScheduledExecutorService?
+@Options @OnlyOne @Key=1
+позволяет запускать задачи по расписанию
+позволяет запускать задачи через интерфейс Callable
+позволяет менять количество активных потоков
+хранит в себе результаты выполнения потоков
+
+@Question
+За что отвечает метод flush()?
+@Options @OnlyOne @Key=2
+чтения файла с байтовый массив
+принудительная очистка буфера и запись данных в поток
+закрытие потока
+приостановку записи
+создание копии файла
+
+@Question
+Что из себя представляет обьект  класса File
+@Options @OnlyOne @Key=4
+ссылку на конкретный файл или каталог
+нельзя создать обьект типа File, поскольку класс File является абстрактным
+ссылку на конкректный файл
+абастрактное описание пути к файлу
+
+@Question
+Можно ли перехватить исключение, возникшее в одном из потоков ExecuteService, не в этом потоке сервиса?
+@Options @OnlyOne @Key=2 <?>
+нет
+да
+
+@Question
+Что произойдет при попытке выполнить некорректно сформированный SQL запрос?
+@Options @OnlyOne @Key=2
+соединение с базой данных будет автоматически закрыто и программа продолжит работу
+будет выброшено SQLException
+будет выброшено NullPointerException
+метод execute() вернет false, а метод executeQuery() - null
+
+@Question
+В каком пакете находятся коллекции для работы с многопоточностью?
+@Options @OnlyOne @Key=4
+java.collections
+java.lang
+java.util.collections
+java.util.concurrent
+java.concurrent.collections
+
+@Question
+Какой метод класса Thread необходимо вызвать для корректной остановки потока?
+@Options @OnlyOne @Key=2 <?>
+stop()
+interrupt()
+destroy()
+join()
+
+@Question
+Для чего нужен метод Thread.yield()
+@Options @OnlyOne @Key=1 <?>
+Для переключеия процессора на обработку любого другого потока
+для переключения процессора на обработку конкретного потока
+
+@Question
+Какой из классов может выполнять запросы вида "Select * from students Where name=? AND score=?;"
+@Options @OnlyOne @Key=1
+PreparedStatement
+CallableStatement
+QueryStatement
+Statement
+
+@Question
+Что произойдет при попытке вызвать interrupt() у потока, находящемся в состоянии sleep?
+@Options @OnlyOne @Key=1 <?>
+флаг interrupted изменит свое значение на true
+флаг interrupted  не изменит своего значения
+поток завершит свое выполнение
+будет выброшено InterruptedException
