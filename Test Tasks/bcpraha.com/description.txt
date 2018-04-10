@@ -1,0 +1,80 @@
+JAVA DEVELOPER. TASK ASSIGNMENT
+
+Absract:
+
+There is usually a need to parse command line options / arguments in console applications. Since the parsing of the options is basically a routine activity, the developers would like to use library, covering such functionality completely. When using the library, the definition and reading the options / values has to be intuitive and shouldn't require too much configuration code from the user side (meaning a developer).
+
+The command line option / argument specification:
+
+- the short option
+    the argument starting with "-" followed by a character (e.g. "-v")
+- the long option
+    the argument starting with "--" followed by one or more characters (e.g. "--version")
+- the option
+    - the short or the long option
+- the option parameter
+    the argument following the option (e.g. "-f text.txt")
+- example of the input
+    -n 10 --source foo.txt --dest bar.txt --locale DE --skipError --switch on
+
+Library functional requirements:
+
+- Intuitive and declarative definition of the options and their parameters
+- Option configuration (properties)
+    - mandatory (yes/no) - the mandatory options have to be part of the command line input. It can be applied only for the options with a parameter.
+    - description - the text is used when showing the help
+    - aliases - the list of aliases representing the options (e.g. -n --num --number)
+    - default - the value which is used when the option is not part of the command line input. It can be applied only for non-mandatory options with a parameter.
+- Built-in option types and restrictions
+    - Integer - the parameter is the number (integer)
+        + optional restrictions: minimal and maximal values
+    - String - the parameter is the string
+        + no restriction
+    - Boolean - the parameter is logical value
+        + with parameter - true/false, which are represented as any text value. Example: true={yes, 1, on, ...}, false={no, 0, off, ...}
+        + without parameters. The option is processed as true automatically; false otherwise.
+        + no restriction
+    - Enum - enumerated type
+        + no restriction
+    - Custom - custom type. The library has to provide the user functions to define and process own custom data types. Example: BigDecimal, List<String>, MyCustomObject, ...
+        + the user should be able to implement any own restriction (example: "IN" - selection from a set)
+- The library has to define the reserved option -h (respective --help), which prints the list of all defined option /arguments. The reserved option can be overwritten by the user.
+- The library functions have to throw exceptions in case of illegal usage.
+
+Demo application:
+
+A simple console application - the calculator - will demonstrate how to use the library functions. The following options are available:
+
+    -l (left operand) Integer, mandatory
+    -r (right operand) Integer, mandatory
+    -o (operand) Enum {PLUS, MINUS, MULTIPLY, DIVIDE}, mandatory
+    -v (verbose) Boolean, no parameter, true - the expression is printed (<l>+<r>=<sum>), false - the result is only printed
+
+Note: Invalid arithmetical operations (e.g. division by zero) have to caught properly.
+
+Demo application call example:
+Input1: -l 5 -r 6 -o PLUS -v
+Output1: 5+6=11
+Input2: -l 5 -r 6 -o PLUS
+Output2: 11
+
+Task assignment
+
+1. Design the library API
+2. Design and implement internal library functions and components
+3. Implement demo application and demonstrate the usage of the library
+
+Assigment requirement:
+
+- Use JDK 8 library.
+- Write clean and legible code, use best coding practices in spades.
+- Comment the code adequately.
+- Be able to vindicate your solution, evaluate its advantages and disadvantages over other solution you might have come up with.
+- Be thoughtful and consider further possible extensibility (see the functional requirement - the custom type) and maintainability of your code.
+
+Assignment recommendations:
+
+- If possible incorporate known design patterns.
+- Don't be afraid of using key Java 5-8 features.
+- Focus on design of the solution as much as on its functionality.
+- Have fun!
