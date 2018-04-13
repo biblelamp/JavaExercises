@@ -4,16 +4,17 @@ package cz.parser;
  * CLExecutor - the command-line executor
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Apr 10, 2018
+ * @version 0.2 dated Apr 13, 2018
  */
-public class CLExecutor {
-    private String[] args;
+import java.util.Map;
 
-    public CLExecutor(String[] args) {
-        this.args = args;
+public class CLExecutor {
+    private Map<String, Item> map;
+
+    public void add(Item item) {
+        map.put(item.getName(), item);
     }
 
-    public void execute() {
-        //
+    public void execute(String[] args) {
     }
 }
