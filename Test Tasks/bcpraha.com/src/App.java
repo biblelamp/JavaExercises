@@ -2,8 +2,9 @@
  * App - example of using command-parser
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Apr 13, 2018
+ * @version 0.2.1 dated Apr 14, 2018
  */
+import cz.parser.Action;
 import cz.parser.CLExecutor;
 import cz.parser.Item;
 
@@ -13,9 +14,10 @@ public class App {
         CLExecutor cle = new CLExecutor();
 
         // fill objects with a parser
-        Item<Integer> item = new Item("L", true, "-l <Integer>",
-                new String[]{"-l", "--left"});
-        cle.add(item);
+        cle.add(new Item<Integer>("L", true, "-l/--left <Integer>",
+                new String[]{"-l", "--left"}, Action.GET));
+        cle.add(new Item<Integer>("R", true, "-r/--right <Integer>",
+                new String[]{"-r", "--right"}, Action.GET));
 
         String cmd = "-l 5 -r 6 -o PLUS -v";
         cle.execute(cmd.split(" "));
