@@ -4,7 +4,7 @@ package cz.parser;
  * CLExecutor - the command-line executor
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Apr 16, 2018
+ * @version 0.2.3 dated Apr 17, 2018
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -17,10 +17,12 @@ public class CLExecutor {
     }
 
     public void execute(String[] args) {
-        for (String str : args) {
+        for (int i = 0; i < args.length; i++) {
             for (Map.Entry<String, Item> item : map.entrySet())
-                if (item.getValue().isAlias(str))
-                    System.out.println(str);
+                if (item.getValue().isAlias(args[i])) {
+                    item.getValue().act(args, i);
+                    System.out.println(args[i]);
+                }
         }
     }
 }
