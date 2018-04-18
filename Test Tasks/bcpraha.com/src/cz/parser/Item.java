@@ -4,7 +4,7 @@ package cz.parser;
  * Item - the command-line element
  *
  * @author Sergey Iryupin
- * @version 0.2.4 dated Apr 17, 2018
+ * @version 0.2.5 dated Apr 18, 2018
  */
 public class Item<E> {
     private String name;
@@ -12,7 +12,7 @@ public class Item<E> {
     private String description;
     private String[] aliases;
     private Action action;
-    private E byDefault;
+    private E defaultValue;
     private E value;
 
     public Item(String name, boolean mandatory, String description,
@@ -28,8 +28,16 @@ public class Item<E> {
         return name;
     }
 
+    public Action getAction() {
+        return action;
+    }
+
     public E getValue() {
         return value;
+    }
+
+    public void setValue(E value) {
+        this.value = value;
     }
 
     public boolean isAlias(String str) {
@@ -37,16 +45,5 @@ public class Item<E> {
             if (str.equals(alias))
                 return true;
         return false;
-    }
-
-    public void act(String[] args, int idx) {
-        switch (action) {
-            case GET:
-                break;
-            case CALCULATE:
-                break;
-            case PRINT:
-                break;
-        }
     }
 }
