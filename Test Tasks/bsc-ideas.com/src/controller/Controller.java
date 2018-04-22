@@ -13,16 +13,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Controller {
-    private Data data;
-    private Scanner scanner;
+    final private Scanner scanner = new Scanner(System.in);
     final private int minute = 1000 * 60; // 1 minute
-    final String CMD_QUIT = "quit";
+    final private String CMD_QUIT = "quit";
 
     public Controller(Data data, String[] args) {
-        this.data = data;
         if (args.length > 0)
             data.addFromFile(args[0]);
-        scanner = new Scanner(System.in);
         TimerTask timerTask = new PrintTask(data);
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(timerTask, 0, minute);
@@ -30,7 +27,7 @@ public class Controller {
             String line = scanner.nextLine();
             if (line.equalsIgnoreCase(CMD_QUIT))
                 break;
-            data.handleLine(line);
+            data.processLine(line);
         }
     }
 }
