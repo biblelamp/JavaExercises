@@ -4,7 +4,7 @@ package model;
  * Data - data of currency accounts
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Apr 22, 2018
+ * @version 0.3 dated Apr 23, 2018
  */
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,8 +15,10 @@ import java.util.HashMap;
 
 public class Data {
     private Map<String, Integer> data;
+    private Rate rate;
 
-    public Data() {
+    public Data(Rate rate) {
+        this.rate = rate;
         data = new HashMap<>();
     }
 
@@ -25,6 +27,8 @@ public class Data {
         if (str.length > 1)
             try {
                 add(str[0], Integer.parseInt(str[1]));
+                if (str.length > 2)
+                    rate.add(str[0], Double.parseDouble(str[2]));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -51,7 +55,10 @@ public class Data {
         String result = "";
         for (Map.Entry<String, Integer> item : data.entrySet())
             if (item.getValue() != 0)
-                result += item.getKey() + " " +  item.getValue() + "\n";
+                result += item.getKey() + " " + item.getValue() +
+                        rate.valueByRateToString(item.getKey(),
+                            item.getValue()) +
+                        "\n";
         return result;
     }
 }
