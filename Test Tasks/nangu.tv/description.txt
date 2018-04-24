@@ -1,31 +1,29 @@
-﻿Testovací úkol from nangu.tv
+Test task from nangu.tv
 
-V rámci výběrového řízení vám zasíláme lehký úkol, který bude součástí technické části pohovoru. Jaké Frameworky/knihovny zvolíte, není podstatné, ale volba technologii a jejich vhodnost bude součástí INTV (U nás používáme Java 8+/Kotlin, přístup k databázi, messaging, elasticsearch,...).
+We are sending you a light assignment within the tender, which will be part of the technical part of the interview. What frameworks/libraries you choose is not essential, but the choice of technology and their suitability will be part of INTV (we use Java 8+/Kotlin, access to database, messaging, elasticsearch, ...).
 
-Vytvořte jednoduchou aplikaci, která bude udržovat vzkazy od různých autorů. Výsledek uložte na vámi zvolený gitlab a zašlete nám odkaz.
+Create a simple application that will keep messages from different authors. Save the result on your gitlab and send us a link.
 
-Funkční požadavky:
-    • aplikace umožní uložit (editovat?, mazat?) vzkaz
-        ◦ ? umožnit editovat a mazat vzkaz jen autorovi
-    • aplikace umožní zobrazit vzkazy
-        ◦ vzkazy půjdou vypsat
-        ◦ vzkazy půjdou filtrovat podle autora
-        ◦ ? v textu vzkazu půjde vyhledávat
+Functional requirements:
+• application will allow to save (edit?, delete?) the message
+    ◦ ? allow editing and delete messages only to the author
+• application will allow you to view messages
+    ◦ messages possible to display as list
+    ◦ messages possible to filter by author
+    ◦ ? possible to search messages by text
 
-Implementace:
-vzkaz může vypadat následovně: Message(text, author) 
-    • uložení (editace?, smazání?) vzkazu 
-        ◦ metoda 
-            ▪ pomoci REST API
-            ▪ ? pomoci messagingu
-        ◦ uložiště
-            ▪ databáze
-            ▪ ?  elasticsearch
-            ▪ ?? jiné
-    • vzkazy se budou zobrazovat pomoci REST API
+Implementation:
+The message may look like this: Message (text, author)
+• saving (editing?, deleting?) messages
+    ◦ method
+        ▪ using REST API
+        ▪ ? using messaging
+    ◦ storage
+        ▪ database
+        ▪ ? elasticsearch
+        ▪ ?? other
+• messages will be displayed using REST API
 
-Bonus otázka k pohovoru: Jak aplikaci připravit/upravit pro běh v několika nezávislých lokalitách současně?
-Není nutné dělat vše, ale pohovor bude veden na téma podobné zadání aplikace.
-body s "?" nejsou povinné
-
-
+Bonus interview question: How to prepare/edit the application for running in several independent locations at the same time?
+It is not necessary to do everything, but the interview will be conducted on a topic similar to the application entry.
+Points with "?" are not required.

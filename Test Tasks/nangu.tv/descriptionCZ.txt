@@ -1,0 +1,31 @@
+﻿Testovací úkol od nangu.tv
+
+V rámci výběrového řízení vám zasíláme lehký úkol, který bude součástí technické části pohovoru. Jaké Frameworky/knihovny zvolíte, není podstatné, ale volba technologii a jejich vhodnost bude součástí INTV (U nás používáme Java 8+/Kotlin, přístup k databázi, messaging, elasticsearch,...).
+
+Vytvořte jednoduchou aplikaci, která bude udržovat vzkazy od různých autorů. Výsledek uložte na vámi zvolený gitlab a zašlete nám odkaz.
+
+Funkční požadavky:
+• aplikace umožní uložit (editovat?, mazat?) vzkaz
+    ◦ ? umožnit editovat a mazat vzkaz jen autorovi
+• aplikace umožní zobrazit vzkazy
+    ◦ vzkazy půjdou vypsat
+    ◦ vzkazy půjdou filtrovat podle autora
+    ◦ ? v textu vzkazu půjde vyhledávat
+
+Implementace:
+vzkaz může vypadat následovně: Message(text, author)
+• uložení (editace?, smazání?) vzkazu
+    ◦ metoda
+        ▪ pomoci REST API
+        ▪ ? pomoci messagingu
+    ◦ uložiště
+        ▪ databáze
+        ▪ ? elasticsearch
+        ▪ ?? jiné
+• vzkazy se budou zobrazovat pomoci REST API
+
+Bonus otázka k pohovoru: Jak aplikaci připravit/upravit pro běh v několika nezávislých lokalitách současně?
+Není nutné dělat vše, ale pohovor bude veden na téma podobné zadání aplikace.
+Body s "?" nejsou povinné
+
+
