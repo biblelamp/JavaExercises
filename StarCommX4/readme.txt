@@ -4,10 +4,17 @@
 	- IntelliJ IDEA
 	- libGDX http://libgdx.badlogicgames.com/download.html
 
-2. Create project using gdx-setup.jar
+2. Create init project using gdx-setup.jar
 
 3. Import and start project in IntelliJ IDEA
 
-4. Change init project
+	- use build.gradle file for import
+	- create configuration for Run (Application)
+		- Name: DeskApp
+		- Main class: com.mygdx.game.desktop.DesktopLauncher
+		- Working directory: ...\StarCommX4\core\assets
+		- Use classpath of module: desktop
+
+4. Changing init project
 
 	- added Background class
