@@ -25,13 +25,11 @@ public class Background {
         }
     }
 
-    private Texture imgBg;
     private Texture imgStar;
     private final int STARS_COUNT = 200;
     private Star[] stars;
 
     public Background() {
-        imgBg = new Texture("bg.png");
         imgStar = new Texture("star12.tga");
         stars = new Star[STARS_COUNT];
         for (int i = 0; i < STARS_COUNT; i++) {
@@ -40,7 +38,6 @@ public class Background {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(imgBg, 0, 0);
         for (int i = 0; i < STARS_COUNT; i++) {
             float size = stars[i].speed / 2.0f;
             if (MathUtils.random(0, 50) < 1)
