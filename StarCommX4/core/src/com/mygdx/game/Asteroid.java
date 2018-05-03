@@ -26,7 +26,7 @@ public class Asteroid {
 
     public void update() {
         position.x -= speed;
-        if(position.x < 0)
+        if (position.x < -imgAsteroid.getWidth())
             recreate();
     }
 }
