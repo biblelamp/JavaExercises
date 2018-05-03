@@ -10,11 +10,13 @@ public class Hero {
     Texture imgShip;
     Vector2 position;
     float speed;
+    int fireCounter;
 
     public Hero() {
         imgShip = new Texture("ship80x60.tga");
         position = new Vector2(100, 288);
         speed = 8.0f;
+        fireCounter = 0;
     }
 
     public void render(SpriteBatch batch) {
@@ -41,6 +43,22 @@ public class Hero {
             position.x -= speed;
             if (position.x < 0)
                 position.x = 0;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            fireCounter++;
+            if (fireCounter > 8) { // control of the rate of fire
+                fireCounter = 0;
+                fire();
+            }
+        }
+    }
+
+    public void fire() {
+        for (int i = 0; i < MyGdxGame.bullets.length; i++) {
+            if(!MyGdxGame.bullets[i].active) {
+                MyGdxGame.bullets[i].activate(position.x + imgShip.getWidth(), position.y + imgShip.getHeight()/2);
+                break;
+            }
         }
     }
 }

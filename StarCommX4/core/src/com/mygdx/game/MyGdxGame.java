@@ -8,19 +8,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Background bg;
+	Background background;
 	Hero hero;
 	Asteroid[] asteroids;
+	static Bullet[] bullets;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		bg = new Background();
+		background = new Background();
 		hero = new Hero();
+		Texture imgAsteroid = new Texture("asteroid60.tga");
 		asteroids = new Asteroid[20];
         for (int i = 0; i < asteroids.length; i++) {
-            asteroids[i] = new Asteroid();
+            asteroids[i] = new Asteroid(imgAsteroid);
         }
+        Texture imgBullet = new Texture("bullet20.tga");
+        bullets = new Bullet[200];
+		for (int i = 0; i < bullets.length; i++) {
+			bullets[i] = new Bullet(imgBullet);
+		}
 	}
 
 	@Override
@@ -29,19 +36,27 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 15/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-        bg.render(batch);
+        background.render(batch);
         hero.render(batch);
         for (int i = 0; i < asteroids.length; i++) {
             asteroids[i].render(batch);
         }
+		for (int i = 0; i < bullets.length; i++) {
+        	if (bullets[i].active)
+				bullets[i].render(batch);
+		}
 		batch.end();
 	}
 
     public void update() {
-        bg.update();
+        background.update();
         hero.update();
         for (int i = 0; i < asteroids.length; i++) {
             asteroids[i].update();
+        }
+        for (int i = 0; i < bullets.length; i++) {
+            if (bullets[i].active)
+                bullets[i].update();
         }
 	}
 
