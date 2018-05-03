@@ -10,8 +10,9 @@ public class Asteroid {
     Vector2 position;
     float speed;
 
-    public Asteroid() {
-        imgAsteroid = new Texture("asteroid60.tga");
+    public Asteroid(Texture imgAsteroid) {
+        this.imgAsteroid = imgAsteroid;
+        position = new Vector2();
         recreate();
     }
 
@@ -20,7 +21,7 @@ public class Asteroid {
     }
 
     public void recreate() {
-        position = new Vector2(MathUtils.random(1024, 2048), MathUtils.random(0, 576));
+        position.set(MathUtils.random(1024, 2048), MathUtils.random(0, 576));
         speed = MathUtils.random(3.0f, 6.0f);
     }
 
