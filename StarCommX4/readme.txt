@@ -1,7 +1,7 @@
 1. Download and install
 
-	- Java JDK 8 (to make JAVA_HOME) 
-	- IntelliJ IDEA
+	- Java JDK 8 (to make JAVA_HOME in Windows) 
+	- IntelliJ IDEA Community Edition (free)
 	- libGDX http://libgdx.badlogicgames.com/download.html
 
 2. Create init project using gdx-setup.jar
@@ -15,6 +15,21 @@
 		- Working directory: ...\StarCommX4\core\assets
 		- Use classpath of module: desktop
 
+	Note! List of possibility issues:
+	- profile name is not in Latin letters
+	- the environment variable JAVA_HOME is not defined
+	- using JDK 9 or 10
+	- not updated video drivers
+	- in 32bit system isn't changed gradle.properties (-Xmx512m) 
+
 4. Changing init project
 
-	- added Background class
+	- changing DesktopLauncher class (1024/576)
+	- explanations by class MyGdxGame
+	- adding Background class
+	- adding Hero class
+	- adding Asteroid class
+	- adding Bullet class
+	- adding collision handling
+
+5. Creating jar file
