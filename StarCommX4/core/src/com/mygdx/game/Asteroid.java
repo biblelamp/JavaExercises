@@ -15,6 +15,7 @@ public class Asteroid {
     public Asteroid(Texture imgAsteroid) {
         this.imgAsteroid = imgAsteroid;
         position = new Vector2();
+        hitBox = new Rectangle(0, 0, imgAsteroid.getWidth(), imgAsteroid.getHeight());
         recreate();
     }
 
@@ -24,7 +25,6 @@ public class Asteroid {
 
     public void recreate() {
         position.set(MathUtils.random(1024, 2048), MathUtils.random(0, 576));
-        hitBox = new Rectangle(position.x, position.y, imgAsteroid.getWidth(), imgAsteroid.getHeight());
         speed = MathUtils.random(3.0f, 6.0f);
     }
 
