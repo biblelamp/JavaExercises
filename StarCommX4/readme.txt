@@ -32,4 +32,10 @@
 	- adding Bullet class
 	- adding collision handling
 
-5. Creating jar file
+5. Building jar file
+
+	open in work window: MyGdxGame.java
+	menu: Top Menu/View/Tool Windows/Gradle
+	menu: desktop/Tasks/other/dist
+	waiting...
+	find jar in the folder: desktop/build/libs (desktop-1.0.jar)
