@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class Background {
-    private Texture imgStar;
-    private Star[] stars;
+    Texture imgStar;
+    Star[] stars;
 
     class Star {
         Vector2 position;
