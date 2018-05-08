@@ -10,22 +10,20 @@ public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     Background background;
     Hero hero;
-    Asteroid[] asteroids;
-    static Bullet[] bullets;
+    Asteroids asteroids;
+    //static Bullet[] bullets;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         background = new Background();
         hero = new Hero();
-        Texture imgAsteroid = new Texture("asteroid60.tga");
-        asteroids = new Asteroid[20];
-        for (int i = 0; i < asteroids.length; i++)
-            asteroids[i] = new Asteroid(imgAsteroid);
-        Texture imgBullet = new Texture("bullet20.tga");
+        asteroids = new Asteroids();
+        /*Texture imgBullet = new Texture("bullet20.tga");
         bullets = new Bullet[100];
         for (int i = 0; i < bullets.length; i++)
             bullets[i] = new Bullet(imgBullet);
+        */
     }
 
     @Override
@@ -36,20 +34,19 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.begin();
         background.render(batch);
         hero.render(batch);
-        for (int i = 0; i < asteroids.length; i++)
-            asteroids[i].render(batch);
-        for (int i = 0; i < bullets.length; i++)
+        asteroids.render(batch);
+        /*for (int i = 0; i < bullets.length; i++)
             if (bullets[i].active)
                 bullets[i].render(batch);
+        */
         batch.end();
     }
 
     public void update() {
         background.update();
         hero.update();
-        for (int i = 0; i < asteroids.length; i++)
-            asteroids[i].update();
-        for (int i = 0; i < bullets.length; i++)
+        asteroids.update();
+        /*for (int i = 0; i < bullets.length; i++)
             if (bullets[i].active) {
                 bullets[i].update();
                 for (int j = 0; j < asteroids.length; j++)
@@ -58,5 +55,6 @@ public class MyGdxGame extends ApplicationAdapter {
                         bullets[i].deactivate();
                     }
             }
+         */
     }
 }
