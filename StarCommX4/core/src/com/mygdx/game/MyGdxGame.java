@@ -40,15 +40,5 @@ public class MyGdxGame extends ApplicationAdapter {
         hero.update();
         asteroids.update();
         bullets.update();
-        /*for (int i = 0; i < bullets.length; i++)
-            if (bullets[i].active) {
-                bullets[i].update();
-                for (int j = 0; j < asteroids.length; j++)
-                    if (asteroids[j].hitBox.contains(bullets[i].position)) {
-                        asteroids[j].recreate();
-                        bullets[i].deactivate();
-                    }
-            }
-         */
     }
 }
