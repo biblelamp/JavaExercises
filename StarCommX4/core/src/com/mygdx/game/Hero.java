@@ -54,9 +54,10 @@ public class Hero {
     }
 
     public void fire() {
-        for (int i = 0; i < MyGdxGame.bullets.length; i++) {
-            if(!MyGdxGame.bullets[i].active) {
-                MyGdxGame.bullets[i].activate(position.x + imgShip.getWidth(), position.y + imgShip.getHeight()/2);
+        for (int i = 0; i < Bullets.bullets.length; i++) {
+            if (!Bullets.bullets[i].active) {
+                Bullets.bullets[i].activate(position.x + imgShip.getWidth(),
+                        position.y + imgShip.getHeight()/2);
                 break;
             }
         }
