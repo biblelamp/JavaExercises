@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Asteroids {
     Texture imgAsteroid;
-    Asteroid[] asteroids;
+    static Asteroid[] asteroids;
 
     class Asteroid {
         Vector2 position;
@@ -21,12 +21,15 @@ public class Asteroids {
             hitBox = new Rectangle(position.x, position.y, imgAsteroid.getWidth(), imgAsteroid.getHeight());
         }
 
+        public void recreate() {
+            position.set(1024, MathUtils.random(0, 576));
+            speed = MathUtils.random(3.0f, 6.0f);
+        }
+
         public void update() {
             position.x -= speed;
-            if (position.x < -imgAsteroid.getWidth()) {
-                position.set(1024, MathUtils.random(0, 576));
-                speed = MathUtils.random(3.0f, 6.0f);
-            }
+            if (position.x < -imgAsteroid.getWidth())
+                recreate();
             hitBox.setPosition(position);
         }
     }
