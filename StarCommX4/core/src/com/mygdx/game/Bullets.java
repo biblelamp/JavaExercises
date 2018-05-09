@@ -53,7 +53,13 @@ public class Bullets {
 
     public void update() {
         for (int i = 0; i < bullets.length; i++)
-            if (bullets[i].active)
+            if (bullets[i].active) {
                 bullets[i].update();
+                for (int j = 0; j < Asteroids.asteroids.length; j++)
+                    if (Asteroids.asteroids[j].hitBox.contains(bullets[i].position)) {
+                        Asteroids.asteroids[j].recreate();
+                        bullets[i].deactivate();
+                    }
+        }
     }
 }
