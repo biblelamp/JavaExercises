@@ -11,7 +11,7 @@ public class MyGdxGame extends ApplicationAdapter {
     Background background;
     Hero hero;
     Asteroids asteroids;
-    //static Bullet[] bullets;
+    Bullets bullets;
 
     @Override
     public void create() {
@@ -19,11 +19,7 @@ public class MyGdxGame extends ApplicationAdapter {
         background = new Background();
         hero = new Hero();
         asteroids = new Asteroids();
-        /*Texture imgBullet = new Texture("bullet20.tga");
-        bullets = new Bullet[100];
-        for (int i = 0; i < bullets.length; i++)
-            bullets[i] = new Bullet(imgBullet);
-        */
+        bullets = new Bullets();
     }
 
     @Override
@@ -35,10 +31,7 @@ public class MyGdxGame extends ApplicationAdapter {
         background.render(batch);
         hero.render(batch);
         asteroids.render(batch);
-        /*for (int i = 0; i < bullets.length; i++)
-            if (bullets[i].active)
-                bullets[i].render(batch);
-        */
+        bullets.render(batch);
         batch.end();
     }
 
@@ -46,6 +39,7 @@ public class MyGdxGame extends ApplicationAdapter {
         background.update();
         hero.update();
         asteroids.update();
+        bullets.update();
         /*for (int i = 0; i < bullets.length; i++)
             if (bullets[i].active) {
                 bullets[i].update();
