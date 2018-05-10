@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class Bullets {
@@ -15,7 +14,7 @@ public class Bullets {
         boolean active; // true or false
 
         public Bullet() {
-            position = new Vector2(0, 0);
+            position = new Vector2();
             speed = 14f;
             active = false;
         }
@@ -24,7 +23,7 @@ public class Bullets {
             active = false;
         }
 
-        public void activate(float x, float y){
+        public void activate(float x, float y) {
             position.set(x, y);
             active = true;
         }
