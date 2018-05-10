@@ -31,13 +31,13 @@ public class Hero {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             position.y += speed;
-            if (position.y > 576 - 60)
-                position.y = 576 - 60;
+            if (position.y > 576 - imgShip.getHeight())
+                position.y = 576 - imgShip.getHeight();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             position.x += speed;
-            if (position.x > 1024 - 80)
-                position.x = 1024 - 80;
+            if (position.x > 1024 - imgShip.getWidth())
+                position.x = 1024 - imgShip.getWidth();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             position.x -= speed;
@@ -54,12 +54,11 @@ public class Hero {
     }
 
     public void fire() {
-        for (int i = 0; i < Bullets.bullets.length; i++) {
+        for (int i = 0; i < Bullets.bullets.length; i++)
             if (!Bullets.bullets[i].active) {
                 Bullets.bullets[i].activate(position.x + imgShip.getWidth(),
                         position.y + imgShip.getHeight()/2);
                 break;
             }
-        }
     }
 }
