@@ -47,7 +47,7 @@
 
    1. Вводные замечания:
       - github.com, курс https://geekbrains.ru/courses/66
-      - английский язык https://geekbrains.ru/courses/98 (включён) или www.duolingo.com
+      - английский язык https://geekbrains.ru/courses/98 + www.duolingo.com
    2. Разбор ДЗ
    3. Тема, порядок изложения
       - импорт пакетов (библиотек), пакет по умолчанию java.lang
@@ -61,10 +61,10 @@
           Arrays.sort(arr);
           arr[0] -> min
           arr[arr.length - 1] -> max
-      - printf форматированный вывод
       - генерация случайных чисел, класс Random
       - ввод данных из консоли, класс Scanner
       - запись и чтение текстовых файлов, перехват исключений
+      - printf форматированный вывод
 
 4. Крестики-нолики в процедурном стиле
 
