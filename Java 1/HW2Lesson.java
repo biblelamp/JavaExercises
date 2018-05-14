@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Feb 02, 2018
+ * @version dated May 14, 2018
  */
 import java.util.Arrays;
 import java.util.Scanner;
@@ -55,6 +55,7 @@ class HW2Lesson {
         // invert
         for (int i = 0; i < array.length; i++)
             array[i] = 1 - array[i];
+            //array[i] = array[i] ^ 1;
             //array[i] = (array[i] == 1)? 0 : 1;
         System.out.println(Arrays.toString(array));
     }
@@ -92,6 +93,7 @@ class HW2Lesson {
             matrix[i][i] = 1;
             matrix[i][size - i - 1] = 1;
         }
+        System.out.println(Arrays.deepToString(matrix));
         for (int i = 0; i < size; i++)
             System.out.println(Arrays.toString(matrix[i]));
     }
