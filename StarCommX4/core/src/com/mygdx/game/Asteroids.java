@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,13 +17,17 @@ public class Asteroids {
         Rectangle hitBox;
 
         public Asteroid() {
-            position = new Vector2(MathUtils.random(1024, 2048), MathUtils.random(0, 576));
+            position = new Vector2(
+                    MathUtils.random(Gdx.graphics.getWidth(), Gdx.graphics.getWidth() * 2),
+                    MathUtils.random(0, Gdx.graphics.getHeight()));
             speed = MathUtils.random(3.0f, 6.0f);
-            hitBox = new Rectangle(position.x, position.y, imgAsteroid.getWidth(), imgAsteroid.getHeight());
+            hitBox = new Rectangle(position.x, position.y, imgAsteroid.getWidth(),
+                    imgAsteroid.getHeight());
         }
 
         public void recreate() {
-            position.set(1024, MathUtils.random(0, 576));
+            position.set(Gdx.graphics.getWidth(),
+                    MathUtils.random(0, Gdx.graphics.getHeight()));
             speed = MathUtils.random(3.0f, 6.0f);
         }
 

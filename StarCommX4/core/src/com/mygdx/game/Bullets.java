@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +31,7 @@ public class Bullets {
 
         public void update() {
             position.x += speed;
-            if (position.x > 1024)
+            if (position.x > Gdx.graphics.getWidth())
                 deactivate();
         }
     }

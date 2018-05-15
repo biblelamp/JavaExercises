@@ -14,7 +14,7 @@ public class Hero {
 
     public Hero() {
         imgShip = new Texture("ship80x60.tga");
-        position = new Vector2(100, 288);
+        position = new Vector2(100, Gdx.graphics.getHeight()/2);
         speed = 8.0f;
         fireCounter = 0;
     }
@@ -31,13 +31,13 @@ public class Hero {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             position.y += speed;
-            if (position.y > 576 - imgShip.getHeight())
-                position.y = 576 - imgShip.getHeight();
+            if (position.y > Gdx.graphics.getHeight() - imgShip.getHeight())
+                position.y = Gdx.graphics.getHeight() - imgShip.getHeight();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             position.x += speed;
-            if (position.x > 1024 - imgShip.getWidth())
-                position.x = 1024 - imgShip.getWidth();
+            if (position.x > Gdx.graphics.getWidth() - imgShip.getWidth())
+                position.x = Gdx.graphics.getWidth() - imgShip.getWidth();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             position.x -= speed;
