@@ -4,6 +4,9 @@
     - IntelliJ IDEA Community Edition (free)
     - libGDX http://libgdx.badlogicgames.com/download.html
 
+    If you want to work with Android SDK:
+    Android SDK for IntelliJ IDEA www.tayloraliss.com/blog/?p=457
+
 2. Create init project using gdx-setup.jar
 
 3. Import and start project in IntelliJ IDEA
@@ -20,7 +23,7 @@
     - the environment variable JAVA_HOME is not defined
     - using JDK 9 or 10
     - not updated video drivers
-    - in 32bit system isn't changed gradle.properties (-Xmx512m) 
+    - in 32bit system isn't changed gradle.properties (-Xmx512m)
 
 4. Changing init project
 
