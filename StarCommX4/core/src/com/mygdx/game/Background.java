@@ -23,7 +23,8 @@ public class Background {
         public void update() {
             position.x -= speed;
             if (position.x < 0) {
-                position.set(1024, MathUtils.random(0, Gdx.graphics.getHeight()));
+                position.set(Gdx.graphics.getWidth(),
+                        MathUtils.random(0, Gdx.graphics.getHeight()));
                 speed = MathUtils.random(0.5f, 2.0f);
             }
         }
