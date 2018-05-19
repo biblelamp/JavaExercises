@@ -14,13 +14,13 @@ public class Background {
         Vector2 position;
         float speed;
 
-        public Star() {
+        Star() {
             position = new Vector2(MathUtils.random(0, Gdx.graphics.getWidth()),
                     MathUtils.random(0, Gdx.graphics.getHeight()));
             speed = MathUtils.random(0.5f, 2.0f);
         }
 
-        public void update() {
+        void update() {
             position.x -= speed;
             if (position.x < 0) {
                 position.set(Gdx.graphics.getWidth(),
@@ -38,17 +38,20 @@ public class Background {
     }
 
     public void render(SpriteBatch batch) {
-        for (int i = 0; i < stars.length; i++) {
-            float size = stars[i].speed / 2.0f;
-            if (MathUtils.random(0, 50) < 1)
+        for (Star star : stars) {
+            float size = star.speed / 2.0f; // making 3D effect
+            if (MathUtils.random(0, 40) == 0)   // flicker of stars
                 size *= 1.8f;
-            batch.draw(imgStar, stars[i].position.x, stars[i].position.y,
-                    6, 6, 12, 12, size, size, 0, 0, 0, 12, 12, false, false);
+            batch.draw(imgStar, star.position.x, star.position.y,
+                    imgStar.getWidth()/2, imgStar.getHeight()/2,
+                    imgStar.getWidth(), imgStar.getHeight(),
+                    size, size, 0, 0, 0,
+                    imgStar.getWidth(), imgStar.getHeight(), false, false);
         }
     }
 
     public void update() {
-        for (int i = 0; i < stars.length; i++)
-            stars[i].update();
+        for (Star star : stars)
+            star.update();
     }
 }
