@@ -16,31 +16,49 @@ public class Asteroids {
         float speed;
         Rectangle hitBox;
 
-        public Asteroid() {
+        Asteroid() {
             position = new Vector2(
                     MathUtils.random(Gdx.graphics.getWidth(), Gdx.graphics.getWidth() * 2),
                     MathUtils.random(0, Gdx.graphics.getHeight()));
             speed = MathUtils.random(3.0f, 6.0f);
-            hitBox = new Rectangle(position.x, position.y, imgAsteroid.getWidth(),
-                    imgAsteroid.getHeight());
+            hitBox = new Rectangle(position.x, position.y,
+                    imgAsteroid.getWidth(), imgAsteroid.getHeight());
         }
 
-        public void recreate() {
+        void recreate() {
             position.set(Gdx.graphics.getWidth(),
                     MathUtils.random(0, Gdx.graphics.getHeight()));
             speed = MathUtils.random(3.0f, 6.0f);
         }
 
-        public void update() {
+        void update() {
             position.x -= speed;
             if (position.x < -imgAsteroid.getWidth())
                 recreate();
+            for (int i = 0; i < asteroids.length; i++)
+                if (!this.equals(asteroids[i]))
+                    if (asteroids[i].hitBox.overlaps(hitBox))
+                        if (asteroids[i].position.y < position.y) {
+                            asteroids[i].position.y -= asteroids[i].speed / 6;
+                            asteroids[i].position.x -= asteroids[i].speed / 6;
+                            //asteroids[i].speed += 0.5;
+                            position.y += speed / 6;
+                            position.x += speed / 3;
+                            //speed -= 0.5;
+                        } else {
+                            asteroids[i].position.y += asteroids[i].speed / 6;
+                            asteroids[i].position.x -= asteroids[i].speed / 6;
+                            //asteroids[i].speed += 1;
+                            position.y -= speed / 6;
+                            position.x += speed / 3;
+                            //speed -= 0.5;
+                        }
             hitBox.setPosition(position);
         }
     }
 
     public Asteroids() {
-        imgAsteroid = new Texture("asteroid60.tga");
+        imgAsteroid = new Texture("asteroid50.tga");
         asteroids = new Asteroid[20];
         for (int i = 0; i < asteroids.length; i++)
             asteroids[i] = new Asteroid();
