@@ -44,7 +44,7 @@ public class Hero {
             if (position.x < 0)
                 position.x = 0;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isTouched()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched()) {
             fireCounter++;
             if (fireCounter > 8) { // control of the rate of fire
                 fireCounter = 0;
