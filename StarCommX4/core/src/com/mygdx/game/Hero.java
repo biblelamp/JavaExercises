@@ -54,9 +54,9 @@ public class Hero {
     }
 
     public void fire() {
-        for (int i = 0; i < Bullets.bullets.length; i++)
-            if (!Bullets.bullets[i].active) {
-                Bullets.bullets[i].activate(position.x + imgShip.getWidth(),
+        for (Bullets.Bullet bullet : Bullets.bullets)
+            if (!bullet.active) {
+                bullet.activate(position.x + imgShip.getWidth(),
                         position.y + imgShip.getHeight()/2);
                 break;
             }
