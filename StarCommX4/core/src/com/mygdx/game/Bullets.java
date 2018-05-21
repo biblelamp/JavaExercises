@@ -14,22 +14,22 @@ public class Bullets {
         float speed;
         boolean active; // true or false
 
-        public Bullet() {
+        Bullet() {
             position = new Vector2();
             speed = 14f;
             active = false;
         }
 
-        public void deactivate() {
+        void deactivate() {
             active = false;
         }
 
-        public void activate(float x, float y) {
+        void activate(float x, float y) {
             position.set(x, y);
             active = true;
         }
 
-        public void update() {
+        void update() {
             position.x += speed;
             if (position.x > Gdx.graphics.getWidth())
                 deactivate();
@@ -44,22 +44,22 @@ public class Bullets {
     }
 
     public void render(SpriteBatch batch) {
-        for (int i = 0; i < bullets.length; i++)
-            if (bullets[i].active)
+        for (Bullet bullet : bullets)
+            if (bullet.active)
                 batch.draw(imgBullet,
-                        bullets[i].position.x - imgBullet.getWidth() / 2,
-                        bullets[i].position.y - imgBullet.getHeight() / 2);
+                        bullet.position.x - imgBullet.getWidth() / 2,
+                        bullet.position.y - imgBullet.getHeight() / 2);
     }
 
     public void update() {
-        for (int i = 0; i < bullets.length; i++)
-            if (bullets[i].active) {
-                bullets[i].update();
-                for (int j = 0; j < Asteroids.asteroids.length; j++)
-                    if (Asteroids.asteroids[j].hitBox.contains(bullets[i].position)) {
-                        Asteroids.asteroids[j].recreate();
-                        bullets[i].deactivate();
+        for (Bullet bullet : bullets)
+            if (bullet.active) {
+                bullet.update();
+                for (Asteroids.Asteroid asteroid : Asteroids.asteroids)
+                    if (asteroid.hitBox.contains(bullet.position)) {
+                        asteroid.recreate();
+                        bullet.deactivate();
                     }
-        }
+            }
     }
 }
