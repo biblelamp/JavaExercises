@@ -65,12 +65,12 @@ public class Asteroids {
     }
 
     public void render(SpriteBatch batch) {
-        for (int i = 0; i < asteroids.length; i++)
-            batch.draw(imgAsteroid, asteroids[i].position.x, asteroids[i].position.y);
+        for (Asteroid asteroid : asteroids)
+            batch.draw(imgAsteroid, asteroid.position.x, asteroid.position.y);
     }
 
     public void update() {
-        for (int i = 0; i < asteroids.length; i++)
-            asteroids[i].update();
+        for (Asteroid asteroid : asteroids)
+            asteroid.update();
     }
 }
