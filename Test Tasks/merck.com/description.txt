@@ -1,0 +1,22 @@
+General guidelines
+
+· Create application in Java
+· Use frameworks and libraries of your choice.
+· The solution should provide approach to testing functionality in Java (sample tests) but extensive testing of the whole application is not required.
+· Please push the solution to GitHub or BitBucket.
+· Simple is better
+
+Bookshelf
+
+Domain description - i.e. entities:
+· Author - has a name
+· Book - every book has a name, and exactly one Author
+· Reader - each reader has a name, day of birth, and zero or more Books read
+
+Features required
+1. The application stores information about books in relational database - design the database schema and read the data from the java application
+2. Create a process to ingest data for Authors, Books and Readers from CSV files into the database - this should be in a form of executable shell scripts
+3. Create java command line application that prints out:
+a. All authors that wrote at least 1 book
+b. Number of readers born in each year
+c. The most popular authors with their popularity (popularity as a total number of his/her books read by Readers)
