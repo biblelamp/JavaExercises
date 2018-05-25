@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 5. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Feb 14, 2018
+ * @version dated May 25, 2018
  * @link https://github.com/<your_nik> || null
  */
 import java.io.FileWriter;
@@ -17,17 +17,18 @@ class HW5Lesson {
 
     public static void main(String[] args) {
         // define and fill array of employees
-        Employee[] employees = new Employee[5];
-        employees[0] = new Employee("Ivanov Ivan", "Engineer",
-            "iivanov@mail.com", "2312312", 30000, 30);
-        employees[1] = new Employee("Petrov Petr", "Lead Engineer",
-            "ppenrov@mail.com", "2365113", 42000, 39);
-        employees[2] = new Employee("Vasilev Vasil", "Head of Department",
-            "vvasilev@mail.com", "2365001", 55000, 55);
-        employees[3] = new Employee("Sidorov Sidor", "Assistant",
-            "ssidorov@mail.com", "2365223", 25000, 42);
-        employees[4] = new Employee("Sergeev Sergey", "Trainee",
-            "ssergeev@mail.com", "2365113", 15000, 25);
+        Employee[] employees = {
+            new Employee("Ivanov Ivan", "Engineer",
+                "iivanov@mail.com", "2312312", 30000, 30),
+            new Employee("Petrov Petr", "Lead Engineer",
+                "ppenrov@mail.com", "2365113", 42000, 39),
+            new Employee("Vasilev Vasil", "Head of Department",
+                "vvasilev@mail.com", "2365001", 55000, 55),
+            new Employee("Sidorov Sidor", "Assistant",
+                "ssidorov@mail.com", "2365223", 25000, 42),
+            new Employee("Sergeev Sergey", "Trainee",
+                "ssergeev@mail.com", "2365113", 15000, 25)
+        };
 
         // show all employees older than 40 year
         for (Employee employee : employees)
