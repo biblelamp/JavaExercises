@@ -1,0 +1,52 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+import controller.SQLite;
+
+/**
+ * Test task Bookshelf from merck.com
+ * Class Reader provides operation with the relevant table
+ *
+ * @author Sergey Iryupin
+ * @version dated May 28, 2018
+ */
+
+public class Reader {
+    Connection connection;
+    Statement stmt;
+
+    public Reader() {
+        connection = SQLite.getConnection();
+    }
+
+    /**
+     * Adding one record into table
+     *
+     * @param  {int}    id
+     * @param  {String} name
+     * @param  {String} day of birth
+     * @param  {String} list of books
+     * @return  void
+     **/
+    public void add(int id, String name, String dateOfBirth, String books) {
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS " +
+                            this.getClass().getSimpleName() +
+                            "(ID INT PRIMARY KEY NOT NULL," +
+                            " NAME TEXT NOT NULL," +
+                            " DATEOFBIRTH TIMESTAMP," +
+                            " BOOKS TEXT);");
+            stmt.executeUpdate(
+                    "INSERT INTO " +
+                            this.getClass().getSimpleName() +
+                            " (ID, NAME, DATEOFBIRTH, BOOKS) VALUES (" +
+                            id + ", '" + name + "', " + dateOfBirth + ", '" +
+                            books + "');");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
