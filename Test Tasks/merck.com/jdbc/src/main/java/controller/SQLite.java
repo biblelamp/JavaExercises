@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class SQLite {
     private static Connection connection = null;
-    private final static String DRIVER = "org.sqlite.SQLite";
+    private final static String DRIVER = "org.sqlite.JDBC";
     private final static String PREFIX = "jdbc:sqlite:";
     private final static String DBNAME = "bookshelf.db";
 
