@@ -6,15 +6,15 @@ import java.sql.SQLException;
 
 /**
  * Test task Bookshelf from merck.com
- * Class JDBC provides a connection to the database
+ * Class SQLite provides a connection to the database
  *
  * @author Sergey Iryupin
  * @version dated May 28, 2018
  */
 
-public class JDBC {
+public class SQLite {
     private static Connection connection = null;
-    private final static String DRIVER = "org.sqlite.JDBC";
+    private final static String DRIVER = "org.sqlite.SQLite";
     private final static String PREFIX = "jdbc:sqlite:";
     private final static String DBNAME = "bookshelf.db";
 
