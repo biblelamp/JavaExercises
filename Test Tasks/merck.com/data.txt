@@ -1,10 +1,10 @@
-;Authors
+;Author
 1,Mike McGrath
 2,Kathy Sierra
 3,Bruce Eckel
 4,Herbert Schildt
 
-;Books
+;Book
 1,Java in easy steps,1
 2,JavaScript in easy steps,1
 3,Head First Java,2
@@ -14,9 +14,9 @@
 7,Java: A Beginner's Guide,4
 8,Java: The Complete Reference,4
 
-;Readers
-Harry Smith,12.01.2001
-James Johnson,03.05.1999
-George Williams,05.11.2000
-Harry Jones,08.15.1998
-William Brown,02.01.2002
+;Reader
+Harry Smith,12.01.2001,3 1
+James Johnson,03.05.1999,7 8
+George Williams,05.11.2000,1 3 5 7 8
+Harry Jones,08.15.1998,1 7
+William Brown,02.01.2002,
