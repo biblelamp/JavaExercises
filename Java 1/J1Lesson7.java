@@ -12,8 +12,8 @@ class J1Lesson7 {
     public static void main(String[] args) {
         //Test.testString(120000);
         //Test.testStringBuilder(120000);
-        //Test.testBufferedReader("E:\\Audacity\\audacity.exe");
-        //Test.testFileReader("E:\\Audacity\\audacity.exe");
+        //Test.testBufferedReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
+        //Test.testFileReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
         Cat cat = new Cat("Barsik", 10);
         Plate plate = new Plate(5);
         System.out.println(plate);
