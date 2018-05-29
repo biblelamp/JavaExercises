@@ -15,7 +15,6 @@ import controller.SQLite;
 
 public class Book implements ITable {
     Connection connection;
-    Statement stmt;
 
     public Book() {
         connection = SQLite.getConnection();
@@ -33,13 +32,13 @@ public class Book implements ITable {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS " +
-                            this.getClass().getSimpleName() +
+                            getClass().getSimpleName() +
                             "(ID INT PRIMARY KEY NOT NULL," +
                             " NAME TEXT NOT NULL," +
                             " AUTHORID INT NOT NULL);");
             stmt.executeUpdate(
                     "INSERT INTO " +
-                            this.getClass().getSimpleName() +
+                            getClass().getSimpleName() +
                             " (ID, NAME, AUTHORID) VALUES (" +
                             id + ", '" + name + "', " + authorID + ");");
         } catch (Exception ex) {

@@ -16,8 +16,7 @@ public interface ITable {
     default ITable dropTable(Connection connection) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(
-                    "DROP TABLE IF EXISTS " +
-                            this.getClass().getSimpleName());
+                    "DROP TABLE IF EXISTS " + getClass().getSimpleName());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

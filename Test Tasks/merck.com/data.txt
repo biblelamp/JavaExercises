@@ -11,12 +11,12 @@
 4,Head First Servlets and JSP,2
 5,Thinking in Java,3
 6,Thinking in C++,3
-7,Java: A Beginner's Guide,4
+7,Java: A Beginner`s Guide,4
 8,Java: The Complete Reference,4
 
 ;Reader
-Harry Smith,12.01.2001,3 1
-James Johnson,03.05.1999,7 8
-George Williams,05.11.2000,1 3 5 7 8
-Harry Jones,08.15.1998,1 7
-William Brown,02.01.2002,
+1,Harry Smith,2001-12-01,3 1
+2,James Johnson,1999-05-03,7 8
+3,George Williams,2000-11-05,1 3 5 7 8
+4,Harry Jones,1998-08-15,1 7
+5,William Brown,2002-01-02, 
