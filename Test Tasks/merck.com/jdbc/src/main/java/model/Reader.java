@@ -37,13 +37,13 @@ public class Reader implements ITable {
                             this.getClass().getSimpleName() +
                             "(ID INT PRIMARY KEY NOT NULL," +
                             " NAME TEXT NOT NULL," +
-                            " DATEOFBIRTH TIMESTAMP," +
+                            " DATEOFBIRTH DATE," +
                             " BOOKS TEXT);");
             stmt.executeUpdate(
                     "INSERT INTO " +
                             this.getClass().getSimpleName() +
                             " (ID, NAME, DATEOFBIRTH, BOOKS) VALUES (" +
-                            id + ", '" + name + "', " + dateOfBirth + ", '" +
+                            id + ", '" + name + "', '" + dateOfBirth + "', '" +
                             books + "');");
         } catch (Exception ex) {
             ex.printStackTrace();
