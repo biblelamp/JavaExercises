@@ -13,17 +13,13 @@ import model.Author;
 import model.Book;
 import model.ITable;
 import model.Reader;
-import org.sqlite.SQLiteConnection;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Service {
 
@@ -54,5 +50,51 @@ public class Service {
                     tableName = line.substring(1);
                 else
                     map.get(tableName).addLine(line);
+    }
+
+    /**
+     * All authors that wrote at least 1 book
+     *
+     * @return {Set<String>} list of authors
+     */
+    public Set<String> getAuthors() {
+        return new Book().getAuthors();
+    }
+
+    /**
+     * Getting number of readers born in each year
+     *
+     * @return {Map<Integer, Integer>} botn by years
+     */
+    public Map<Integer, Integer> getBornByYears() {
+        return new Reader().getBornByYears();
+    }
+
+    /**
+     * Getting list of authors with their popularity
+     *
+     * @return Map<String, Integer> list of authors
+     */
+    public Map<String, Integer> getMostPopularAuthors() {
+        return new Reader().getMostPopularAuthors();
+    }
+
+    /**
+     * Sorting map by values
+     *
+     * @param {Map<K, V>} unsorted map
+     * @return {Map<K, V>} sorted map
+     */
+    public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
+        Comparator<K> valueComparator =  new Comparator<K>() {
+            public int compare(K k1, K k2) {
+                int compare = map.get(k2).compareTo(map.get(k1));
+                if (compare == 0) return 1;
+                else return compare;
+            }
+        };
+        Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+        sortedByValues.putAll(map);
+        return sortedByValues;
     }
 }

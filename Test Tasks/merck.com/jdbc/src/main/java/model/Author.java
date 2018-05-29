@@ -63,8 +63,7 @@ public class Author implements ITable {
      * @return {String} name
      **/
     public String get(int id) {
-        try (Statement stmt = connection.createStatement();
-             PreparedStatement pstmt = connection.prepareStatement(
+        try (PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT * FROM " +
                     getClass().getSimpleName() +
                     " WHERE id=?")) {

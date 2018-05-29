@@ -9,7 +9,10 @@ package model;
  */
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import controller.SQLite;
 
@@ -58,5 +61,52 @@ public class Reader implements ITable {
     public void addLine(String line) {
         String[] fields = line.split(",");
         add(Integer.parseInt(fields[0]), fields[1], fields[2], fields[3]);
+    }
+
+    /**
+     * Getting number of readers born in each year
+     *
+     * @return {Map<Integer, Integer>} botn by years
+     */
+    public Map<Integer, Integer> getBornByYears() {
+        Map<Integer, Integer> map = new HashMap<>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT * FROM " +
+                             getClass().getSimpleName())) {
+            while (rs.next()) {
+                int year = Integer.parseInt(
+                        rs.getString("DATEOFBIRTH").substring(0, 4));
+                map.put(year, map.getOrDefault(year, 0) + 1);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return map;
+    }
+
+    /**
+     * Getting list of authors with their popularity
+     *
+     * @return Map<String, Integer> list of authors
+     */
+    public Map<String, Integer> getMostPopularAuthors() {
+        Map<String, Integer> map = new HashMap<>();
+        Book book = new Book();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT * FROM " +
+                             getClass().getSimpleName())) {
+            while (rs.next()) {
+                String[] books = rs.getString("BOOKS").split(" ");
+                for (String id : books) {
+                    String author = book.getAuthorOfBook(Integer.parseInt(id));
+                    map.put(author, map.getOrDefault(author, 0) + 1);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return map;
     }
 }

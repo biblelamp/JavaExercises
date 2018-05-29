@@ -9,7 +9,11 @@ package model;
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import controller.SQLite;
 
@@ -55,5 +59,47 @@ public class Book implements ITable {
     public void addLine(String line) {
         String[] fields = line.split(",");
         add(Integer.parseInt(fields[0]), fields[1], Integer.parseInt(fields[2]));
+    }
+
+    /**
+     * Getting name of author by id of his/her book
+     *
+     * @param  {int} id
+     * @return {String} name of author
+     */
+    public String getAuthorOfBook(int id) {
+        Author author = new Author();
+        try (PreparedStatement pstmt = connection.prepareStatement(
+                "SELECT * FROM " +
+                        getClass().getSimpleName() +
+                        " WHERE id=?")) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next())
+                return author.get(rs.getInt("AUTHORID"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getting a unique list of authors
+     *
+     * @return {Set<String>} list of authors
+     */
+    public Set<String> getAuthors() {
+        Set<String> list = new HashSet<>();
+        Author author = new Author();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT * FROM " +
+                             getClass().getSimpleName())) {
+            while (rs.next())
+                list.add(author.get(rs.getInt("AUTHORID"))) ;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }
