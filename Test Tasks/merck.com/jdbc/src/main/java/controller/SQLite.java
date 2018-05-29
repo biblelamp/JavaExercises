@@ -18,6 +18,8 @@ public class SQLite {
     private final static String PREFIX = "jdbc:sqlite:";
     private final static String DBNAME = "bookshelf.db";
 
+    private SQLite() {} // block of classical object creation
+
     /**
      * Loads the specified driver
      *
