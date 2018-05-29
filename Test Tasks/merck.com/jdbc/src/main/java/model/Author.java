@@ -1,12 +1,5 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import controller.SQLite;
-
 /**
  * Test task Bookshelf from merck.com
  * Class Author provides operation with the relevant table
@@ -15,7 +8,14 @@ import controller.SQLite;
  * @version dated May 28, 2018
  */
 
-public class Author {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import controller.SQLite;
+
+public class Author implements ITable {
     Connection connection;
     Statement stmt;
 
@@ -46,6 +46,23 @@ public class Author {
         }
     }
 
+    /**
+     * Adding one record from SCV line
+     *
+     * @param  {String} line
+     * @return  void
+     **/
+    public void addLine(String line) {
+        String[] fields = line.split(",");
+        add(Integer.parseInt(fields[0]), fields[1]);
+    }
+
+    /**
+     * Getting name of author by id
+     *
+     * @param  {int} id
+     * @return {String} name
+     **/
     public String get(int id) {
         try (Statement stmt = connection.createStatement();
              PreparedStatement pstmt = connection.prepareStatement(

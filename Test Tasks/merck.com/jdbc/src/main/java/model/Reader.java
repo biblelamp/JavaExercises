@@ -1,10 +1,5 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.Statement;
-
-import controller.SQLite;
-
 /**
  * Test task Bookshelf from merck.com
  * Class Reader provides operation with the relevant table
@@ -13,7 +8,12 @@ import controller.SQLite;
  * @version dated May 28, 2018
  */
 
-public class Reader {
+import java.sql.Connection;
+import java.sql.Statement;
+
+import controller.SQLite;
+
+public class Reader implements ITable {
     Connection connection;
     Statement stmt;
 
@@ -48,5 +48,16 @@ public class Reader {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Adding one record from SCV line
+     *
+     * @param  {String} line
+     * @return  void
+     **/
+    public void addLine(String line) {
+        String[] fields = line.split(",");
+        add(Integer.parseInt(fields[0]), fields[1], fields[2], fields[3]);
     }
 }
