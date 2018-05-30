@@ -33,7 +33,7 @@
       <!--
       https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin
       to run with parameter:
-      $ mvn exec:java -Dexec.args="init"
+      $ mvn exec:java -Dexec.args="--init <file_name>"
       -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -45,7 +45,7 @@
               <goal>java</goal>
             </goals>
           </execution>
-        </executions>    
+        </executions>
         <configuration>
           <mainClass>${main-class}</mainClass>
         </configuration>
