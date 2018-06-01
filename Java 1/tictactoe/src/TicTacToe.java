@@ -54,14 +54,20 @@ class TicTacToe extends JFrame {
             panel.repaint();
         });
         JButton exit = new JButton(BTN_EXIT);
-        exit.addActionListener(e -> System.exit(0));
+        //exit.addActionListener(e -> System.exit(0));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         JPanel panelBtn = new JPanel();
         panelBtn.setLayout(new GridLayout()); // for panel of buttons
         panelBtn.add(init);
         panelBtn.add(exit);
 
-        setLayout(new BorderLayout()); // for main window
+        //setLayout(new BorderLayout()); // by dafault
         add(panelBtn, BorderLayout.SOUTH);
         add(panel, BorderLayout.CENTER);
         setVisible(true);
