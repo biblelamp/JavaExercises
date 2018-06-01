@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Oct 21, 2017
+ * @version 0.3.3 dated Jun 01, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -49,20 +49,12 @@ class TicTacToe extends JFrame {
             }
         });
         JButton init = new JButton(BTN_INIT);
-        init.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                field.init();
-                panel.repaint();
-            }
+        init.addActionListener(e -> {
+            field.init();
+            panel.repaint();
         });
         JButton exit = new JButton(BTN_EXIT);
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exit.addActionListener(e -> System.exit(0));
 
         JPanel panelBtn = new JPanel();
         panelBtn.setLayout(new GridLayout()); // for panel of buttons
