@@ -5,7 +5,7 @@ package tools;
  * Class Service provides some operation with the database
  *
  * @author Sergey Iryupin
- * @version dated May 28..29, 2018
+ * @version dated Jun 03, 2018
  */
 
 import controller.SQLite;
@@ -19,7 +19,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.util.*;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+import java.util.Comparator;
 
 public class Service {
 
@@ -55,10 +61,23 @@ public class Service {
     /**
      * All authors that wrote at least 1 book
      *
-     * @return {Set<String>} list of authors
+     * @return {List<String>} list of authors
      */
-    public Set<String> getAuthors() {
-        return new Book().getAuthors();
+    public List<String> getAuthors() {
+        List<String> list = new ArrayList<>();
+        try (ResultSet rs = SQLite.getConnection()
+                .createStatement()
+                .executeQuery(
+                     "SELECT distinct authors.name FROM " +
+                             "Author AS authors, Book AS books " +
+                             "WHERE authors.ID = books.AUTHORID;")) {
+            while (rs.next())
+                list.add(rs.getString("name")) ;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+        //return new Book().getAuthors();
     }
 
     /**
