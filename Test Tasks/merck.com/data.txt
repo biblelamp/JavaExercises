@@ -4,6 +4,7 @@
 3,Bruce Eckel
 4,Herbert Schildt
 5,Joshua Bloch
+6,Cay Horstmann
 
 ;Book
 1,Java in easy steps,1
@@ -14,6 +15,7 @@
 6,Thinking in C++,3
 7,Java: A Beginner`s Guide,4
 8,Java: The Complete Reference,4
+9,Core Java,6
 
 ;Reader
 1,Harry Smith,2001-12-01,3 1
