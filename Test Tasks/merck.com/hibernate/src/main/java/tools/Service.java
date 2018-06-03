@@ -11,6 +11,7 @@ package tools;
 import controller.SQLite;
 import model.Author;
 import model.Book;
+import model.Reader;
 import org.hibernate.Session;
 
 import java.io.IOException;
@@ -26,16 +27,16 @@ public class Service {
      * Filling the database tables from a file
      *
      * @param  {String} name of file
-     * @return  void
+     * @return {boolean}
      **/
-    public void load(String filename) {
+    public boolean load(String filename) {
         List<String> lines = new ArrayList<>();
         try {
             lines = Files.readAllLines(Paths.get(filename),
                     StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
+            return false;
         }
 
         Session session = SQLite.getSession("create");
@@ -53,13 +54,17 @@ public class Service {
                             session.save(new Author(fields[1]));
                             break;
                         case "Book":
-                            session.save(new Book(fields[1], Integer.parseInt(fields[2])));
+                            session.save(new Book(Integer.parseInt(fields[0]),
+                                    fields[1], Integer.parseInt(fields[2])));
                             break;
                         case "Reader":
+                            session.save(new Reader(Integer.parseInt(fields[0]),
+                                    fields[1], fields[2], fields[3]));
                             break;
                     }
                 }
         session.getTransaction().commit();
         session.close();
+        return true;
     }
 }

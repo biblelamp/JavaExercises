@@ -15,11 +15,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+
 
 @ToString
 @Entity
@@ -27,7 +23,6 @@ import java.util.Date;
 public class Reader {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Getter
     @Setter
     private int id;
@@ -36,10 +31,9 @@ public class Reader {
     @Setter
     private String name;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Setter
-    private Date dateofbirth;
+    private String dateofbirth;
 
     @Getter
     @Setter
@@ -47,7 +41,8 @@ public class Reader {
 
     public Reader() {}
 
-    public Reader(String name, Date dateofbirth, String books) {
+    public Reader(int id, String name, String dateofbirth, String books) {
+        this.id = id;
         this.name = name;
         this.dateofbirth = dateofbirth;
         this.books = books;

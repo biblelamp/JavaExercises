@@ -24,7 +24,6 @@ import javax.persistence.GenerationType;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Getter
     @Setter
     private int id;
@@ -39,7 +38,8 @@ public class Book {
 
     public Book() {}
 
-    public Book(String name, int authorid) {
+    public Book(int id, String name, int authorid) {
+        this.id = id;
         this.name = name;
         this.authorid = authorid;
     }
