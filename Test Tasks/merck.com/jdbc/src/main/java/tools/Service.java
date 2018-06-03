@@ -33,16 +33,16 @@ public class Service {
      * Filling the database tables from a file
      *
      * @param  {String} name of file
-     * @return  void
+     * @return {boolean}
      **/
-    public void load(String filename) {
-        List<String> lines = new ArrayList<>();
+    public boolean load(String filename) {
+        List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(filename),
                     StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
+            return false;
         }
         Connection connection = SQLite.getConnection();
         Map<String, ITable> map = new HashMap<>();
@@ -56,6 +56,7 @@ public class Service {
                     tableName = line.substring(1);
                 else
                     map.get(tableName).addLine(line);
+         return true;
     }
 
     /**
