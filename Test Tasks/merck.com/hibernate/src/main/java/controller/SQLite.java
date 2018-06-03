@@ -5,7 +5,7 @@ package controller;
  * Class SQLite provides a hibernate session
  *
  * @author Sergey Iryupin
- * @version dated Jun 02, 2018
+ * @version dated Jun 03, 2018
  */
 
 import model.Author;
@@ -38,7 +38,7 @@ public class SQLite {
     private static void createHibernateSession(
             String driverName, String dbName, String mode) {
         try {
-            Map<String, String> settings = new HashMap<String, String>();
+            Map<String, String> settings = new HashMap<>();
             settings.put("hibernate.connection.driver_class", driverName);
             settings.put("hibernate.connection.url", dbName);
             settings.put("hibernate.connection.username", "");
