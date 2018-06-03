@@ -91,8 +91,8 @@ public class Book implements ITable {
     public Set<String> getAuthors() {
         Set<String> list = new HashSet<>();
         Author author = new Author();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(
+        try (ResultSet rs = connection.createStatement()
+                .executeQuery(
                      "SELECT * FROM " +
                              getClass().getSimpleName())) {
             while (rs.next())

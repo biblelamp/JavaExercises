@@ -70,8 +70,8 @@ public class Reader implements ITable {
      */
     public Map<Integer, Integer> getBornByYears() {
         Map<Integer, Integer> map = new HashMap<>();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(
+        try (ResultSet rs = connection.createStatement()
+                .executeQuery(
                      "SELECT * FROM " +
                              getClass().getSimpleName())) {
             while (rs.next()) {
@@ -93,8 +93,8 @@ public class Reader implements ITable {
     public Map<String, Integer> getMostPopularAuthors() {
         Map<String, Integer> map = new HashMap<>();
         Book book = new Book();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(
+        try (ResultSet rs = connection.createStatement()
+                     .executeQuery(
                      "SELECT * FROM " +
                              getClass().getSimpleName())) {
             while (rs.next()) {
