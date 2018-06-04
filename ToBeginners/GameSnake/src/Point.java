@@ -1,2 +1,30 @@
+import java.awt.*;
+
 public class Point {
+    private int x, y;
+    private Color color;
+
+    public Point(int x, int y) {
+        set(x, y);
+        color = Color.darkGray;
+    }
+
+    public void set(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void paint(Graphics g) {
+        g.setColor(color);
+        g.fillOval(x * GameSnake.POINT_SIZE, y * GameSnake.POINT_SIZE,
+                GameSnake.POINT_SIZE, GameSnake.POINT_SIZE);
+    }
 }
