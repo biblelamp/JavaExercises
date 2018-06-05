@@ -1,12 +1,12 @@
 import java.awt.*;
 
 public class Point {
-    private int x, y;
-    private Color color;
+    protected int x, y;
+    protected Color color;
 
     public Point(int x, int y) {
         set(x, y);
-        color = Color.darkGray;
+        color = GameSnake.SNAKE_COLOR;
     }
 
     public void set(int x, int y) {

@@ -5,17 +5,24 @@ import java.util.List;
 public class Snake {
     private List<Point> snake = new ArrayList<>();
     private int direction;
+    private GameSnake gameSnake;
 
-    public Snake(int x, int y, int length, int direction) {
+    public Snake(int x, int y, int length, int direction, GameSnake gameSnake) {
         for (int i = 0; i < length; i++)
             snake.add(new Point(x - i, y));
         this.direction = direction;
+        this.gameSnake = gameSnake;
     }
 
     public void setDirection(int direction) {
         if ((direction >= GameSnake.LEFT) && (direction <= GameSnake.DOWN))
             if (Math.abs(this.direction - direction) != 2)
                 this.direction = direction;
+    }
+
+    private boolean meetFood(Food food) {
+        return (snake.get(0).getX() == food.getX()) &&
+               (snake.get(0).getY() == food.getY());
     }
 
     public void move() {
@@ -40,7 +47,11 @@ public class Snake {
                 break;
         }
         snake.add(0, new Point(x, y));
-        snake.remove(snake.size() - 1);
+        if (meetFood(gameSnake.food)) {
+            gameSnake.food.eat();
+            gameSnake.setTitle(gameSnake.TITLE_OF_PROGRAM + " : " + snake.size());
+        } else
+            snake.remove(snake.size() - 1);
     }
 
     public void paint(Graphics g) {
