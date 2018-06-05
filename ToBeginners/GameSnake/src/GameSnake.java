@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Jun 05, 2018
+ * @version 0.3 dated Jun 05, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.event.*;
 public class GameSnake extends JFrame {
 
     static final String TITLE_OF_PROGRAM = "Classic Game Snake";
-    static String GAME_OVER_MSG = "GAME OVER";
+    static final String GAME_OVER_MSG = "GAME OVER";
     static final int POINT_SIZE = 20; // size in pix
     static final int WIDTH = 30;      // width in point
     static final int HEIGHT = 20;
@@ -25,6 +25,7 @@ public class GameSnake extends JFrame {
     static final int UP = 38;
     static final int RIGHT = 39;
     static final int DOWN = 40;
+    static boolean gameOver = false;
 
     Canvas canvas; // for drawing
     Snake snake;
@@ -55,9 +56,9 @@ public class GameSnake extends JFrame {
         setVisible(true);
 
         snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, RIGHT, this);
-        food = new Food();
+        food = new Food(snake);
 
-        while (true) {
+        while (!gameOver) {
             snake.move();
             if (food.isEaten())
                 food.show();
@@ -68,6 +69,7 @@ public class GameSnake extends JFrame {
                 e.printStackTrace();
             }
         }
+        JOptionPane.showMessageDialog(GameSnake.this, GAME_OVER_MSG);
     }
 
     class Canvas extends JPanel {

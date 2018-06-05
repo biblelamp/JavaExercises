@@ -25,6 +25,13 @@ public class Snake {
                (snake.get(0).getY() == food.getY());
     }
 
+    public boolean isCrossItself(int x, int y) {
+        for (Point point : snake)
+            if ((point.getX() == x) && (point.getY() == y))
+                return true;
+        return false;
+    }
+
     public void move() {
         int x = snake.get(0).getX();
         int y = snake.get(0).getY();
@@ -45,6 +52,10 @@ public class Snake {
                 if (y == GameSnake.HEIGHT)
                     y = 0;
                 break;
+        }
+        if (isCrossItself(x, y)) { // snake can not cross itself
+            GameSnake.gameOver = true;
+            return;
         }
         snake.add(0, new Point(x, y));
         if (meetFood(gameSnake.food)) {

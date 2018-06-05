@@ -1,12 +1,14 @@
 import java.util.Random;
 
 public class Food extends Point {
-    Random random;
+    private Random random;
+    private Snake snake;
 
-    public Food() {
+    public Food(Snake snake) {
         super(-1, -1);
         color = GameSnake.FOOD_COLOR;
         random = new Random();
+        this.snake = snake;
     }
 
     public boolean isEaten() {
@@ -22,7 +24,7 @@ public class Food extends Point {
         do {
             x = random.nextInt(GameSnake.WIDTH);
             y = random.nextInt(GameSnake.HEIGHT);
-        } while (false);
+        } while (snake.isCrossItself(x, y));
         set(x, y);
     }
 }
