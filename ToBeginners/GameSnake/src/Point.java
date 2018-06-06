@@ -9,6 +9,11 @@ public class Point {
         color = GameSnake.SNAKE_COLOR;
     }
 
+    public Point(int x, int y, Color color) {
+        set(x, y);
+        this.color = color;
+    }
+
     public void set(int x, int y) {
         this.x = x;
         this.y = y;

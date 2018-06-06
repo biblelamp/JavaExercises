@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Jun 05, 2018
+ * @version 0.4 dated Jun 06, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +21,7 @@ public class GameSnake extends JFrame {
     static final int SHOW_DELAY = 150;
     static final Color SNAKE_COLOR = Color.darkGray;
     static final Color FOOD_COLOR = Color.green;
+    static final Color POISON_COLOR = Color.red;
     static final int LEFT = 37;
     static final int UP = 38;
     static final int RIGHT = 39;
@@ -30,6 +31,7 @@ public class GameSnake extends JFrame {
     Canvas canvas; // for drawing
     Snake snake;
     Food food;
+    Poison poison;
 
     public static void main(String[] args) {
         new GameSnake();
@@ -57,11 +59,14 @@ public class GameSnake extends JFrame {
 
         snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, RIGHT, this);
         food = new Food(snake);
+        poison = new Poison();
 
         while (!gameOver) {
             snake.move();
-            if (food.isEaten())
+            if (food.isEaten()) {
                 food.show();
+                poison.add();
+            }
             canvas.repaint();
             try {
                 Thread.sleep(SHOW_DELAY);
@@ -78,6 +83,7 @@ public class GameSnake extends JFrame {
             super.paint(g);
             snake.paint(g);
             food.paint(g);
+            poison.paint(g);
         }
     }
 }
