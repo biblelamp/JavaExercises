@@ -5,7 +5,7 @@ package model;
  * Class Book provides operation with the relevant table
  *
  * @author Sergey Iryupin
- * @version dated May 28, 2018
+ * @version dated Jun 06, 2018
  */
 
 import java.sql.Connection;
@@ -74,9 +74,13 @@ public class Book implements ITable {
                         getClass().getSimpleName() +
                         " WHERE id=?")) {
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next())
-                return author.get(rs.getInt("AUTHORID"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    return author.get(rs.getInt("AUTHORID"));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -95,8 +99,9 @@ public class Book implements ITable {
                 .executeQuery(
                      "SELECT * FROM " +
                              getClass().getSimpleName())) {
-            while (rs.next())
-                list.add(author.get(rs.getInt("AUTHORID"))) ;
+            while (rs.next()) {
+                list.add(author.get(rs.getInt("AUTHORID")));
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
