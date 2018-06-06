@@ -5,7 +5,7 @@ package controller;
  * Class SQLite provides a hibernate session
  *
  * @author Sergey Iryupin
- * @version dated Jun 03, 2018
+ * @version dated Jun 06, 2018
  */
 
 import model.Author;
@@ -75,5 +75,15 @@ public class SQLite {
         if (session == null)
             createHibernateSession(DRIVER, PREFIX + DBNAME, mode);
         return session;
+    }
+
+    /**
+     * To close connection if it's open
+     *
+     * @return {void}
+     */
+    public static void close() {
+        if (session != null)
+            session.close();
     }
 }

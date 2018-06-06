@@ -2,9 +2,10 @@
  * Test task Bookshelf from merck.com
  *
  * @author Sergey Iryupin
- * @version dated Jun 03, 2018
+ * @version dated Jun 06, 2018
  */
 
+import controller.SQLite;
 import tools.Service;
 
 public class BookShelf {
@@ -14,11 +15,13 @@ public class BookShelf {
             if (args[0].equalsIgnoreCase("--init"))
                 new Service().load(args[1]);
         } else {
-            System.out.println(new Service().getAuthors());
-            System.out.println(new Service().getBornByYears());
-            System.out.println(Service.sortByValues(new Service()
+            Service service = new Service();
+            System.out.println(service.getAuthors());
+            System.out.println(service.getBornByYears());
+            System.out.println(service.sortByValues(new Service()
                     .getMostPopularAuthors()));
         }
+        SQLite.close();
         System.exit(0);
     }
 }
