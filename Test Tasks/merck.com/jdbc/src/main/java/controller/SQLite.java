@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Class SQLite provides a connection to the database
  *
  * @author Sergey Iryupin
- * @version dated May 28, 2018
+ * @version dated Jun 06, 2018
  */
 
 public class SQLite {
@@ -57,5 +57,19 @@ public class SQLite {
             loadConnection();
         }
         return connection;
+    }
+
+    /**
+     * To close connection if it's open
+     *
+     * @return {void}
+     */
+    public static void close() {
+        if (connection != null)
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
     }
 }
