@@ -9,8 +9,10 @@ package model;
  */
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+@RequiredArgsConstructor
 @ToString
 @Entity
 @Table(name="author")
@@ -31,11 +34,6 @@ public class Author {
 
     @Getter
     @Setter
+    @NonNull
     private String name;
-
-    public Author() {}
-
-    public Author(String name) {
-        this.name = name;
-    }
 }
