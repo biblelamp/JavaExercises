@@ -5,9 +5,10 @@ package model;
  * Class Book for the relevant table
  *
  * @author Sergey Iryupin
- * @version dated May 31, 2018
+ * @version dated Jun 06, 2018
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,9 +16,8 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
+@AllArgsConstructor()
 @ToString
 @Entity
 @Table(name="book")
@@ -35,12 +35,4 @@ public class Book {
     @Getter
     @Setter
     private int authorid;
-
-    public Book() {}
-
-    public Book(int id, String name, int authorid) {
-        this.id = id;
-        this.name = name;
-        this.authorid = authorid;
-    }
 }

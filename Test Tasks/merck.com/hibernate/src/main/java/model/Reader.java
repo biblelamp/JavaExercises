@@ -5,9 +5,10 @@ package model;
  * Class Reader for the relevant table
  *
  * @author Sergey Iryupin
- * @version dated May 31, 2018
+ * @version dated Jun 06, 2018
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
-
+@AllArgsConstructor()
 @ToString
 @Entity
 @Table(name="reader")
@@ -38,13 +39,4 @@ public class Reader {
     @Getter
     @Setter
     private String books;
-
-    public Reader() {}
-
-    public Reader(int id, String name, String dateofbirth, String books) {
-        this.id = id;
-        this.name = name;
-        this.dateofbirth = dateofbirth;
-        this.books = books;
-    }
 }
