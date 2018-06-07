@@ -19,7 +19,7 @@ public class GameSnake extends JFrame {
     static final int START_SNAKE_X = HEIGHT/2;
     static final int START_SNAKE_Y = HEIGHT/2;
     static final int SHOW_DELAY = 150;
-    static final Color SNAKE_COLOR = Color.darkGray;
+    static final Color DEFAULT_COLOR = Color.darkGray;
     static final Color FOOD_COLOR = Color.green;
     static final Color POISON_COLOR = Color.red;
     static final int LEFT = 37;
@@ -58,8 +58,8 @@ public class GameSnake extends JFrame {
         setVisible(true);
 
         snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, RIGHT, this);
-        food = new Food(snake);
-        poison = new Poison();
+        food = new Food(this);
+        poison = new Poison(this);
 
         while (!gameOver) {
             snake.move();

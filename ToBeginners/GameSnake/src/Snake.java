@@ -5,13 +5,13 @@ import java.util.List;
 public class Snake {
     private List<Point> snake = new ArrayList<>();
     private int direction;
-    private GameSnake gameSnake;
+    private GameSnake game;
 
     public Snake(int x, int y, int length, int direction, GameSnake gameSnake) {
         for (int i = 0; i < length; i++)
             snake.add(new Point(x - i, y));
         this.direction = direction;
-        this.gameSnake = gameSnake;
+        this.game = gameSnake;
     }
 
     public void setDirection(int direction) {
@@ -25,7 +25,7 @@ public class Snake {
                (snake.get(0).getY() == food.getY());
     }
 
-    public boolean isCrossItself(int x, int y) {
+    public boolean isInsideSnake(int x, int y) {
         for (Point point : snake)
             if ((point.getX() == x) && (point.getY() == y))
                 return true;
@@ -53,14 +53,15 @@ public class Snake {
                     y = 0;
                 break;
         }
-        if (isCrossItself(x, y)) { // snake can not cross itself
+        if (isInsideSnake(x, y) ||            // snake shouldn't cross itself
+                game.poison.isPoison(x, y)) { // and eat poison
             GameSnake.gameOver = true;
             return;
         }
         snake.add(0, new Point(x, y));
-        if (meetFood(gameSnake.food)) {
-            gameSnake.food.eat();
-            gameSnake.setTitle(gameSnake.TITLE_OF_PROGRAM + " : " + snake.size());
+        if (meetFood(game.food)) {
+            game.food.eat();
+            game.setTitle(game.TITLE_OF_PROGRAM + " : " + snake.size());
         } else
             snake.remove(snake.size() - 1);
     }

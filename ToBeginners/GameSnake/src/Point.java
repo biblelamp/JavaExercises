@@ -6,7 +6,7 @@ public class Point {
 
     public Point(int x, int y) {
         set(x, y);
-        color = GameSnake.SNAKE_COLOR;
+        color = GameSnake.DEFAULT_COLOR;
     }
 
     public Point(int x, int y, Color color) {
