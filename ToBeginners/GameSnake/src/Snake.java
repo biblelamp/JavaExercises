@@ -20,11 +20,6 @@ public class Snake {
                 this.direction = direction;
     }
 
-    private boolean meetFood(Food food) {
-        return (snake.get(0).getX() == food.getX()) &&
-               (snake.get(0).getY() == food.getY());
-    }
-
     public boolean isInsideSnake(int x, int y) {
         for (Point point : snake)
             if ((point.getX() == x) && (point.getY() == y))
@@ -59,7 +54,7 @@ public class Snake {
             return;
         }
         snake.add(0, new Point(x, y));
-        if (meetFood(game.food)) {
+        if (game.food.isFood(x, y)) {
             game.food.eat();
             game.setTitle(game.TITLE_OF_PROGRAM + " : " + snake.size());
         } else
