@@ -1,26 +1,26 @@
 /**
  * Java. Level 2. Lesson 1. Example of homework
  * Preparatory actions:
- * 1. Making animals.jar based on code in lesson 1:
- *    - compile sourse file
+ * 1. Making zoo.jar based on code in lesson 1:
+ *    - compile sourse files
  *      > javac hw1/animals/*.java
+        > javac hw1/obstacles/*.java
  *    - make package using command:
- *      > jar -cvf animals.jar hw1/animals/*.class
- * 2. Making obstacles.jar from classes track, wall, water in the same way
- * 3. Move both packages to lib/ directory
+ *      > jar -cvf zoo.jar hw1/animals/*.class hw1/obstacles/*.class
+ * 2. Move package to lib/ directory
  *    > move animals.jar lib
  *    > move obstacles.jar lib
- * 4. Compile using this command:
- *    > javac -cp lib/animals.jar;lib/obstacles.jar;. HW1Lesson.java
+ * 3. Compile using this command:
+ *    > javac -cp lib/zoo.jar;. HW1Lesson.java
  *    Run compiled program this way:
- *    > java -cp lib/animals.jar;lib/obstacles.jar;. HW1Lesson
- * 5. Or put both packages to [JDK]/jre/lib/ext
+ *    > java -cp lib/zoo.jar;. HW1Lesson
+ * 4. Or put package to [JDK]/jre/lib/ext
  *    and compile and run this way:
  *    > javac HW1Lesson.java
  *    > java HW1Lesson
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated Dec 21, 2017
+ * @version 0.3.5 dated Jun 08, 2018
  * @link https://github.com/biblelamp
  */
 import hw1.animals.*;
@@ -34,7 +34,7 @@ class HW1Lesson {
             new Track(50),
             new Water(50),
             new Wall(2)});
-        Team team = new Team("Animals", new Animal[] { // creating a team
+        Team team = new Team("Zoo", new Animal[] { // creating a team
             new Cat("Murzik"),
             new Cat("Barsik"),
             new Hen("Izzy"),
