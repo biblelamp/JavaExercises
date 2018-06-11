@@ -3,9 +3,17 @@
  * Examples for lesson
  *
  * @author Sergey Iryupin
- * @version dated Dec 26, 2017
+ * @version dated Jun 11, 2018
+ * @see also Wrapper/Decorator (Integer, Long, Float, Double...)
  */
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 class J2Lesson3 {
 
