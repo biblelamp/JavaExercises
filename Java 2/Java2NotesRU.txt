@@ -43,6 +43,8 @@
       - интерфейс List - ArrayList и LinkedList
       - интерфейс Set - HashSet и TreeSet
       - интерфейс Map - HaspMap и TreeMap
+      - шаблон проектирования Wrapper/Decorator
+      + показать исходный код класса Integer
 
 4. Продвинутые вопросы создания графического интерфейса
 
