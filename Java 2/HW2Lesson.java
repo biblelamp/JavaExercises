@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Oct 31, 2017
+ * @version 0.3.2 dated Jun 11, 2018
  */
 import java.io.*;
 import java.util.Arrays;
@@ -51,7 +51,7 @@ class HW2Lesson {
         String[] lines = str.split("\n");
         String[][] matrix = new String[lines.length][];
         for (int i = 0; i < lines.length; i++) {
-            matrix[i] = lines[i].split(" ");
+            matrix[i] = lines[i].split("\\s+");
             System.out.println(Arrays.toString(matrix[i]));
         }
         return matrix;
@@ -63,13 +63,14 @@ class HW2Lesson {
         int result = 0;
 
         // checking the number of rows
-        if (matrix.length != SIZE)
+        if (matrix == null || matrix.length != SIZE)
             throw new ArrayIndexOutOfBoundsException(
                 "The number of rows doesn't match");
 
         // processing the matrix
         for (int i = 0; i < matrix.length; i++) {
-            if (matrix[i].length != SIZE) // checking the number of columns
+            if (matrix[i] == null ||
+                    matrix[i].length != SIZE) // checking the number of columns
                 throw new ArrayIndexOutOfBoundsException(
                     "The number of colums in row " + (i+1) + " doesn't match");
             for (int j = 0; j < matrix[i].length; j++)
