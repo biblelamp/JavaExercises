@@ -2,42 +2,33 @@
  * Java. The program helps to understand: whither are funneling money
  *
  * @author Sergey Iryupin
- * @version 0.5.6 dated 15 Feb 2017
+ * @version 0.5.7 dated Jun 13, 2018
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.*;
 import javax.swing.filechooser.*;
 import javax.swing.table.*;
-import java.text.*;
 import java.util.*;
 import java.io.*;
-/*
- * I have to put proper*.jar files to C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext
- * - jOpenDocument-1.3
- * - jcalendar-1.4
- * - jcommon-1.0.23, jfreechart-1.0.19
- */
-import org.jopendocument.dom.spreadsheet.*; // http://www.jopendocument.org/downloads.html
-import com.toedter.calendar.*; //https://toedter.com/jcalendar/
-import org.jfree.chart.*; // http://www.jfree.org/jfreechart/
+
+import org.jopendocument.dom.spreadsheet.*; // www.jopendocument.org/
+import com.toedter.calendar.*;              // toedter.com/jcalendar/
+import org.jfree.chart.*;                   // www.jfree.org/jfreechart/
 import org.jfree.chart.labels.*;
 import org.jfree.chart.plot.*;
-import org.jfree.data.*;
 import org.jfree.data.general.*;
 
 public class AnalyzeCosts extends JFrame implements ComponentListener {
 
-    final static String TITLE_OF_PROGRAM = "Analyze private costs";
-    final static int WINDOW_WIDTH = 500;
-    final static int WINDOW_HEIGHT = 450;
-    final static int START_POSITION = 100;
+    final String TITLE_OF_PROGRAM = "Analyze private costs";
+    final int WINDOW_WIDTH = 500;
+    final int WINDOW_HEIGHT = 450;
     final String CLICK_ME = "Click me...";
     final String TOOL_TIP_FILE_NAME = "Click to select the data file *.ods";
     final String SET_FILE_FILTER = "Spreadsheet files (*.ods)";
     final String SET_FILE_EXT = "ods";
-    final String PATH_IMG_BUTTON = "img/go.png";
+    final String PATH_IMG_BUTTON = "src\\main\\resources\\go.png";
     final String TOOL_TIP_BUTTON = "Click to calculate the results";
     final String SETTINGS_FILE = "settings.ini";
     final String TOTAL_TITLE = "Total";
@@ -47,7 +38,7 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
     final String PRCNT_COL_NAME = "%";
     final String BOLD_BEGIN = "<html><b>";
     final String BOLD_END = "</b></html>";
-    JFrame frame;
+
     JDateChooser startDate;
     JDateChooser endDate;
     JTextField fileName;
@@ -58,16 +49,16 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
     ChartPanel chartPanel;
 
     public static void main(String[] args) {
-        AnalyzeCosts frame = new AnalyzeCosts();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(TITLE_OF_PROGRAM);
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        frame.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
-        frame.setLocation(START_POSITION, START_POSITION);
-        frame.setVisible(true);
+        new AnalyzeCosts();
     }
 
     AnalyzeCosts() {
+        setTitle(TITLE_OF_PROGRAM);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        setLocationRelativeTo(null); // to the center
+
         startDate = new JDateChooser(new Date());
         endDate = new JDateChooser(new Date());
 
@@ -80,7 +71,7 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
                 JFileChooser open = new JFileChooser();
                 open.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 open.setFileFilter(new FileNameExtensionFilter(SET_FILE_FILTER, SET_FILE_EXT));
-                int result = open.showOpenDialog(frame);
+                int result = open.showOpenDialog(getParent());
                 if (result == JFileChooser.APPROVE_OPTION) {
                     fileName.setText(open.getSelectedFile().getAbsolutePath());
                 }
@@ -89,8 +80,10 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
 
         ImageIcon icon = null;
         try {
-            icon = new ImageIcon(AnalyzeCosts.class.getResource(PATH_IMG_BUTTON));
-        } catch (Exception e) { }
+            icon = new ImageIcon(PATH_IMG_BUTTON);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         JButton getFileName = new JButton();
         getFileName.setPreferredSize(new Dimension(45, 30));
         getFileName.setIcon(icon);
@@ -152,9 +145,10 @@ public class AnalyzeCosts extends JFrame implements ComponentListener {
         tabbedPane.addTab(TOTAL_TITLE, new JScrollPane(table));
         tabbedPane.addTab(CHART_TITLE, chartPanel);
 
-        getContentPane().add(BorderLayout.NORTH, upPanel);
-        getContentPane().add(BorderLayout.CENTER, tabbedPane);
-        getContentPane().addComponentListener(this);
+        add(BorderLayout.NORTH, upPanel);
+        add(BorderLayout.CENTER, tabbedPane);
+        addComponentListener(this);
+        setVisible(true);
         readSettings();
     }
 
