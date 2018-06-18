@@ -2,7 +2,7 @@
  * Java. Level 2. Lesson 4. Example of homework
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Nov 07, 2017
+ * @version 0.1.2 dated Jun 18, 2018
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,6 @@ import java.io.*;
 class HW4Lesson extends JFrame implements ActionListener {
 
     final String TITLE_OF_PROGRAM = "Client for net.chat";
-    final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
     final String BTN_ENTER = "Enter";
@@ -32,7 +31,8 @@ class HW4Lesson extends JFrame implements ActionListener {
     HW4Lesson() {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(START_LOCATION, START_LOCATION, WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setLocationRelativeTo(null); // to the center
         // area for dialog
         dialogue = new JTextArea();
         dialogue.setEditable(false);
