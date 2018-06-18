@@ -3,9 +3,9 @@ class ImpRunnable {
     public static void main(String args[]) {
         System.out.println("Main thread is starting...");
 
-        MyThread mt1 = new MyThread("Child #1");
-        //MyThread mt2 = new MyThread("Child #2");
-        //MyThread mt3 = new MyThread("Child #3");
+        MyRunnableClass mt1 = new MyRunnableClass("Child #1");
+        MyRunnableClass mt2 = new MyRunnableClass("Child #2");
+        //MyRunnableClass mt3 = new MyRunnableClass("Child #3");
 
         for (int i = 0; i < 50; i++) {
             System.out.print(".");
@@ -19,11 +19,11 @@ class ImpRunnable {
     }
 }
 
-class MyThread implements Runnable {
+class MyRunnableClass implements Runnable {
     Thread thread;
 
     // creating new thread
-    MyThread(String name) {
+    MyRunnableClass(String name) {
         thread = new Thread(this, name);
         thread.start();
     }

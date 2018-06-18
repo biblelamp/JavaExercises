@@ -4,7 +4,7 @@ class ExtThread {
         System.out.println("Main thread is starting...");
 
         MyThread mt1 = new MyThread("Child #1");
-        //MyThread mt2 = new MyThread("Child #2");
+        MyThread mt2 = new MyThread("Child #2");
         //MyThread mt3 = new MyThread("Child #3");
 
         for (int i = 0; i < 50; i++) {
