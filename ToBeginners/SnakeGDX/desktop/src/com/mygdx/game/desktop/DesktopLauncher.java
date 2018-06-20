@@ -9,6 +9,7 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 32 * 32;
         config.height = 32 * 18;
+        config.resizable = false;
         new LwjglApplication(new SnakeGdxGame(), config);
     }
 }
