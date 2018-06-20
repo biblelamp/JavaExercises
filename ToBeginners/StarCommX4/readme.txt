@@ -2,7 +2,7 @@
 
     - Java JDK 8 (to make JAVA_HOME in Windows)
     - IntelliJ IDEA Community Edition (free)
-    - libGDX http://libgdx.badlogicgames.com/download.html
+    - libGDX framework http://libgdx.badlogicgames.com/download.html
 
     If you want to work with Android SDK:
     Android SDK for IntelliJ IDEA http://www.tayloraliss.com/blog/?p=457
@@ -36,7 +36,7 @@
     - changing DesktopLauncher class (1024/576)
     - explanations by class MyGdxGame
     - to move 4 images to the folder assets (in core or android)
-    - adding Background class
+    - writing Background class
     - adding Hero class
     - adding Asteroids class
     - adding Bullets class
