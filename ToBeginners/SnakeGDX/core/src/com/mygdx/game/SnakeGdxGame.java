@@ -7,26 +7,32 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SnakeGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Snake snake;
-	
-	@Override
-	public void create() {
-		batch = new SpriteBatch();
-		snake = new Snake();
-	}
+    SpriteBatch batch;
+    Snake snake;
+    int slowingCounter;
 
-	@Override
-	public void render() {
-		update();
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		snake.render(batch);
-		batch.end();
-	}
-	
-	public void update() {
-		snake.update();
-	}
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        snake = new Snake();
+        slowingCounter = 0;
+    }
+
+    @Override
+    public void render() {
+        update();
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        snake.render(batch);
+        batch.end();
+    }
+    
+    public void update() {
+        slowingCounter++;
+        if (slowingCounter == 10) {
+            slowingCounter = 0;
+            snake.update();
+        }
+    }
 }

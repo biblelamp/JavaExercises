@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class Snake {
     private List<Cell> snake;
-    private int direction;
     private Texture img;
+    private int direction;
 
     public Snake() {
         snake = new ArrayList<Cell>();
         img = new Texture("gear.png");
         for (int i = 0; i < 5; i++)
-            snake.add(new Cell(new Vector2(150 - i * 32, 230), img));
+            snake.add(new Cell(new Vector2(160 - i * 32, 32 * 9), img));
         direction = Input.Keys.RIGHT;
     }
 
@@ -44,18 +44,23 @@ public class Snake {
         float y = snake.get(0).getY();
         switch (direction) {
             case Input.Keys.UP: y += img.getHeight();
+                if (y == Gdx.graphics.getHeight())
+                    y = 0;
                 break;
             case Input.Keys.DOWN: y -= img.getHeight();
+                if (y < 0)
+                    y = Gdx.graphics.getHeight() - 32;
                 break;
             case Input.Keys.RIGHT: x += img.getWidth();
+                if (x == Gdx.graphics.getWidth())
+                    x = 0;
                 break;
             case Input.Keys.LEFT: x -= img.getWidth();
+                if (x < 0)
+                    x = Gdx.graphics.getWidth() - 32;
                 break;
         }
         snake.add(0, new Cell(new Vector2(x, y), img));
         snake.remove(snake.size() - 1);
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException e) {}
     }
 }
