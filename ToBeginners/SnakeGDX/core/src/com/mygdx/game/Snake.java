@@ -13,13 +13,16 @@ public class Snake {
     private List<Cell> snake;
     private Texture img;
     private int direction;
+    private Food food;
 
-    public Snake() {
+    public Snake(Food food) {
         snake = new ArrayList<Cell>();
         img = new Texture("gear.png");
         for (int i = 0; i < 5; i++)
             snake.add(new Cell(new Vector2(160 - i * 32, 32 * 9), img));
+        Gdx.graphics.setTitle("Snake: " + snake.size());
         direction = Input.Keys.RIGHT;
+        this.food = food;
     }
 
     public void render(SpriteBatch batch) {
@@ -61,6 +64,10 @@ public class Snake {
                 break;
         }
         snake.add(0, new Cell(new Vector2(x, y), img));
-        snake.remove(snake.size() - 1);
+        if (food.isFood(x, y)) {
+            food.reset();
+            Gdx.graphics.setTitle("Snake: " + snake.size());
+        } else
+            snake.remove(snake.size() - 1);
     }
 }

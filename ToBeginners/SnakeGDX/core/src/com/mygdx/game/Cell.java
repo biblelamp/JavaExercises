@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Cell {
-    private Vector2 position;
-    private Texture img;
+    protected Vector2 position;
+    protected Texture img;
 
     public Cell(Vector2 position, Texture img) {
         this.position = position;

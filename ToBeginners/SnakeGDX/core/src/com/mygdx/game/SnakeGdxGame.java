@@ -9,12 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SnakeGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     Snake snake;
+    Food food;
     int slowingCounter;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        snake = new Snake();
+        food = new Food();
+        snake = new Snake(food);
         slowingCounter = 0;
     }
 
@@ -25,6 +27,7 @@ public class SnakeGdxGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         snake.render(batch);
+        food.render(batch);
         batch.end();
     }
     
