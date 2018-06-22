@@ -11,8 +11,7 @@ public class Food extends Cell {
     }
 
     public boolean isFood(float x, float y) {
-        if (getX() == x && getY() == y) return true;
-        return false;
+        return position.x == x && position.y == y;
     }
 
     public void reset() {

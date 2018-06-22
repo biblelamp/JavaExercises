@@ -43,8 +43,8 @@ public class Snake {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             direction = Input.Keys.RIGHT;
         }
-        float x = snake.get(0).getX();
-        float y = snake.get(0).getY();
+        float x = snake.get(0).getPosition().x;
+        float y = snake.get(0).getPosition().y;
         switch (direction) {
             case Input.Keys.UP: y += img.getHeight();
                 if (y == Gdx.graphics.getHeight())
@@ -52,7 +52,7 @@ public class Snake {
                 break;
             case Input.Keys.DOWN: y -= img.getHeight();
                 if (y < 0)
-                    y = Gdx.graphics.getHeight() - 32;
+                    y = Gdx.graphics.getHeight() - img.getHeight();
                 break;
             case Input.Keys.RIGHT: x += img.getWidth();
                 if (x == Gdx.graphics.getWidth())
@@ -60,7 +60,7 @@ public class Snake {
                 break;
             case Input.Keys.LEFT: x -= img.getWidth();
                 if (x < 0)
-                    x = Gdx.graphics.getWidth() - 32;
+                    x = Gdx.graphics.getWidth() - img.getWidth();
                 break;
         }
         snake.add(0, new Cell(new Vector2(x, y), img));

@@ -13,12 +13,8 @@ public class Cell {
         this.img = img;
     }
 
-    public float getX() {
-        return position.x;
-    }
-
-    public float getY() {
-        return position.y;
+    public Vector2 getPosition() {
+        return position;
     }
 
     public void render(SpriteBatch batch) {
