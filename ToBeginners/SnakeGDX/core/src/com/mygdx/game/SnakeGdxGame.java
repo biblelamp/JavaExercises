@@ -15,8 +15,8 @@ public class SnakeGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
+        snake = new Snake();
         food = new Food();
-        snake = new Snake(food);
         slowingCounter = 0;
     }
 
@@ -35,7 +35,7 @@ public class SnakeGdxGame extends ApplicationAdapter {
         slowingCounter++;
         if (slowingCounter == 10) {
             slowingCounter = 0;
-            snake.update();
+            snake.update(food);
         }
     }
 }

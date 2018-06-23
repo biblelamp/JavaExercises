@@ -13,16 +13,14 @@ public class Snake {
     private List<Cell> snake;
     private Texture img;
     private int direction;
-    private Food food;
 
-    public Snake(Food food) {
+    public Snake() {
         snake = new ArrayList<Cell>();
         img = new Texture("gear.png");
         for (int i = 0; i < 5; i++)
             snake.add(new Cell(new Vector2(160 - i * 32, 32 * 9), img));
         Gdx.graphics.setTitle("Snake: " + snake.size());
         direction = Input.Keys.RIGHT;
-        this.food = food;
     }
 
     public void render(SpriteBatch batch) {
@@ -30,7 +28,7 @@ public class Snake {
             cell.render(batch);
     }
 
-    public void update() {
+    public void update(Food food) {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&
                 direction != Input.Keys.UP)
             direction = Input.Keys.DOWN;
