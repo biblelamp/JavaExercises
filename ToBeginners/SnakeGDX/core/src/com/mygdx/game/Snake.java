@@ -31,18 +31,18 @@ public class Snake {
     }
 
     public void update() {
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&
+                direction != Input.Keys.UP)
             direction = Input.Keys.DOWN;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) &&
+                direction != Input.Keys.DOWN)
             direction = Input.Keys.UP;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) &&
+                direction != Input.Keys.RIGHT)
             direction = Input.Keys.LEFT;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) &&
+                direction != Input.Keys.LEFT)
             direction = Input.Keys.RIGHT;
-        }
         float x = snake.get(0).getPosition().x;
         float y = snake.get(0).getPosition().y;
         switch (direction) {
