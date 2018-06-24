@@ -18,7 +18,8 @@ public class Snake {
         snake = new ArrayList<Cell>();
         img = new Texture("gear.png");
         for (int i = 0; i < 5; i++)
-            snake.add(new Cell(new Vector2(160 - i * 32, 32 * 9), img));
+            snake.add(new Cell(new Vector2(160 - i * 32,
+                    32 * (Gdx.graphics.getHeight() / 64)), img));
         direction = Input.Keys.RIGHT;
     }
 
