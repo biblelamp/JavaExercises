@@ -30,7 +30,7 @@ public class SnakeGdxGame extends ApplicationAdapter {
         food.render(batch);
         batch.end();
     }
-    
+
     public void update() {
         slowingCounter++;
         if (slowingCounter == 10) {

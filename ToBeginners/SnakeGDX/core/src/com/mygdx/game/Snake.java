@@ -28,6 +28,13 @@ public class Snake {
             cell.render(batch);
     }
 
+    /*public int isInsideSnake(float x, float y) {
+        for (int i = 0; i < snake.size(); i++) {
+            if (snake.get(i).position.x == x && snake.get(i).)
+        }
+        return -1;
+    }*/
+
     public void update(Food food) {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&
                 direction != Input.Keys.UP)
@@ -41,8 +48,8 @@ public class Snake {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) &&
                 direction != Input.Keys.LEFT)
             direction = Input.Keys.RIGHT;
-        float x = snake.get(0).getPosition().x;
-        float y = snake.get(0).getPosition().y;
+        float x = snake.get(0).position.x;
+        float y = snake.get(0).position.y;
         switch (direction) {
             case Input.Keys.UP: y += img.getHeight();
                 if (y == Gdx.graphics.getHeight())
