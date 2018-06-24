@@ -19,7 +19,6 @@ public class Snake {
         img = new Texture("gear.png");
         for (int i = 0; i < 5; i++)
             snake.add(new Cell(new Vector2(160 - i * 32, 32 * 9), img));
-        Gdx.graphics.setTitle("Snake: " + snake.size());
         direction = Input.Keys.RIGHT;
     }
 
@@ -28,12 +27,12 @@ public class Snake {
             cell.render(batch);
     }
 
-    /*public int isInsideSnake(float x, float y) {
-        for (int i = 0; i < snake.size(); i++) {
-            if (snake.get(i).position.x == x && snake.get(i).)
-        }
+    public int isInside(float x, float y) {
+        for (int i = 1; i < snake.size(); i++)
+            if (snake.get(i).position.x == x && snake.get(i).position.y == y)
+                return i;
         return -1;
-    }*/
+    }
 
     public void update(Food food) {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) &&
@@ -51,28 +50,36 @@ public class Snake {
         float x = snake.get(0).position.x;
         float y = snake.get(0).position.y;
         switch (direction) {
-            case Input.Keys.UP: y += img.getHeight();
+            case Input.Keys.UP:
+                y += img.getHeight();
                 if (y == Gdx.graphics.getHeight())
                     y = 0;
                 break;
-            case Input.Keys.DOWN: y -= img.getHeight();
+            case Input.Keys.DOWN:
+                y -= img.getHeight();
                 if (y < 0)
                     y = Gdx.graphics.getHeight() - img.getHeight();
                 break;
-            case Input.Keys.RIGHT: x += img.getWidth();
+            case Input.Keys.RIGHT:
+                x += img.getWidth();
                 if (x == Gdx.graphics.getWidth())
                     x = 0;
                 break;
-            case Input.Keys.LEFT: x -= img.getWidth();
+            case Input.Keys.LEFT:
+                x -= img.getWidth();
                 if (x < 0)
                     x = Gdx.graphics.getWidth() - img.getWidth();
                 break;
         }
         snake.add(0, new Cell(new Vector2(x, y), img));
-        if (food.isFood(x, y)) {
+        int cutPoint = isInside(x, y);
+        if (cutPoint > -1)
+            for (int i = cutPoint; i < snake.size(); i++)
+                snake.remove(i);
+        else if (food.isFood(x, y))
             food.reset();
-            Gdx.graphics.setTitle("Snake: " + snake.size());
-        } else
+        else
             snake.remove(snake.size() - 1);
+        Gdx.graphics.setTitle("Snake: " + snake.size());
     }
 }
