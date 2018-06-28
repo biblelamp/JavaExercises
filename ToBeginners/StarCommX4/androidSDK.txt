@@ -1,0 +1,12 @@
+How to download and configure Android SDK
+
+1. From https://developer.android.com/studio/ download proper zip file from section "Command line tools only".
+
+2. Extract zip to some folder, for example D:\AndrodSDK
+
+3. Open command line (Run.../cmd) and go to the \bin folder (D:\AndroidSDK\tools\bin)
+
+4. Execute the following commands:
+
+sdkmanager.bat "platforms;android-27"
+sdkmanager.bat "build-tools;27.0.3"
