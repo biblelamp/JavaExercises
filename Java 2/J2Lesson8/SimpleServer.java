@@ -3,7 +3,7 @@
  * Simple server for chat
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Jan 19, 2018
+ * @version 0.3.3 dated Jun 29, 2018
  */
 import java.io.*;
 import java.net.*;
@@ -18,15 +18,18 @@ class SimpleServer implements IConstants {
     }
 
     SimpleServer() {
-        System.out.println(SERVER_START);
+        ClientHandler client;
         clients = new ArrayList<>();
+        System.out.println(SERVER_START);
         try (ServerSocket server = new ServerSocket(SERVER_PORT)) {
             new Thread(new CommandHandler(server)).start(); // command to server
             while (true) {
                 Socket socket = server.accept();
-                System.out.println("#" + (clients.size() + 1) + CLIENT_JOINED);
-                ClientHandler client = new ClientHandler(socket);
-                clients.add(client); // adding new client in the list
+                synchronized (clients) {
+                    client = new ClientHandler(socket, clients.size() + 1);
+                    clients.add(client); // adding new client in the list
+                    System.out.println("#" + (clients.size()) + CLIENT_JOINED);
+                }
                 new Thread(client).start();
             }
         } catch (Exception ex) {
@@ -101,8 +104,10 @@ class SimpleServer implements IConstants {
      * broadcastMsg: sending a message to all clients
      */
     private void broadcastMsg(String msg) {
-        for (ClientHandler client : clients)
-            client.sendMsg(msg);
+        synchronized (clients) {
+            for (ClientHandler client : clients)
+                client.sendMsg(msg);
+        }
     }
 
     /**
@@ -114,13 +119,13 @@ class SimpleServer implements IConstants {
         Socket socket;
         String name;
 
-        ClientHandler(Socket clientSocket) {
+        ClientHandler(Socket clientSocket, int counter) {
             try {
                 socket = clientSocket;
                 reader = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
                 writer = new PrintWriter(socket.getOutputStream());
-                name = "Client #" + (clients.size() + 1);
+                name = "Client #" + counter;
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -163,7 +168,9 @@ class SimpleServer implements IConstants {
                         }
                     }
                 } while (!message.equalsIgnoreCase(EXIT_COMMAND));
-                clients.remove(this); // delete client from list
+                synchronized (clients) {
+                    clients.remove(this); // delete client from list
+                }
                 socket.close();
                 System.out.println(name + CLIENT_DISCONNECTED);
             } catch (Exception ex) {
