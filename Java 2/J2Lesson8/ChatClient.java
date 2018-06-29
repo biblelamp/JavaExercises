@@ -2,13 +2,13 @@
  * Java. Level 2. Lesson 8
  * Simple chat client
  * To make jar file:
- *  create manifest.txt file with 1 line
+ *  > create manifest.txt file with 1 line
  *      Main-Class: ChatClient
- *  jar -cvmf manifest.txt ChatClient.jar
+ *  > jar -cvmf manifest.txt ChatClient.jar
  *      ChatClient*.class IConstants.class
  *
  * @author Sergey Iryupin
- * @version 0.2.3 dated Jan 22, 2018
+ * @version 0.2.4 dated Jun 29, 2018
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -19,7 +19,6 @@ import java.io.*;
 class ChatClient extends JFrame implements ActionListener, IConstants {
 
     final String TITLE_OF_PROGRAM = "Client for net.chat";
-    final int START_LOCATION = 200;
     final int WINDOW_WIDTH = 350;
     final int WINDOW_HEIGHT = 450;
     final String BTN_ENTER = "Enter";
@@ -45,7 +44,8 @@ class ChatClient extends JFrame implements ActionListener, IConstants {
     ChatClient() {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(START_LOCATION, START_LOCATION, WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setLocationRelativeTo(null); // to the center
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
