@@ -1,23 +1,56 @@
 # JavaExercises
 My exercises with Java
 
-## GameOfLife.java
-Implementation of the well-known a cellular automaton devised by the British mathematician John Horton Conway in 1970. You can see webinar "[Write Conway's Game of Life](https://www.youtube.com/watch?v=iFOr2HxJvEg)" (in Russian).
+## Algorithms
+My exercises when reading a book "Data Structures and Algorithms in Java", Robert Lafore.
 
-## GameSnake.java
-Implementation of the popular game Snake. You can see webinar "[Write classic game Snake](https://www.youtube.com/watch?v=Zsthou6Ttyc)" (in Russian).
+## AnalyzeCosts
+A simple swing application that allows me to analyze my spending and build graphics.
 
-## GameTetris.java
-Implementation of the popular game Tetris, which was invented in the USSR Alexey Pajitnov and presented June 6, 1984. You can see webinar "[Write classic game Tetris](https://www.youtube.com/watch?v=sCit9jzDSrE)" (in Russian).
+## Ant
+My exercises with the builder Apache Ant (articles, materials for webinars https://www.youtube.com/watch?v=802v6EhYRv4).
 
-## GameSpaceInvaders.java
-Implementation of the famous game Space Invaders. It is an arcade video game created by Tomohiro Nishikado and released in 1978. You can see webinar "[Write game Space Invaders](https://www.youtube.com/watch?v=j5P7j-zelxc)" (in Russian).
+## AntMavenGradle
+Notes and source code for the webinar "Building Java projects: a quick look at Ant, Maven and Gradle" (https://www.youtube.com/watch?v=RpV9yEotCYk).
 
-## GameMines.java
-Implementation of the famous game Minesweeper. You can see webinar "[Write game Minesweeper](https://www.youtube.com/watch?v=xPdrl70ZYnE)" (in Russian).
+## Experiments
+Unordered heap of small programs
 
-## GameXonix.java
-Implementation of the famous game Xonix. You can see webinar "[Write game Xonix](https://www.youtube.com/watch?v=dMROhd-d3z0)" (in Russian).
+## Games
+Simple Classic Games in Java: Game of Life, Snake, Tetris, SpaceInvaders, Mines, Xonix.
 
-## ./Ant/GameBattleShip
-Implementation of the famous game BattleShip. You can see webinar "[Write game BattleShip] (https://www.youtube.com/watch?v=ZtFqBl_lutY)" (in Russian).
+## GamesOldVersion
+Old versions of simple games: Game of Life, Snake and BattleShip
+
+## Head First Java
+My exercises when reading a book "Head First Java" by Bert Bates, Kathy Sierra.
+
+## Java 1
+Notes, code and samples of homework for teaching in Geekbrains.RU Java at level 1.
+
+## Java 2
+Notes, code and samples of homework for teaching in Geekbrains.RU Java at level 2.
+
+## Java 3
+Notes, code and samples of homework for teaching in Geekbrains.RU Java at level 3.
+
+## Javadevblog.com
+Exercises from the website javadevblog.com
+
+## JavaRushTasks
+Exercises from the website javarush.ru
+
+## JBasic
+Implementation of the Dartmouth BASIC http://www.dartmouth.edu/basicfifty/
+
+## Patterns
+My exercises when studying Design Patterns in Java.
+
+## Stepic.org
+Exercises from the website stepic.org
+
+## TestTasks
+Test tasks from different companies.
+
+## ToBeginners
+Code for intensives and webinars for beginners.
