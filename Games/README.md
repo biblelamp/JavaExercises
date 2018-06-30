@@ -1,4 +1,4 @@
-# JavaExercises/Games
+# JavaExercises | Games
 Simple Classic Games in Java
 
 ## GameOfLife.java
