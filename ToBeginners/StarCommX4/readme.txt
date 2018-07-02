@@ -1,11 +1,22 @@
 1. Download and install
 
-    - Java JDK 8 (to make JAVA_HOME in Windows)
-    - IntelliJ IDEA Community Edition (free)
-    - libGDX framework http://libgdx.badlogicgames.com/download.html
+    1.1 Java JDK 8 (to make JAVA_HOME in Windows)
+
+    1.2 IntelliJ IDEA Community Edition (free)
+        Initial settings:
+        - After first start Configure/Project Defaults/Project Structure:
+          in the section Project to add Project SDK (button New...)
+        - In the drop-down menu: View/Toolbar, View/Navigation Bar
 
     If you want to work with Android SDK:
-    Android SDK for IntelliJ IDEA http://www.tayloraliss.com/blog/?p=457
+    - From https://developer.android.com/studio/ download proper zip file from section "Command line tools only".
+    - Extract zip to some folder, for example D:\AndrodSDK
+    - Open command line (Run.../cmd) and go to the \bin folder (D:\AndroidSDK\tools\bin)
+    - Execute the following commands:
+      ...\bin>sdkmanager.bat "platforms;android-25"
+      ...\bin>sdkmanager.bat "build-tools;25.0.3"
+
+    1.3 libGDX framework http://libgdx.badlogicgames.com/download.html
 
 2. Create init project using gdx-setup.jar
 
