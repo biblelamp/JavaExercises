@@ -3,7 +3,7 @@
  *  Chapter 1: Strategy, init version
  *
  */
-public class DucksEmulation {
+class DucksEmulation {
     public static void main(String[] args) {
     }
 }

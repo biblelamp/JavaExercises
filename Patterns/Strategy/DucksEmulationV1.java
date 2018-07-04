@@ -3,7 +3,7 @@
  *  Chapter 1: Strategy, version with inheritance
  *
  */
-public class DucksEmulationV1 {
+class DucksEmulationV1 {
     public static void main(String[] args) {
     }
 }
