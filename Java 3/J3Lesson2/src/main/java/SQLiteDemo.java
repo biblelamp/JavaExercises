@@ -71,12 +71,12 @@ public class SQLiteDemo {
         }
     }
 
-    void update(String login, String passwd) {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("UPDATE " + TABLE_NAME +
-                    " set PASSWD='" + passwd +
-                    "' where LOGIN='" + login + "';"
-            );
+    void update(String login, String passwd) { // using PreparedStatement
+        try (PreparedStatement ps = connection.prepareStatement(
+                "UPDATE " + TABLE_NAME + " set PASSWD=? where LOGIN=?;")) {
+            ps.setString(1, passwd);
+            ps.setString(2, login);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
