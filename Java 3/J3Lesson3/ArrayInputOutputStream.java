@@ -2,7 +2,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
-class InputOutputStream {
+class ArrayInputOutputStream {
     public static void main(String[] args) {
         // input stream
         byte[] input = {100, 25, 50};
