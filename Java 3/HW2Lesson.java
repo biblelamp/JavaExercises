@@ -9,6 +9,7 @@
  *
  * @author Sergey Iryupin
  * @version Jul 14, 2018
+ * @link https://github.com/biblelamp
  */
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -86,7 +87,7 @@ public class HW2Lesson {
         hw.close();
     }
 
-    HW2Lesson(String driverName, String dbName) { // get connection
+    HW2Lesson(String driverName, String dbName) { // open connection
         try {
             Class.forName(driverName);
             connection = DriverManager.getConnection(dbName);
@@ -162,8 +163,7 @@ public class HW2Lesson {
             pstmt.setFloat(2, priceTo);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next())
-                list.add(
-                    rs.getInt(COL_ID) + "\t" +
+                list.add(rs.getInt(COL_ID) + "\t" +
                     rs.getString(COL_TITLE) + "\t" +
                     rs.getFloat(COL_PRICE));
             rs.close();
