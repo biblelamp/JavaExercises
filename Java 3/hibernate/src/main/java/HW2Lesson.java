@@ -9,27 +9,19 @@
  * 6. Run points 1..5 using hibernate
  *
  * @author Sergey Iryupin
- * @version Feb 15, 2018
+ * @version Jul 14, 2018
+ * @link https://github.com/biblelamp
  */
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import controller.HibernateSession;
 import model.Product;
 
 public class HW2Lesson {
-    Session session = null;
-
     final String DRIVER_NAME = "org.sqlite.JDBC";
     final String DB_NAME = "jdbc:sqlite:products.db";
     final String PRODUCT_NAME = "product";
@@ -77,7 +69,7 @@ public class HW2Lesson {
      * Stage 1. create table
      */
     void createTable() {
-        Session session = createHibernateSession(DRIVER_NAME, DB_NAME, "create");
+        Session session = HibernateSession.getSession(DRIVER_NAME, DB_NAME, "create");
         session.close();
     }
 
@@ -85,7 +77,7 @@ public class HW2Lesson {
      * Stage 2. init table
      */
     void initTable(int quantity) {
-        Session session = createHibernateSession(DRIVER_NAME, DB_NAME, "create");
+        Session session = HibernateSession.getSession(DRIVER_NAME, DB_NAME, "create");
         session.beginTransaction();
 
         for (int i = 1; i <= quantity; i++)
@@ -100,7 +92,7 @@ public class HW2Lesson {
      */
     float getPriceByName(String title) {
         float price = -1;
-        Session session = createHibernateSession(DRIVER_NAME, DB_NAME, "validate");
+        Session session = HibernateSession.getSession(DRIVER_NAME, DB_NAME, "validate");
 
         Query query = session.createQuery("from " + 
             Product.class.getSimpleName() + " where title=:title")
@@ -117,7 +109,7 @@ public class HW2Lesson {
      * stage 4. set price by name
      */
     void setPriceByName(String title, float price) {
-        Session session = createHibernateSession(DRIVER_NAME, DB_NAME, "validate");
+        Session session = HibernateSession.getSession(DRIVER_NAME, DB_NAME, "validate");
         session.beginTransaction();
 
         Query query = session.createQuery("update " +
@@ -136,7 +128,7 @@ public class HW2Lesson {
      */
     List<String> getListInRange(float priceFrom, float priceTo) {
         List<String> list = new ArrayList<>();
-        Session session = createHibernateSession(DRIVER_NAME, DB_NAME, "validate");
+        Session session = HibernateSession.getSession(DRIVER_NAME, DB_NAME, "validate");
 
         Query query = session.createQuery("from " +
             Product.class.getSimpleName() +
@@ -150,42 +142,5 @@ public class HW2Lesson {
             list.add(product.getId() + "\t" + product.getTitle() +
                 "\t" + product.getPrice());
         return list;
-    }
-
-    /**
-     * Creating a session
-     * @param  driverName
-     * @param  dbName
-     * @param  mode [validate|update|create|create-drop]
-]    * @return org.hibernate.Session
-     */
-    private Session createHibernateSession(String driverName, String dbName,
-            String mode) {
-        Session session = null;
-        try {
-            Map<String, String> settings = new HashMap<String, String>();
-            settings.put("hibernate.connection.driver_class", driverName);
-            settings.put("hibernate.connection.url", dbName);
-            settings.put("hibernate.connection.username", "");
-            settings.put("hibernate.connection.password", "");
-            settings.put("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect");
-            settings.put("hibernate.show_sql", "true");
-            settings.put("hibernate.hbm2ddl.auto", mode);
-
-            StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .applySettings(settings)
-                    .build();
-
-            session = new MetadataSources(registry)
-                    .addAnnotatedClass(Product.class)
-                    .getMetadataBuilder()
-                    .build()
-                    .getSessionFactoryBuilder()
-                    .build()
-                    .openSession();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return session;
     }
 }
