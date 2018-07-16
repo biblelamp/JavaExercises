@@ -1,7 +1,7 @@
 class LambdaThread {
     public static void main(String[] args) {
-        new Thread(() -> method()).start();
-        new Thread(() -> method()).start();
+        new Thread(() -> {method();}).start();
+        new Thread(() -> {method();}).start();
     }
 
     static void method() {
