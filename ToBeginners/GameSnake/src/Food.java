@@ -5,8 +5,8 @@ public class Food extends Point {
     private GameSnake game;
 
     public Food(GameSnake game) {
-        super(-1, -1);
-        color = GameSnake.FOOD_COLOR;
+        super(-1, -1, game.FOOD_COLOR);
+        color = game.FOOD_COLOR;
         random = new Random();
         this.game = game;
     }
@@ -26,8 +26,8 @@ public class Food extends Point {
     public void show() {
         int x, y;
         do {
-            x = random.nextInt(GameSnake.WIDTH);
-            y = random.nextInt(GameSnake.HEIGHT);
+            x = random.nextInt(game.WIDTH);
+            y = random.nextInt(game.HEIGHT);
         } while (game.snake.isInsideSnake(x, y) ||
                 game.poison.isPoison(x, y));
         set(x, y);

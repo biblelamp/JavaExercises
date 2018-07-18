@@ -22,12 +22,12 @@ public class Poison {
     public void add() {
         int x, y;
         do {
-            x = random.nextInt(GameSnake.WIDTH);
-            y = random.nextInt(GameSnake.HEIGHT);
+            x = random.nextInt(game.WIDTH);
+            y = random.nextInt(game.HEIGHT);
         } while (isPoison(x, y) ||
                 game.snake.isInsideSnake(x, y) ||
                 game.food.isFood(x, y));
-        poison.add(new Point(x, y, GameSnake.POISON_COLOR));
+        poison.add(new Point(x, y, game.POISON_COLOR));
     }
 
     public void paint(Graphics g) {

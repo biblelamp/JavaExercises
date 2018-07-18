@@ -4,11 +4,6 @@ public class Point {
     protected int x, y;
     protected Color color;
 
-    public Point(int x, int y) {
-        set(x, y);
-        color = GameSnake.DEFAULT_COLOR;
-    }
-
     public Point(int x, int y, Color color) {
         set(x, y);
         this.color = color;
