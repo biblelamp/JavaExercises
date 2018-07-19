@@ -10,6 +10,8 @@ Java 3. Знания и навыки по окончании курса
 
 3. Потоки ввода-вывода
 
+Понятие потока ввода-вывода (Stream). Пакет java.io. Класс File (файлы и каталоги). Байтовые и символьные потоки. Байтовый ввод-вывод, абстрактные классы InputStream и OutputStream, классы ByteArrayInputStream и ByteArrayOutputStream, FileInputStream и FileOutputStream, PipedInputStream и PipedOutputStream, класс SequenceInputStream. Буферизация, классы BufferedInputStream и BufferedOutputStream. Работа с примитивными типами, классы DataInputStream и DataOutputStream. Сериализация, маркерный интерфейс Serializable, классы ObjectInputStream и ObjectOutputStream. Символьный ввод-вывод, абстрактные классы Reader и Writer. Доступ к данным в произвольном порядке, класс RandomAccessFile.
+
 4. Многопоточность
 
 5. Логгирование и тестирование
