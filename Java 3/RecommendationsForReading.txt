@@ -71,3 +71,5 @@
     1. Вопросы и ответы на собеседовании:
        https://jsehelper.blogspot.ru/2016/01/java-core-1.html
        http://javastudy.ru/category/interview/
+    2. Как рассказывать о себе на собеседовании
+       https://habr.com/company/alconost/blog/328200/
