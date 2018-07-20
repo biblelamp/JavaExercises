@@ -3,7 +3,7 @@ import java.util.concurrent.CyclicBarrier;
 public class CyclicBarrierDemo {
     public static void main(String[] args) {
         CyclicBarrier cb = new CyclicBarrier(3);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             final int w = i;
             new Thread(() -> {
                 try {
