@@ -26,15 +26,31 @@
       - что такое CRUD (create, read, update, delete)
       - варианты подключения библиотеки SQLite
          - скопировать в папку [JDK]\jre\lib\ext
-         - подключить в IDEA
+         - подключить в IDEA (<Ctrl>+<Alt>+<Shift>+s -> Libraries -> +)
          - использовать Maven
       - программа SQLite Studio sqlitestudio.pl, SQL запросы
       - пример на Hibernate 5
+         - Java Persistence API (JPA)
+         - JPA реализует концепцию Object-Relational Mapping (ORM)
+         - Hibernate - реализация JPA для задач ORM
 
 3. Средства ввода-вывода
 
    1. Вводные замечания, разбор дз
    2. Основная тема
+      - понятие потока (абстрактное устройство I/O)
+      - класс File (операции с файлами и каталогами)
+      - байтовые и символьные потоки
+      - абстрактные классы InputStream и OutputStream
+      - ByteArrayInputStream и ByteArrayOutputStream
+      - FileInputStream и FileOutputStream
+      - PipedInputStream и PipedOutputStream
+      - SequenceInputStream
+      - BufferedInputStream и BufferedOutputStream
+      - DataInputStream и DataOutputStream
+      - Сериализация, ObjectInputStream и ObjectOutputStream
+      - символьный ввод-вывод, классы Reader и Writer
+      - RandomAccessFile
 
 4. Многопоточность. Часть I
 
@@ -47,6 +63,7 @@
       - взаимодействие потоков (нитей)
       - взаимная блокировка - deadlock
       - изменений состояний потоков (нитей)
+      - https://metanit.com/java/tutorial/8.5.php
 
 5. Многопоточность. Часть II
 
