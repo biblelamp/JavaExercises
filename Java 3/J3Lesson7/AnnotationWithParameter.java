@@ -7,10 +7,17 @@ import java.lang.annotation.RetentionPolicy;
 public class AnnotationWithParameter {
 
     public static void main(String[] args) {
+        Method method;
+        AdvencedAnnotation annotation;
         try {
-            Method method = 
-                AnnotationWithParameter.class.getMethod("firstMethod", null);
-            AdvencedAnnotation annotation =
+            method = 
+                AnnotationWithParameter.class.getMethod("firstMethod");
+            annotation =
+                method.getAnnotation(AdvencedAnnotation.class);
+            System.out.println("value: " + annotation.value());
+            method = 
+                AnnotationWithParameter.class.getMethod("secondMethod");
+            annotation =
                 method.getAnnotation(AdvencedAnnotation.class);
             System.out.println("value: " + annotation.value());
         } catch (NoSuchMethodException ex) {
@@ -21,7 +28,8 @@ public class AnnotationWithParameter {
     @AdvencedAnnotation(value = 20.0f)
     public void firstMethod() { }
 
-    public void thirdMethod() { }
+    @AdvencedAnnotation
+    public void secondMethod() { }
 }
 
 @Target(ElementType.METHOD)
