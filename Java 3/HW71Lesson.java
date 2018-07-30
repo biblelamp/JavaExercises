@@ -12,10 +12,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-public class HW7Lesson {
+public class HW71Lesson {
 
     public static void main(String[] args) {
-        HW7Lesson hw = new HW7Lesson();
+        HW71Lesson hw = new HW71Lesson();
         hw.getClassInformation(
             (args.length == 0)? "java.lang.String" : args[0]);
     }
