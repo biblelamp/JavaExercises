@@ -2,25 +2,28 @@
  * Java. Level 1. Lesson 6. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated Dec 12, 2017
+ * @version dated Jul 30, 2018
  * @link https://github.com/<your_nic> || null
  */
 class HW6Lesson {
 
     public static void main(String[] args) {
-        Animal[] animal = {new Cat(200, 2, 0), new Dog(500, 0.5f, 10)};
-        for (Animal an : animal)
+        Animal[] animals = {new Cat(200, 2), new Dog(500, 0.5f, 10)};
+        for (Animal animal : animals)
             System.out.println(
-                an.getClass().getName() +
-                "\nrun: " + an.run(200) +
-                "\njump: " + an.jump(1.5f) +
-                "\nswim: " + an.swim(5));
+                animal.getClass().getName() +
+                "\nrun: " + animal.run(200) +
+                "\njump: " + animal.jump(1.5f) +
+                "\nswim: " + animal.swim(5));
     }
 }
 
 class Cat extends AnimalImpl {
     Cat(int run_limit, float jump_limit, int swim_limit) {
         super(run_limit, jump_limit, swim_limit);
+    }
+    Cat(int run_limit, float jump_limit) {
+        super(run_limit, jump_limit, -1);
     }
     @Override
     public boolean swim(int distance) {
