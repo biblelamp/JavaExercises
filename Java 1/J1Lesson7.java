@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 7
  *
  * @author Sergey Iryupin
- * @version dated Feb 17, 2018
+ * @version dated Jul 30, 2018
  */
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -14,6 +14,9 @@ class J1Lesson7 {
         //Test.testStringBuilder(120000);
         //Test.testBufferedReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
         //Test.testFileReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
+        //Singleton s1 = Singleton.getInstance();
+        //Singleton s2 = Singleton.getInstance();
+        //System.out.println(s1 + " : " + s2);
         Cat cat = new Cat("Barsik", 10);
         Plate plate = new Plate(5);
         System.out.println(plate);
@@ -51,6 +54,23 @@ class Plate {
     public String toString() {
         return "Food: " + food;
     }
+}
+
+/**
+ * First simple design pattern: Singleton
+ */
+class Singleton {
+    private static Singleton singleton = null;
+    // more fields...
+
+    private Singleton() { } // block creation of an instance
+
+    static Singleton getInstance() {
+        if (singleton == null)
+            singleton = new Singleton();
+        return singleton;
+    }
+    // more methods...
 }
 
 class Test {
