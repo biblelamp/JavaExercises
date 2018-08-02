@@ -1,21 +1,28 @@
+/**
+ * Java. Classic Game Snake
+ *  A class that implements a snake
+ *
+ * @author Sergey Iryupin
+ * @version 0.2 dated Aug 02, 2018
+ */
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Snake {
-    private List<Point> snake = new ArrayList<>();
+    private LinkedList<Point> snake;
     private int direction;
-    private GameSnake game;
+    private GameSnake gameSnake;
 
     public Snake(int x, int y, int length, int direction, GameSnake gameSnake) {
+        snake = new LinkedList<>();
         for (int i = 0; i < length; i++)
             snake.add(new Point(x - i, y, gameSnake.SNAKE_COLOR));
         this.direction = direction;
-        this.game = gameSnake;
+        this.gameSnake = gameSnake;
     }
 
     public void setDirection(int direction) {
-        if ((direction >= game.KEY_LEFT) && (direction <= game.KEY_DOWN))
+        if ((direction >= gameSnake.KEY_LEFT) && (direction <= gameSnake.KEY_DOWN))
             if (Math.abs(this.direction - direction) != 2)
                 this.direction = direction;
     }
@@ -28,37 +35,37 @@ public class Snake {
     }
 
     public void move() {
-        int x = snake.get(0).getX();
-        int y = snake.get(0).getY();
+        int x = snake.getFirst().getX();
+        int y = snake.getFirst().getY();
         switch (direction) {
             case GameSnake.KEY_LEFT: x--;
                 if (x < 0)
-                    x = game.WIDTH - 1;
+                    x = gameSnake.WIDTH - 1;
                 break;
             case GameSnake.KEY_RIGHT: x++;
-                if (x == game.WIDTH)
+                if (x == gameSnake.WIDTH)
                     x = 0;
                 break;
             case GameSnake.KEY_UP: y--;
                 if (y < 0)
-                    y = game.HEIGHT - 1;
+                    y = gameSnake.HEIGHT - 1;
                 break;
             case GameSnake.KEY_DOWN: y++;
-                if (y == game.HEIGHT)
+                if (y == gameSnake.HEIGHT)
                     y = 0;
                 break;
         }
-        if (isInsideSnake(x, y) ||            // snake shouldn't cross itself
-                game.poison.isPoison(x, y)) { // and eat poison
-            game.gameOver = true;
+        if (isInsideSnake(x, y) ||                 // snake shouldn't cross itself
+                gameSnake.poison.isPoison(x, y)) { // and eat poison
+            gameSnake.gameOver = true;
             return;
         }
-        snake.add(0, new Point(x, y, game.SNAKE_COLOR));
-        if (game.food.isFood(x, y)) {
-            game.food.eat();
-            game.setTitle(game.TITLE_OF_PROGRAM + " : " + snake.size());
+        snake.addFirst(new Point(x, y, gameSnake.SNAKE_COLOR)); // new head of snake
+        if (gameSnake.food.isFood(x, y)) {
+            gameSnake.food.eat();
+            gameSnake.setTitle(gameSnake.TITLE_OF_PROGRAM + " : " + snake.size());
         } else
-            snake.remove(snake.size() - 1);
+            snake.removeLast();
     }
 
     public void paint(Graphics g) {
