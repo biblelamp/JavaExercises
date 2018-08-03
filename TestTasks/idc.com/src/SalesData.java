@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class SalesData {
+    private String[] titles;
     private Map<String, Map<String, List<Record>>> data;
 
     /**
@@ -35,6 +36,7 @@ public class SalesData {
             ex.printStackTrace();
             return;
         }
+        titles = lines.get(0).split(",");
         for (int i = 1; i < lines.size(); i++) {
             String[] fields = lines.get(i).split(",");
             record = new Record(fields[2], Double.parseDouble(fields[3]));
