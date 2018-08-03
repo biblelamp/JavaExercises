@@ -49,11 +49,21 @@ public class SalesData {
     }
 
     /**
-     * Get set of country from data
+     * Get list of countries from data
      * @return
      */
     public Set<String> getCountries() {
         return data.keySet();
+    }
+
+    /**
+     * Get list of quarters by country from data
+     * @return
+     */
+    public Set<String> getQuartersByCountry(String nameOfCountry) {
+        Map<String, List<Record>> country;
+        country = data.computeIfAbsent(nameOfCountry, x -> new HashMap<>());
+        return country.keySet();
     }
 
     /**
