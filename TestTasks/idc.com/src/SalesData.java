@@ -9,11 +9,19 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 public class SalesData {
     private Map<String, Map<String, List<Record>>> data;
 
+    /**
+     * Read sales data from csv file
+     * @param fileName
+     */
     public SalesData(String fileName) {
         data = new HashMap<>();
         Map<String, List<Record>> country;
@@ -28,26 +36,22 @@ public class SalesData {
             return;
         }
         for (int i = 1; i < lines.size(); i++) {
-
-            System.out.println(lines.get(i));
-
             String[] fields = lines.get(i).split(",");
             record = new Record(fields[2], Double.parseDouble(fields[3]));
-            country = data.getOrDefault(fields[0], null);
-            if (country != null) {
-                quarter = country.getOrDefault(fields[1], null);
-                if (quarter != null)
-                    quarter.add(record);
-                else
-                    quarter = new ArrayList<>(Arrays.asList(record));
-                country.put(fields[1], quarter);
-            } else {
-                country = new HashMap<>();
-                country.put(fields[1], Arrays.asList(record));
-            }
+            country = data.computeIfAbsent(fields[0], x -> new HashMap<>());
+            quarter = country.computeIfAbsent(fields[1], x -> new ArrayList<>());
+            quarter.add(record);
+            country.put(fields[1], quarter);
             data.put(fields[0], country);
         }
-        System.out.println(data);
+    }
+
+    /**
+     * Get set of country from data
+     * @return
+     */
+    public Set<String> getCountries() {
+        return data.keySet();
     }
 
     /**
@@ -69,6 +73,11 @@ public class SalesData {
 
         double getUnits() {
             return units;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + vendor + ", " + units + "]";
         }
     }
 }
