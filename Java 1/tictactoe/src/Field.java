@@ -3,7 +3,7 @@
  * Class: Field
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Oct 21, 2017
+ * @version 0.3.2 dated Aug 03, 2018
  */
 import java.awt.*;
 import java.awt.geom.*; // for Graphics2D
@@ -46,12 +46,12 @@ class Field {
 
     void setDot(int x, int y, char dot) { // set dot and check fill and win
         map[x][y] = dot;
-        if (isMapFull())
-            gameOverMsg = MSG_DRAW;
         if (checkWin(HUMAN_DOT))
             gameOverMsg = MSG_HUMAN_WON;
-        if (checkWin(AI_DOT))
+        else if (checkWin(AI_DOT))
             gameOverMsg = MSG_AI_WON;
+        else if (isMapFull())
+            gameOverMsg = MSG_DRAW;
     }
 
     boolean isMapFull() {
