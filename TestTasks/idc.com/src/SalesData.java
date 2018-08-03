@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class SalesData {
     private String[] titles;
@@ -50,7 +51,7 @@ public class SalesData {
 
     /**
      * Get list of countries from data
-     * @return
+     * @return Set<String>
      */
     public Set<String> getCountries() {
         return data.keySet();
@@ -58,7 +59,7 @@ public class SalesData {
 
     /**
      * Get list of quarters by country from data
-     * @return
+     * @return Set<String>
      */
     public Set<String> getQuartersByCountry(String nameOfCountry) {
         Map<String, List<Record>> country;
@@ -67,29 +68,45 @@ public class SalesData {
     }
 
     /**
+     * Get list of units by country and quarter from data
+     * @param nameOfCountry
+     * @param nameOfQuarter
+     * @return List<Record>
+     */
+    public List<Record> getQuarterTable(String nameOfCountry, String nameOfQuarter) {
+        Map<String, List<Record>> country;
+        List<Record> quarter;
+        country = data.computeIfAbsent(nameOfCountry, x -> new HashMap<>());
+        quarter = country.computeIfAbsent(nameOfQuarter, x -> new ArrayList<>());
+        quarter.sort(Comparator.comparing(Record::getVendor)); // sort by vendor
+        //quarter.sort(Comparator.comparing(Record::getUnit)); // sort by unit
+        return quarter;
+    }
+
+    /**
      * The class for each record in the table
      */
     private class Record {
         private String vendor;
-        private double units;
+        private double unit;
         private double percent;
 
-        Record(String vendor, double units) {
+        Record(String vendor, double unit) {
             this.vendor = vendor;
-            this.units = units;
+            this.unit = unit;
         }
 
         String getVendor() {
             return vendor;
         }
 
-        double getUnits() {
-            return units;
+        double getUnit() {
+            return unit;
         }
 
         @Override
         public String toString() {
-            return "[" + vendor + ", " + units + "]";
+            return "[" + vendor + ", " + unit + ", " + percent + "]";
         }
     }
 }
