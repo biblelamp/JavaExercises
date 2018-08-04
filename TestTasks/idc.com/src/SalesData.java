@@ -78,7 +78,7 @@ public class SalesData {
         List<Record> quarter;
         country = data.computeIfAbsent(nameOfCountry, x -> new HashMap<>());
         quarter = country.computeIfAbsent(nameOfQuarter, x -> new ArrayList<>());
-        return quarter;
+        return calcPercent(quarter);
     }
 
     /**
@@ -102,6 +102,20 @@ public class SalesData {
     }
 
     /**
+     * Calculate the percentage
+     * @param table of quarter
+     * @return List<Record>
+     */
+    private List<Record> calcPercent(List<Record> table) {
+        double total = 0;
+        for (Record record : table)
+            total += record.getUnit();
+        for (int i = 0; i < table.size(); i++)
+            table.get(i).setPercent(table.get(i).getUnit() / total * 100);
+        return table;
+    }
+
+    /**
      * The class for each record in the table
      */
     private class Record {
@@ -120,6 +134,10 @@ public class SalesData {
 
         double getUnit() {
             return unit;
+        }
+
+        void setPercent(double percent) {
+            this.percent = percent;
         }
 
         @Override
