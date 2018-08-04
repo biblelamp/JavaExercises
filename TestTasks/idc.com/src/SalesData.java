@@ -3,7 +3,7 @@
  * Class for processing sales data
  *
  * @author Sergey Iryupin
- * @version dated Aug 03, 2018
+ * @version 0.2 dated Aug 04, 2018
  */
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -78,9 +78,27 @@ public class SalesData {
         List<Record> quarter;
         country = data.computeIfAbsent(nameOfCountry, x -> new HashMap<>());
         quarter = country.computeIfAbsent(nameOfQuarter, x -> new ArrayList<>());
-        quarter.sort(Comparator.comparing(Record::getVendor)); // sort by vendor
-        //quarter.sort(Comparator.comparing(Record::getUnit)); // sort by unit
         return quarter;
+    }
+
+    /**
+     * Sorting table by Vendor
+     * @param table of quarter
+     * @return List<Record>
+     */
+    public List<Record> sortTableByVendor(List<Record> table) {
+        table.sort(Comparator.comparing(Record::getVendor));
+        return table;
+    }
+
+    /**
+     * Sorting table by Unit
+     * @param table of quarter
+     * @return List<Record>
+     */
+    public List<Record> sortTableByUnit(List<Record> table) {
+        table.sort(Comparator.comparing(Record::getUnit));
+        return table;
     }
 
     /**
