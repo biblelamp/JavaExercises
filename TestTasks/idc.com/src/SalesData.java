@@ -102,14 +102,14 @@ public class SalesData {
     }
 
     /**
-     * Get quarterly table as a string in HTML format
+     * Export quarterly table as a string in HTML format
      * @param nameOfCountry
      * @param nameOfQuarter
      * @param sortByVendor
      * @param sortByUnit
      * @return String in HTML format
      */
-    public String tableToHTML(String nameOfCountry, String nameOfQuarter,
+    public String exportToHTML(String nameOfCountry, String nameOfQuarter,
                               boolean sortByVendor, boolean sortByUnit) {
         List<Record> table = getQuarterTable(nameOfCountry, nameOfQuarter);
         if (sortByVendor)
@@ -117,16 +117,38 @@ public class SalesData {
         if (sortByUnit)
             table = sortTableByUnit(table);
         double total = 0;
-        StringBuilder str = new StringBuilder(
-                "<p>" + nameOfCountry + ", " + nameOfQuarter + "</p><table>");
+        StringBuilder str = new StringBuilder(String.format(
+                "<p>%s, %s</p><table>" +
+                "<tr><td>%s</td><td>%s</td><td>%s</td></tr>",
+                nameOfCountry, nameOfQuarter, titles[2], titles[3], "Share"));
         for (Record record : table) {
-            str.append("<tr>" + record.toHTML() + "</tr>");
+            str.append(String.format("<tr>%s</tr>", record.toHTML()));
             total += record.getUnit();
         }
         str.append(String.format(
                 "<tr><td>Total</td><td>%.3f</td><td>100%s</td></tr></table>",
                 total, "%"));
         return str.toString();
+    }
+
+    /**
+     * Export quarterly table as a string in CSV format // only stub
+     * @param nameOfCountry
+     * @param nameOfQuarter
+     * @return String in CSV format
+     */
+    public String exportToCSV(String nameOfCountry, String nameOfQuarter) {
+        return null;
+    }
+
+    /**
+     * Export quarterly table as a file in Excel format // only stub
+     * @param nameOfCountry
+     * @param nameOfQuarter
+     * @param excelFileName
+     */
+    public void exportToExcel(String nameOfCountry, String nameOfQuarter,
+                              String excelFileName) {
     }
 
     /**
