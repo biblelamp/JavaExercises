@@ -103,17 +103,28 @@ public class SalesData {
 
     /**
      * Get sales from quarterly table by Vendor
-     * @param nameOfCountry
-     * @param nameOfQuarter
+     * @param table of quarter
      * @param Vendor
      * @return Record (vendor, units, percent)
      */
-    public Record getUnitsByVendor(String nameOfCountry, String nameOfQuarter,
-                                   String Vendor) {
-        for (Record record : getQuarterTable(nameOfCountry, nameOfQuarter))
+    public Record getUnitsByVendor(List<Record> table, String Vendor) {
+        for (Record record : table)
             if (record.getVendor().equals(Vendor))
                 return record;
         return null;
+    }
+
+    /**
+     * Get sales from quarterly table by Vendor
+     * @param table of quarter
+     * @param Vendor
+     * @return int (number of row)
+     */
+    public int getRowByVendor(List<Record> table, String Vendor) {
+        for (int i = 0; i < table.size(); i++)
+            if (table.get(i).getVendor().equals(Vendor))
+                return i;
+        return -1;
     }
 
     /**
