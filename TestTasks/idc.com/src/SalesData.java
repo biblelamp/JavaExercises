@@ -3,7 +3,7 @@
  * Class for processing sales data
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Aug 04, 2018
+ * @version 0.3 dated Aug 05, 2018
  */
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -82,7 +82,7 @@ public class SalesData {
     }
 
     /**
-     * Sorting table by Vendor
+     * Sorting quarterly table by Vendor
      * @param table of quarter
      * @return List<Record>
      */
@@ -92,7 +92,7 @@ public class SalesData {
     }
 
     /**
-     * Sorting table by Unit
+     * Sorting quarterly table by Unit
      * @param table of quarter
      * @return List<Record>
      */
@@ -102,21 +102,53 @@ public class SalesData {
     }
 
     /**
+     * Get quarterly table as a string in HTML format
+     * @param nameOfCountry
+     * @param nameOfQuarter
+     * @param sortByVendor
+     * @param sortByUnit
+     * @return String in HTML format
+     */
+    public String tableToHTML(String nameOfCountry, String nameOfQuarter,
+                              boolean sortByVendor, boolean sortByUnit) {
+        List<Record> table = getQuarterTable(nameOfCountry, nameOfQuarter);
+        if (sortByVendor)
+            table = sortTableByVendor(table);
+        if (sortByUnit)
+            table = sortTableByUnit(table);
+        double total = 0;
+        StringBuilder str = new StringBuilder(
+                "<p>" + nameOfCountry + ", " + nameOfQuarter + "</p><table>");
+        for (Record record : table) {
+            str.append("<tr>" + record.toHTML() + "</tr>");
+            total += record.getUnit();
+        }
+        str.append(String.format(
+                "<tr><td>Total</td><td>%.3f</td><td>100%s</td></tr></table>",
+                total, "%"));
+        return str.toString();
+    }
+
+    /**
      * Calculate the percentage
      * @param table of quarter
      * @return List<Record>
      */
     private List<Record> calcPercent(List<Record> table) {
         double total = 0;
-        for (Record record : table)
-            total += record.getUnit();
-        for (int i = 0; i < table.size(); i++)
-            table.get(i).setPercent(table.get(i).getUnit() / total * 100);
+        if (table.size() > 0 && table.get(0).getPercent() == 0) {
+            for (Record record : table)
+                total += record.getUnit();
+            for (int i = 0; i < table.size(); i++)
+                table.get(i).setPercent(table.get(i).getUnit() / total * 100);
+        }
         return table;
     }
 
     /**
      * The class for each record in the table
+     *  contains fields:
+     *  (String) vendor; (double) unit, percent
      */
     private class Record {
         private String vendor;
@@ -136,8 +168,17 @@ public class SalesData {
             return unit;
         }
 
+        double getPercent() {
+            return percent;
+        }
+
         void setPercent(double percent) {
             this.percent = percent;
+        }
+
+        String toHTML() {
+            return String.format("<td>%s</td><td>%.3f</td><td>%.1f%s</td>",
+                    vendor, unit, percent, "%");
         }
 
         @Override
