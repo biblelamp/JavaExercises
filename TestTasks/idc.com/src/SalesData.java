@@ -102,6 +102,21 @@ public class SalesData {
     }
 
     /**
+     * Get sales from quarterly table by Vendor
+     * @param nameOfCountry
+     * @param nameOfQuarter
+     * @param Vendor
+     * @return Record (vendor, units, percent)
+     */
+    public Record getUnitsByVendor(String nameOfCountry, String nameOfQuarter,
+                                   String Vendor) {
+        for (Record record : getQuarterTable(nameOfCountry, nameOfQuarter))
+            if (record.getVendor().equals(Vendor))
+                return record;
+        return null;
+    }
+
+    /**
      * Export quarterly table as a string in HTML format
      * @param nameOfCountry
      * @param nameOfQuarter
