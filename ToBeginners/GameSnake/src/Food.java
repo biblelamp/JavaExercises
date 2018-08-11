@@ -1,10 +1,24 @@
+/**
+ * Java. Classic Game Snake
+ *  Class Food: snake food
+ *
+ * @author Sergey Iryupin
+ * @version dated Jul 18, 2018
+ */
 import java.util.Random;
 
 public class Food extends Point {
+    //protected int x, y;                   // fields that are inherited
+    //protected Color color;                //   from the Point class
     private Random random;
     private GameSnake game;
 
-    public Food(GameSnake game) {
+    //public void set(int x, int y)         // methods that are inherited
+    //public int getX()                     //   from the Point class
+    //public int getY()
+    //public void paint(Graphics g)
+
+    public Food(GameSnake game) {           // constructor
         super(-1, -1, game.FOOD_COLOR);
         color = game.FOOD_COLOR;
         random = new Random();
