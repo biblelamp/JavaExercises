@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.5 dated Jul 18, 2018
+ * @version 0.6 dated Aug 12, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -29,15 +29,15 @@ public class GameSnake extends JFrame {
     boolean gameOver = false;                // a sign that the game is over or not
 
     Canvas canvas;                           // panel for rendering (drawing)
-    Snake snake;
-    Food food;
-    Poison poison;
+    Snake snake;                             // declare a snake object
+    Food food;                               // declare a food object
+    Poison poison;                           // declare a poison object
 
     public static void main(String[] args) {
-        new GameSnake();
+        new GameSnake().game();
     }
 
-    GameSnake() {
+    public GameSnake() {
         setTitle(TITLE_OF_PROGRAM + " : " + START_SNAKE_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -56,13 +56,16 @@ public class GameSnake extends JFrame {
         setLocationRelativeTo(null); // the window will be in the center
         setResizable(false);         // prohibit window resizing
         setVisible(true);            // make the window visible
+    }
 
+    private void game() {            // method containing game cycle
         // creation of game objects
-        snake = new Snake(START_SNAKE_X, START_SNAKE_Y, START_SNAKE_SIZE, KEY_RIGHT, this);
+        snake = new Snake(START_SNAKE_X, START_SNAKE_Y,
+                START_SNAKE_SIZE, KEY_RIGHT, this);
         food = new Food(this);
         poison = new Poison(this);
 
-        while (!gameOver) {          // game cycle
+        while (!gameOver) {          // game cycle while NOT gameOver
             snake.move();            // snake move
             if (food.isEaten()) {    // if the snake ate the food
                 food.show();         //   show food in new place
@@ -78,7 +81,7 @@ public class GameSnake extends JFrame {
         JOptionPane.showMessageDialog(GameSnake.this, GAME_OVER_MSG);
     }
 
-    class Canvas extends JPanel {
+    class Canvas extends JPanel {    // class for rendering (drawing)
         @Override
         public void paint(Graphics g) {
             super.paint(g);
