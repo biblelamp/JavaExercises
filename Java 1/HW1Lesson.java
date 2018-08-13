@@ -58,7 +58,7 @@ class HW1Lesson {
      *    результат, где a, b, c, d – входные параметры этого метода
      */
     static double calculate(double a, double b, double c, double d) {
-        return a * (b + (c / d));
+        return a * (b + c / d);
     }
 
     /**
