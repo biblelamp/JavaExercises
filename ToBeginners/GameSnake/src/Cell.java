@@ -1,6 +1,6 @@
 /**
  * Java. Classic Game Snake
- *  Class Point: minimal building element
+ *  Class Cell: minimal building element
  *
  * @author Sergey Iryupin
  * @version dated Jul 18, 2018
@@ -8,11 +8,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Point {
+public class Cell {
     protected int x, y;                       // object coordinates
     protected Color color;                    // object color
 
-    public Point(int x, int y, Color color) { // constructor
+    public Cell(int x, int y, Color color) {  // constructor
         set(x, y);                            // init coordinates
         this.color = color;                   // init color
     }
@@ -32,9 +32,9 @@ public class Point {
 
     public void paint(Graphics g) {           // object rendering
         g.setColor(color);
-        g.fillOval(x * GameSnake.POINT_SIZE,  // coordinates of the 
-                y * GameSnake.POINT_SIZE,     //    upper left corner
-                GameSnake.POINT_SIZE,         // width
-                GameSnake.POINT_SIZE);        // height
+        g.fillOval(x * GameSnake.CELL_SIZE,  // coordinates of the
+                y * GameSnake.CELL_SIZE,     //    upper left corner
+                GameSnake.CELL_SIZE,         // width
+                GameSnake.CELL_SIZE);        // height
     }
 }

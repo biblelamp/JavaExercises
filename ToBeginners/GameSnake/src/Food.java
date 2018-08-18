@@ -7,22 +7,21 @@
  */
 import java.util.Random;
 
-public class Food extends Point {
+public class Food extends Cell {
     //protected int x, y;                   // fields that are inherited
-    //protected Color color;                //   from the Point class
-    private Random random;
+    //protected Color color;                //   from the Cell class
     private GameSnake game;
+    private Random random;
 
     //public void set(int x, int y)         // methods that are inherited
-    //public int getX()                     //   from the Point class
+    //public int getX()                     //   from the Cell class
     //public int getY()
     //public void paint(Graphics g)
 
     public Food(GameSnake game) {           // constructor
         super(-1, -1, game.FOOD_COLOR);
-        color = game.FOOD_COLOR;
-        random = new Random();
         this.game = game;
+        random = new Random();
     }
 
     public boolean isFood(int x, int y) {

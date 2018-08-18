@@ -9,14 +9,14 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class Snake {
-    private LinkedList<Point> snake;
+    private LinkedList<Cell> snake;
     private int direction;
     private GameSnake gameSnake;
 
     public Snake(int x, int y, int length, int direction, GameSnake gameSnake) {
         snake = new LinkedList<>();
         for (int i = 0; i < length; i++)
-            snake.add(new Point(x - i, y, gameSnake.SNAKE_COLOR));
+            snake.add(new Cell(x - i, y, gameSnake.SNAKE_COLOR));
         this.direction = direction;
         this.gameSnake = gameSnake;
     }
@@ -28,8 +28,8 @@ public class Snake {
     }
 
     public boolean isInsideSnake(int x, int y) {
-        for (Point point : snake)
-            if ((point.getX() == x) && (point.getY() == y))
+        for (Cell cell : snake)
+            if ((cell.getX() == x) && (cell.getY() == y))
                 return true;
         return false;
     }
@@ -60,7 +60,7 @@ public class Snake {
             gameSnake.gameOver = true;
             return;
         }
-        snake.addFirst(new Point(x, y, gameSnake.SNAKE_COLOR)); // new head of snake
+        snake.addFirst(new Cell(x, y, gameSnake.SNAKE_COLOR)); // new head of snake
         if (gameSnake.food.isFood(x, y)) {
             gameSnake.food.eat();
             gameSnake.setTitle(gameSnake.TITLE_OF_PROGRAM + " : " + snake.size());
@@ -69,7 +69,7 @@ public class Snake {
     }
 
     public void paint(Graphics g) {
-        for (Point point : snake)
-            point.paint(g);
+        for (Cell cell : snake)
+            cell.paint(g);
     }
 }

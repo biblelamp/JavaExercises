@@ -12,9 +12,9 @@ public class GameSnake extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Classic Game Snake";
     final String GAME_OVER_MSG = "GAME OVER";
-    static final int POINT_SIZE = 20;          // size of cell in pix
-    final int CANVAS_WIDTH = 30;               // width in point
-    final int CANVAS_HEIGHT = 20;              // height in point
+    static final int CELL_SIZE = 20;           // size of cell in pix
+    final int CANVAS_WIDTH = 30;               // width in cells
+    final int CANVAS_HEIGHT = 20;              // height in cells
     final int START_SNAKE_SIZE = 5;            // initialization data
     final int START_SNAKE_X = CANVAS_WIDTH/2;  //   for
     final int START_SNAKE_Y = CANVAS_HEIGHT/2; //   snake
@@ -44,8 +44,8 @@ public class GameSnake extends JFrame {
         canvas = new Canvas();
         canvas.setBackground(Color.white);
         canvas.setPreferredSize(new Dimension(
-                POINT_SIZE * CANVAS_WIDTH - 10,
-                POINT_SIZE * CANVAS_HEIGHT - 10));
+                CELL_SIZE * CANVAS_WIDTH - 10,
+                CELL_SIZE * CANVAS_HEIGHT - 10));
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
