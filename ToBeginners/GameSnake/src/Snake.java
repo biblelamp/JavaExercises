@@ -40,18 +40,18 @@ public class Snake {
         switch (direction) {
             case GameSnake.KEY_LEFT: x--;
                 if (x < 0)
-                    x = gameSnake.WIDTH - 1;
+                    x = gameSnake.CANVAS_WIDTH - 1;
                 break;
             case GameSnake.KEY_RIGHT: x++;
-                if (x == gameSnake.WIDTH)
+                if (x == gameSnake.CANVAS_WIDTH)
                     x = 0;
                 break;
             case GameSnake.KEY_UP: y--;
                 if (y < 0)
-                    y = gameSnake.HEIGHT - 1;
+                    y = gameSnake.CANVAS_HEIGHT - 1;
                 break;
             case GameSnake.KEY_DOWN: y++;
-                if (y == gameSnake.HEIGHT)
+                if (y == gameSnake.CANVAS_HEIGHT)
                     y = 0;
                 break;
         }

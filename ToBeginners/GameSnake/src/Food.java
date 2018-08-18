@@ -40,8 +40,8 @@ public class Food extends Point {
     public void show() {
         int x, y;
         do {
-            x = random.nextInt(game.WIDTH);
-            y = random.nextInt(game.HEIGHT);
+            x = random.nextInt(game.CANVAS_WIDTH);
+            y = random.nextInt(game.CANVAS_HEIGHT);
         } while (game.snake.isInsideSnake(x, y) ||
                 game.poison.isPoison(x, y));
         set(x, y);

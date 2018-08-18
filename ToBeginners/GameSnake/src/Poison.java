@@ -22,8 +22,8 @@ public class Poison {
     public void add() {
         int x, y;
         do {
-            x = random.nextInt(game.WIDTH);
-            y = random.nextInt(game.HEIGHT);
+            x = random.nextInt(game.CANVAS_WIDTH);
+            y = random.nextInt(game.CANVAS_HEIGHT);
         } while (isPoison(x, y) ||
                 game.snake.isInsideSnake(x, y) ||
                 game.food.isFood(x, y));
