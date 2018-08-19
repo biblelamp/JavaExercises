@@ -1,6 +1,6 @@
 0. Introduction
 
-    - Intensive will take from 1.5 up to 2.5 hours
+    - Intensive will take from 1.5 up to 2.0 hours
     - Homework isn't expected, but you can try to do something
     - You can try to follow me or later follow the record
     - I invite responsible participants for help
@@ -13,8 +13,8 @@
 2. Project development
 
     - get “template” for GameSnake class with Swing window
-    - create Point and Snake classes
+    - create (copy/paste) Cell and starting to write Snake classes
     - snake movement and control
-    - create Food class, teach the snake to eat and grow
-    - handling of a snake's collision with itself
-    - create Poison class, handling of collisions with poison
+    - copy/paste Food class, teach the snake to eat and grow
+    - ?handling of a snake's collision with itself
+    - ?copy/paste Poison class, handling of collisions with poison
