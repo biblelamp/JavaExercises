@@ -3,7 +3,7 @@
  *  Class Food: snake food
  *
  * @author Sergey Iryupin
- * @version dated Jul 18, 2018
+ * @version dated Aug 23, 2018
  */
 import java.util.Random;
 
@@ -19,7 +19,7 @@ public class Food extends Cell {
     //public void paint(Graphics g)
 
     public Food(GameSnake game) {           // constructor
-        super(-1, -1, game.FOOD_COLOR);
+        super(-1, -1, GameSnake.CELL_SIZE, game.FOOD_COLOR);
         this.game = game;
         random = new Random();
     }

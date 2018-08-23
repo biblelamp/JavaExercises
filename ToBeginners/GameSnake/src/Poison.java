@@ -1,14 +1,23 @@
+/**
+ * Java. Classic Game Snake
+ *  Class Poison: it's deadly for a snake
+ *
+ * @author Sergey Iryupin
+ * @version dated Aug 23, 2018
+ */
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Poison {
-    private List<Cell> poison = new ArrayList<>();
-    private Random random = new Random();
+    private List<Cell> poison;
+    private Random random;
     private GameSnake game;
 
     public Poison(GameSnake game) {
+        poison = new ArrayList<>();
+        random = new Random();
         this.game = game;
     }
 
@@ -27,7 +36,7 @@ public class Poison {
         } while (isPoison(x, y) ||
                 game.snake.isInsideSnake(x, y) ||
                 game.food.isFood(x, y));
-        poison.add(new Cell(x, y, game.POISON_COLOR));
+        poison.add(new Cell(x, y, GameSnake.CELL_SIZE, game.POISON_COLOR));
     }
 
     public void paint(Graphics g) {

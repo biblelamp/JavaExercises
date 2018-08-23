@@ -3,7 +3,7 @@
  *  A class that implements a snake
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Aug 02, 2018
+ * @version 0.3 dated Aug 23, 2018
  */
 import java.awt.*;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ public class Snake {
     public Snake(int x, int y, int length, int direction, GameSnake gameSnake) {
         snake = new LinkedList<>();
         for (int i = 0; i < length; i++)
-            snake.add(new Cell(x - i, y, gameSnake.SNAKE_COLOR));
+            snake.add(new Cell(x - i, y, GameSnake.CELL_SIZE, gameSnake.SNAKE_COLOR));
         this.direction = direction;
         this.gameSnake = gameSnake;
     }
@@ -60,7 +60,7 @@ public class Snake {
             gameSnake.gameOver = true;
             return;
         }
-        snake.addFirst(new Cell(x, y, gameSnake.SNAKE_COLOR)); // new head of snake
+        snake.addFirst(new Cell(x, y, GameSnake.CELL_SIZE, gameSnake.SNAKE_COLOR)); // new head of snake
         if (gameSnake.food.isFood(x, y)) {
             gameSnake.food.eat();
             gameSnake.setTitle(gameSnake.TITLE_OF_PROGRAM + " : " + snake.size());

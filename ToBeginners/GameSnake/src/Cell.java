@@ -3,17 +3,19 @@
  *  Class Cell: minimal building element
  *
  * @author Sergey Iryupin
- * @version dated Jul 18, 2018
+ * @version 0.3 dated Aug 23, 2018
  */
 import java.awt.Color;
 import java.awt.Graphics;
 
 public class Cell {
     protected int x, y;                       // object coordinates
+    protected int size;                       // object size in px
     protected Color color;                    // object color
 
-    public Cell(int x, int y, Color color) {  // constructor
+    public Cell(int x, int y, int size, Color color) {
         set(x, y);                            // init coordinates
+        this.size = size;                     // init size
         this.color = color;                   // init color
     }
 
@@ -32,9 +34,7 @@ public class Cell {
 
     public void paint(Graphics g) {           // object rendering
         g.setColor(color);
-        g.fillOval(x * GameSnake.CELL_SIZE,  // coordinates of the
-                y * GameSnake.CELL_SIZE,     //    upper left corner
-                GameSnake.CELL_SIZE,         // width
-                GameSnake.CELL_SIZE);        // height
+        g.fillOval(x * size, y * size,        // upper left corner
+                size, size);                  // width and height
     }
 }
