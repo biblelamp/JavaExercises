@@ -34,7 +34,7 @@ public class Poison {
             x = random.nextInt(game.CANVAS_WIDTH);
             y = random.nextInt(game.CANVAS_HEIGHT);
         } while (isPoison(x, y) ||
-                game.snake.isInsideSnake(x, y) ||
+                game.snake.isInSnake(x, y) ||
                 game.food.isFood(x, y));
         poison.add(new Cell(x, y, GameSnake.CELL_SIZE, game.POISON_COLOR));
     }

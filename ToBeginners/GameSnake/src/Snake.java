@@ -27,7 +27,7 @@ public class Snake {
                 this.direction = direction;
     }
 
-    public boolean isInsideSnake(int x, int y) {
+    public boolean isInSnake(int x, int y) {
         for (Cell cell : snake)
             if ((cell.getX() == x) && (cell.getY() == y))
                 return true;
@@ -55,7 +55,7 @@ public class Snake {
                     y = 0;
                 break;
         }
-        if (isInsideSnake(x, y) ||                 // snake shouldn't cross itself
+        if (isInSnake(x, y) ||                 // snake shouldn't cross itself
                 gameSnake.poison.isPoison(x, y)) { // and eat poison
             gameSnake.gameOver = true;
             return;

@@ -71,7 +71,7 @@ public class GameSnake extends JFrame {
         while (!gameOver) {          // game cycle while NOT gameOver
             snake.move();            // snake move
             if (food.isEaten()) {    // if the snake ate the food
-                food.show();         //   show food in new place
+                food.setNewPlace();  //   set new place for food
                 poison.add();        //   add new poison point
             }
             canvas.repaint();        // repaint panel/window

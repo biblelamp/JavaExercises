@@ -36,12 +36,12 @@ public class Food extends Cell {
         set(-1, -1);
     }
 
-    public void show() {
+    public void setNewPlace() {
         int x, y;
         do {
             x = random.nextInt(game.CANVAS_WIDTH);
             y = random.nextInt(game.CANVAS_HEIGHT);
-        } while (game.snake.isInsideSnake(x, y) ||
+        } while (game.snake.isInSnake(x, y) ||
                 game.poison.isPoison(x, y));
         set(x, y);
     }
