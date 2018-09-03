@@ -3,7 +3,7 @@
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.3.3 dated Jun 01, 2018
+ * @version 0.3.4 dated Sep 03, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -20,10 +20,10 @@ class TicTacToe extends JFrame {
     final String BTN_INIT = "New game";
     final String BTN_EXIT = "Exit";
 
-    Panel panel = new Panel();
-    Field field = new Field(FIELD_SIZE, CELL_SIZE);
-    Human human = new Human(field.getHumanDot());
-    AI ai = new AI(field.getAIDot());
+    Panel panel;        // panel for rendering (drawing)
+    Field field;        // declare a field of game object
+    Human human;        // declare a human object
+    AI ai;              // declare a Artificial intelligence object
 
     public static void main(String args[]) {
         new TicTacToe();
@@ -36,6 +36,11 @@ class TicTacToe extends JFrame {
         setLocationRelativeTo(null); // to the center
         setResizable(false);
 
+        field = new Field(FIELD_SIZE, CELL_SIZE);
+        human = new Human(field.getHumanDot());
+        ai = new AI(field.getAIDot());
+
+        panel = new Panel();
         panel.setBackground(Color.white);
         panel.addMouseListener(new MouseAdapter() {
             @Override
