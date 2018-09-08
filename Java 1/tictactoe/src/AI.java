@@ -3,15 +3,18 @@
  * Class: AI
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Oct 21, 2017
+ * @version 0.1.2 dated Sep 08, 2018
  */
-import java.util.*;
+import java.util.Random;
 
 class AI {
-    Random random = new Random();
     private final char DOT;
+    private Random random;
 
-    AI(char ch) { DOT = ch; }
+    AI(char ch) {
+        DOT = ch;
+        random = new Random();
+    }
 
     void turn(Field field) {
         int x, y;
