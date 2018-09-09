@@ -3,8 +3,8 @@
     - Intensive will take from 1.5 up to 2.0 hours
     - Homework isn't expected, but you can try to do something
     - The goal isn't to learn the language, but get an impression
-    - You can try to follow me or later follow the record
-    - I invite responsible participants for help
+    - You can try to follow me, but later follow the record will be better
+    - I invite responsible colleagues for help in chat
 
 1. Download and install
 
