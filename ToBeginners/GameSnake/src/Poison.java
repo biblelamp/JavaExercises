@@ -3,7 +3,7 @@
  *  Class Poison: it's deadly for a snake
  *
  * @author Sergey Iryupin
- * @version dated Aug 23, 2018
+ * @version dated Sep 09, 2018
  */
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ import java.util.Random;
 public class Poison {
     private List<Cell> poison;
     private Random random;
-    private GameSnake game;
+    private GameSnake gameSnake;
 
-    public Poison(GameSnake game) {
+    public Poison(GameSnake gameSnake) {
         poison = new ArrayList<>();
         random = new Random();
-        this.game = game;
+        this.gameSnake = gameSnake;
     }
 
     public boolean isPoison(int x, int y) {
@@ -31,12 +31,12 @@ public class Poison {
     public void add() {
         int x, y;
         do {
-            x = random.nextInt(game.CANVAS_WIDTH);
-            y = random.nextInt(game.CANVAS_HEIGHT);
+            x = random.nextInt(gameSnake.CANVAS_WIDTH);
+            y = random.nextInt(gameSnake.CANVAS_HEIGHT);
         } while (isPoison(x, y) ||
-                game.snake.isInSnake(x, y) ||
-                game.food.isFood(x, y));
-        poison.add(new Cell(x, y, GameSnake.CELL_SIZE, game.POISON_COLOR));
+                gameSnake.snake.isInSnake(x, y) ||
+                gameSnake.food.isFood(x, y));
+        poison.add(new Cell(x, y, gameSnake.CELL_SIZE, gameSnake.POISON_COLOR));
     }
 
     public void paint(Graphics g) {

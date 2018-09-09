@@ -2,7 +2,7 @@
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.7 dated Aug 18, 2018
+ * @version 0.7.1 dated Sep 09, 2018
  */
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class GameSnake extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Classic Game Snake";
     final String GAME_OVER_MSG = "GAME OVER";
-    static final int CELL_SIZE = 20;           // size of cell in pix
+    final int CELL_SIZE = 20;                  // size of cell in pix
     final int CANVAS_WIDTH = 30;               // width in cells
     final int CANVAS_HEIGHT = 20;              // height in cells
     final int START_SNAKE_SIZE = 5;            // initialization data

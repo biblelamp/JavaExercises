@@ -3,14 +3,14 @@
  *  Class Food: snake food
  *
  * @author Sergey Iryupin
- * @version dated Aug 23, 2018
+ * @version dated Sep 09, 2018
  */
 import java.util.Random;
 
 public class Food extends Cell {
     //protected int x, y;                   // fields that are inherited
     //protected Color color;                //   from the Cell class
-    private GameSnake game;
+    private GameSnake gameSnake;
     private Random random;
 
     //public void set(int x, int y)         // methods that are inherited
@@ -18,9 +18,9 @@ public class Food extends Cell {
     //public int getY()
     //public void paint(Graphics g)
 
-    public Food(GameSnake game) {           // constructor
-        super(-1, -1, GameSnake.CELL_SIZE, game.FOOD_COLOR);
-        this.game = game;
+    public Food(GameSnake gameSnake) {      // constructor
+        super(-1, -1, gameSnake.CELL_SIZE, gameSnake.FOOD_COLOR);
+        this.gameSnake = gameSnake;
         random = new Random();
     }
 
@@ -39,10 +39,10 @@ public class Food extends Cell {
     public void setNewPlace() {
         int x, y;
         do {
-            x = random.nextInt(game.CANVAS_WIDTH);
-            y = random.nextInt(game.CANVAS_HEIGHT);
-        } while (game.snake.isInSnake(x, y) ||
-                game.poison.isPoison(x, y));
+            x = random.nextInt(gameSnake.CANVAS_WIDTH);
+            y = random.nextInt(gameSnake.CANVAS_HEIGHT);
+        } while (gameSnake.snake.isInSnake(x, y) ||
+                gameSnake.poison.isPoison(x, y));
         set(x, y);
     }
 }
