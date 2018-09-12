@@ -57,7 +57,8 @@ class Field {
     boolean isMapFull() {
         for (int i = 0; i < FIELD_SIZE; i++)
             for (int j = 0; j < FIELD_SIZE; j++)
-                if (map[i][j] == EMPTY_DOT) return false;
+                if (map[i][j] == EMPTY_DOT)
+                    return false;
         return true;
     }
 
@@ -75,8 +76,10 @@ class Field {
     }
 
     boolean isCellValid(int x, int y) {
-        if (x < 0 || y < 0 || x > FIELD_SIZE - 1 || y > FIELD_SIZE - 1) return false;
-        if (map[x][y] == EMPTY_DOT) return true;
+        if (x < 0 || y < 0 || x > FIELD_SIZE - 1 || y > FIELD_SIZE - 1)
+            return false;
+        if (map[x][y] == EMPTY_DOT)
+            return true;
         return false;
     }
 
