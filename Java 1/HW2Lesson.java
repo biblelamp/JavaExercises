@@ -2,7 +2,7 @@
  * Java. Level 1. Lesson 2. Example of homework
  *
  * @author Sergey Iryupin
- * @version dated May 14, 2018
+ * @version dated Sep 17, 2018
  */
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,8 +13,9 @@ class HW2Lesson {
 
         // simple tasks (1..4)
         invertArray();
-        fillArray();
-        changeArray(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1});
+        System.out.println(Arrays.toString(fillArray()));
+        System.out.println(Arrays.toString(
+            changeArray(new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1})));
         fillDiagonal(5);
 
         // tasks of increased complexity (5..7)
@@ -64,22 +65,22 @@ class HW2Lesson {
      * 2. Задать пустой целочисленный массив размером 8.
      *    С помощью цикла заполнить его значениями 0 3 6 9 12 15 18 21
      */
-    static void fillArray() {
+    static int[] fillArray() {
         int[] array = new int[8];
         for (int i = 0, j = 0; i < array.length; i++, j += 3)
             array[i] = j;
-        System.out.println(Arrays.toString(array));
+        return array;
     }
 
     /**
      * 3. Задать массив [1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1] пройти по нему
      *   циклом, и числа меньшие 6 умножить на 2
      */
-    static void changeArray(int[] array) {
+    static int[] changeArray(int[] array) {
         for (int i = 0; i < array.length; i++)
             if (array[i] < 6)
                 array[i] *= 2;
-        System.out.println(Arrays.toString(array));
+        return array;
     }
 
     /**
