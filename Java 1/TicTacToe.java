@@ -2,7 +2,7 @@
  * Java 1. Lesson 4. Tic-tac-toe in console
  *
  * @author Sergey Iryupin
- * @version dated Feb 02, 2017
+ * @version dated Sep 22, 2018
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -18,10 +18,10 @@ class TicTacToe {
     Random rand = new Random();
 
     public static void main(String[] args) {
-        new TicTacToe();
+        new TicTacToe().game();
     }
 
-    TicTacToe() {
+    void game() {
         initMap();
         while (true) {
             humanTurn();
