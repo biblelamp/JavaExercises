@@ -7,7 +7,9 @@
    Что сделать: создать переменную JAVA_HOME, изменить (дополнить) Path. Кнопки “Создать” и “Изменить”.
    Значение для переменной JAVA_HOME - путь к папке JDK. Переменную Path дополняем значением %JAVA_HOME%\bin - обратите внимание что список путей разделяется точкой с запятой (;).
 
-   Полезная ссылка: http://www.fandroid.info/ustanovka-jdk-java-development-kit/
+   Полезная ссылки:
+   http://www.fandroid.info/ustanovka-jdk-java-development-kit/
+   http://barancev.github.io/how-to-install-java-on-windows/
 
 2. Загружаем, устанавливаем и настраиваем IntelliJ IDEA
 
