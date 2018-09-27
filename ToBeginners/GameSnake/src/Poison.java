@@ -1,3 +1,8 @@
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Java. Classic Game Snake
  *  Class Poison: it's deadly for a snake
@@ -5,10 +10,6 @@
  * @author Sergey Iryupin
  * @version dated Sep 09, 2018
  */
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Poison {
     private List<Cell> poison;

@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * Java. Classic Game Snake
  *  Class Cell: minimal building element
@@ -5,8 +8,6 @@
  * @author Sergey Iryupin
  * @version 0.3 dated Aug 23, 2018
  */
-import java.awt.Color;
-import java.awt.Graphics;
 
 public class Cell {
     protected int x, y;                       // object coordinates

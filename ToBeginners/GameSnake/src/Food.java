@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Java. Classic Game Snake
  *  Class Food: snake food
@@ -5,7 +7,6 @@
  * @author Sergey Iryupin
  * @version dated Sep 15, 2018
  */
-import java.util.Random;
 
 public class Food extends Cell {
     //protected int x, y;                   // fields that are inherited

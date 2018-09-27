@@ -1,3 +1,6 @@
+import java.awt.Graphics;
+import java.util.LinkedList;
+
 /**
  * Java. Classic Game Snake
  *  A class that implements a snake
@@ -5,8 +8,6 @@
  * @author Sergey Iryupin
  * @version 0.3.2 dated Sep 23, 2018
  */
-import java.awt.Graphics;
-import java.util.LinkedList;
 
 public class Snake {
     private LinkedList<Cell> snake;
