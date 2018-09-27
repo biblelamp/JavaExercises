@@ -7,7 +7,7 @@
    Что сделать: создать переменную JAVA_HOME, изменить (дополнить) Path. Кнопки “Создать” и “Изменить”.
    Значение для переменной JAVA_HOME - путь к папке JDK. Переменную Path дополняем значением %JAVA_HOME%\bin - обратите внимание что список путей разделяется точкой с запятой (;).
 
-   Полезная ссылки:
+   Полезные ссылки:
    http://www.fandroid.info/ustanovka-jdk-java-development-kit/
    http://barancev.github.io/how-to-install-java-on-windows/
 
@@ -17,4 +17,7 @@
 
    Настройка SDK по умолчанию. Запускаем IDEA, welcome окно, в нижней части Configure -> Project Defaults -> Project Structure, пункт “Project”, нажимаем кнопку “New...” выбираем “JDK” и затем указываем папку с JDK.
 
-   Полезная ссылка: https://maxensdeveloper.wordpress.com/2016/10/31/intellij_configure/
+   Полезная ссылка:
+   https://maxensdeveloper.wordpress.com/2016/10/31/intellij_configure/
+   Вебинар IntelliJ IDEA для новичков: советы и секреты
+   https://geekbrains.ru/events/770
