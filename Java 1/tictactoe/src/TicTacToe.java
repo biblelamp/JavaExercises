@@ -1,14 +1,14 @@
-/*
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/**
  * Java 1. Lesson 8. Game Tic Tac Toe
  * Class: Main-Class
  *
  * @author Sergey Iryupin
  * @version 0.3.4 dated Sep 03, 2018
  */
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 class TicTacToe extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Tic Tac Toe";

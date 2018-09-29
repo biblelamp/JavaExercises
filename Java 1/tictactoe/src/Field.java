@@ -1,13 +1,13 @@
-/*
+import java.awt.*;
+import java.awt.geom.*; // for Graphics2D
+
+/**
  * Java 1. Lesson 8. Game Tic Tac Toe
  * Class: Field
  *
  * @author Sergey Iryupin
  * @version 0.3.2 dated Aug 03, 2018
  */
-import java.awt.*;
-import java.awt.geom.*; // for Graphics2D
-
 class Field {
     private final int FIELD_SIZE;
     private final int CELL_SIZE;
@@ -95,12 +95,21 @@ class Field {
             for (int x = 0; x < FIELD_SIZE; x++) {
                 if (map[x][y] == HUMAN_DOT) {
                     g.setColor(Color.blue);
-                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4, (x+1)*CELL_SIZE-CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4));
-                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4, (x+1)*CELL_SIZE-CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4));
+                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4,
+                        y*CELL_SIZE+CELL_SIZE/4,
+                        (x+1)*CELL_SIZE-CELL_SIZE/4,
+                        (y+1)*CELL_SIZE-CELL_SIZE/4));
+                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4,
+                        (y+1)*CELL_SIZE-CELL_SIZE/4,
+                        (x+1)*CELL_SIZE-CELL_SIZE/4,
+                        y*CELL_SIZE+CELL_SIZE/4));
                 }
                 if (map[x][y] == AI_DOT) {
                     g.setColor(Color.red);
-                    g2.draw(new Ellipse2D.Float(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4, CELL_SIZE/2, CELL_SIZE/2));
+                    g2.draw(new Ellipse2D.Float(x*CELL_SIZE+CELL_SIZE/4,
+                        y*CELL_SIZE+CELL_SIZE/4,
+                        CELL_SIZE/2,
+                        CELL_SIZE/2));
                 }
             }
         }

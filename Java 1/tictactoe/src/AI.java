@@ -1,12 +1,12 @@
-/*
+import java.util.Random;
+
+/**
  * Java 1. Lesson 8. Game Tic Tac Toe
  * Class: AI
  *
  * @author Sergey Iryupin
  * @version 0.1.2 dated Sep 08, 2018
  */
-import java.util.Random;
-
 class AI {
     private final char DOT;
     private Random random;

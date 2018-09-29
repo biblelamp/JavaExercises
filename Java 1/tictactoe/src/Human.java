@@ -1,4 +1,4 @@
-/*
+/**
  * Java 1. Lesson 8. Game Tic Tac Toe
  * Class: Human
  *
