@@ -1,13 +1,13 @@
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 /**
  * Java. Level 1. Lesson 7
  *
  * @author Sergey Iryupin
  * @version dated Jul 30, 2018
  */
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 class J1Lesson7 {
     public static void main(String[] args) {
         //Test.testString(120000);
