@@ -6,14 +6,18 @@ import java.io.FileReader;
  * Java. Level 1. Lesson 7
  *
  * @author Sergey Iryupin
- * @version dated Jul 30, 2018
+ * @version dated Oct 01, 2018
  */
 class J1Lesson7 {
     public static void main(String[] args) {
         //Test.testString(120000);
         //Test.testStringBuilder(120000);
-        //Test.testBufferedReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
-        //Test.testFileReader("C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
+        //Test.testBufferedReader(
+        //    "C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
+        //Test.testFileReader(
+        //    "C:\\Program Files\\AVAST Software\\Avast\\AvastUI.exe");
+        //Singleton s1 = new Singleton();
+        //Singleton s2 = new Singleton();
         //Singleton s1 = Singleton.getInstance();
         //Singleton s2 = Singleton.getInstance();
         //System.out.println(s1 + " : " + s2);
