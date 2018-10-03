@@ -47,7 +47,7 @@ class ShootingBall extends JFrame implements KeyListener {
     }
 
     void goGame() {
-        ball = new Ball(100, 100, 10); // x, y, raduis
+        ball = new Ball(100, 100, 10, 0, WINDOW_WIDTH, WINDOW_HEIGHT); // x, y, raduis
         pill = new Pill();
         while (true) {
             try {
@@ -67,16 +67,16 @@ class ShootingBall extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent event) {
         switch (event.getKeyCode()) {
-            case LEFT: ball.turnLeft(15);
+            case LEFT: ball.turn(-15);
                 break;
-            case RIGHT: ball.turnRight(15);
+            case RIGHT: ball.turn(15);
                 break;
-            case UP: ball.forward(10);
+            case UP: ball.move(10);
                 break;
-            case DOWN: ball.backward(10);
+            case DOWN: ball.move(-10);
                 break;
             case FIRE: pill = new Pill(
-                    ball.getXPill(), ball.getYPill(), ball.getAngle());
+                    ball.getXPill(), ball.getYPill(), ball.getAngle(), Color.black);
                 break;
         }
     }
