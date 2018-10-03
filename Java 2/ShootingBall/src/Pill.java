@@ -12,6 +12,9 @@ class Pill {
     private int x, y, angle;
     private Color color;
 
+    Pill() {
+    }
+
     Pill(int x, int y, int angle, Color color) {
         this.x = x;
         this.y = y;
