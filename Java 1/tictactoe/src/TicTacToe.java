@@ -54,7 +54,7 @@ class TicTacToe extends JFrame {
             }
         });
         JButton init = new JButton(BTN_INIT);
-        init.addActionListener(e -> {
+        init.addActionListener(e -> { // lambda version
             field.init();
             panel.repaint();
         });
@@ -72,7 +72,7 @@ class TicTacToe extends JFrame {
         panelBtn.add(init);
         panelBtn.add(exit);
 
-        //setLayout(new BorderLayout()); // by dafault
+        //setLayout(new BorderLayout()); // by default
         add(panelBtn, BorderLayout.SOUTH);
         add(panel, BorderLayout.CENTER);
         setVisible(true);
