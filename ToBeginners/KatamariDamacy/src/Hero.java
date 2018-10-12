@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *  Class Circle: base class
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 08, 2018
+ * @version 0.2 dated Oct 12, 2018
  */
 
 public class Hero extends Circle {
@@ -32,14 +32,18 @@ public class Hero extends Circle {
 				break;
 			case KatamariDamacy.KEY_RIGHT:
 				x += speed;
-				if (x > 640 - size)
+				if (x > KatamariDamacy.WIDTH - size)
 					direction = KatamariDamacy.KEY_LEFT;
 				break;
 			case KatamariDamacy.KEY_UP:
 				y -= speed;
+				if (y < 0)
+					direction = KatamariDamacy.KEY_DOWN;
 				break;
 			case KatamariDamacy.KEY_DOWN:
 				y += speed;
+				if (y > KatamariDamacy.HEIGHT - size)
+					direction = KatamariDamacy.KEY_UP;
 				break;
 		}
 	}
@@ -47,7 +51,7 @@ public class Hero extends Circle {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.drawLine(x + size / 2, y + 20, x + size / 2, y + size - 20);
-		g.drawLine(x + 20, y + size / 2, x + size - 20, y + size / 2);
+		g.drawLine(x + size / 2, y + 15, x + size / 2, y + size - 15);
+		g.drawLine(x + 15, y + size / 2, x + size - 15, y + size / 2);
 	}
 }
