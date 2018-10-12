@@ -56,6 +56,7 @@ public class KatamariDamacy extends JFrame {
                 (WIDTH - HERO_START_SIZE)/2,
                 (HEIGHT - HERO_START_SIZE)/2,
                 HERO_START_SIZE,
+                KEY_RIGHT,
                 Color.black);
         //circles = new Circles();
 

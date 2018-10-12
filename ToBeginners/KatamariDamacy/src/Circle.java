@@ -6,18 +6,20 @@ import java.awt.Graphics;
  *  Class Circle: base class
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 07, 2018
+ * @version 0.2 dated Oct 12, 2018
  */
 
 public class Circle {
     protected int x, y;
     protected int size;
+    protected int direction;
     protected Color color;
 
-    public Circle(int x, int y, int size, Color color) {
+    public Circle(int x, int y, int size, int direction, Color color) {
         this.x = x;
         this.y = y;
         this.size = size;
+        this.direction = direction;
         this.color = color;
     }
 

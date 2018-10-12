@@ -10,12 +10,10 @@ import java.awt.Graphics;
  */
 
 public class Hero extends Circle {
-	private int direction;
 	private int speed = 1;
 
-	public Hero(int x, int y, int size, Color color) {
-		super(x, y, size, color);
-		direction = KatamariDamacy.KEY_RIGHT;
+	public Hero(int x, int y, int size, int direction, Color color) {
+		super(x, y, size, direction, color);
 	}
 
 	public void setDirection(int direction) {
