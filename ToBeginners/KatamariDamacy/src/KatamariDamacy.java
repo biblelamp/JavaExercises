@@ -6,23 +6,26 @@ import java.awt.event.*;
  * Java. Katamari Damacy Game
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Oct 08, 2018
+ * @version 0.3 dated Oct 12, 2018
  */
 
 public class KatamariDamacy extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Katamari Damacy";
     final String GAME_OVER_MSG = "GAME OVER";
-    final int WIDTH = 640;
-    final int HEIGHT = 480;
-    static final int KEY_LEFT = 37;             // codes
-    static final int KEY_UP = 38;               //   of
-    static final int KEY_RIGHT = 39;            //   cursor
-    static final int KEY_DOWN = 40;             //   keys
+    final static int WIDTH = 640;
+    final static int HEIGHT = 480;
+    final static int KEY_LEFT = 37;             // codes
+    final static int KEY_UP = 38;               //   of
+    final static int KEY_RIGHT = 39;            //   cursor
+    final static int KEY_DOWN = 40;             //   keys
+    final int HERO_START_SIZE = 40;
+    final int SHOW_DELAY = 5;                   // delay show in milliseconds
     boolean gameOver = false;                   // a sign game is over or not
 
     Canvas canvas;                              // canvas object for rendering
     Hero hero;
+    //Circles circles;
 
     public static void main(String[] args) {    // starting method
         new KatamariDamacy().game();            // create an object and call game()
@@ -49,12 +52,17 @@ public class KatamariDamacy extends JFrame {
     }
 
     private void game() {            // method containing game cycle
-        hero = new Hero(320-30, 240-30, 60, Color.black);
+        hero = new Hero(
+                (WIDTH - HERO_START_SIZE)/2,
+                (HEIGHT - HERO_START_SIZE)/2,
+                HERO_START_SIZE,
+                Color.black);
+        //circles = new Circles();
 
         while (!gameOver) {          // game cycle while NOT gameOver
             hero.move();
             canvas.repaint();
-            sleep(5);
+            sleep(SHOW_DELAY);
         }
         JOptionPane.showMessageDialog(KatamariDamacy.this, GAME_OVER_MSG);
     }
@@ -72,6 +80,7 @@ public class KatamariDamacy extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             hero.paint(g);
+            //circles.paint(g);
         }
     }
 }
