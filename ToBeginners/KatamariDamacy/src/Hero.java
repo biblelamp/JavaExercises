@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *  Class Circle: base class
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Oct 12, 2018
+ * @version 0.2.1 dated Oct 13, 2018
  */
 
 public class Hero extends Circle {
@@ -17,7 +17,9 @@ public class Hero extends Circle {
 	}
 
 	public void setDirection(int direction) {
-		if ((direction >= KatamariDamacy.KEY_LEFT) && (direction <= KatamariDamacy.KEY_DOWN))
+		if ((direction >= KatamariDamacy.KEY_LEFT &&
+				direction <= KatamariDamacy.KEY_DOWN) ||
+				direction == KatamariDamacy.KEY_SPACE)
 			this.direction = direction;
 	}
 
