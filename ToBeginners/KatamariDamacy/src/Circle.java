@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *  Class Circle: base class
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Oct 12, 2018
+ * @version 0.2.1 dated Oct 15, 2018
  */
 
 public class Circle {
@@ -21,6 +21,18 @@ public class Circle {
         this.size = size;
         this.direction = direction;
         this.color = color;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void paint(Graphics g) {
