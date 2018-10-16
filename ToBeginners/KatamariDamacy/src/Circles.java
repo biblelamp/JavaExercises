@@ -31,12 +31,9 @@ public class Circles {
     }
 
     public boolean isCrossing(Circle circle) {
-        for (Circle item : circles) {
-            double distance = Math.sqrt(Math.pow(item.getX() - circle.getX(), 2) +
-                    Math.pow(item.getY() - circle.getY(), 2));
-            if (item.getRadius() + circle.getRadius() >= distance)
+        for (Circle item : circles)
+            if (item.isCrossing(circle))
                 return true;
-        }
         return false;
     }
 
