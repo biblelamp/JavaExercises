@@ -51,7 +51,7 @@ public class Hero extends Circle {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.drawLine(x + size / 2, y + 15, x + size / 2, y + size - 15);
-		g.drawLine(x + 15, y + size / 2, x + size - 15, y + size / 2);
+		g.drawLine(getX(), y + size / 3, getX(), y + size - size / 3);
+		g.drawLine(x + size / 3, getY(), x + size - size / 3, getY());
 	}
 }
