@@ -8,7 +8,7 @@ import java.util.Random;
  *  Class Circles: enemies
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Oct 16, 2018
+ * @version 0.4 dated Oct 18, 2018
  */
 
 public class Circles {
@@ -18,13 +18,14 @@ public class Circles {
     public Circles(KatamariDamacy katamariDamacy) {
         random = new Random();
         circles = new LinkedList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 40; i++) {
             Circle circle;
             do {
                 int size = random.nextInt(30) + 20;
                 int x = random.nextInt(KatamariDamacy.WIDTH - size);
                 int y = random.nextInt(KatamariDamacy.HEIGHT - size);
-                circle = new Circle(x, y, size, KatamariDamacy.KEY_SPACE, Color.black);
+                int direction = 37 + random.nextInt(3);
+                circle = new Circle(x, y, size, direction, Color.black);
             } while (isCrossing(circle) || isCrossing(katamariDamacy.hero));
             circles.add(circle);
         }
@@ -35,6 +36,11 @@ public class Circles {
             if (item.isCrossing(circle))
                 return true;
         return false;
+    }
+
+    public void move() {
+        for (Circle circle : circles)
+            circle.move();
     }
 
     public void paint(Graphics g) {
