@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *  Class Circle: base class
  *
  * @author Sergey Iryupin
- * @version 0.4 dated Oct 18, 2018
+ * @version 0.5 dated Oct 18, 2018
  */
 
 public class Circle {
@@ -31,12 +31,16 @@ public class Circle {
         return y + size / 2;
     }
 
-    public int getSize() {
-        return size;
-    }
-
     public int getRadius() {
         return size / 2;
+    }
+
+    public double getArea() {
+        return Math.PI * Math.pow(getRadius(), 2);
+    }
+
+    public void setRadius(int radius) {
+        size = radius * 2;
     }
 
     public boolean isCrossing(Circle circle) {
