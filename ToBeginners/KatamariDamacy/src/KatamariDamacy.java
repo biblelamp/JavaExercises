@@ -20,7 +20,7 @@ public class KatamariDamacy extends JFrame {
     final static int KEY_RIGHT = 39;            //   cursor
     final static int KEY_DOWN = 40;             //   keys
     final static int KEY_SPACE = 32;            // code of space
-    final int HERO_START_SIZE = 40;
+    final int HERO_START_SIZE = 30;
     final int SHOW_DELAY = 10;                  // delay show in milliseconds
     boolean gameOver = false;                   // a sign game is over or not
 
@@ -64,9 +64,7 @@ public class KatamariDamacy extends JFrame {
         while (!gameOver) {          // game cycle while NOT gameOver
             hero.move();
             circles.move();
-            //if (circles.isCrossing(hero)) {
-            //    System.out.println("!");
-            //}
+            circles.remove(circles.getCrossing(hero));
             canvas.repaint();
             sleep(SHOW_DELAY);
         }

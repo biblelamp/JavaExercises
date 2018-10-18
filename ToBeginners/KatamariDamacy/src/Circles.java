@@ -21,7 +21,7 @@ public class Circles {
         for (int i = 0; i < 40; i++) {
             Circle circle;
             do {
-                int size = random.nextInt(30) + 20;
+                int size = random.nextInt(20) + 20;
                 int x = random.nextInt(KatamariDamacy.WIDTH - size);
                 int y = random.nextInt(KatamariDamacy.HEIGHT - size);
                 int direction = 37 + random.nextInt(3);
@@ -31,11 +31,23 @@ public class Circles {
         }
     }
 
-    public boolean isCrossing(Circle circle) {
-        for (Circle item : circles)
-            if (item.isCrossing(circle))
+    public void remove(Circle circle) {
+        if (circle != null)
+            circles.remove(circle);
+    }
+
+    public boolean isCrossing(Circle object) {
+        for (Circle circle : circles)
+            if (circle.isCrossing(object))
                 return true;
         return false;
+    }
+
+    public Circle getCrossing(Circle object) {
+        for (Circle circle : circles)
+            if (circle.isCrossing(object))
+                return circle;
+        return null;
     }
 
     public void move() {
