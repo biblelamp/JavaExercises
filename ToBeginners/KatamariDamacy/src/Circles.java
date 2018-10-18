@@ -26,7 +26,8 @@ public class Circles {
                 int y = random.nextInt(KatamariDamacy.HEIGHT - size);
                 int direction = 37 + random.nextInt(3);
                 circle = new Circle(x, y, size, direction, Color.black);
-            } while (isCrossing(circle) || isCrossing(katamariDamacy.hero));
+            } while (getCrossing(circle) != null ||
+                    getCrossing(katamariDamacy.hero) != null);
             circles.add(circle);
         }
     }
@@ -34,13 +35,6 @@ public class Circles {
     public void remove(Circle circle) {
         if (circle != null)
             circles.remove(circle);
-    }
-
-    public boolean isCrossing(Circle object) {
-        for (Circle circle : circles)
-            if (circle.isCrossing(object))
-                return true;
-        return false;
     }
 
     public Circle getCrossing(Circle object) {

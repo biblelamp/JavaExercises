@@ -39,8 +39,8 @@ public class Circle {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
-    public void setRadius(int radius) {
-        size = radius * 2;
+    public void setArea(double area) {
+        size = (int) Math.sqrt(area / Math.PI) * 2;
     }
 
     public boolean isCrossing(Circle circle) {
