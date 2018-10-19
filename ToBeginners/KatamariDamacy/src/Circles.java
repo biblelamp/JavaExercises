@@ -8,7 +8,7 @@ import java.util.Random;
  *  Class Circles: enemies
  *
  * @author Sergey Iryupin
- * @version 0.5.1 dated Oct 19, 2018
+ * @version 0.5.2 dated Oct 19, 2018
  */
 
 public class Circles {
@@ -67,6 +67,14 @@ public class Circles {
                 break;
             }
         }
+    }
+
+    public void clear() {
+        circles.clear();
+    }
+
+    public int size() {
+        return circles.size();
     }
 
     public void paint(Graphics g) {
