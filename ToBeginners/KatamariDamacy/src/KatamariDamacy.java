@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Katamari Damacy Game
  *
  * @author Sergey Iryupin
- * @version 0.3.8 dated Oct 19, 2018
+ * @version 0.3.9 dated Oct 19, 2018
  */
 
 public class KatamariDamacy extends JFrame {
@@ -71,8 +71,20 @@ public class KatamariDamacy extends JFrame {
                 if (circle.getArea() < hero.getArea()) {
                     hero.setArea(hero.getArea() + circle.getArea());
                     circles.remove(circle);
-                } else
-                    gameOver = true;
+                    if (circles.size() == 0) {
+                        numberOfCircles += 5;
+                        circles.add(numberOfCircles, hero);
+                        hero.setSize(HERO_START_SIZE);
+                    }
+                } else {
+                    numberOfCircles -= 5;
+                    if (numberOfCircles > 0) {
+                        circles.clear();
+                        circles.add(numberOfCircles, hero);
+                        hero.setSize(HERO_START_SIZE);
+                    } else
+                        gameOver = true;
+                }
             }
             canvas.repaint();
             sleep(SHOW_DELAY);
