@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Katamari Damacy Game
  *
  * @author Sergey Iryupin
- * @version 0.3.7 dated Oct 18, 2018
+ * @version 0.3.8 dated Oct 19, 2018
  */
 
 public class KatamariDamacy extends JFrame {
@@ -22,6 +22,7 @@ public class KatamariDamacy extends JFrame {
     final static int KEY_SPACE = 32;            // code of space
     final int HERO_START_SIZE = 30;
     final int SHOW_DELAY = 10;                  // delay show in milliseconds
+    int numberOfCircles = 5;                    // starting circles number
     boolean gameOver = false;                   // a sign game is over or not
 
     Canvas canvas;                              // canvas object for rendering
@@ -45,7 +46,7 @@ public class KatamariDamacy extends JFrame {
                 HERO_START_SIZE,
                 KEY_SPACE,
                 Color.blue);
-        circles = new Circles(this);
+        circles = new Circles(numberOfCircles, hero);
 
         addKeyListener(new KeyAdapter() {
             @Override

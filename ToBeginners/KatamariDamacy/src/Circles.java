@@ -8,17 +8,21 @@ import java.util.Random;
  *  Class Circles: enemies
  *
  * @author Sergey Iryupin
- * @version 0.5 dated Oct 18, 2018
+ * @version 0.5.1 dated Oct 19, 2018
  */
 
 public class Circles {
     private LinkedList<Circle> circles;
     private Random random;
 
-    public Circles(KatamariDamacy katamariDamacy) {
+    public Circles(int number, Hero hero) {
         random = new Random();
         circles = new LinkedList<>();
-        for (int i = 0; i < 20; i++) {
+        add(number, hero);
+    }
+
+    public void add(int number, Hero hero) {
+        for (int i = 0; i < number; i++) {
             Circle circle;
             do {
                 int size = random.nextInt(20) + 20;
@@ -27,7 +31,7 @@ public class Circles {
                 int direction = 37 + random.nextInt(3);
                 circle = new Circle(x, y, size, direction, Color.black);
             } while (getCrossing(circle) != null ||
-                    getCrossing(katamariDamacy.hero) != null);
+                    getCrossing(hero) != null);
             circles.add(circle);
         }
     }
