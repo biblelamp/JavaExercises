@@ -5,7 +5,7 @@ import java.util.Random;
  *  Class Food: snake food
  *
  * @author Sergey Iryupin
- * @version dated Sep 15, 2018
+ * @version dated Sep 21, 2018
  */
 
 public class Food extends Cell {
@@ -38,7 +38,7 @@ public class Food extends Cell {
         set(-1, -1);
     }
 
-    public void create() {
+    public void appear() {
         int x, y;
         do {
             x = random.nextInt(gameSnake.CANVAS_WIDTH);

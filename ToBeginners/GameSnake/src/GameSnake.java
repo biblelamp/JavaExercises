@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.7.2 dated Sep 15, 2018
+ * @version 0.7.3 dated Sep 21, 2018
  */
 
 public class GameSnake extends JFrame {
@@ -72,7 +72,7 @@ public class GameSnake extends JFrame {
         while (!gameOver) {          // game cycle while NOT gameOver
             snake.move();            // snake move
             if (food.isEaten()) {    // if the snake ate the food
-                food.create();       //   create food and set in new place
+                food.appear();       //   show food in new place
                 poison.add();        //   add new poison point
             }
             canvas.repaint();        // repaint panel/window
