@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Katamari Damacy Game
  *
  * @author Sergey Iryupin
- * @version 0.3.10 dated Oct 20, 2018
+ * @version 0.3.11 dated Oct 24, 2018
  */
 
 public class KatamariDamacy extends JFrame {
@@ -71,20 +71,13 @@ public class KatamariDamacy extends JFrame {
                 if (circle.getArea() < hero.getArea()) {
                     hero.setArea(hero.getArea() + circle.getArea());
                     circles.remove(circle);
-                    if (circles.size() == 0) {
-                        numberOfCircles += 5;
-                        circles.add(numberOfCircles, hero);
-                        hero.setSize(HERO_START_SIZE);
-                        setTitle(TITLE_OF_PROGRAM + " : " + numberOfCircles/5);
-                    }
+                    if (circles.size() == 0)
+                        initLevel(false);
                 } else {
                     numberOfCircles -= 5;
-                    if (numberOfCircles > 0) {
-                        circles.clear();
-                        circles.add(numberOfCircles, hero);
-                        hero.setSize(HERO_START_SIZE);
-                        setTitle(TITLE_OF_PROGRAM + " : " + numberOfCircles/5);
-                    } else
+                    if (numberOfCircles > 0)
+                        initLevel(true);
+                    else
                         gameOver = true;
                 }
             }
@@ -92,6 +85,16 @@ public class KatamariDamacy extends JFrame {
             sleep(SHOW_DELAY);
         }
         JOptionPane.showMessageDialog(KatamariDamacy.this, GAME_OVER_MSG);
+    }
+
+    private void initLevel(boolean fromZero) {
+        if (fromZero)
+            circles.clear();
+        else
+            numberOfCircles += 5;
+        circles.add(numberOfCircles, hero);
+        hero.setSize(HERO_START_SIZE);
+        setTitle(TITLE_OF_PROGRAM + " : " + numberOfCircles/5);
     }
 
     private void sleep(long ms) {    // method for suspending
