@@ -51,34 +51,53 @@ public class LunarFlyOne {
         return duration * averageSpeed;
     }
 
+    private boolean isLanding(float height) {
+        return height < 0;
+    }
+
     private boolean isAlmostLanded(float height) {
         return Math.abs(height) < 0.00001;
+    }
+
+    private float calculateAcceleration(float reverse, float consumption,
+            float exhaustSpeed, float mass) {
+        return reverse * consumption * exhaustSpeed / mass;
+    }
+
+    private void calculateLanding(float reverse, float consumption) {
+        float fullAcceleration = acceleration - accelOfGravity;
+        double d = Math.pow(speed, 2) - 2 * fullAcceleration * height;
+        double t1 = (-speed - Math.sqrt(d)) / fullAcceleration;
+        double t2 = (-speed + Math.sqrt(d)) / fullAcceleration;
+        if (t1 > 0) {
+            duration = (float) t1;
+        }
+        if (t2 > 0 && t2 < duration) {
+            duration = (float) t2;
+        }
+        duration = duration;
+        fuel = consumption * duration;
+        acceleration = calculateAcceleration(reverse, consumption,
+            exhaustSpeed, dryMass + fuelMass);
     }
 
     private void simulate(float reverse, float fuel, float duration) {
         if (duration > 0) {
             if (fuelMass > 0) {
 
+                if (Float.compare(speed, startSpeed) == 0)
+                    System.out.println("Starting...");
+
                 float consumption = fuel / duration;
-                acceleration = reverse * consumption * exhaustSpeed /
-                    (dryMass + fuelMass);
-                if (height + addHeiht(duration, speed, acceleration) < 0) {
-                    float fullAcceleration = acceleration - accelOfGravity;
-                    double d = Math.pow(speed, 2) - 2 * fullAcceleration * height;
-                    double t1 = (-speed - Math.sqrt(d)) / fullAcceleration;
-                    double t2 = (-speed + Math.sqrt(d)) / fullAcceleration;
-                    if (t1 > 0) {
-                        duration = (float) t1;
-                    }
-                    if (t2 > 0 && t2 < duration) {
-                        duration = (float) t2;
-                    }
-                    this.duration = duration;
-                    fuel = consumption * duration;
-                    this.fuel = fuel;
-                    acceleration = reverse * consumption * exhaustSpeed /
-                        (dryMass + fuelMass);
+                acceleration = calculateAcceleration(reverse, consumption,
+                    exhaustSpeed, dryMass + fuelMass);
+
+                if (isLanding(height + addHeiht(duration, speed, acceleration))) {
+                    calculateLanding(reverse, consumption);
+                    fuel = this.fuel;
+                    duration = this.duration;
                 }
+
                 height += addHeiht(duration, speed, acceleration);
                 speed += duration * (acceleration - accelOfGravity);
                 fuelMass -= fuel;
