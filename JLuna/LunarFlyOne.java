@@ -5,7 +5,7 @@ import java.util.Scanner;
  * based on http://slavav.ru/way_to_earth/
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Oct 26, 2018
+ * @version 0.2.2 dated Oct 27, 2018
  */
 public class LunarFlyOne {
 
@@ -13,7 +13,8 @@ public class LunarFlyOne {
     float accelOfGravity = 1.62f;   // m/s^2, at Moon surface
     int dryMass = 2150;             // kg, lunarfly and pilot
     int exhaustSpeed = 3660;        // m/s, from the engine
-    float accelLimin = 3 * 9.81f;   // 3G, G is earth acceleration of gravity
+    float accelLimit = 3 * 9.81f;   // 3G, G is earth acceleration of gravity
+    float speedLimit = 5;           // m/s, landing speed limit
     int timeCount = -1;
     float startSpeed = 0;
     float startHeight = 0;
@@ -31,7 +32,7 @@ public class LunarFlyOne {
 
     private String showConstants() {
         return String.format("g = %5.3f M = %d c = %d a = %5.3f m = %d",
-            accelOfGravity, dryMass, exhaustSpeed, accelLimin, startfuelMass);
+            accelOfGravity, dryMass, exhaustSpeed, accelLimit, startfuelMass);
     }
 
     private String showVariables() {
