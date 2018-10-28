@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 /**
- * Java. Implementation of LunarFly version 1
- * based on http://slavav.ru/way_to_earth/
+ * Java. Lunar ship simple simulator v1
+ * based on http://epizodyspace.ru/bibl/tm/1986/5/put.html
  *
  * @author Sergey Iryupin
- * @version 0.2.2 dated Oct 27, 2018
+ * @version 0.2.3 dated Oct 28, 2018
  */
 public class LunarFlyOne {
 
@@ -22,13 +22,14 @@ public class LunarFlyOne {
     float startFlightTime = 0;
 
     // flight variables
-    float fuel;
-    float duration;
-    float speed;
-    float height;
+    float fuel;                     // kg, fuel consumption
+    float duration;                 // s, maneuver time
+    float speed;                    // m/s^2, current speed
+    float height;                   // m, current height
     float acceleration;
     float fuelMass;
     float flightTime;
+    boolean isLanding;
 
     private String showConstants() {
         return String.format("g = %5.3f M = %d c = %d a = %5.3f m = %d",
@@ -36,7 +37,8 @@ public class LunarFlyOne {
     }
 
     private String showVariables() {
-        return String.format("f = %5.3f t = %5.3f v = %5.3f h = %5.3f a = %5.3f F = %5.3f T = %5.3f",
+        return String.format(
+            "f = %5.3f t = %5.3f v = %5.3f h = %5.3f a = %5.3f F = %5.3f T = %5.3f",
             fuel, duration, speed, height, acceleration, fuelMass, flightTime);
     }
 
@@ -45,15 +47,12 @@ public class LunarFlyOne {
         height = startHeight;
         fuelMass = startfuelMass;
         flightTime = startFlightTime;
+        isLanding = false;
     }
 
     private float addHeiht(float duration, float speed, float acceleration) {
         float averageSpeed = (speed + speed + duration * (acceleration - accelOfGravity)) / 2;
         return duration * averageSpeed;
-    }
-
-    private boolean isLanding(float height) {
-        return height < 0;
     }
 
     private boolean isAlmostLanded(float height) {
@@ -76,27 +75,29 @@ public class LunarFlyOne {
         if (t2 > 0 && t2 < duration) {
             duration = (float) t2;
         }
-        duration = duration;
         fuel = consumption * duration;
         acceleration = calculateAcceleration(reverse, consumption,
             exhaustSpeed, dryMass + fuelMass);
     }
 
-    private void simulate(float reverse, float fuel, float duration) {
+    private void simulate(float reverse) {
         if (duration > 0) {
             if (fuelMass > 0) {
 
                 if (Float.compare(speed, startSpeed) == 0)
                     System.out.println("Starting...");
 
+                if (fuel > fuelMass) {
+                    duration *= fuelMass / fuel;
+                    fuel = fuelMass;
+                }
+
                 float consumption = fuel / duration;
                 acceleration = calculateAcceleration(reverse, consumption,
                     exhaustSpeed, dryMass + fuelMass);
 
-                if (isLanding(height + addHeiht(duration, speed, acceleration))) {
+                if (height + addHeiht(duration, speed, acceleration) < 0) {
                     calculateLanding(reverse, consumption);
-                    fuel = this.fuel;
-                    duration = this.duration;
                 }
 
                 height += addHeiht(duration, speed, acceleration);
@@ -104,12 +105,16 @@ public class LunarFlyOne {
                 fuelMass -= fuel;
                 flightTime -= duration * timeCount;
 
+                if (acceleration > accelLimit)
+                    System.out.println("Overload");
+
                 System.out.println(showVariables());
                 if (isAlmostLanded(height)) {
                     System.out.println("Landing (" + height + ")");
                     speed = 0;
                     height = 0;
                     flightTime = 0;
+                    isLanding = true;
                 }
             }
         }
@@ -119,10 +124,12 @@ public class LunarFlyOne {
         Scanner sc = new Scanner(System.in);
         System.out.println(showConstants());
         init();
-        while (true) {
+        while (!isLanding) {
             fuel = sc.nextInt();
             duration = sc.nextFloat();
-            simulate(Math.signum(fuel), Math.abs(fuel), duration);
+            float reverse = Math.signum(fuel);
+            fuel = Math.abs(fuel);
+            simulate(reverse);
         }
     }
 
