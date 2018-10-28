@@ -1,11 +1,11 @@
-/* from https://pmk.arbinada.com/ru/node/710 */
+// from https://pmk.arbinada.com/ru/node/710
 program lunar_ship_1;
- 
+
 {$mode objfpc}{$H+}
- 
+
 uses
   Math;
- 
+
 var
   h_i,  // altitude - vertical coordinate, m - current and next
   x_i,  // longitude - horizontal coordinate, m
@@ -18,7 +18,7 @@ var
   d_mf, // fuel consumption, kg
   t,    // time, sec
   ac,   // angle of climb, degrees; is always 0 for vertical flight mode
- 
+
   g,  // acceleration of gravity, m/sec2
   nf, // nozzle flow, m/sec
   ls, // life support, sec
@@ -28,8 +28,8 @@ var
   FlightMode          : cardinal = 1;
   WillReverseOfControl: boolean = false;
   WillQuitProgram     : boolean = false;
- 
- 
+
+
 procedure DoStep;
 var
   v_i1, u_i1: real;
@@ -42,14 +42,14 @@ begin
     u_i := u_i + (a * cos(ac) - g) * t;
     h_i := h_i + (u_i1 + u_i) / 2 * t;
     mf_i := mf_i - q * t;
- 
+
     ls := ls - t;
- 
+
     if mf_i < 0 then
       t := mf_i / q;
   until mf_i >= 0;
 end;
- 
+
 procedure OutInfo;
 begin
   writeln('-------------------------------------------');
@@ -63,7 +63,7 @@ begin
   writeln('Life support         : ', ls:10:0, ' sec');
   writeln('-------------------------------------------');
 end;
- 
+
 procedure EnterManeuver(
   out WillReverseOfControl: boolean;
   out WillQuitProgram     : boolean);
@@ -82,11 +82,11 @@ begin
       ac := DegToRad(ac);
     end;
   until t <> 0;
- 
+
   WillReverseOfControl := t < 0;
   t := abs(t);
 end;
- 
+
 procedure CalcAcceleration(WillReverseOfControl: boolean);
 begin
   q := d_mf / t;
@@ -96,7 +96,7 @@ begin
     WillReverseOfControl := false;
   end;
 end;
- 
+
 begin
   writeln('Lunar ship simple simulator');
   writeln('(c) 1985 "Lunolet-1", "Lunilet-2" by Mikhail PUKHOV, USSR');
@@ -107,7 +107,7 @@ begin
   writeln('   2 - "Lunolet-2" - vertical and horizontal flight (2-dimensional)');
   readln(FlightMode);
   writeln('Enter negative fuel consumption value to quit the program');
- 
+
   g := 1.62; // 1,62 m/sec2 for Lune
   ms := 2250;
   nf := 3660;
@@ -119,7 +119,7 @@ begin
   x_i := 0;
   mf_i := 400;
   ls := 3600;
- 
+
   repeat
     if h_i < 0 then begin
       t := 2 * h_i /
@@ -148,7 +148,7 @@ begin
         CalcAcceleration(false);
       end;
     end;
- 
+
     DoStep;
   until WillQuitProgram;
 end.
