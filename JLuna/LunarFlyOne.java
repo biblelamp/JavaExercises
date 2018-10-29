@@ -5,7 +5,7 @@ import java.util.Scanner;
  * based on http://epizodyspace.ru/bibl/tm/1986/5/put.html
  *
  * @author Sergey Iryupin
- * @version 0.2.3 dated Oct 28, 2018
+ * @version 0.2.4 dated Oct 29, 2018
  */
 public class LunarFlyOne {
 
@@ -50,34 +50,14 @@ public class LunarFlyOne {
         isLanding = false;
     }
 
-    private float addHeiht(float duration, float speed, float acceleration) {
-        float averageSpeed = (speed + speed + duration * (acceleration - accelOfGravity)) / 2;
-        return duration * averageSpeed;
+    private float nextHeiht(float height, float duration, float speed, float acceleration) {
+        float nextSpeed = speed + (acceleration - accelOfGravity) * duration;
+        height += (speed + nextSpeed) / 2 * duration;
+        return height;
     }
 
     private boolean isAlmostLanded(float height) {
         return Math.abs(height) < 0.00001;
-    }
-
-    private float calculateAcceleration(float reverse, float consumption,
-            float exhaustSpeed, float mass) {
-        return reverse * consumption * exhaustSpeed / mass;
-    }
-
-    private void calculateLanding(float reverse, float consumption) {
-        float fullAcceleration = acceleration - accelOfGravity;
-        double d = Math.pow(speed, 2) - 2 * fullAcceleration * height;
-        double t1 = (-speed - Math.sqrt(d)) / fullAcceleration;
-        double t2 = (-speed + Math.sqrt(d)) / fullAcceleration;
-        if (t1 > 0) {
-            duration = (float) t1;
-        }
-        if (t2 > 0 && t2 < duration) {
-            duration = (float) t2;
-        }
-        fuel = consumption * duration;
-        acceleration = calculateAcceleration(reverse, consumption,
-            exhaustSpeed, dryMass + fuelMass);
     }
 
     private void simulate(float reverse) {
@@ -85,22 +65,24 @@ public class LunarFlyOne {
             if (fuelMass > 0) {
 
                 if (Float.compare(speed, startSpeed) == 0)
-                    System.out.println("Starting...");
+                    System.out.println("Start");
 
-                if (fuel > fuelMass) {
+                if (fuel > fuelMass) {  // overrun fuel
                     duration *= fuelMass / fuel;
                     fuel = fuelMass;
                 }
 
                 float consumption = fuel / duration;
-                acceleration = calculateAcceleration(reverse, consumption,
-                    exhaustSpeed, dryMass + fuelMass);
+                acceleration = reverse * consumption * exhaustSpeed /
+                    (dryMass + fuelMass);
 
-                if (height + addHeiht(duration, speed, acceleration) < 0) {
-                    calculateLanding(reverse, consumption);
+                if (nextHeiht(height, duration, speed, acceleration) < 0) {
+                    duration = 2 * height /
+                        (float)(Math.sqrt(Math.pow(speed, 2) + 2 * height * (accelOfGravity - acceleration)) - speed);
+                    fuel = consumption * duration;
                 }
 
-                height += addHeiht(duration, speed, acceleration);
+                height = nextHeiht(height, duration, speed, acceleration);
                 speed += duration * (acceleration - accelOfGravity);
                 fuelMass -= fuel;
                 flightTime -= duration * timeCount;
