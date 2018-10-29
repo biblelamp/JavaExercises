@@ -5,13 +5,13 @@ import java.util.Scanner;
  * based on http://epizodyspace.ru/bibl/tm/1986/5/put.html
  *
  * @author Sergey Iryupin
- * @version 0.2.4 dated Oct 29, 2018
+ * @version 0.2.5 dated Oct 29, 2018
  */
 public class LunarFlyOne {
 
     // flight constants
     float accelOfGravity = 1.62f;   // m/s^2, at Moon surface
-    int dryMass = 2150;             // kg, lunarfly and pilot
+    int dryMass = 2250;             // kg, lunarfly and pilot
     int exhaustSpeed = 3660;        // m/s, from the engine
     float accelLimit = 3 * 9.81f;   // 3G, G is earth acceleration of gravity
     float speedLimit = 5;           // m/s, landing speed limit
@@ -61,43 +61,46 @@ public class LunarFlyOne {
     }
 
     private void simulate(float reverse) {
-        if (duration > 0) {
-            if (fuelMass > 0) {
+        while (duration > 0) {
 
-                if (Float.compare(speed, startSpeed) == 0)
-                    System.out.println("Start");
+            if (Float.compare(speed, startSpeed) == 0)
+                System.out.println("Start");
 
-                if (fuel > fuelMass) {  // overrun fuel
-                    duration *= fuelMass / fuel;
-                    fuel = fuelMass;
-                }
+            if (fuel > fuelMass) {  // overrun fuel
+                duration *= fuelMass / fuel;
+                fuel = fuelMass;
+            }
 
-                float consumption = fuel / duration;
-                acceleration = reverse * consumption * exhaustSpeed /
-                    (dryMass + fuelMass);
+            float consumption = fuel / duration;
+            acceleration = reverse * consumption * exhaustSpeed /
+                (dryMass + fuelMass);
 
-                if (nextHeiht(height, duration, speed, acceleration) < 0) {
-                    duration = 2 * height /
-                        (float)(Math.sqrt(Math.pow(speed, 2) + 2 * height * (accelOfGravity - acceleration)) - speed);
-                    fuel = consumption * duration;
-                }
+            if (nextHeiht(height, duration, speed, acceleration) < 0) {
+                duration = 2 * height /
+                    (float)(Math.sqrt(Math.pow(speed, 2) + 2 * height * (accelOfGravity - acceleration)) - speed);
+                fuel = consumption * duration;
+            }
 
-                height = nextHeiht(height, duration, speed, acceleration);
-                speed += duration * (acceleration - accelOfGravity);
-                fuelMass -= fuel;
-                flightTime -= duration * timeCount;
+            height = nextHeiht(height, duration, speed, acceleration);
+            speed += duration * (acceleration - accelOfGravity);
+            fuelMass -= fuel;
+            flightTime -= duration * timeCount;
 
-                if (acceleration > accelLimit)
-                    System.out.println("Overload");
+            System.out.println(showVariables());
 
-                System.out.println(showVariables());
-                if (isAlmostLanded(height)) {
-                    System.out.println("Landing (" + height + ")");
-                    speed = 0;
-                    height = 0;
-                    flightTime = 0;
-                    isLanding = true;
-                }
+            if (acceleration > accelLimit) {
+                System.out.println("Overload");
+                duration = acceleration - accelLimit;
+                fuel = 0;
+            } else
+                duration = 0;
+
+            if (isAlmostLanded(height)) {
+                System.out.println("Landing (" + height + ")");
+                speed = 0;
+                height = 0;
+                flightTime = 0;
+                isLanding = true;
             }
         }
     }
