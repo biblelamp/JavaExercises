@@ -2,23 +2,23 @@ import java.util.Scanner;
 
 /**
  * Java. Lunar ship simple simulator v1
- * based on http://epizodyspace.ru/bibl/tm/1986/5/put.html
+ * based on flowchart in http://epizodyspace.ru/bibl/tm/1986/5/put.html
  *
  * @author Sergey Iryupin
- * @version 0.2.6 dated Oct 29, 2018
+ * @version 0.2.7 dated Oct 29, 2018
  */
 public class LunarFlyOne {
 
     // flight constants
     float accelOfGravity = 1.62f;   // m/s^2, at Moon surface
-    int dryMass = 2150;             // kg, lunarfly and pilot
+    int dryMass = 2000 + 150;       // kg, lunarfly and pilot
     int exhaustSpeed = 3660;        // m/s, from the engine
     float accelLimit = 3 * 9.81f;   // 3G, G is earth acceleration of gravity
     float speedLimit = 5;           // m/s, landing speed limit
     int timeCount = -1;
     float startSpeed = 0;
     float startHeight = 0;
-    int startfuelMass = 400;
+    int startFuelMass = 400;
     float startFlightTime = 0;
 
     // flight variables
@@ -33,7 +33,7 @@ public class LunarFlyOne {
 
     private String showConstants() {
         return String.format("g = %5.3f M = %d c = %d a = %5.3f m = %d",
-            accelOfGravity, dryMass, exhaustSpeed, accelLimit, startfuelMass);
+            accelOfGravity, dryMass, exhaustSpeed, accelLimit, startFuelMass);
     }
 
     private String showVariables() {
@@ -45,7 +45,7 @@ public class LunarFlyOne {
     private void init() {
         speed = startSpeed;
         height = startHeight;
-        fuelMass = startfuelMass;
+        fuelMass = startFuelMass;
         flightTime = startFlightTime;
         isLanding = false;
     }
@@ -100,7 +100,8 @@ public class LunarFlyOne {
                 duration = 0;
 
             if (isAlmostLanded(height)) {
-                System.out.println("Landing (" + height + ")");
+                System.out.println("Landing (" + height + ") is " +
+                    ((Math.abs(speed) < speedLimit)? "successful" : "catastrophic"));
                 isLanding = true;
             }
         }
