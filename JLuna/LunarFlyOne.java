@@ -5,20 +5,21 @@ import java.util.Scanner;
  * based on flowchart in http://epizodyspace.ru/bibl/tm/1986/5/put.html
  *
  * @author Sergey Iryupin
- * @version 0.2.7 dated Oct 29, 2018
+ * @version 0.2.8 dated Oct 30, 2018
  */
 public class LunarFlyOne {
 
     // flight constants
     float accelOfGravity = 1.62f;   // m/s^2, at Moon surface
-    int dryMass = 2000 + 150;       // kg, lunarfly and pilot
+    int dryWeight = 2000 + 150;     // kg, lunarfly and pilot
     int exhaustSpeed = 3660;        // m/s, from the engine
     float accelLimit = 3 * 9.81f;   // 3G, G is earth acceleration of gravity
     float speedLimit = 5;           // m/s, landing speed limit
-    int timeCount = -1;
+
+    // init variables
     float startSpeed = 0;
     float startHeight = 0;
-    int startFuelMass = 400;
+    int startFuelWeight = 400;
     float startFlightTime = 0;
 
     // flight variables
@@ -27,25 +28,25 @@ public class LunarFlyOne {
     float speed;                    // m/s^2, current speed
     float height;                   // m, current height
     float acceleration;
-    float fuelMass;
+    float fuelWeight;
     float flightTime;
     boolean isLanding;
 
     private String showConstants() {
         return String.format("g = %5.3f M = %d c = %d a = %5.3f m = %d",
-            accelOfGravity, dryMass, exhaustSpeed, accelLimit, startFuelMass);
+            accelOfGravity, dryWeight, exhaustSpeed, accelLimit, startFuelWeight);
     }
 
     private String showVariables() {
         return String.format(
             "f = %5.3f t = %5.3f v = %5.3f h = %5.3f a = %5.3f F = %5.3f T = %5.3f",
-            fuel, duration, speed, height, acceleration, fuelMass, flightTime);
+            fuel, duration, speed, height, acceleration, fuelWeight, flightTime);
     }
 
     private void init() {
         speed = startSpeed;
         height = startHeight;
-        fuelMass = startFuelMass;
+        fuelWeight = startFuelWeight;
         flightTime = startFlightTime;
         isLanding = false;
     }
@@ -66,14 +67,14 @@ public class LunarFlyOne {
             if (Float.compare(speed, startSpeed) == 0)
                 System.out.println("Start");
 
-            if (fuel > fuelMass) {  // overrun fuel
-                duration *= fuelMass / fuel;
-                fuel = fuelMass;
+            if (fuel > fuelWeight) {  // overrun fuel
+                duration *= fuelWeight / fuel;
+                fuel = fuelWeight;
             }
 
             float consumption = fuel / duration;
             acceleration = reverse * consumption * exhaustSpeed /
-                (dryMass + fuelMass);
+                (dryWeight + fuelWeight);
 
             if (nextHeiht(height, duration, speed, acceleration) < 0) {
                 duration = 2 * height /
@@ -83,8 +84,8 @@ public class LunarFlyOne {
 
             height = nextHeiht(height, duration, speed, acceleration);
             speed += duration * (acceleration - accelOfGravity);
-            fuelMass -= fuel;
-            flightTime -= duration * timeCount;
+            fuelWeight -= fuel;
+            flightTime += duration;
 
             System.out.println(showVariables());
 
@@ -92,7 +93,7 @@ public class LunarFlyOne {
                 System.out.println("Overload");
                 duration = acceleration - accelLimit;
                 fuel = 0;
-            } else if (fuelMass == 0 && !isAlmostLanded(height)) {
+            } else if (fuelWeight == 0 && !isAlmostLanded(height)) {
                 System.out.println("Fuel is over");
                 duration = exhaustSpeed;
                 fuel = 0;
