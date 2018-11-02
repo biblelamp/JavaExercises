@@ -19,6 +19,7 @@ public class LunarLander extends JFrame {
     final int KEY_UP = 38;
     final int KEY_RIGHT = 39;
     final int KEY_DOWN = 40;
+    final int KEY_ENTER = 10;
 
     // mathematical model
     private LunarLanderModel model;
@@ -52,6 +53,9 @@ public class LunarLander extends JFrame {
                         break;
                     case KEY_RIGHT:
                         model.addDuration(0.2f);
+                        break;
+                    case KEY_ENTER:
+                        model.simulate(1);
                         break;
                     default:
                         System.out.println(e.getKeyCode());
@@ -95,11 +99,11 @@ public class LunarLander extends JFrame {
 
             drawStringCenter(g, Float.toString(model.getFuelWeight()), 0, 85, 120);
             drawStringCenter(g, Float.toString(model.getTotalWeight()), 0, 145, 120);
-            drawStringCenter(g, Float.toString(model.getFlightTime()), 0, 205, 120);
+            drawStringCenter(g, String.format("%3.1f", model.getFlightTime()), 0, 205, 120);
 
-            drawStringCenter(g, Float.toString(model.getSpeed()), 360, 85, 120);
-            drawStringCenter(g, Float.toString(model.getAcceleration()), 360, 145, 120);
-            drawStringCenter(g, Float.toString(model.getHeight()), 360, 205, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getSpeed()), 360, 85, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getAcceleration()), 360, 145, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getHeight()), 360, 205, 120);
 
             g.setFont(new Font("Arial", 0, 70));
             drawStringCenter(g, Integer.toString(model.getIntFuel()), 0, 725, 180);
