@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Nov 01, 2018
+ * @version 0.2 dated Nov 02, 2018
  */
 
 public class LunarLander extends JFrame {
@@ -20,22 +20,8 @@ public class LunarLander extends JFrame {
     final int KEY_RIGHT = 39;
     final int KEY_DOWN = 40;
 
-    // flight constants
-    float accelOfGravity = 1.62f;       // m/s^2, at Moon surface
-    int dryWeight = 2000 + 150;         // kg, lunarfly and pilot
-    int exhaustSpeed = 3660;            // m/s, from the engine
-    float accelLimit = 3 * 9.81f;       // 3G, G is earth acceleration of gravity
-    float speedLimit = 5;               // m/s, landing speed limit
-
-    // flight variables
-    float fuel;                         // kg, fuel consumption
-    float duration;                     // sec, maneuver time
-    float speed;                        // m/s^2, current speed
-    float height;                       // m, current height
-    float acceleration;                 // m/c^2
-    float fuelWeight = 400;             // kg, total fuel weight
-    float flightTime;                   // sec, total flight time
-    boolean isLanding;                  // sign of landing
+    // mathematical model
+    private LunarLanderModel model;
 
     public static void main(String[] args) {
         new LunarLander();
@@ -49,26 +35,26 @@ public class LunarLander extends JFrame {
         canvas.setBackground(Color.black);
         canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+        model = new LunarLanderModel();
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KEY_UP:
-                        fuel += 2;
+                        model.addFuel(2);
                         break;
                     case KEY_DOWN:
-                        fuel -= 2;
-                        if (fuel < 0)
-                            fuel = 0;
+                        model.addFuel(-2);
                         break;
                     case KEY_LEFT:
-                        duration -= 0.2;
-                        if (duration < 0.001)
-                            duration = 0;
+                        model.addDuration(-0.2f);
                         break;
                     case KEY_RIGHT:
-                        duration += 0.2;
+                        model.addDuration(0.2f);
                         break;
+                    default:
+                        System.out.println(e.getKeyCode());
                 }
                 canvas.repaint();
             }
@@ -107,24 +93,24 @@ public class LunarLander extends JFrame {
             g.setColor(Color.green);
             g.setFont(new Font("Arial", 0, 20));
 
-            drawStringCenter(g, Float.toString(fuelWeight), 0, 85, 120);
-            drawStringCenter(g, Float.toString(dryWeight + fuelWeight), 0, 145, 120);
-            drawStringCenter(g, Float.toString(flightTime), 0, 205, 120);
+            drawStringCenter(g, Float.toString(model.getFuelWeight()), 0, 85, 120);
+            drawStringCenter(g, Float.toString(model.getTotalWeight()), 0, 145, 120);
+            drawStringCenter(g, Float.toString(model.getFlightTime()), 0, 205, 120);
 
-            drawStringCenter(g, Float.toString(speed), 360, 85, 120);
-            drawStringCenter(g, Float.toString(acceleration), 360, 145, 120);
-            drawStringCenter(g, Float.toString(height), 360, 205, 120);
+            drawStringCenter(g, Float.toString(model.getSpeed()), 360, 85, 120);
+            drawStringCenter(g, Float.toString(model.getAcceleration()), 360, 145, 120);
+            drawStringCenter(g, Float.toString(model.getHeight()), 360, 205, 120);
 
             g.setFont(new Font("Arial", 0, 70));
-            drawStringCenter(g, Integer.toString((int)fuel), 0, 725, 180);
-            drawStringCenter(g, String.format("%3.1f", duration), 300, 725, 180);
+            drawStringCenter(g, Integer.toString(model.getIntFuel()), 0, 725, 180);
+            drawStringCenter(g, String.format("%3.1f", model.getDuration()), 300, 725, 180);
 
             g.setFont(new Font("Arial", 0, 28));
-            drawStringCenter(g, Integer.toString((int)fuel + 2), 0, 655, 180);
-            drawStringCenter(g, (fuel == 0)? "" : Integer.toString((int)fuel - 2), 0, 765, 180);
+            drawStringCenter(g, Integer.toString(model.getIntFuel() + 2), 0, 655, 180);
+            drawStringCenter(g, (model.getIntFuel() == 0)? "" : Integer.toString(model.getIntFuel() - 2), 0, 765, 180);
 
-            drawStringCenter(g, String.format("%3.1f", duration + 0.2f), 300, 655, 180);
-            drawStringCenter(g, (duration == 0)? "" : String.format("%3.1f", duration - 0.2f), 300, 765, 180);
+            drawStringCenter(g, String.format("%3.1f", model.getDuration() + 0.2f), 300, 655, 180);
+            drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, 765, 180);
 
             g.drawOval(240 - 50, 650, 100, 100);
         }
