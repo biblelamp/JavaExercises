@@ -6,15 +6,15 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.2 dated Nov 02, 2018
+ * @version 0.2.1 dated Nov 03, 2018
  */
 
 public class LunarLander extends JFrame {
 
     // service constants
     final String TITLE_OF_PROGRAM = "Lunar lander";
-    final int WIDTH = 480;
-    final int HEIGHT = 800;
+    final int WIN_WIDTH = 480;
+    final int WIN_HEIGHT = 680;
     final int KEY_LEFT = 37;
     final int KEY_UP = 38;
     final int KEY_RIGHT = 39;
@@ -34,7 +34,7 @@ public class LunarLander extends JFrame {
 
         Canvas canvas = new Canvas();
         canvas.setBackground(Color.black);
-        canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        canvas.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
 
         model = new LunarLanderModel();
 
@@ -83,40 +83,40 @@ public class LunarLander extends JFrame {
 
             g.setColor(new Color(78, 154, 6)); //115, 210, 22));
             g.setFont(new Font("Arial Black", 0, 26));
-            drawStringCenter(g, "FUEL", 0, 60, 120);
-            drawStringCenter(g, "TOTAL", 0, 120, 120);
-            drawStringCenter(g, "TIME", 0, 180, 120);
+            drawStringCenter(g, "FUEL", 0, 45, 120);
+            drawStringCenter(g, "TOTAL", 0, 105, 120);
+            drawStringCenter(g, "TIME", 0, 165, 120);
 
-            drawStringCenter(g, "SPEED", 360, 60, 120);
-            drawStringCenter(g, "A", 360, 120, 120);
-            drawStringCenter(g, "ALT", 360, 180, 120);
+            drawStringCenter(g, "SPEED", 360, 45, 120);
+            drawStringCenter(g, "A", 360, 105, 120);
+            drawStringCenter(g, "ALT", 360, 165, 120);
 
-            drawStringCenter(g, "FUEL", 0, 610, 180);
-            drawStringCenter(g, "TIME", 300, 610, 180);
+            drawStringCenter(g, "FUEL", 0, WIN_HEIGHT - 165, 180);
+            drawStringCenter(g, "TIME", 300, WIN_HEIGHT - 165, 180);
 
             g.setColor(Color.green);
             g.setFont(new Font("Arial", 0, 20));
 
-            drawStringCenter(g, Float.toString(model.getFuelWeight()), 0, 85, 120);
-            drawStringCenter(g, Float.toString(model.getTotalWeight()), 0, 145, 120);
-            drawStringCenter(g, String.format("%3.1f", model.getFlightTime()), 0, 205, 120);
+            drawStringCenter(g, Float.toString(model.getFuelWeight()), 0, 70, 120);
+            drawStringCenter(g, Float.toString(model.getTotalWeight()), 0, 130, 120);
+            drawStringCenter(g, String.format("%3.1f", model.getFlightTime()), 0, 190, 120);
 
-            drawStringCenter(g, String.format("%3.2f", model.getSpeed()), 360, 85, 120);
-            drawStringCenter(g, String.format("%3.2f", model.getAcceleration()), 360, 145, 120);
-            drawStringCenter(g, String.format("%3.2f", model.getHeight()), 360, 205, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getSpeed()), 360, 70, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getAcceleration()), 360, 130, 120);
+            drawStringCenter(g, String.format("%3.2f", model.getHeight()), 360, 190, 120);
 
             g.setFont(new Font("Arial", 0, 70));
-            drawStringCenter(g, Integer.toString(model.getIntFuel()), 0, 725, 180);
-            drawStringCenter(g, String.format("%3.1f", model.getDuration()), 300, 725, 180);
+            drawStringCenter(g, Integer.toString(model.getIntFuel()), 0, WIN_HEIGHT - 50, 180);
+            drawStringCenter(g, String.format("%3.1f", model.getDuration()), 300, WIN_HEIGHT - 50, 180);
 
             g.setFont(new Font("Arial", 0, 28));
-            drawStringCenter(g, Integer.toString(model.getIntFuel() + 2), 0, 655, 180);
-            drawStringCenter(g, (model.getIntFuel() == 0)? "" : Integer.toString(model.getIntFuel() - 2), 0, 765, 180);
+            drawStringCenter(g, Integer.toString(model.getIntFuel() + 2), 0, WIN_HEIGHT - 120, 180);
+            drawStringCenter(g, (model.getIntFuel() == 0)? "" : Integer.toString(model.getIntFuel() - 2), 0, WIN_HEIGHT - 10, 180);
 
-            drawStringCenter(g, String.format("%3.1f", model.getDuration() + 0.2f), 300, 655, 180);
-            drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, 765, 180);
+            drawStringCenter(g, String.format("%3.1f", model.getDuration() + 0.2f), 300, WIN_HEIGHT - 120, 180);
+            drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, WIN_HEIGHT - 10, 180);
 
-            g.drawOval(240 - 50, 650, 100, 100);
+            g.drawOval(240 - 50, WIN_HEIGHT - 125, 100, 100);
         }
     }
 }
