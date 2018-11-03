@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.2.1 dated Nov 03, 2018
+ * @version 0.3 dated Nov 03, 2018
  */
 
 public class LunarLander extends JFrame {
@@ -19,7 +19,9 @@ public class LunarLander extends JFrame {
     final int KEY_UP = 38;
     final int KEY_RIGHT = 39;
     final int KEY_DOWN = 40;
+    final int KEY_CTRL = 17;
     final int KEY_ENTER = 10;
+    int reverse = 1;
 
     // mathematical model
     private LunarLanderModel model;
@@ -54,8 +56,13 @@ public class LunarLander extends JFrame {
                     case KEY_RIGHT:
                         model.addDuration(0.2f);
                         break;
+                    case KEY_CTRL:
+                        reverse = (reverse > 0)? -1: 1;
+                        break;
                     case KEY_ENTER:
-                        model.simulate(1);
+                        float duration = model.getDuration();
+                        model.simulate(reverse);
+                        model.setDuration(duration);
                         break;
                     default:
                         System.out.println(e.getKeyCode());
@@ -81,7 +88,7 @@ public class LunarLander extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
 
-            g.setColor(new Color(78, 154, 6)); //115, 210, 22));
+            g.setColor(new Color(78, 154, 1)); //115, 210, 22));
             g.setFont(new Font("Arial Black", 0, 26));
             drawStringCenter(g, "FUEL", 0, 45, 120);
             drawStringCenter(g, "TOTAL", 0, 105, 120);
@@ -97,8 +104,8 @@ public class LunarLander extends JFrame {
             g.setColor(Color.green);
             g.setFont(new Font("Arial", 0, 20));
 
-            drawStringCenter(g, Float.toString(model.getFuelWeight()), 0, 70, 120);
-            drawStringCenter(g, Float.toString(model.getTotalWeight()), 0, 130, 120);
+            drawStringCenter(g, String.format("%3.1f", model.getFuelWeight()), 0, 70, 120);
+            drawStringCenter(g, String.format("%3.1f", model.getTotalWeight()), 0, 130, 120);
             drawStringCenter(g, String.format("%3.1f", model.getFlightTime()), 0, 190, 120);
 
             drawStringCenter(g, String.format("%3.2f", model.getSpeed()), 360, 70, 120);
@@ -117,6 +124,7 @@ public class LunarLander extends JFrame {
             drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, WIN_HEIGHT - 10, 180);
 
             g.drawOval(240 - 50, WIN_HEIGHT - 125, 100, 100);
+            drawStringCenter(g, (reverse > 0)? "^" : "v", 240 - 50, WIN_HEIGHT - 60, 100);
         }
     }
 }
