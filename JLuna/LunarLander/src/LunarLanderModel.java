@@ -2,7 +2,7 @@
  * Java. Lunar lander simple mathematical model
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Nov 02, 2018
+ * @version 0.1.1 dated Nov 03, 2018
  */
 
 public class LunarLanderModel {
@@ -46,20 +46,8 @@ public class LunarLanderModel {
        return (int) fuel;
     }
 
-    public void addFuel(float fuel) {
-       this.fuel += fuel;
-       if (this.fuel < 0)
-           this.fuel = 0;
-    }
-
     public float getDuration() {
-       return duration;
-    }
-
-    public void addDuration(float duration) {
-       this.duration += duration;
-       if (this.duration < 0.001)
-           this.duration = 0;
+        return duration;
     }
 
     public float getFuelWeight() {
@@ -84,6 +72,22 @@ public class LunarLanderModel {
 
     public float getHeight() {
        return height;
+    }
+
+    public void addFuel(float fuel) {
+        this.fuel += fuel;
+        if (this.fuel < 0)
+            this.fuel = 0;
+    }
+
+    public void addDuration(float duration) {
+        this.duration += duration;
+        if (this.duration < 0.001)
+            this.duration = 0;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 
     private String showVariables() {
