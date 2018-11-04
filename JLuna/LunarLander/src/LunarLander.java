@@ -13,7 +13,7 @@ public class LunarLander extends JFrame {
 
     // service constants
     final String TITLE_OF_PROGRAM = "Lunar lander";
-    final int WIN_WIDTH = 480;
+    final int WIN_WIDTH = 480;      // 480x800 (GT-I8160), 320x480 (GT-S5830)
     final int WIN_HEIGHT = 680;
     final int KEY_LEFT = 37;
     final int KEY_UP = 38;
@@ -123,8 +123,8 @@ public class LunarLander extends JFrame {
             drawStringCenter(g, String.format("%3.1f", model.getDuration() + 0.2f), 300, WIN_HEIGHT - 120, 180);
             drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, WIN_HEIGHT - 10, 180);
 
-            g.drawOval(240 - 50, WIN_HEIGHT - 125, 100, 100);
-            drawStringCenter(g, (reverse > 0)? "^" : "v", 240 - 50, WIN_HEIGHT - 60, 100);
+            g.drawOval(WIN_WIDTH/2 - 50, WIN_HEIGHT - 125, 100, 100);
+            drawStringCenter(g, (reverse > 0)? "^" : "v", WIN_WIDTH/2 - 50, WIN_HEIGHT - 60, 100);
         }
     }
 }
