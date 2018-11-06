@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Nov 03, 2018
+ * @version 0.3.1 dated Nov 06, 2018
  */
 
 public class LunarLander extends JFrame {
@@ -21,7 +21,11 @@ public class LunarLander extends JFrame {
     final int KEY_DOWN = 40;
     final int KEY_CTRL = 17;
     final int KEY_ENTER = 10;
-    int reverse = 1;
+    final int FUEL_UNIT = 2;
+    final float TIME_UNIT = 0.2f;
+    final int DIRECT_THRUST = 1;
+    final int REVERSE_THRUST = -1;
+    int thrustDirection = DIRECT_THRUST;
 
     // mathematical model
     private LunarLanderModel model;
@@ -45,23 +49,23 @@ public class LunarLander extends JFrame {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KEY_UP:
-                        model.addFuel(2);
+                        model.addFuel(FUEL_UNIT);
                         break;
                     case KEY_DOWN:
-                        model.addFuel(-2);
+                        model.addFuel(-FUEL_UNIT);
                         break;
                     case KEY_LEFT:
-                        model.addDuration(-0.2f);
+                        model.addDuration(-TIME_UNIT);
                         break;
                     case KEY_RIGHT:
-                        model.addDuration(0.2f);
+                        model.addDuration(TIME_UNIT);
                         break;
                     case KEY_CTRL:
-                        reverse = (reverse > 0)? -1: 1;
+                        thrustDirection = reverseThrust(thrustDirection);
                         break;
                     case KEY_ENTER:
                         float duration = model.getDuration();
-                        model.simulate(reverse);
+                        model.simulate(thrustDirection);
                         model.setDuration(duration);
                         break;
                     default:
@@ -76,6 +80,10 @@ public class LunarLander extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    private int reverseThrust(int direction) {
+        return (direction > 0)? REVERSE_THRUST: DIRECT_THRUST;
     }
 
     private void drawStringCenter(Graphics g, String text, int x, int y, int dx) {
@@ -124,7 +132,7 @@ public class LunarLander extends JFrame {
             drawStringCenter(g, (model.getDuration() == 0)? "" : String.format("%3.1f", model.getDuration() - 0.2f), 300, WIN_HEIGHT - 10, 180);
 
             g.drawOval(WIN_WIDTH/2 - 50, WIN_HEIGHT - 125, 100, 100);
-            drawStringCenter(g, (reverse > 0)? "^" : "v", WIN_WIDTH/2 - 50, WIN_HEIGHT - 60, 100);
+            drawStringCenter(g, (thrustDirection > 0)? "^" : "v", WIN_WIDTH/2 - 50, WIN_HEIGHT - 60, 100);
         }
     }
 }
