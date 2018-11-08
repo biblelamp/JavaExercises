@@ -2,7 +2,7 @@
  * Java. Lunar lander simple mathematical model
  *
  * @author Sergey Iryupin
- * @version 0.1.1 dated Nov 03, 2018
+ * @version 0.1.2 dated Nov 08, 2018
  */
 
 public class LunarLanderModel {
@@ -84,6 +84,10 @@ public class LunarLanderModel {
         this.duration += duration;
         if (this.duration < 0.001)
             this.duration = 0;
+    }
+
+    public void setFuel(float fuel) {
+        this.fuel = fuel;
     }
 
     public void setDuration(float duration) {
