@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Nov 08, 2018
+ * @version 0.3.3 dated Nov 08, 2018
  */
 
 public class LunarLander extends JFrame {
@@ -29,6 +29,9 @@ public class LunarLander extends JFrame {
     int thrustDirection = DIRECT_THRUST;
     boolean isRealTime = true;
 
+    // for rendering
+    Canvas canvas;
+
     // mathematical model
     private LunarLanderModel model;
 
@@ -40,7 +43,7 @@ public class LunarLander extends JFrame {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Canvas canvas = new Canvas();
+        canvas = new Canvas();
         canvas.setBackground(Color.black);
         canvas.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
 
@@ -49,44 +52,7 @@ public class LunarLander extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KEY_UP:
-                        model.addFuel(FUEL_UNIT);
-                        break;
-                    case KEY_DOWN:
-                        model.addFuel(-FUEL_UNIT);
-                        break;
-                    case KEY_LEFT:
-                        model.addDuration(-TIME_UNIT);
-                        break;
-                    case KEY_RIGHT:
-                        model.addDuration(TIME_UNIT);
-                        break;
-                    case KEY_CTRL:
-                        thrustDirection = reverseThrust(thrustDirection);
-                        break;
-                    case KEY_ENTER:
-                        float duration = model.getDuration();
-                        if (!isRealTime) {
-                            model.simulate(thrustDirection);
-                        } else {
-                            float partFuel = model.getFuel()/model.getDuration() * TIME_UNIT;
-                            float timeCount = 0;
-                            do {
-                                timeCount += TIME_UNIT;
-                                model.setFuel(partFuel);
-                                model.setDuration(TIME_UNIT);
-                                model.simulate(thrustDirection);
-                                canvas.repaint();
-                                sleep((long)(TIME_UNIT * 1000));
-                            } while (timeCount < duration);
-                        }
-                        model.setDuration(duration);
-                        break;
-                    default:
-                        System.out.println(e.getKeyCode());
-                }
-                canvas.repaint();
+                processingKeyPressing(e.getKeyCode());
             }
         });
 
@@ -95,6 +61,47 @@ public class LunarLander extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    private void processingKeyPressing(int keyCode) {
+        switch (keyCode) {
+            case KEY_UP:
+                model.addFuel(FUEL_UNIT);
+                break;
+            case KEY_DOWN:
+                model.addFuel(-FUEL_UNIT);
+                break;
+            case KEY_LEFT:
+                model.addDuration(-TIME_UNIT);
+                break;
+            case KEY_RIGHT:
+                model.addDuration(TIME_UNIT);
+                break;
+            case KEY_CTRL:
+                thrustDirection = reverseThrust(thrustDirection);
+                break;
+            case KEY_ENTER:
+                float duration = model.getDuration();
+                if (!isRealTime) {
+                    model.simulate(thrustDirection);
+                } else {
+                    float partFuel = model.getFuel()/model.getDuration() * TIME_UNIT;
+                    float timeCount = 0;
+                    do {
+                        timeCount += TIME_UNIT;
+                        model.setFuel(partFuel);
+                        model.setDuration(TIME_UNIT);
+                        model.simulate(thrustDirection);
+                        canvas.repaint();
+                        sleep((long)(TIME_UNIT * 1000));
+                    } while (timeCount < duration);
+                }
+                model.setDuration(duration);
+                break;
+            default:
+                System.out.println(keyCode);
+        }
+        canvas.repaint();
     }
 
     private void sleep(long ms) {
