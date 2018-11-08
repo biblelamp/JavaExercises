@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Lunar lander simple simulator
  *
  * @author Sergey Iryupin
- * @version 0.3.1 dated Nov 06, 2018
+ * @version 0.3.2 dated Nov 08, 2018
  */
 
 public class LunarLander extends JFrame {
@@ -25,7 +25,9 @@ public class LunarLander extends JFrame {
     final float TIME_UNIT = 0.2f;
     final int DIRECT_THRUST = 1;
     final int REVERSE_THRUST = -1;
+
     int thrustDirection = DIRECT_THRUST;
+    boolean isRealTime = true;
 
     // mathematical model
     private LunarLanderModel model;
@@ -65,7 +67,20 @@ public class LunarLander extends JFrame {
                         break;
                     case KEY_ENTER:
                         float duration = model.getDuration();
-                        model.simulate(thrustDirection);
+                        if (!isRealTime) {
+                            model.simulate(thrustDirection);
+                        } else {
+                            float partFuel = model.getFuel()/model.getDuration() * TIME_UNIT;
+                            float timeCount = 0;
+                            do {
+                                timeCount += TIME_UNIT;
+                                model.setFuel(partFuel);
+                                model.setDuration(TIME_UNIT);
+                                model.simulate(thrustDirection);
+                                canvas.repaint();
+                                sleep((long)(TIME_UNIT * 1000));
+                            } while (timeCount < duration);
+                        }
                         model.setDuration(duration);
                         break;
                     default:
@@ -80,6 +95,14 @@ public class LunarLander extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    private void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private int reverseThrust(int direction) {
