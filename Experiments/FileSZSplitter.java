@@ -25,6 +25,7 @@ class FileSZSplitter {
                             //System.out.println(Arrays.toString(fields));
                             if (numMonth > -1) {
                                 FileWriter fw = new FileWriter(PATH + Integer.toString(numMonth) + "/" + Integer.toString(numDay) + ".txt");
+                                sb.delete(0, sb.indexOf("\n\n") + 2);
                                 fw.write(sb.toString());
                                 fw.close();
                                 sb.setLength(0);
