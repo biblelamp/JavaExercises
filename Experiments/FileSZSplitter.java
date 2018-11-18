@@ -38,7 +38,7 @@ class FileSZSplitter {
                     }
                 }
             }
-            sb.append(line + "\n");
+            sb.append(line.trim() + "\n");
         }
     }
 }
