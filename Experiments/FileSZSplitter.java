@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 
 class FileSZSplitter {
     static final String PATH = "/home/lamp/Downloads/";
-    static final String FILE_NAME = "/home/lamp/Downloads/Slova_zivota_2018_11-12.txt";
+    static final String FILE_NAME = "/home/lamp/Downloads/Slova_zivota_2019.txt";
     static final String[] DAYS = {"pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"};
     static final String[] MONTHS = {"ledna", "února", "března", "dubna", "května", "června",
         "července", "srpna", "září", "října", "listopadu", "prosince"};
