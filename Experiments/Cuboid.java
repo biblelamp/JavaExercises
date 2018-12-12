@@ -19,7 +19,7 @@ public class Cuboid extends JPanel {
         setPreferredSize(new Dimension(640, 640));
         setBackground(Color.white);
  
-        scale(80, 120, 160);
+        scale(100, 100, 100); //80, 120, 160);
         rotateCube(PI / 5, PI / 9);
  
         addMouseListener(new MouseAdapter() {
@@ -87,9 +87,8 @@ public class Cuboid extends JPanel {
                     (int) round(xy2[0]), (int) round(xy2[1]));
         }
  
-        for (double[] node : nodes) {
+        for (double[] node : nodes)
             g.fillOval((int) round(node[0]) - 4, (int) round(node[1]) - 4, 8, 8);
-        }
     }
  
     @Override
