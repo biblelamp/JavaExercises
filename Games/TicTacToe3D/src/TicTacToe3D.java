@@ -7,24 +7,25 @@ import javax.swing.*;
  * Java. Tic tac toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.2 dated Dec 14, 2018
+ * @version 0.0.3 dated Dec 15, 2018
  */
 
 public class TicTacToe3D extends JPanel {
-    double[][] nodes = {{0, 0, 0, 0},
+    double[][] nodes = new double[27][4];
+        /*{{0, 0, 0, 0},
         {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {-1, 0, 0, 0}, {0, -1, 0, 0}, {0, 0, -1, 0},
         {-1, 1, -1, 0}, {-1, 0, -1, 0}, {-1, -1, -1, 0}, {0, -1, -1, 0}, {1, -1, -1, 0}, {1, 0, -1, 0}, {1, 1, -1, 0}, {0, 1, -1, 0},
         {-1, 1, 0, 0}, {-1, -1, 0, 0}, {1, -1, 0, 0}, {1, 1, 0, 0},
         {-1, 1, 1, 0}, {-1, 0, 1, 0}, {-1, -1, 1, 0}, {0, -1, 1, 0}, {1, -1, 1, 0}, {1, 0, 1, 0}, {1, 1, 1, 0}, {0, 1, 1, 0}
-    };
+    };*/
 
     int[][] edges = {
-        {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6},
+        /*{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6},
         {7, 9}, {9, 11}, {11, 13}, {13, 7},
         {15, 16}, {16, 17}, {17, 18}, {18, 15},
         {19, 21}, {21, 23}, {23, 25}, {25, 19},
         {7, 19}, {8, 20}, {9, 21}, {10, 22}, {11, 23}, {12, 24}, {13, 25}, {14, 26},
-        {8, 12}, {10, 14}, {20, 24}, {22, 26}
+        {8, 12}, {10, 14}, {20, 24}, {22, 26}*/
     };
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
@@ -34,10 +35,11 @@ public class TicTacToe3D extends JPanel {
     public TicTacToe3D() {
         setPreferredSize(new Dimension(640, 640));
         setBackground(Color.white);
- 
+
+        initNodes();
         scale(120, 120, 120);
         rotateCube(PI / 5, PI / 9);
- 
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -59,15 +61,26 @@ public class TicTacToe3D extends JPanel {
  
                 double incrX = (mouseX - prevMouseX) * 0.01;
                 double incrY = (mouseY - prevMouseY) * 0.01;
- 
+
                 rotateCube(incrX, incrY);
                 repaint();
             }
         });
     }
 
-    private void setColor(double x, double y) {
+    private void initNodes() {
+        int i = 0;
+        for (int x = -1; x < 2; x++)
+            for (int y = -1; y < 2; y++)
+                for (int z = -1; z < 2; z++) {
+                    nodes[i][0] = x;
+                    nodes[i][1] = y;
+                    nodes[i][2] = z;
+                    i++;
+                }
+    }
 
+    private void setColor(double x, double y) {
         x -= getWidth() / 2;
         y -= getHeight() / 2;
 
