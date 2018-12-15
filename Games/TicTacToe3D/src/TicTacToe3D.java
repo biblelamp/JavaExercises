@@ -7,25 +7,17 @@ import javax.swing.*;
  * Java. Tic tac toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.3 dated Dec 15, 2018
+ * @version 0.0.4 dated Dec 15, 2018
  */
 
 public class TicTacToe3D extends JPanel {
     double[][] nodes = new double[27][4];
-        /*{{0, 0, 0, 0},
-        {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {-1, 0, 0, 0}, {0, -1, 0, 0}, {0, 0, -1, 0},
-        {-1, 1, -1, 0}, {-1, 0, -1, 0}, {-1, -1, -1, 0}, {0, -1, -1, 0}, {1, -1, -1, 0}, {1, 0, -1, 0}, {1, 1, -1, 0}, {0, 1, -1, 0},
-        {-1, 1, 0, 0}, {-1, -1, 0, 0}, {1, -1, 0, 0}, {1, 1, 0, 0},
-        {-1, 1, 1, 0}, {-1, 0, 1, 0}, {-1, -1, 1, 0}, {0, -1, 1, 0}, {1, -1, 1, 0}, {1, 0, 1, 0}, {1, 1, 1, 0}, {0, 1, 1, 0}
-    };*/
 
     int[][] edges = {
-        /*{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6},
-        {7, 9}, {9, 11}, {11, 13}, {13, 7},
-        {15, 16}, {16, 17}, {17, 18}, {18, 15},
-        {19, 21}, {21, 23}, {23, 25}, {25, 19},
-        {7, 19}, {8, 20}, {9, 21}, {10, 22}, {11, 23}, {12, 24}, {13, 25}, {14, 26},
-        {8, 12}, {10, 14}, {20, 24}, {22, 26}*/
+        {0, 2}, {3, 5}, {6, 8}, {0, 6}, {1, 7}, {2, 8},
+        {9, 11}, {12, 14}, {15, 17}, {9, 15}, {10, 16}, {11, 17},
+        {18, 20}, {21, 23}, {24, 26}, {18, 24}, {19, 25}, {20, 26},
+        {0, 18}, {1, 19}, {2, 20}, {3, 21}, {4, 22}, {5, 23}, {6, 24}, {7, 25}, {8, 26}
     };
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
@@ -38,7 +30,7 @@ public class TicTacToe3D extends JPanel {
 
         initNodes();
         scale(120, 120, 120);
-        rotateCube(PI / 5, PI / 9);
+        rotate(PI / 5, PI / 9);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -62,7 +54,7 @@ public class TicTacToe3D extends JPanel {
                 double incrX = (mouseX - prevMouseX) * 0.01;
                 double incrY = (mouseY - prevMouseY) * 0.01;
 
-                rotateCube(incrX, incrY);
+                rotate(incrX, incrY);
                 repaint();
             }
         });
@@ -97,7 +89,7 @@ public class TicTacToe3D extends JPanel {
         }
     }
 
-    private void rotateCube(double angleX, double angleY) {
+    private void rotate(double angleX, double angleY) {
         double sinX = sin(angleX);
         double cosX = cos(angleX);
 
