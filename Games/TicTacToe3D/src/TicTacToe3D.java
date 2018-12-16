@@ -21,7 +21,6 @@ public class TicTacToe3D extends JPanel {
     };
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
-
     final int RD = 5;
 
     public TicTacToe3D() {
@@ -50,7 +49,7 @@ public class TicTacToe3D extends JPanel {
                 prevMouseY = mouseY;
                 mouseX = e.getX();
                 mouseY = e.getY();
- 
+
                 double incrX = (mouseX - prevMouseX) * 0.01;
                 double incrY = (mouseY - prevMouseY) * 0.01;
 
@@ -67,8 +66,7 @@ public class TicTacToe3D extends JPanel {
                 for (int z = -1; z < 2; z++) {
                     nodes[i][0] = x;
                     nodes[i][1] = y;
-                    nodes[i][2] = z;
-                    i++;
+                    nodes[i++][2] = z;
                 }
     }
 
@@ -136,7 +134,7 @@ public class TicTacToe3D extends JPanel {
         Graphics2D g = (Graphics2D) gg;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
- 
+
         drawCube(g);
     }
 
