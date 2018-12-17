@@ -8,7 +8,7 @@ import java.util.*;
  * Java. Tic tac toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.5 dated Dec 17, 2018
+ * @version 0.0.6 dated Dec 17, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -82,11 +82,15 @@ public class TicTacToe3D extends JPanel {
         y -= getHeight() / 2;
 
         for (int i = 0; i < nodes.length; i++)
-            if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD)
+            if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD) {
+                System.out.println("Node: " + i);
                 if (nodes[i][3] == 0) {
                     nodes[i][3] = 1;
                     setColorAI();
+
+                    System.out.println(checkWin(1));
                 }
+            }
     }
 
     private void setColorAI() {
@@ -95,6 +99,23 @@ public class TicTacToe3D extends JPanel {
             i = random.nextInt(nodes.length);
         } while (nodes[i][3] != 0);
         nodes[i][3] = -1;
+    }
+
+    private boolean isFill() {
+        for (double[] node : nodes)
+            if (node[3] == 0)
+                return false;
+        return true;
+    }
+
+    private boolean checkWin(int sign) {
+        // check horizontals
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                if (nodes[i*9 + j*3][3] + nodes[i*9+1 + j*3][3] + nodes[i*9+2 + j*3][3] == sign*3)
+                    return true;
+        // check verticals
+        return false;
     }
 
     private void scale(double sx, double sy, double sz) {
@@ -139,9 +160,13 @@ public class TicTacToe3D extends JPanel {
                     (int) round(xy2[0]), (int) round(xy2[1]));
         }
 
-        g.setColor(Color.black);
         for (double[] node : nodes) {
-            g.setColor((node[3] > 0)? Color.blue : ((node[3] < 0)? Color.red : Color.black));
+            if (node[3] < 0)
+                g.setColor(Color.red);
+            else if (node[3] > 0)
+                g.setColor(Color.blue);
+            else
+                g.setColor(Color.black);
             g.fillOval((int) round(node[0]) - RD, (int) round(node[1]) - RD, RD*2, RD*2);
         }
     }
