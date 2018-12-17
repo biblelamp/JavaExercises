@@ -2,15 +2,18 @@ import java.awt.*;
 import java.awt.event.*;
 import static java.lang.Math.*;
 import javax.swing.*;
+import java.util.*;
 
 /**
  * Java. Tic tac toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.4 dated Dec 15, 2018
+ * @version 0.0.5 dated Dec 17, 2018
  */
 
 public class TicTacToe3D extends JPanel {
+    final int RD = 5;
+
     double[][] nodes = new double[27][4];
 
     int[][] edges = {
@@ -21,7 +24,8 @@ public class TicTacToe3D extends JPanel {
     };
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
-    final int RD = 5;
+
+    Random random;
 
     public TicTacToe3D() {
         setPreferredSize(new Dimension(640, 640));
@@ -30,6 +34,8 @@ public class TicTacToe3D extends JPanel {
         initNodes();
         scale(120, 120, 120);
         rotate(PI / 5, PI / 9);
+
+        random = new Random();
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -66,7 +72,8 @@ public class TicTacToe3D extends JPanel {
                 for (int z = -1; z < 2; z++) {
                     nodes[i][0] = x;
                     nodes[i][1] = y;
-                    nodes[i++][2] = z;
+                    nodes[i][2] = z;
+                    nodes[i++][3] = 0;
                 }
     }
 
@@ -76,7 +83,18 @@ public class TicTacToe3D extends JPanel {
 
         for (int i = 0; i < nodes.length; i++)
             if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD)
-                nodes[i][3] = (nodes[i][3] < 0)? 1 : -1;
+                if (nodes[i][3] == 0) {
+                    nodes[i][3] = 1;
+                    setColorAI();
+                }
+    }
+
+    private void setColorAI() {
+        int i;
+        do {
+            i = random.nextInt(nodes.length);
+        } while (nodes[i][3] != 0);
+        nodes[i][3] = -1;
     }
 
     private void scale(double sx, double sy, double sz) {
@@ -123,7 +141,7 @@ public class TicTacToe3D extends JPanel {
 
         g.setColor(Color.black);
         for (double[] node : nodes) {
-            g.setColor((node[3] < 0)? Color.red : Color.black);
+            g.setColor((node[3] > 0)? Color.blue : ((node[3] < 0)? Color.red : Color.black));
             g.fillOval((int) round(node[0]) - RD, (int) round(node[1]) - RD, RD*2, RD*2);
         }
     }
