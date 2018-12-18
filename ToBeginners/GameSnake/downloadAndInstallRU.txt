@@ -8,6 +8,7 @@
    Значение для переменной JAVA_HOME - путь к папке JDK. Переменную Path дополняем значением %JAVA_HOME%\bin - обратите внимание что список путей разделяется точкой с запятой (;).
 
    Полезные ссылки:
+   https://www.java.com/ru/download/help/path.xml
    http://www.fandroid.info/ustanovka-jdk-java-development-kit/
    http://barancev.github.io/how-to-install-java-on-windows/
 
