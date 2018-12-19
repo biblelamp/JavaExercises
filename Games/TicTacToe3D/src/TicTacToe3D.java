@@ -8,7 +8,7 @@ import java.util.*;
  * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.7 dated Dec 19, 2018
+ * @version 0.0.8 dated Dec 19, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -124,12 +124,35 @@ public class TicTacToe3D extends JPanel {
     }
 
     private boolean checkWin(int sign) {
-        // check horizontals
+        // checking Z axis
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 if (nodes[i*9 + j*3][3] + nodes[i*9+1 + j*3][3] + nodes[i*9+2 + j*3][3] == sign*3)
                     return true;
-        // check verticals
+        // checking Y axis
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                if (nodes[i + j*9][3] + nodes[i + j*9 + 3][3] + nodes[i + j*9 + 6][3] == sign*3)
+                    return true;
+        // checking X axis
+        for (int i = 0; i < 9; i++)
+            if (nodes[i][3] + nodes[i+9][3] + nodes[i+18][3] == sign*3)
+                return true;
+        // checking diagonals of surfaces
+        if ((nodes[0][3] + nodes[4][3] + nodes[8][3] == sign*3) ||
+            (nodes[2][3] + nodes[4][3] + nodes[6][3] == sign*3) ||
+            (nodes[2][3] + nodes[14][3] + nodes[26][3] == sign*3) ||
+            (nodes[8][3] + nodes[14][3] + nodes[20][3] == sign*3) ||
+            (nodes[18][3] + nodes[22][3] + nodes[26][3] == sign*3) ||
+            (nodes[20][3] + nodes[22][3] + nodes[24][3] == sign*3) ||
+            (nodes[0][3] + nodes[12][3] + nodes[24][3] == sign*3) ||
+            (nodes[6][3] + nodes[12][3] + nodes[18][3] == sign*3) ||
+            (nodes[0][3] + nodes[10][3] + nodes[20][3] == sign*3) ||
+            (nodes[2][3] + nodes[10][3] + nodes[18][3] == sign*3) ||
+            (nodes[6][3] + nodes[16][3] + nodes[26][3] == sign*3) ||
+            (nodes[8][3] + nodes[16][3] + nodes[24][3] == sign*3))
+            return true;
+        // checking internal diagonals
         return false;
     }
 
