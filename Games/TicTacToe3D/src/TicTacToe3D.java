@@ -5,10 +5,10 @@ import javax.swing.*;
 import java.util.*;
 
 /**
- * Java. Tic tac toe 3D
+ * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.6 dated Dec 17, 2018
+ * @version 0.0.7 dated Dec 19, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -25,6 +25,8 @@ public class TicTacToe3D extends JPanel {
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
 
+    JPanel btnPanel;
+
     Random random;
 
     public TicTacToe3D() {
@@ -32,7 +34,7 @@ public class TicTacToe3D extends JPanel {
         setBackground(Color.white);
 
         initNodes();
-        scale(120, 120, 120);
+        scale(140);
         rotate(PI / 5, PI / 9);
 
         random = new Random();
@@ -63,6 +65,19 @@ public class TicTacToe3D extends JPanel {
                 repaint();
             }
         });
+
+        btnPanel = new JPanel();
+        JButton init = new JButton("New game");
+        init.addActionListener(e -> {
+            for (int i = 0; i < nodes.length; i++)
+                nodes[i][3] = 0;
+            repaint();
+        });
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(e -> System.exit(0));
+        btnPanel.setLayout(new GridLayout());
+        btnPanel.add(init);
+        btnPanel.add(exit);
     }
 
     private void initNodes() {
@@ -118,11 +133,11 @@ public class TicTacToe3D extends JPanel {
         return false;
     }
 
-    private void scale(double sx, double sy, double sz) {
+    private void scale(double s) {
         for (double[] node : nodes) {
-            node[0] *= sx;
-            node[1] *= sy;
-            node[2] *= sz;
+            node[0] *= s;
+            node[1] *= s;
+            node[2] *= s;
         }
     }
 
@@ -183,11 +198,13 @@ public class TicTacToe3D extends JPanel {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            TicTacToe3D t3D = new TicTacToe3D();
             JFrame f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setTitle("TicTacToe3D");
             f.setResizable(false);
-            f.add(new TicTacToe3D(), BorderLayout.CENTER);
+            f.add(t3D, BorderLayout.CENTER);
+            f.add(t3D.btnPanel, BorderLayout.SOUTH);
             f.pack();
             f.setLocationRelativeTo(null);
             f.setVisible(true);
