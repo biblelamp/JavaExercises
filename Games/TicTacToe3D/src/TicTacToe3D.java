@@ -8,7 +8,7 @@ import java.util.*;
  * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.9 dated Dec 19, 2018
+ * @version 0.0.10 dated Dec 20, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -133,21 +133,24 @@ public class TicTacToe3D extends JPanel {
                     return true;
         // checking diagonals of surfaces
         if ((nodes[0][3] + nodes[4][3] + nodes[8][3] == sign*3) ||
-            (nodes[2][3] + nodes[4][3] + nodes[6][3] == sign*3) ||
-            (nodes[2][3] + nodes[14][3] + nodes[26][3] == sign*3) ||
-            (nodes[8][3] + nodes[14][3] + nodes[20][3] == sign*3) ||
-            (nodes[18][3] + nodes[22][3] + nodes[26][3] == sign*3) ||
-            (nodes[20][3] + nodes[22][3] + nodes[24][3] == sign*3) ||
-            (nodes[0][3] + nodes[12][3] + nodes[24][3] == sign*3) ||
-            (nodes[6][3] + nodes[12][3] + nodes[18][3] == sign*3) ||
             (nodes[0][3] + nodes[10][3] + nodes[20][3] == sign*3) ||
+            (nodes[0][3] + nodes[12][3] + nodes[24][3] == sign*3) ||
+            (nodes[2][3] + nodes[4][3] + nodes[6][3] == sign*3) ||
             (nodes[2][3] + nodes[10][3] + nodes[18][3] == sign*3) ||
+            (nodes[2][3] + nodes[14][3] + nodes[26][3] == sign*3) ||
+            (nodes[6][3] + nodes[12][3] + nodes[18][3] == sign*3) ||
             (nodes[6][3] + nodes[16][3] + nodes[26][3] == sign*3) ||
-            (nodes[8][3] + nodes[16][3] + nodes[24][3] == sign*3))
-            return true;
+            (nodes[8][3] + nodes[14][3] + nodes[20][3] == sign*3) ||
+            (nodes[8][3] + nodes[16][3] + nodes[24][3] == sign*3) ||
+            (nodes[18][3] + nodes[22][3] + nodes[26][3] == sign*3) ||
+            (nodes[20][3] + nodes[22][3] + nodes[24][3] == sign*3))
+             return true;
         // checking internal diagonals
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 9; i++)
             if (nodes[i][3] + nodes[13][3] + nodes[26 - i][3] == sign*3)
+                return true;
+        if ((nodes[9][3] + nodes[13][3] + nodes[17][3] == sign*3) ||
+            (nodes[11][3] + nodes[13][3] + nodes[15][3] == sign*3))
                 return true;
         return false;
     }
