@@ -8,7 +8,7 @@ import java.util.*;
  * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.0.10 dated Dec 20, 2018
+ * @version 0.10.1 dated Dec 21, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -24,14 +24,13 @@ public class TicTacToe3D extends JPanel {
     };
 
     int mouseX, prevMouseX, mouseY, prevMouseY;
-
+    boolean gameOver = false;
     JPanel btnPanel;
-
     Random random;
 
     public TicTacToe3D() {
         setPreferredSize(new Dimension(640, 640));
-        setBackground(Color.white);
+        setBackground(Color.black);
 
         initNodes();
         scale(140);
@@ -45,8 +44,21 @@ public class TicTacToe3D extends JPanel {
                 mouseX = e.getX();
                 mouseY = e.getY();
 
-                setColor(mouseX, mouseY);
-                repaint();
+                if (setColor(mouseX, mouseY) && !gameOver) {
+                    repaint();
+                    if (checkWin(1))
+                        showMessageDialog("YOU WON!");
+                    if (isCubeFill() && !gameOver)
+                        showMessageDialog("Sorry, DRAW!");
+                    if (!gameOver) {
+                        setColorAI();
+                        repaint();
+                        if (checkWin(-1))
+                            showMessageDialog("AI WON!");
+                        if (isCubeFill() && !gameOver)
+                            showMessageDialog("Sorry, DRAW!");
+                    }
+                }
             }
         });
 
@@ -71,6 +83,7 @@ public class TicTacToe3D extends JPanel {
         init.addActionListener(e -> {
             for (int i = 0; i < nodes.length; i++)
                 nodes[i][3] = 0;
+            gameOver = false;
             repaint();
         });
         JButton exit = new JButton("Exit");
@@ -78,6 +91,11 @@ public class TicTacToe3D extends JPanel {
         btnPanel.setLayout(new GridLayout());
         btnPanel.add(init);
         btnPanel.add(exit);
+    }
+
+    private void showMessageDialog(String message) {
+        JOptionPane.showMessageDialog(TicTacToe3D.this, message);
+        gameOver = true;
     }
 
     private void initNodes() {
@@ -92,20 +110,17 @@ public class TicTacToe3D extends JPanel {
                 }
     }
 
-    private void setColor(double x, double y) {
+    private boolean setColor(double x, double y) {
         x -= getWidth() / 2;
         y -= getHeight() / 2;
 
         for (int i = 0; i < nodes.length; i++)
-            if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD) {
-                System.out.println("Node: " + i);
+            if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD)
                 if (nodes[i][3] == 0) {
                     nodes[i][3] = 1;
-                    setColorAI();
-
-                    System.out.println(checkWin(1));
+                    return true;
                 }
-            }
+        return false;
     }
 
     private void setColorAI() {
@@ -116,7 +131,7 @@ public class TicTacToe3D extends JPanel {
         nodes[i][3] = -1;
     }
 
-    private boolean isFill() {
+    private boolean isCubeFill() {
         for (double[] node : nodes)
             if (node[3] == 0)
                 return false;
@@ -203,7 +218,7 @@ public class TicTacToe3D extends JPanel {
             else if (node[3] > 0)
                 g.setColor(Color.blue);
             else
-                g.setColor(Color.black);
+                g.setColor(Color.white);
             g.fillOval((int) round(node[0]) - RD, (int) round(node[1]) - RD, RD*2, RD*2);
         }
     }
