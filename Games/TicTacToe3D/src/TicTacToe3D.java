@@ -8,11 +8,11 @@ import java.util.*;
  * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.10.1 dated Dec 21, 2018
+ * @version 0.10.2 dated Dec 23, 2018
  */
 
 public class TicTacToe3D extends JPanel {
-    final int RD = 5;
+    final int RD = 10;
 
     double[][] nodes = new double[27][4];
 
@@ -200,7 +200,7 @@ public class TicTacToe3D extends JPanel {
         }
     }
 
-    void drawCube(Graphics2D g) {
+    void draw(Graphics2D g) {
         g.translate(getWidth() / 2, getHeight() / 2);
 
         g.setColor(Color.lightGray);
@@ -230,7 +230,7 @@ public class TicTacToe3D extends JPanel {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        drawCube(g);
+        draw(g);
     }
 
     public static void main(String[] args) {
