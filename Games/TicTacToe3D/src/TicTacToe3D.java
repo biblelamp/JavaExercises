@@ -8,7 +8,7 @@ import java.util.*;
  * Java. Tic Tac Toe 3D
  *
  * @author Sergey Iryupin
- * @version 0.10.2 dated Dec 23, 2018
+ * @version 0.10.3 dated Dec 27, 2018
  */
 
 public class TicTacToe3D extends JPanel {
@@ -117,6 +117,7 @@ public class TicTacToe3D extends JPanel {
         for (int i = 0; i < nodes.length; i++)
             if (Math.abs(nodes[i][0] - x) < RD && Math.abs(nodes[i][1] - y) < RD)
                 if (nodes[i][3] == 0) {
+                    System.out.println("Node " + i);
                     nodes[i][3] = 1;
                     return true;
                 }
@@ -146,6 +147,10 @@ public class TicTacToe3D extends JPanel {
                     // checking Y axis
                     (nodes[i + j*9][3] + nodes[i + j*9 + 3][3] + nodes[i + j*9 + 6][3] == sign*3))
                     return true;
+        // checking X axis
+        for (int i = 0; i < 9; i++)
+            if (nodes[i][3] + nodes[i + 9][3] + nodes[i + 18][3] == sign*3)
+                return true;
         // checking diagonals of surfaces
         if ((nodes[0][3] + nodes[4][3] + nodes[8][3] == sign*3) ||
             (nodes[0][3] + nodes[10][3] + nodes[20][3] == sign*3) ||
@@ -203,34 +208,39 @@ public class TicTacToe3D extends JPanel {
     void draw(Graphics2D g) {
         g.translate(getWidth() / 2, getHeight() / 2);
 
-        g.setColor(Color.lightGray);
+        g.setStroke(new BasicStroke(2));
+
+        g.setColor(Color.gray);
         for (int[] edge : edges) {
             double[] xy1 = nodes[edge[0]];
             double[] xy2 = nodes[edge[1]];
-            g.setColor(Color.lightGray);
             g.drawLine((int) round(xy1[0]), (int) round(xy1[1]),
                     (int) round(xy2[0]), (int) round(xy2[1]));
         }
 
-        for (double[] node : nodes) {
-            if (node[3] < 0)
-                g.setColor(Color.red);
-            else if (node[3] > 0)
-                g.setColor(Color.blue);
-            else
-                g.setColor(Color.white);
-            g.fillOval((int) round(node[0]) - RD, (int) round(node[1]) - RD, RD*2, RD*2);
-        }
+        for (double[] node : nodes)
+            if (node[3] == 0) {
+                g.setColor(Color.black);
+                g.fillOval((int) round(node[0]) - RD/2, (int) round(node[1]) - RD/2, RD, RD);
+                g.setColor(Color.gray);
+                g.drawOval((int) round(node[0]) - RD/2, (int) round(node[1]) - RD/2, RD, RD);
+            } else {
+                if (node[3] < 0)
+                    g.setColor(Color.red);
+                else if (node[3] > 0)
+                    g.setColor(Color.blue);
+                g.fillOval((int) round(node[0]) - RD, (int) round(node[1]) - RD, RD*2, RD*2);
+            }
     }
 
     @Override
-    public void paintComponent(Graphics gg) {
-        super.paintComponent(gg);
-        Graphics2D g = (Graphics2D) gg;
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        draw(g);
+        draw(g2);
     }
 
     public static void main(String[] args) {
