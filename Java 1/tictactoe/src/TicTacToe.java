@@ -7,7 +7,7 @@ import java.awt.event.*;
  * Class: Main-Class
  *
  * @author Sergey Iryupin
- * @version 0.3.4 dated Sep 03, 2018
+ * @version 0.3.5 dated Dec 27, 2018
  */
 class TicTacToe extends JFrame {
 
@@ -82,7 +82,7 @@ class TicTacToe extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            field.paint(g);
+            field.paint((Graphics2D) g);
         }
     }
 }

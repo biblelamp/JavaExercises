@@ -1,12 +1,11 @@
 import java.awt.*;
-import java.awt.geom.*; // for Graphics2D
 
 /**
  * Java 1. Lesson 8. Game Tic Tac Toe
  * Class: Field
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Aug 03, 2018
+ * @version 0.3.3 dated Dec 27, 2018
  */
 class Field {
     private final int FIELD_SIZE;
@@ -17,6 +16,7 @@ class Field {
     private final String MSG_DRAW = "Draw, sorry...";
     private final String MSG_HUMAN_WON = "YOU WON!";
     private final String MSG_AI_WON = "AI WON!";
+
     private char[][] map;
     private String gameOverMsg;
 
@@ -83,33 +83,32 @@ class Field {
         return false;
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
         g.setColor(Color.lightGray);
         for (int i = 1; i < FIELD_SIZE; i++) {
             g.drawLine(0, i*CELL_SIZE, FIELD_SIZE*CELL_SIZE, i*CELL_SIZE);
             g.drawLine(i*CELL_SIZE, 0, i*CELL_SIZE, FIELD_SIZE*CELL_SIZE);
         }
-        Graphics2D g2 = (Graphics2D) g; // use Graphics2D
-        g2.setStroke(new BasicStroke(5));
+
+        g.setStroke(new BasicStroke(5));
+
         for (int y = 0; y < FIELD_SIZE; y++) {
             for (int x = 0; x < FIELD_SIZE; x++) {
                 if (map[x][y] == HUMAN_DOT) {
                     g.setColor(Color.blue);
-                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4,
-                        y*CELL_SIZE+CELL_SIZE/4,
-                        (x+1)*CELL_SIZE-CELL_SIZE/4,
-                        (y+1)*CELL_SIZE-CELL_SIZE/4));
-                    g2.draw(new Line2D.Float(x*CELL_SIZE+CELL_SIZE/4,
-                        (y+1)*CELL_SIZE-CELL_SIZE/4,
-                        (x+1)*CELL_SIZE-CELL_SIZE/4,
-                        y*CELL_SIZE+CELL_SIZE/4));
+                    g.drawLine(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4,
+                        (x+1)*CELL_SIZE-CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4);
+                    g.drawLine(x*CELL_SIZE+CELL_SIZE/4, (y+1)*CELL_SIZE-CELL_SIZE/4,
+                        (x+1)*CELL_SIZE-CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4);
                 }
                 if (map[x][y] == AI_DOT) {
                     g.setColor(Color.red);
-                    g2.draw(new Ellipse2D.Float(x*CELL_SIZE+CELL_SIZE/4,
-                        y*CELL_SIZE+CELL_SIZE/4,
+                    g.drawOval(x*CELL_SIZE+CELL_SIZE/4, y*CELL_SIZE+CELL_SIZE/4,
                         CELL_SIZE/2,
-                        CELL_SIZE/2));
+                        CELL_SIZE/2);
                 }
             }
         }
