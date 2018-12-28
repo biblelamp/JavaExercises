@@ -1,12 +1,20 @@
-// http://compgraphics.info/3D/3d_affine_transformations.php
-// https://rosettacode.org/wiki/Draw_a_cuboid#Java
-
 import java.awt.*;
 import java.awt.event.*;
 import static java.lang.Math.*;
 import javax.swing.*;
  
+/**
+ * Java. Cube 3D
+ * based on https://rosettacode.org/wiki/Draw_a_cuboid#Java
+ * and http://compgraphics.info/3D/3d_affine_transformations.php
+ *
+ * @author Sergey Iryupin
+ * @version 0.0.3 dated Dec 28, 2018
+ */
+
 public class Cuboid extends JPanel {
+    final int RD = 10;
+
     double[][] nodes = {{-1, -1, -1}, {-1, -1, 1}, {-1, 1, -1}, {-1, 1, 1},
     {1, -1, -1}, {1, -1, 1}, {1, 1, -1}, {1, 1, 1}};
  
@@ -17,7 +25,7 @@ public class Cuboid extends JPanel {
  
     public Cuboid() {
         setPreferredSize(new Dimension(640, 640));
-        setBackground(Color.white);
+        setBackground(Color.black);
  
         scale(100, 100, 100); //80, 120, 160);
         rotateCube(PI / 5, PI / 9);
@@ -80,6 +88,9 @@ public class Cuboid extends JPanel {
     void drawCube(Graphics2D g) {
         g.translate(getWidth() / 2, getHeight() / 2);
  
+        //g.setStroke(new BasicStroke(2));
+
+        g.setColor(Color.white);
         for (int[] edge : edges) {
             double[] xy1 = nodes[edge[0]];
             double[] xy2 = nodes[edge[1]];
@@ -88,7 +99,7 @@ public class Cuboid extends JPanel {
         }
  
         for (double[] node : nodes)
-            g.fillOval((int) round(node[0]) - 4, (int) round(node[1]) - 4, 8, 8);
+            g.fillOval((int) round(node[0]) - RD/2, (int) round(node[1]) - RD/2, RD, RD);
     }
  
     @Override
