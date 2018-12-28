@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 /**
@@ -6,7 +6,7 @@ import java.util.LinkedList;
  *  A class that implements a snake
  *
  * @author Sergey Iryupin
- * @version 0.3.2 dated Sep 23, 2018
+ * @version 0.3.3 dated Dec 28, 2018
  */
 
 public class Snake {
@@ -69,7 +69,7 @@ public class Snake {
             snake.removeLast();
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         for (Cell cell : snake)
             cell.paint(g);
     }

@@ -1,12 +1,12 @@
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  * Java. Classic Game Snake
  *  Class Cell: minimal building element
  *
  * @author Sergey Iryupin
- * @version 0.3 dated Aug 23, 2018
+ * @version 0.3.1 dated Dec 28, 2018
  */
 
 public class Cell {
@@ -33,7 +33,7 @@ public class Cell {
         return y;
     }
 
-    public void paint(Graphics g) {           // object rendering
+    public void paint(Graphics2D g) {           // object rendering
         g.setColor(color);
         g.fillOval(x * size, y * size,        // upper left corner
                 size, size);                  // width and height

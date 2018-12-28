@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.7.3 dated Sep 21, 2018
+ * @version 0.7.4 dated Dec 28, 2018
  */
 
 public class GameSnake extends JFrame {
@@ -47,6 +47,7 @@ public class GameSnake extends JFrame {
         canvas.setPreferredSize(new Dimension(
                 CELL_SIZE * CANVAS_WIDTH - 10,
                 CELL_SIZE * CANVAS_HEIGHT - 10));
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -93,9 +94,12 @@ public class GameSnake extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            snake.paint(g);
-            food.paint(g);
-            poison.paint(g);
+            Graphics2D g2D = (Graphics2D) g;
+            g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            snake.paint(g2D);
+            food.paint(g2D);
+            poison.paint(g2D);
         }
     }
 }

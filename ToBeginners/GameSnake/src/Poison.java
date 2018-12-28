@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
  *  Class Poison: it's deadly for a snake
  *
  * @author Sergey Iryupin
- * @version dated Sep 09, 2018
+ * @version dated Dec 28, 2018
  */
 
 public class Poison {
@@ -40,7 +40,7 @@ public class Poison {
         poison.add(new Cell(x, y, gameSnake.CELL_SIZE, gameSnake.POISON_COLOR));
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         for (Cell cell : poison)
             cell.paint(g);
     }
