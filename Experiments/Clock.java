@@ -53,8 +53,6 @@ class Clock extends JPanel {
  
     private void drawFace(Graphics2D g) {
         g.setStroke(new BasicStroke(2));
-        g.setColor(Color.white);
-        g.fillOval(spacing, spacing, diameter, diameter);
         g.setColor(Color.black);
         g.drawOval(spacing, spacing, diameter, diameter);
     }
