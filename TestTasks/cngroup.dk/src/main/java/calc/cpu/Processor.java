@@ -67,8 +67,4 @@ public class Processor {
         }
         return register;
     }
-
-    private void addLine(Operations operation, double number) {
-        lines.add(new ProgramLine(operation, number));
-    }
 }
