@@ -1,0 +1,45 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>calc</groupId>
+    <artifactId>calc-maven</artifactId>
+    <version>0.1</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <main-class>calc.Calculator</main-class>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${main-class}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
