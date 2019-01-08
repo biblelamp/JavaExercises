@@ -2,15 +2,11 @@ package calc;
 
 import calc.cpu.Processor;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Java. Calculator - test task from cngroup.dk
@@ -21,18 +17,19 @@ import java.util.List;
 
 public class Calculator {
 
-    final static String FILE_NAME = "calculations.txt";
+    private final static String FILE_NAME = "calculations.txt";
 
     List<String> lines;
     Processor cpu;
 
-    public Calculator(String fileName) {
+    public Calculator(File file) {
         lines = new ArrayList<>();
-        try {
-            lines = Files.readAllLines(Paths.get(fileName),
-                    StandardCharsets.UTF_8);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                lines.add(scanner.nextLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -49,16 +46,19 @@ public class Calculator {
         StringBuffer sb = new StringBuffer();
         List<Double> results = cpu.getResults();
         for (Double number : results) {
+            if (sb.length() > 0) {
+                sb.append("\n");
+            }
             if (Math.floor(number) == number) {
-                sb.append(String.format("%.0f\n", number));
+                sb.append(String.format("%.0f", number));
             } else {
-                sb.append(number + "\n");
+                sb.append(number);
             }
         }
         return sb.toString();
     }
 
     public static void main(String[] args) {
-        System.out.println(new Calculator(FILE_NAME).execute());
+        System.out.println(new Calculator(new File(FILE_NAME)).execute());
     }
 }

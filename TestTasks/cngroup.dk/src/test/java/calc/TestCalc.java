@@ -5,12 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.File;
 
 public class TestCalc {
+
+    private final static String FILE_NAME = "operations.txt";
 
     private Processor cpu;
 
@@ -45,5 +44,16 @@ public class TestCalc {
         cpu.processLine("divide 2");
         cpu.processLine("apply 4");
         Assert.assertEquals(2, cpu.getRegister(), 0);
+    }
+
+    @Test
+    public void testProcessFile() {
+        File file = new File(getClass()
+                .getClassLoader()
+                .getResource(FILE_NAME)
+                .getFile());
+        Calculator calculator = new Calculator(file);
+        calculator.execute();
+        Assert.assertEquals("18", calculator.toString());
     }
 }
