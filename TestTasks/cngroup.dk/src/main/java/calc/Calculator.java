@@ -12,17 +12,18 @@ import java.util.Scanner;
  * Java. Calculator - test task from cngroup.dk
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Jan 8, 2019
+ * @version 0.2 dated Jan 11, 2019
  */
 
 public class Calculator {
 
     private final static String FILE_NAME = "calculations.txt";
 
-    List<String> lines;
     Processor cpu;
+    List<String> lines;
 
     public Calculator(File file) {
+        cpu = new Processor();
         lines = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
@@ -34,7 +35,6 @@ public class Calculator {
     }
 
     public Calculator execute() {
-        cpu = new Processor();
         for (String line : lines) {
             cpu.processLine(line);
         }
