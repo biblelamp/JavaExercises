@@ -2,7 +2,7 @@
  * Java 1. Lesson 4. Tic-tac-toe in console
  *
  * @author Sergey Iryupin
- * @version dated Sep 22, 2018
+ * @version dated Jan 21, 2019
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -13,9 +13,9 @@ class TicTacToe {
     final char DOT_X = 'x';
     final char DOT_O = 'o';
     final char DOT_EMPTY = '.';
-    char[][] map = new char[SIZE][SIZE];
-    Scanner sc = new Scanner(System.in);
-    Random rand = new Random();
+    char[][] map;
+    Random random;
+    Scanner scanner;
 
     public static void main(String[] args) {
         new TicTacToe().game();
@@ -23,6 +23,8 @@ class TicTacToe {
 
     void game() {
         initMap();
+        random = new Random();
+        scanner = new Scanner(System.in);
         while (true) {
             humanTurn();
             if (checkWin(DOT_X)) {
@@ -49,6 +51,7 @@ class TicTacToe {
     }
 
     void initMap() {
+        map = new char[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 map[i][j] = DOT_EMPTY;
@@ -67,8 +70,8 @@ class TicTacToe {
         int x, y;
         do {
             System.out.println("Enter X and Y (1..3):");
-            x = sc.nextInt() - 1;
-            y = sc.nextInt() - 1;
+            x = scanner.nextInt() - 1;
+            y = scanner.nextInt() - 1;
         } while (!isCellValid(x, y));
         map[y][x] = DOT_X;
     }
@@ -76,8 +79,8 @@ class TicTacToe {
     void aiTurn() {
         int x, y;
         do {
-            x = rand.nextInt(SIZE);
-            y = rand.nextInt(SIZE);
+            x = random.nextInt(SIZE);
+            y = random.nextInt(SIZE);
         } while (!isCellValid(x, y));
         map[y][x] = DOT_O;
     }
