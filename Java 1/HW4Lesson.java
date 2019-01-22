@@ -3,7 +3,7 @@
  *  Tic-tac-toe in console with simple AI
  *
  * @author Sergey Iryupin
- * @version dated Dec 04, 2018
+ * @version dated Jan 22, 2019
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -20,15 +20,17 @@ class HW4Lesson {
     final String MSG_AI_WON = "AI WON!";
     final String MSG_DRAW = "Sorry, DRAW!";
     final String MSG_GAME_OVER = "GAME OVER.";
-    char[][] map = new char[SIZE][SIZE];
-    Scanner sc = new Scanner(System.in);
-    Random rand = new Random();
+    char[][] map;
+    Scanner sc;
+    Random rand;
 
     public static void main(String[] args) {
         new HW4Lesson().game();
     }
 
     void game() {
+        sc = new Scanner(System.in);
+        rand = new Random();
         initMap();
         while (true) {
             printMap();
@@ -57,6 +59,7 @@ class HW4Lesson {
     }
 
     void initMap() {                                // init game's field
+        map = new char[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 map[i][j] = DOT_EMPTY;
