@@ -1,0 +1,9 @@
+﻿To create backend API for a game Tic-Tac-Toe.
+Tic-tac-toe is a game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
+Specifications:
+ • Save game state in a database • You are not required to implement client, sending requests over HTTP, console or using forms is enough, the main focus should be on the backend service • Client should know that he won or tied after he placed the last X or O • There should be at least two API commands - JoinBattle and PlaceMarker • Enforce players to take turns, do not let the same player place 2 markers in a row • Implement simple matchmaking - players will join a match, if there is one created or will create new one, if there isn’t anyone waiting for another playerExpected deliveries:
+ • Source code
+ • Steps how to install it on the server
+You are free to choose technologies you are comfortable with!
+You can make use of AWS free tier (https://aws.amazon.com/free/) of DynamoDB as a database and an t2.micro EC2 instance as server. We AWS at our company so it will help you get started.
+Providing an actual server configured to play the game is a plus!
