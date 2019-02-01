@@ -34,7 +34,10 @@ Code Conventions for the Java Programming Language:
 Идеи и задачи для самостоятельной работы:
 
 Где новичку в программировании найти упражнения и идеи для проектов? https://tproger.ru/translations/where-to-find-ideas/
-Задачи для начинающих Java программистов https://habr.com/post/44031/
+Задачи для начинающих Java программистов
+https://habr.com/post/44031/
+Где попрактиковаться в программировании: 30 ресурсов
+https://geekbrains.ru/posts/resources_for_programming_practice
 
 Рекомендуемые курсы, вебинары и статьи:
 
