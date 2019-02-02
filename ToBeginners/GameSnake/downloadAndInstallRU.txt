@@ -8,9 +8,9 @@
    Значение для переменной JAVA_HOME - путь к папке JDK. Переменную Path дополняем значением %JAVA_HOME%\bin - обратите внимание что список путей разделяется точкой с запятой (;).
 
    Полезные ссылки:
-   https://www.java.com/ru/download/help/path.xml
    http://www.fandroid.info/ustanovka-jdk-java-development-kit/
    http://barancev.github.io/how-to-install-java-on-windows/
+   https://www.java.com/ru/download/help/path.xml
 
 2. Загружаем, устанавливаем и настраиваем IntelliJ IDEA
 
@@ -21,4 +21,4 @@
    Полезная ссылка:
    https://maxensdeveloper.wordpress.com/2016/10/31/intellij_configure/
    Вебинар IntelliJ IDEA для новичков: советы и секреты
-   https://geekbrains.ru/events/770
+   https://geekbrains.ru/events/770/
