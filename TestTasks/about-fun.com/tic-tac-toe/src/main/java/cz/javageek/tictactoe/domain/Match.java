@@ -12,14 +12,17 @@ public class Match {
 
     @Id
     @GeneratedValue
-    @Column(name = "Id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "field", length = 9, nullable = false)
+    @Column(name = "field", length = 9)
     private String field;
 
     @Column(name = "next", length = 1)
     private String next;
+
+    @Column(name = "status", length = 1)
+    private String status;
 
     public Long getId() {
         return id;
@@ -43,5 +46,13 @@ public class Match {
 
     public void setNext(String next) {
         this.next = next;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
