@@ -55,4 +55,14 @@ public class Match {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", field='" + field + '\'' +
+                ", next='" + next + '\'' +
+                ", status='" + status + '\'' +
+                "}";
+    }
 }
