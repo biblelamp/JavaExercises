@@ -13,7 +13,7 @@ public class Match {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
     @Column(name = "field", length = 9)
     private String field;
@@ -24,11 +24,11 @@ public class Match {
     @Column(name = "status", length = 1)
     private String status;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
