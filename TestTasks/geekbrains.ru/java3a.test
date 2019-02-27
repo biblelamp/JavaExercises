@@ -146,8 +146,7 @@ DELETE students;
 
 @Question
 Какой класс не входит в пакет java.lang.reflect?
-@Options @OnlyOne @Key=1
-Package
+@Options @OnlyOne @Key=4
 Constructor
 Method
 Object
