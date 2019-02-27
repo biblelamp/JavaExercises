@@ -163,7 +163,7 @@ java.concurrent.collections
 
 @Question
 Какой метод класса Thread необходимо вызвать для корректной остановки потока?
-@Options @OnlyOne @Key=2 <?>
+@Options @OnlyOne @Key=2
 stop()
 interrupt()
 destroy()
