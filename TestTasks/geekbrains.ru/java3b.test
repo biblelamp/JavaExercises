@@ -185,7 +185,7 @@ Statement
 
 @Question
 Что произойдет при попытке вызвать interrupt() у потока, находящемся в состоянии sleep?
-@Options @OnlyOne @Key=1 <?>
+@Options @OnlyOne @Key=4
 флаг interrupted изменит свое значение на true
 флаг interrupted  не изменит своего значения
 поток завершит свое выполнение
