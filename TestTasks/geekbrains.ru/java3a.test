@@ -185,7 +185,7 @@ DELETE FROM students;
 
 @Question
 Выберите неверное утверждение
-@Options @OnlyOne @Key=2
+@Options @OnlyOne @Key=4
 RandomAccessFile реализует интерфейсы DataInput и DataOutput
 RandomAccessFile реализует интерфейс Closeable
 RandomAccessFile предоставляет одновременный доступ на чтение и запись
