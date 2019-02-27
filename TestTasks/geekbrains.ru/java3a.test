@@ -201,7 +201,7 @@ void run(int priority)
 
 @Question
 Какой класс или интерфейс позволяет отсылать запросы в БД?
-@Options @OnlyOne @Key=4
+@Options @OnlyOne @Key=5
 SecureStatement
 PrecompiledStatement
 RollableStatement
