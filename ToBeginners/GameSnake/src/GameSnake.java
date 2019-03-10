@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Java. Classic Game Snake
  *
  * @author Sergey Iryupin
- * @version 0.7.5 dated Mar 09, 2019
+ * @version 0.7.5 dated Mar 10, 2019
  */
 
 public class GameSnake extends JFrame {
@@ -91,8 +91,7 @@ public class GameSnake extends JFrame {
     }
 
     public boolean isCoordinatesBusy(int x, int y) {
-        return snake.isInSnake(x, y)
-            || poison.isPoison(x, y);
+        return snake.isInSnake(x, y) || poison.isPoison(x, y);
     }
 
     class Canvas extends JPanel {    // class for rendering (drawing)
