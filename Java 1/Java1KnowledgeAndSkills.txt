@@ -42,6 +42,7 @@ https://geekbrains.ru/posts/resources_for_programming_practice
 Рекомендуемые курсы, вебинары и статьи:
 
 Git, быстрый старт. Курс https://geekbrains.ru/courses/66
+Интерактивный курс по Git https://learngitbranching.js.org/
 Apache Ant: быстрый старт. Вебинар https://geekbrains.ru/events/517
 Сборка Java проектов: быстрый взгляд на Ant, Maven и Gradle. Вебинар https://geekbrains.ru/events/758
 IntelliJ IDEA для новичков: советы и секреты. Вебинар https://geekbrains.ru/events/770
