@@ -1,0 +1,33 @@
+﻿JAVA Test
+
+SIEMENS INDUSTRY SOFTWARE s.r.o.
+Please, prepare the solution in object oriented programming and overall patterns.
+Here are two questions for homework… candidates should have 3-4 hours to complete it and send it back. It should be done in Java.
+Here are two tasks:
+Common requirements for implementation:  1) implementation should be with good memory and calculation complexity2) we expect OOP design
+3) Unit tests (preferable JUnit)
+
+Question 1:
+You are given input in 2 dimensional array (for example)
+1 2 3
+4 5 6
+7 8 9
+and you are asked to provide output in one dimensional array, fallowing outside-towards-inside pattern (snail). In this case output would be 1,2,3,6,9,8,7,4,5.
+Code should work for n*m combination of 2 dimensional array and always fallow outside edges towards inside.
+Another example:
+input:
+1 2 3 4
+5 6 7 8
+9 a b c
+output should be: 1,2,3,4,8,c,b,a,9,5,6,7
+Question 2: (square array rotation by 90 degrees)
+input
+1 2 3
+4 5 6
+7 8 9
+n by n array that needs to produce fallowing output
+3 6 9
+2 5 8
+1 4 7
+Bonus is Unit tests for both questions.
+Thank you.
