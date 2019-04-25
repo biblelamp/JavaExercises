@@ -12,6 +12,7 @@ public class SiemensTask {
         System.out.println(Arrays.toString(siemensTask.walkLikeSnail(rect)));
         System.out.println(Arrays.toString(siemensTask.walkLikeSnail(matrix)));
         System.out.println(Arrays.deepToString(siemensTask.rotateMatrix(matrix)));
+        System.out.println(Arrays.deepToString(siemensTask.rotateMatrix(matrix, true)));
     }
 
     public <T> T[] walkLikeSnail(T[][] rect) {
@@ -43,12 +44,20 @@ public class SiemensTask {
         return result;
     }
 
-    public Integer[][] rotateMatrix(Integer[][] matrix) {
-        Integer[][] result = new Integer[matrix.length][matrix.length];
+    public <T> T[][] rotateMatrix(T[][] matrix) {
+        return rotateMatrix(matrix, false);
+    }
+
+    public <T> T[][] rotateMatrix(T[][] matrix, boolean clockwise) {
+        T[][] result = (T[][])new Object[matrix.length][matrix.length];
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                result[matrix[i].length - j - 1][i] = matrix[i][j];
+                if (clockwise) {
+                    result[j][matrix.length - i - 1] = matrix[i][j];
+                } else {
+                    result[matrix[i].length - j - 1][i] = matrix[i][j];
+                }
             }
         }
         return result;
