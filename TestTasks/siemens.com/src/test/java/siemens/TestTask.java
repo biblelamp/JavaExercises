@@ -8,11 +8,11 @@ public class TestTask {
 
     private SiemensTask siemensTask;
 
-    char[][] rect = {{'1','2','3','4'}, {'5','6','7','8'}, {'9','a','b','c'}};
-    char[] result = {'1','2','3','4','8','c','b','a','9','5','6','7'};
+    Character[][] rect = {{'1','2','3','4'}, {'5','6','7','8'}, {'9','a','b','c'}};
+    Character[] result = {'1','2','3','4','8','c','b','a','9','5','6','7'};
 
-    int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
-    int[][] rotated = {{3, 6, 9}, {2, 5, 8}, {1, 4, 7}};
+    Integer[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
+    Integer[][] rotated = {{3, 6, 9}, {2, 5, 8}, {1, 4, 7}};
 
     @Before
     public void prepareObject() {

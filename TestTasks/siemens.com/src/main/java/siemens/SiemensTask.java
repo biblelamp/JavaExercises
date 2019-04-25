@@ -4,19 +4,20 @@ import java.util.Arrays;
 
 public class SiemensTask {
 
-    static char[][] rect = {{'1','2','3','4'}, {'5','6','7','8'}, {'9','a','b','c'}};
-    static int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
+    static Character[][] rect = {{'1','2','3','4'}, {'5','6','7','8'}, {'9','a','b','c'}};
+    static Integer[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
 
     public static void main(String[] args) {
         SiemensTask siemensTask = new SiemensTask();
         System.out.println(Arrays.toString(siemensTask.walkLikeSnail(rect)));
+        System.out.println(Arrays.toString(siemensTask.walkLikeSnail(matrix)));
         System.out.println(Arrays.deepToString(siemensTask.rotateMatrix(matrix)));
     }
 
-    public char[] walkLikeSnail(char[][] rect) {
+    public <T> T[] walkLikeSnail(T[][] rect) {
         int height = rect.length;
         int width = rect[0].length;
-        char[] result = new char[width * height];
+        T[]result = (T[])new Object[height * width];
 
         int row = 0;
         int col = 0;
@@ -42,8 +43,8 @@ public class SiemensTask {
         return result;
     }
 
-    public int[][] rotateMatrix(int[][] matrix) {
-        int[][] result = new int[matrix.length][matrix.length];
+    public Integer[][] rotateMatrix(Integer[][] matrix) {
+        Integer[][] result = new Integer[matrix.length][matrix.length];
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
