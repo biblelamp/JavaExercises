@@ -2,7 +2,7 @@
  * Java 1. Lesson 4. Tic-tac-toe in console
  *
  * @author Sergey Iryupin
- * @version dated Jan 21, 2019
+ * @version dated Jun 12, 2019
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -21,10 +21,14 @@ class TicTacToe {
         new TicTacToe().game();
     }
 
-    void game() {
-        initMap();
+    TicTacToe() {
         random = new Random();
         scanner = new Scanner(System.in);
+        map = new char[SIZE][SIZE];
+    }
+
+    void game() {
+        initMap();
         while (true) {
             humanTurn();
             if (checkWin(DOT_X)) {
@@ -51,7 +55,6 @@ class TicTacToe {
     }
 
     void initMap() {
-        map = new char[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 map[i][j] = DOT_EMPTY;
