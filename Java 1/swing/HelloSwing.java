@@ -12,8 +12,8 @@ class HelloSwing extends JFrame {
         setSize(500, 250);
         setLocationRelativeTo(null);
 
-        Button btnExit = new Button("Exit");
-        btnExit.addActionListener(e -> System.exit(0));
+        //Button btnExit = new Button("Exit");
+        //btnExit.addActionListener(e -> System.exit(0));
 
         add(btnExit);
         setVisible(true);
