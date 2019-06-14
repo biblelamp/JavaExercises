@@ -1,0 +1,21 @@
+import javax.swing.JFrame;
+import java.awt.Button;
+
+class HelloSwingLayout extends JFrame {
+    public static void main(String[] args) {
+        new HelloSwing();
+    }
+
+    HelloSwing() {
+        setTitle("Hello Swing!");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(500, 250);
+        setLocationRelativeTo(null);
+
+        //Button btnExit = new Button("Exit");
+        //btnExit.addActionListener(e -> System.exit(0));
+
+        add(btnExit);
+        setVisible(true);
+    }
+}
