@@ -15,6 +15,7 @@ public class Food extends Cell {
     private GameSnake gameSnake;
     private Random random;
 
+    //public super(int x, int y, int size, Color color)
     //public void set(int x, int y)         // methods that are inherited
     //public int getX()                     //   from the Cell class
     //public int getY()
@@ -26,19 +27,19 @@ public class Food extends Cell {
         random = new Random();
     }
 
-    public boolean isFood(int x, int y) {
+    public boolean isFood(int x, int y) {   // if food has x, y coordinate
         return (this.x == x) && (this.y == y);
     }
 
-    public boolean isEaten() {
+    public boolean isEaten() {              // if food is eaten or not
         return getX() == -1;
     }
 
-    public void eat() {
+    public void eat() {                     // virtual eating
         set(-1, -1);
     }
 
-    public void appear() {
+    public void appear() {                  // show food at new x,y coordinates
         int x, y;
         do {
             x = random.nextInt(gameSnake.CANVAS_WIDTH);
