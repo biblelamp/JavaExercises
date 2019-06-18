@@ -20,9 +20,9 @@ public class BioRytmy {
         System.out.println(second);
         System.out.println(resultDays);
 
-        System.out.printf("Physically %.2f\n", f);
-        System.out.printf("Emotionally %.2f\n", e);
-        System.out.printf("Intellectually %.2f\n", i);
+        System.out.printf("Physically %.2f%%\n", f);
+        System.out.printf("Emotionally %.2f%%\n", e);
+        System.out.printf("Intellectually %.2f%%\n", i);
 
     }
 }
