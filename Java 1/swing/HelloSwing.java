@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.Button;
+import java.awt.BorderLayout;
 
 class HelloSwing extends JFrame {
     public static void main(String[] args) {
@@ -12,10 +13,10 @@ class HelloSwing extends JFrame {
         setSize(500, 250);
         setLocationRelativeTo(null);
 
-        //Button btnExit = new Button("Exit");
-        //btnExit.addActionListener(e -> System.exit(0));
+        Button btnExit = new Button("Exit");
+        btnExit.addActionListener(e -> System.exit(0));
 
-        add(btnExit);
+        add(btnExit, BorderLayout.SOUTH);
         setVisible(true);
     }
 }
