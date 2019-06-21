@@ -4,12 +4,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.DatatypeConfigurationException;
 
-class DateSQLTest {
+class DateAndTime {
 
     public static void main(String[] args) throws DatatypeConfigurationException {
         Date d1 = Date.valueOf("1805-01-01");
         //System.out.println(d1 + 1);
         System.out.println(String.format("%tY", d1));
+        System.out.println(String.format("%tY/%tm/%td", d1, d1, d1));
 
         //Date currentDate = new Date();
         //String isoDate = currentDate.toISOString();
