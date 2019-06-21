@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 
+// @see https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics.html
+
 class HelloSwingPaint extends JFrame {
     public static void main(String[] args) {
         new HelloSwingPaint();
@@ -40,6 +42,9 @@ class HelloSwingPaint extends JFrame {
 
             g.setColor(Color.black);
             g.drawRect(150, 155, 80, 50);
+
+            g.setColor(Color.green);
+            g.drawPolygon(new int[]{100, 200, 150, 100}, new int[]{100, 100, 50, 100}, 4);
         }
     }
 }
