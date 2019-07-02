@@ -13,7 +13,7 @@ public class GameController {
     @Autowired
     MatchRepository matchRepository;
 
-    @GetMapping(path="/JoinBattle")
+    @GetMapping(path="/join")
     public @ResponseBody String joinBattle() {
 
         Match match = new Match();
@@ -36,12 +36,12 @@ public class GameController {
             }
         }
 
-        return "JoinBattle: " + match;
+        return "Join: " + match;
     }
 
-    @GetMapping(path="/PlaceMarker")
-    public @ResponseBody String placeMarker() {
+    @GetMapping(path="/action")
+    public @ResponseBody String action() {
 
-        return "PlaceMarker";
+        return "Action";
     }
 }
