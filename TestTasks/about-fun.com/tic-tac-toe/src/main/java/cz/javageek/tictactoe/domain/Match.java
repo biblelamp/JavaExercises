@@ -1,10 +1,6 @@
 package cz.javageek.tictactoe.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "match")
@@ -21,8 +17,8 @@ public class Match {
     @Column(name = "next", length = 1)
     private String next;
 
-    @Column(name = "status", length = 1)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private MatchStatus status;
 
     public Integer getId() {
         return id;
@@ -48,11 +44,11 @@ public class Match {
         this.next = next;
     }
 
-    public String getStatus() {
+    public MatchStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(MatchStatus status) {
         this.status = status;
     }
 
