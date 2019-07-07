@@ -56,9 +56,9 @@ public class Match {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", field='" + field + '\'' +
-                ", next='" + next + '\'' +
-                ", status='" + status + '\'' +
+                ", field='" + field + "'" +
+                ", next='" + next + "'" +
+                ", status='" + status + "'" +
                 "}";
     }
 }
