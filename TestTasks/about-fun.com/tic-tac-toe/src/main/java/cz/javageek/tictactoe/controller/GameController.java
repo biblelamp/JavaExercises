@@ -21,25 +21,27 @@ public class GameController {
 
     @GetMapping(path="/join")
     public @ResponseBody String joinBattle() {
-
-        Match match = new Match();
+        Match match = null;
 
         if (matchRepository.count() == 0) {
+            match = new Match();
+            matchRepository.save(match);
+        } else {
+            match = matchRepository.getOne(1);
+        }
+
+        if (match.getStatus() == null) {
             match.setField(".........");
             match.setNext("x");
             match.setStatus(MatchStatus.WAIT);
             matchRepository.save(match);
 
             return "Your mark is 'x'. Waiting for a partner...";
-        } else {
-            match = matchRepository.getOne(1);
+        } else if (match.getStatus() == MatchStatus.WAIT) {
+            match.setStatus(MatchStatus.READY);
+            matchRepository.save(match);
 
-            if (match.getStatus().equals("W")) {
-                match.setStatus(MatchStatus.WAIT);
-                matchRepository.save(match);
-
-                return "Your mark is 'o'. Waiting for the action of a partner...";
-            }
+            return "Your mark is 'o'. Waiting for the action of a partner...";
         }
 
         return "Join: " + match;
@@ -53,6 +55,11 @@ public class GameController {
 
     @GetMapping(path="/")
     public @ResponseBody String status() {
+
+        if (matchRepository.count() == 0) {
+            Match match = new Match();
+            matchRepository.save(match);
+        }
 
         return "Status: " + matchRepository.getOne(1);
     }
