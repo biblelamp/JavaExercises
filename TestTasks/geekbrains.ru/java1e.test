@@ -1,0 +1,260 @@
+@Description
+Тест по Java. Начальный уровень https://geekbrains.ru/tests/39
+
+@Question
+Результат сравнения - это:
+@Options @OnlyOne @Key=2
+Объект
+Логическое значение
+Строка
+Число
+Символ
+
+@Question
+Если метод имеет тип boolean, какой вариант оператора return приведет к ошибке:
+@Options @OnlyOne @Key=1
+return (boolean)0;
+return Integer.valueOf("10") < 15;
+return true && !false;
+return 'a' > 70;
+return 12 > 60;
+
+@Question
+Можно ли создать объект абстрактного класса:
+@Options @OnlyOne @Key=2
+Да
+Нет
+
+@Question
+Что появится в конслоли в результате работы программы:
+<code>
+System.out.println(new[][] {{1, 2, 7}, {3, 4, 5}}[1][2]);
+</code>
+@Options @OnlyOne @Key=1
+5
+7
+Ошибка компиляции
+Ошибка времени исполнения
+2
+
+@Question
+Можно ли наследоваться от класса java.lang.String:
+@Options @OnlyOne @Key=1
+Нет
+Да
+
+@Question
+Операторы сравнения <, >, <=, >= применимы для: 
+@Options @OnlyOne @Key=3
+Строк
+Функций
+Чисел
+Объектов
+Логических переменных
+
+@Question
+Какой из типов данных является ссылочным (объектным)?
+@Options @OnlyOne @Key=2
+long
+String
+boolean
+double
+int
+
+@Question
+Какие виды циклов существуют в Java?
+@Options @OnlyOne @Key=1
+for, for-each, while, do-while
+for-each, while
+for-each, do-while
+for, while
+for, for-each, while
+
+@Question
+Укажите список типов данных, которые позволяют хранить только целые числа:
+@Options @OnlyOne @Key=5
+byte, short, int, long, float, double
+int, long, float, double
+float, double
+boolean, byte, short, int, long
+byte, short, int, long
+
+@Question
+Какой цикл имеет инициализатор, условие и шаг?
+@Options @OnlyOne @Key=5
+Infinite loop
+do-while
+for-each
+while
+for
+
+@Question
+Сколько измерений будет у массива ... arr = {{{1,2},{3,4}},{{5,6},{7,8}}};
+@Options @OnlyOne @Key=3
+2
+4
+3
+1
+
+@Question
+Какие категории типов данных поддерживаются в Java? 
+@Options @OnlyOne @Key=4
+Примитивные
+Переменные, примитивные
+Ссылочные (объектные)
+Примитивные, ссылочные (объектные)
+Переменные, постоянные
+
+@Question
+Какие типы данных не могут быть в качестве условия switch-case:
+@Options @OnlyOne @Key=1
+Дробные числа
+Строки
+Символы
+Целые числа
+
+@Question
+Может ли быть значение статического поля у объектов одного класса разным:
+@Options @OnlyOne @Key=1
+Нет
+Да
+
+@Question
+Являются ли два метода перегруженными, если у них одинаковые имена, разный набор аргументов и разный тип возвращаемого значения:
+@Options @OnlyOne @Key=2
+Нет
+Да
+
+@Question
+Остановит ли когда-нибудь свою работу цикл вида:
+<code>
+for(int i = 10; i > 0; i++){}
+</code>
+@Options @OnlyOne @Key=2
+Ошибка времени исполнения
+Да
+Нет
+Ошибка компиляции
+
+@Question
+Может ли в одном классе объявлено больше одного метода с именем main:
+@Options @OnlyOne @Key=2
+Нет
+Да
+
+@Question
+Инициализированная переменная в Java имеет:
+@Options @OnlyOne @Key=3
+Тип, первоначальное значение
+Имя
+Тип, имя, первоначальное значение
+Тип, имя
+Имя, первоначальное значение
+
+@Question
+Какой оператор нужен в выражении 5...5, чтобы оно стало истиным?
+@Options @OnlyOne @Key=3
+>
+<
+<=
+!=
+=
+
+@Question
+Чем инициализируется по умолчанию локальная переменная ссылочного типа данных:
+@Options @OnlyOne @Key=2
+Объектом, созданным с помощью конструктора по умолчанию
+Локальная переменные не инициализируются по умолчанию
+Null
+Зависит от конкретного типа переменной
+0
+
+@Question
+Можно ли использовать оператор return в void методе:
+@Options @OnlyOne @Key=1
+Да
+Нет
+
+@Question
+Возможно ли унаследовать класс от двух суперклассов (множественное наследование):
+@Options @OnlyOne @Key=2
+Да
+Нет
+
+@Question
+Список типов, переменных которые могут хранить дробные числа:
+@Options @OnlyOne @Key=1
+float, double
+byte, short, int, long, float, double
+char, byte, short, int, long
+byte, short, int, long
+int, long, float, double
+
+@Question
+Тернарным логическим оператором является:
+@Options @OnlyOne @Key=3
+^
+||
+? :
+!
+&&
+
+@Question
+Какое значение будет сохранено в строку s?
+<code>
+String s = "value = " + 2 + 2;
+</code>
+@Options @OnlyOne @Key=2
+"value = 2 + 2"
+"value = 22"
+Ошибка компиляции
+"value = 4"
+"value = 2 2"
+
+@Question
+Экземпляр класса String напрямую нельзя создать из:
+@Options @OnlyOne @Key=5
+Строкового литерала
+Массива символов
+Экземпляра класса StringBuffer
+Экземпляра класса StringBuilder
+Массив строк
+
+@Question
+Как узнать количество элементов в массиве: int[] arr = new int[10]? 
+@Options @OnlyOne @Key=1
+arr.length
+size(arr)
+arr.size()
+length(arr)
+arr.length()
+
+@Question
+Что появится в консоли в результате работы программы:
+<code>
+byte a = 127;
+a++;
+System.out.println(a);
+</code>
+@Options @OnlyOne @Key=5
+0
+Ошибка времени исполнения
+127
+128
+-128
+
+@Question
+Какой вариант объявления массива некорректен:
+@Options @OnlyOne @Key=2
+int c[][] = {{1, 2}, {3, 4}};
+int e[5] = {1, 2, 3, 4, 5}
+int b[][] = new int [5][];
+int[] a = new int[5];
+
+@Question
+Для массива в Java верно:
+@Options @OnlyOne @Key=4
+Изменяемый состав элементов одного типа
+Изменяемый состав элементов разных типов
+Фиксированное количество элементов разных типов
+Фиксированное количество элементов одного типа
