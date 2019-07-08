@@ -3,6 +3,7 @@ package cz.javageek.tictactoe.controller;
 // @see https://www.baeldung.com/spring-new-requestmapping-shortcuts
 
 import cz.javageek.tictactoe.domain.Match;
+import cz.javageek.tictactoe.domain.MatchNext;
 import cz.javageek.tictactoe.domain.MatchStatus;
 import cz.javageek.tictactoe.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class GameController {
 
     @GetMapping(path="/join")
     public @ResponseBody String joinBattle() {
-        Match match = null;
+        Match match;
 
         if (matchRepository.count() == 0) {
             match = new Match();
@@ -32,19 +33,19 @@ public class GameController {
 
         if (match.getStatus() == null) {
             match.setField(".........");
-            match.setNext("x");
             match.setStatus(MatchStatus.WAIT);
             matchRepository.save(match);
 
             return "Your mark is 'x'. Waiting for a partner...";
         } else if (match.getStatus() == MatchStatus.WAIT) {
             match.setStatus(MatchStatus.READY);
+            match.setNext(MatchNext.X_DOT);
             matchRepository.save(match);
 
             return "Your mark is 'o'. Waiting for the action of a partner...";
         }
 
-        return "Join: " + match;
+        return "Waiting for action: " + match;
     }
 
     @GetMapping(path="/action/{id}")

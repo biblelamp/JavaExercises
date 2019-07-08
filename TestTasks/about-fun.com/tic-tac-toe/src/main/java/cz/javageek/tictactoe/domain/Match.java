@@ -14,8 +14,8 @@ public class Match {
     @Column(name = "field", length = 9)
     private String field;
 
-    @Column(name = "next", length = 1)
-    private String next;
+    @Enumerated(EnumType.STRING)
+    private MatchNext next;
 
     @Enumerated(EnumType.STRING)
     private MatchStatus status;
@@ -36,11 +36,11 @@ public class Match {
         this.field = field;
     }
 
-    public String getNext() {
+    public MatchNext getNext() {
         return next;
     }
 
-    public void setNext(String next) {
+    public void setNext(MatchNext next) {
         this.next = next;
     }
 
