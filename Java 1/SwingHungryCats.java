@@ -2,14 +2,15 @@
  * Java. Level 1. Lesson 7. Additional homework
  *
  * @author Sergey Iryupin
- * @version 0.1 dated Oct 20, 2017
+ * @version 0.2 dated Jul 19, 2019
+ * @see HW7Lesson.java using classes Cat and Plate
  */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
-class HungryCats extends JFrame {
+class SwingHungryCats extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Hungry Cats";
     final String BTN_ADD_FOOD = "Add food";
@@ -24,14 +25,14 @@ class HungryCats extends JFrame {
     final int MAX_APPETITE = 20;
 
     Panel panel;
-    PlateG plate; // plate with food
-    CatG[] cats;  // array of cats
+    SwingPlate plate; // plate with food
+    SwingCat[] cats;  // array of cats
 
     public static void main(String args[]) {
-        new HungryCats();
+        new SwingHungryCats();
     }
 
-    HungryCats() {
+    SwingHungryCats() {
         setTitle(TITLE_OF_PROGRAM);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -42,10 +43,10 @@ class HungryCats extends JFrame {
         panel.setBackground(Color.white);
 
         Random random = new Random();
-        plate = new PlateG(PLATE_VOLUME, PLATE_INIT);
-        cats = new CatG[NUMBER_OF_CATS];
+        plate = new SwingPlate(PLATE_VOLUME, PLATE_INIT);
+        cats = new SwingCat[NUMBER_OF_CATS];
         for (int i = 0; i < cats.length; i++)
-            cats[i] = new CatG("", random.nextInt(MAX_APPETITE) + 1);
+            cats[i] = new SwingCat("", random.nextInt(MAX_APPETITE) + 1);
 
         JButton btnAdd = new JButton(BTN_ADD_FOOD);
         btnAdd.addActionListener(new ActionListener() {
@@ -57,16 +58,18 @@ class HungryCats extends JFrame {
         JButton btnFeed = new JButton(BTN_FEED_CATS);
         btnFeed.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for (CatG cat : cats)
+                for (SwingCat cat : cats) {
                     cat.eat(plate);
+                }
                 panel.repaint();
             }
         });
         JButton btnReset = new JButton(BTN_RESET);
         btnReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for (CatG cat : cats)
+                for (SwingCat cat : cats) {
                     cat.setFullness(false);
+                }
                 panel.repaint();
             }
         });
@@ -89,16 +92,17 @@ class HungryCats extends JFrame {
             super.paint(g);
             Dimension size = this.getSize();
             plate.paint(g, (int)size.getWidth(), 20);
-            for (int i = 0; i < cats.length; i++)
+            for (int i = 0; i < cats.length; i++) {
                 cats[i].paint(g, (i + 1) * 30 + 10,
                     (int)(size.getWidth()) / PLATE_VOLUME, 20);
+            }
         }
     }
 }
 
-class CatG extends Cat {
+class SwingCat extends Cat {
 
-    CatG(String name, int appetite) {
+    SwingCat(String name, int appetite) {
         super(name, appetite);
     }
 
@@ -112,9 +116,9 @@ class CatG extends Cat {
     }
 }
 
-class PlateG extends Plate {
+class SwingPlate extends Plate {
 
-    PlateG(int volume, int food) {
+    SwingPlate(int volume, int food) {
         super(volume, food);
     }
 
