@@ -39,6 +39,11 @@ https://habr.com/post/44031/
 Где попрактиковаться в программировании: 30 ресурсов
 https://geekbrains.ru/posts/resources_for_programming_practice
 
+Дополнительные онлайн-курсы по Java:
+
+Stepic (базовый курс) https://stepik.org/course/187/syllabus
+SoloLearn (ENG) https://www.sololearn.com/Course/Java/
+
 Рекомендуемые курсы, вебинары и статьи:
 
 Git, быстрый старт. Курс https://geekbrains.ru/courses/66
@@ -57,4 +62,4 @@ Top 6 online Java compilers for students. Article https://jaxenter.com/top-6-jav
 4. Герберт Шилдт, Java 8. Руководство для начинающих (главы 1, 2, 3, 5, 6, 7, 9, 10, 16)
 
 TODO: Обдумать возможность рекомендации ещё одной книги:
-Яков Файн, Программирование на Java для детей, родителей, дедушек и бабушек
+* Яков Файн, Программирование на Java для детей, родителей, дедушек и бабушек
