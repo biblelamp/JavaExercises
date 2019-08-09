@@ -13,16 +13,17 @@ class GuessTheNumber {
                 System.out.print(
                     "Guess [" + (count + 1) + "] the number (0..9): ");
                 guess = sc.nextInt();
-                if (number == guess) {
-                    System.out.println("You won!");
-                } else {
+                if (number != guess) {
                     System.out.println("Your number is " + ((guess > number)?
                         "greater" : "less."));
                     count++;
                 }
             }
-            if (count == 3)
+            if (count == 3) {
                 System.out.println("You lost!");
+            } else {
+                System.out.println("You won!");
+            }
             System.out.print("Repeat the game?\n[1 - yes / 0 - no]: ");
         } while (sc.next().equals("1"));
     }
