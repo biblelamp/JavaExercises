@@ -6,20 +6,21 @@ class GuessTheNumber {
         Random random = new Random();
         Scanner sc = new Scanner(System.in);
         do {
+            int limit = 3;
             int count = 0;
             int guess = -1;
             int number = random.nextInt(10);
-            while (count < 3 && guess != number) {
+            while (count < limit && guess != number) {
                 System.out.print(
-                    "Guess [" + (3 - count) + "] the number (0..9): ");
+                    "Guess [" + (limit - count) + "] the number (0..9): ");
                 guess = sc.nextInt();
                 if (number != guess) {
-                    System.out.println("Your number is " + ((guess > number)?
-                        "greater" : "less."));
+                    System.out.println("Your number is " +
+                        ((guess > number)? "greater" : "less."));
                     count++;
                 }
             }
-            System.out.println((count == 3)? "You lost!" : "You won!");
+            System.out.println((count == limit)? "You lost!" : "You won!");
             System.out.print("Repeat the game?\n[1 - yes / 0 - no]: ");
         } while (sc.next().equals("1"));
     }
