@@ -6,7 +6,7 @@ class SimpleCannon {
         int angle;        // shot angle, degrees
 
         for (angle = 0; angle < 90; angle += 5) {
-            double l = speed*speed * Math.sin(Math.toRadians(angle*2)) / (2 * g);
+            double l = Math.pow(speed, 2) * Math.sin(Math.toRadians(angle*2)) / (2 * g);
             System.out.println(angle + ": " + l);
         }
     }
