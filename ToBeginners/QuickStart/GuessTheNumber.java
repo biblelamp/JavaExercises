@@ -12,15 +12,15 @@ class GuessTheNumber {
             int number = random.nextInt(10);
             while (count < limit && guess != number) {
                 System.out.print(
-                    "Guess [" + (limit - count) + "] the number (0..9): ");
+                    "Guess [" + (limit - count) + " attempts] the number (0..9): ");
                 guess = sc.nextInt();
                 if (number != guess) {
                     System.out.println("Your number is " +
-                        ((guess > number)? "greater" : "less."));
+                        ((guess > number)? "greater" : "less"));
                     count++;
                 }
             }
-            System.out.println((count == limit)? "You lost!" : "You won!");
+            System.out.println((count == limit)? "You lose!" : "You won!");
             System.out.print("Repeat the game?\n[1 - yes / 0 - no]: ");
         } while (sc.next().equals("1"));
     }
