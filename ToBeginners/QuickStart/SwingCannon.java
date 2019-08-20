@@ -19,7 +19,7 @@ class SwingCannon extends JFrame {
         fire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                text.append("Fire!\n");
+                text.append(calculateShot(command.getText()));
             }
         });
 
@@ -34,4 +34,23 @@ class SwingCannon extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    String calculateShot(String data) {
+        float g = 9.81f;             // acceleration of gravity, m/c2
+        int speed = 150;             // starting speed of cannon shell, m/c
+        int damageRadius = 5;        // damage radius
+        double distanceTarget = 850; // distance to target
+
+        int angle = Integer.parseInt(data);
+        double distance = Math.pow(speed, 2) * Math.sin(Math.toRadians(angle * 2)) / (2 * g);
+        double difference = distanceTarget - distance;
+
+        if (Math.abs(difference) < damageRadius) {
+            return "Target hit";
+        } else {
+            String result = (difference > 0)? "Under" : "Over";
+            return String.format("%d: %sshoot %.2f\n", angle, result, Math.abs(difference));
+        }
+    }
+
 }
