@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 class SwingCannon extends JFrame {
     public static void main(String[] args) {
@@ -15,6 +16,12 @@ class SwingCannon extends JFrame {
         JScrollPane scroll = new JScrollPane(text);
         JTextField command = new JTextField();
         JButton fire = new JButton("Fire");
+        fire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                text.append("Fire!\n");
+            }
+        });
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
