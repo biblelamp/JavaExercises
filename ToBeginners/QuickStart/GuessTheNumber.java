@@ -20,8 +20,8 @@ class GuessTheNumber {
                     count++;
                 }
             }
-            System.out.println((count == limit)? "You lose!" : "You won!");
-            System.out.print("Repeat the game?\n[1 - yes / 0 - no]: ");
-        } while (sc.next().equals("1"));
+            System.out.println("You " + ((guess == number)? "WON!" : "lose..."));
+            System.out.println("Repeat the game? [Y]es/[N]o");
+        } while (sc.next().equalsIgnoreCase("y"));
     }
 }
