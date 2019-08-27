@@ -14,6 +14,7 @@ class SwingCannon extends JFrame {
 
         JTextArea text = new JTextArea();
         JScrollPane scroll = new JScrollPane(text);
+        JLabel label = new JLabel("  Set the agle (0..45)  ");
         JTextField command = new JTextField();
         JButton fire = new JButton("Fire");
         fire.addActionListener(new ActionListener() {
@@ -25,6 +26,7 @@ class SwingCannon extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(label);
         panel.add(command);
         panel.add(fire);
 
@@ -46,11 +48,10 @@ class SwingCannon extends JFrame {
         double difference = distanceTarget - distance;
 
         if (Math.abs(difference) < damageRadius) {
-            return "Target hit";
+            return String.format("%d: Target hit", angle);
         } else {
             String result = (difference > 0)? "Under" : "Over";
-            return String.format("%d: %sshoot %.2f\n", angle, result, Math.abs(difference));
+            return String.format("%d: %sshoot %.2fm\n", angle, result, Math.abs(difference));
         }
     }
-
 }
