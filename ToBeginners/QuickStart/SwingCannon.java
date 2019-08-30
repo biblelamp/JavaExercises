@@ -30,7 +30,7 @@ class SwingCannon extends JFrame {
         panel.add(command);
         panel.add(fire);
 
-        add(BorderLayout.CENTER, scroll);
+        add(scroll, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
