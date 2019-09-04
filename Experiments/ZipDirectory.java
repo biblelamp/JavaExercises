@@ -9,12 +9,18 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipDirectory {
     public static void main(String[] args) throws IOException {
-        String sourceFile = "FileDrop";
-        FileOutputStream fos = new FileOutputStream("fileDrop.zip");
-        ZipOutputStream zipOut = new ZipOutputStream(fos);
-        File fileToZip = new File(sourceFile);
 
+        FileOutputStream fos = new FileOutputStream("ZipFiles.zip");
+        ZipOutputStream zipOut = new ZipOutputStream(fos);
+
+        File fileToZip;
+
+        fileToZip = new File("FileDrop");
         zipFile(fileToZip, fileToZip.getName(), zipOut);
+
+        fileToZip = new File("EncryptDecrypt");
+        zipFile(fileToZip, fileToZip.getName(), zipOut);
+
         zipOut.close();
         fos.close();
     }
