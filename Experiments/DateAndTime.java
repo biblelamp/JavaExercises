@@ -1,5 +1,9 @@
 import java.sql.Date;
+import java.time.Clock;
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -20,5 +24,12 @@ class DateAndTime {
         String dateTimeString = yourInstant.toString();
         XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateTimeString);
         System.out.println(date2);
+
+        //long offsetDateTime = OffsetDateTime.now().toEpochSecond();
+        long offsetDateTime = OffsetDateTime.of(2019, 9, 10, 10, 53, 0, 0, ZoneOffset.UTC).toEpochSecond();
+        OffsetDateTime startDateTime = OffsetDateTime
+                    .now(Clock.fixed(Instant.ofEpochSecond(offsetDateTime), ZoneOffset.UTC));
+        System.out.println(offsetDateTime);
+        System.out.println(startDateTime);
     }
 }
