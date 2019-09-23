@@ -3,6 +3,9 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
@@ -31,5 +34,11 @@ class DateAndTime {
                     .now(Clock.fixed(Instant.ofEpochSecond(offsetDateTime), ZoneOffset.UTC));
         System.out.println(offsetDateTime);
         System.out.println(startDateTime);
+
+        // LocalDate -> sql.Date using timeZone
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(2019, 9 - 1, 23); // months count from 0
+        Date sqlDate = new Date(calendar.getTimeInMillis());
+        System.out.println(sqlDate);
     }
 }
