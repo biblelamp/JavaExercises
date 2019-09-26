@@ -40,5 +40,12 @@ class DateAndTime {
         calendar.set(2019, 9 - 1, 23); // months count from 0
         Date sqlDate = new Date(calendar.getTimeInMillis());
         System.out.println(sqlDate);
+
+        // String -> OffsetDateTime
+        String dateOd = "1968+01:00";
+        OffsetDateTime date = OffsetDateTime.now();
+        System.out.println(date);
+        date = OffsetDateTime.of(Integer.valueOf(dateOd.substring(0, 4)), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+        System.out.println(date);
     }
 }
