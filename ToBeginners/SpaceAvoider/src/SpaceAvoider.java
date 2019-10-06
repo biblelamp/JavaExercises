@@ -8,6 +8,8 @@ public class SpaceAvoider extends JFrame {
     final int WINDOW_WIDTH = 400;
     final int WINDOW_HEIGHT = 600;
 
+    Starship starship;
+
     public static void main(String[] args) {
         new SpaceAvoider().game();
     }
@@ -34,7 +36,7 @@ public class SpaceAvoider extends JFrame {
     }
 
     private void game() {
-        // create game object
+        starship = new Starship(WINDOW_WIDTH / 2, 450);
         while (true) {
             // life of game objects
         }
@@ -44,6 +46,7 @@ public class SpaceAvoider extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+            starship.paint(g);
         }
     }
 }
