@@ -5,8 +5,12 @@ import java.awt.event.*;
 public class SpaceAvoider extends JFrame {
 
     final String TITLE_OF_PROGRAM = "Space Avoider";
-    final int WINDOW_WIDTH = 400;
-    final int WINDOW_HEIGHT = 600;
+    static final int WINDOW_WIDTH = 400;
+    static final int WINDOW_HEIGHT = 600;
+    static final int KEY_LEFT = 37;
+    static final int KEY_UP = 38;
+    static final int KEY_RIGHT = 39;
+    static final int KEY_DOWN = 40;
 
     Starship starship;
 
@@ -25,7 +29,8 @@ public class SpaceAvoider extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                // key handling
+                starship.control(e.getKeyCode());
+                canvas.repaint();
             }
         });
         add(canvas);
