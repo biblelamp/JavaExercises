@@ -12,6 +12,7 @@ public class SpaceAvoider extends JFrame {
     static final int KEY_RIGHT = 39;
     static final int KEY_DOWN = 40;
 
+    Asteroids asteroids;
     Starship starship;
 
     public static void main(String[] args) {
@@ -41,6 +42,7 @@ public class SpaceAvoider extends JFrame {
     }
 
     private void game() {
+        asteroids = new Asteroids(25);
         starship = new Starship(WINDOW_WIDTH / 2, 450);
         while (true) {
             // life of game objects
@@ -51,6 +53,7 @@ public class SpaceAvoider extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+            asteroids.paint(g);
             starship.paint(g);
         }
     }
