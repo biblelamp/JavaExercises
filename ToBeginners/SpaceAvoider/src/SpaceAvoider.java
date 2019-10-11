@@ -43,7 +43,7 @@ public class SpaceAvoider extends JFrame {
 
     private void game() {
         asteroids = new Asteroids(25);
-        starship = new Starship(WINDOW_WIDTH / 2, 450);
+        starship = new Starship(WINDOW_WIDTH / 2, 500);
         while (true) {
             // life of game objects
         }
