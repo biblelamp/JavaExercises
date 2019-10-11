@@ -24,7 +24,7 @@ public class SpaceAvoider extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         Canvas canvas = new Canvas();
-        canvas.setBackground(Color.white);
+        canvas.setBackground(Color.black);
         canvas.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
         addKeyListener(new KeyAdapter() {
@@ -42,7 +42,7 @@ public class SpaceAvoider extends JFrame {
     }
 
     private void game() {
-        asteroids = new Asteroids(25);
+        asteroids = new Asteroids(20);
         starship = new Starship(WINDOW_WIDTH / 2, 500);
         while (true) {
             // life of game objects
@@ -53,6 +53,7 @@ public class SpaceAvoider extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+            g.setColor(Color.white);
             asteroids.paint(g);
             starship.paint(g);
         }
