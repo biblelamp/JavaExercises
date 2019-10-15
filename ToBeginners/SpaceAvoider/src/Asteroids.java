@@ -6,17 +6,17 @@ import java.awt.Rectangle;
 
 class Asteroids {
     private List<Asteroid> asteroids;
+    private Random random = new Random();
 
     public Asteroids(int amount) {
         Asteroid asteroid;
-        Random rand = new Random();
         asteroids = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             do {
                 asteroid = new Asteroid(
-                    rand.nextInt(SpaceAvoider.WINDOW_WIDTH),
-                    rand.nextInt(SpaceAvoider.WINDOW_HEIGHT - 150),
-                    rand.nextInt(20) + 20);
+                    random.nextInt(SpaceAvoider.WINDOW_WIDTH),
+                    random.nextInt(SpaceAvoider.WINDOW_HEIGHT - 150),
+                    random.nextInt(20) + 20);
             } while (isCrossing(asteroid));
             asteroids.add(asteroid);
         }
@@ -33,6 +33,12 @@ class Asteroids {
         return false;
     }
 
+    public void move() {
+        for (Asteroid asteroid : asteroids) {
+            asteroid.move();
+        }
+    }
+
     public void paint(Graphics g) {
         for (Asteroid asteroid : asteroids) {
             asteroid.paint(g);
@@ -40,12 +46,17 @@ class Asteroids {
     }
 
     class Asteroid {
-        int x, y, d;
+        int x, y, d, speed;
 
         Asteroid(int x, int y, int d) {
             this.x = x;
             this.y = y;
             this.d = d;
+            speed = random.nextInt(3) + 1;
+        }
+
+        void move() {
+            y += speed;
         }
 
         void paint(Graphics g) {
