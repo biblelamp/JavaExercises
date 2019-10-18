@@ -49,6 +49,14 @@ public class SpaceAvoider extends JFrame {
         }
     }
 
+    private void sleep(long ms) {    // method for suspending
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     class Canvas extends JPanel {
         @Override
         public void paint(Graphics g) {
