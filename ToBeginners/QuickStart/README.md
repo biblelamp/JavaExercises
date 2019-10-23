@@ -4,6 +4,9 @@ My designs for beginners to learn Java
 ## Java forever! 12 Reasons for Java Prolonged Dominance (RU)
 https://habr.com/ru/post/201612/
 
+## Document Java Quick Start (RU)
+https://docs.google.com/document/d/1nKcd9VIcTLrRrUBk0R4W2VwpBxVpbkRgauYbjjTGr8g
+
 ## Presentation Java Quick Start (RU)
 https://docs.google.com/presentation/d/1vQXHc4XwMg68fsoG5_z_7WESIh84fkYxIS1BD3ZShQw
 
