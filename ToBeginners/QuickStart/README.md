@@ -10,6 +10,9 @@ https://docs.google.com/document/d/1nKcd9VIcTLrRrUBk0R4W2VwpBxVpbkRgauYbjjTGr8g
 ## Presentation Java Quick Start (RU)
 https://docs.google.com/presentation/d/1vQXHc4XwMg68fsoG5_z_7WESIh84fkYxIS1BD3ZShQw
 
+## Document Java Quick Start: TicTacToe (RU)
+https://docs.google.com/document/d/1mVcueY2AZYenjGeWXlpvzQKYg8Ehof2Y_BhOJBldUgE
+
 ## Sololearn online free
 https://www.sololearn.com/Course/Java/
 
