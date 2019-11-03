@@ -9,7 +9,7 @@ class TicTacToeGame {
     Random random;
     Scanner scanner;
 
-    TicTacToe() {
+    TicTacToeGame() {
         random = new Random();
         scanner = new Scanner(System.in);
         table = new char[3][3];
@@ -46,6 +46,26 @@ class TicTacToeGame {
         for (int row = 0; row < 3; row++)
             for (int col = 0; col < 3; col++)
                 table[row][col] = SIGN_EMPTY;
+    }
+
+    void printTable() {
+        
+    }
+
+    void turnHuman() {
+        
+    }
+
+    void turnAI() {
+        
+    }
+
+    boolean checkWin(char dot) {
+        return false;
+    }
+
+    boolean isTableFull() {
+        return false;
     }
 
 }
