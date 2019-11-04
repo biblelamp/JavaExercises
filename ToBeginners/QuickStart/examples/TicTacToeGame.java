@@ -43,13 +43,18 @@ class TicTacToeGame {
     }
 
     void initTable() {
-        for (int row = 0; row < 3; row++)
-            for (int col = 0; col < 3; col++)
+        for (int row = 0; row < table.length; row++)
+            for (int col = 0; col < table[row].length; col++)
                 table[row][col] = SIGN_EMPTY;
     }
 
     void printTable() {
-        
+        for (int row = 0; row < table.length; row++) {
+            for (int col = 0; col < table[row].length; col++)
+                System.out.print(table[row][col] + " ");
+            System.out.println();
+        }
+        System.out.println();
     }
 
     void turnHuman() {
