@@ -58,7 +58,13 @@ class TicTacToeGame {
     }
 
     void turnHuman() {
-        
+        int x, y;
+        do {
+            System.out.println("Enter X and Y (1..3):");
+            x = scanner.nextInt() - 1;
+            y = scanner.nextInt() - 1;
+        } while (!isCellValid(x, y));
+        table[y][x] = SIGN_X;
     }
 
     void turnAI() {
@@ -71,6 +77,12 @@ class TicTacToeGame {
 
     boolean isTableFull() {
         return false;
+    }
+
+    boolean isCellValid(int x, int y) {
+        if (x < 0 || y < 0 || x >= 3|| y >= 3)
+            return false;
+        return table[y][x] == SIGN_EMPTY;
     }
 
 }
