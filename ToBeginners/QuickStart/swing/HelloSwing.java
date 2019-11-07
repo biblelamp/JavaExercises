@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.JFrame;
 
 class HelloSwing extends JFrame {
     public static void main(String[] args) {
