@@ -13,6 +13,9 @@ https://docs.google.com/presentation/d/1vQXHc4XwMg68fsoG5_z_7WESIh84fkYxIS1BD3ZS
 ## Document Java Quick Start: TicTacToe (RU)
 https://docs.google.com/document/d/1mVcueY2AZYenjGeWXlpvzQKYg8Ehof2Y_BhOJBldUgE
 
+## Document Java Quick Start: BlowUpBalls (RU)
+https://docs.google.com/document/d/1fOv7CVlA65_AY3vhBIKQZ3IJfuawpAVMOA8oEPUhEX4
+
 ## Sololearn online free
 https://www.sololearn.com/Course/Java/
 
