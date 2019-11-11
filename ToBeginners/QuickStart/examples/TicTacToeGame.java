@@ -9,6 +9,10 @@ class TicTacToeGame {
     Random random;
     Scanner scanner;
 
+    public static void main(String[] args) {
+        new TicTacToeGame().game();
+    }
+
     TicTacToeGame() {
         random = new Random();
         scanner = new Scanner(System.in);
