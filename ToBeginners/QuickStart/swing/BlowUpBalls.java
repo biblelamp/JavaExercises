@@ -54,12 +54,16 @@ class BlowUpBalls extends JFrame {
 
     void initBalls(int count) {
         for (int i = 0; i < count; i++) {
-            int d = random.nextInt(30) + 50;
-            int x = random.nextInt(WIN_WIDTH);
-            int y = random.nextInt(WIN_HEIGHT);
-            Color color = COLORS[random.nextInt(COLORS.length)];
-            balls.add(new Ball(x, y, d, color));
+            addBall();
         }
+    }
+
+    void addBall() {
+        int d = random.nextInt(30) + 50;
+        int x = random.nextInt(WIN_WIDTH);
+        int y = random.nextInt(WIN_HEIGHT);
+        Color color = COLORS[random.nextInt(COLORS.length)];
+        balls.add(new Ball(x, y, d, color));
     }
 
     void deleteBall(int x, int y) {
