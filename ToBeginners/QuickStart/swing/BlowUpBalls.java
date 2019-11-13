@@ -14,7 +14,7 @@ class BlowUpBalls extends JFrame {
     final String TITLE_OF_PROGRAM = "Blow Up Balls";
     final int WIN_WIDTH = 550;
     final int WIN_HEIGHT = 550;
-    final int NUMBER_OF_BALLS = 50;
+    final int NUMBER_OF_BALLS = 30;
     final Color[] COLORS = {
         Color.gray, Color.blue, Color.green, Color.red, Color.yellow, Color.pink, Color.magenta, Color.orange
     };
@@ -53,7 +53,6 @@ class BlowUpBalls extends JFrame {
     }
 
     void initBalls(int count) {
-        int x, y, d;
         for (int i = 0; i < count; i++) {
             addBall();
         }
@@ -61,8 +60,8 @@ class BlowUpBalls extends JFrame {
 
     void addBall() {
         int d = random.nextInt(30) + 50;
-        int x = random.nextInt(WIN_WIDTH);
-        int y = random.nextInt(WIN_HEIGHT);
+        int x = random.nextInt(WIN_WIDTH - d);
+        int y = random.nextInt(WIN_HEIGHT - d);
         Color color = COLORS[random.nextInt(COLORS.length)];
         balls.add(new Ball(x, y, d, color));
     }
