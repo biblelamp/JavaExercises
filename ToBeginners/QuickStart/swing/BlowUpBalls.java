@@ -53,6 +53,7 @@ class BlowUpBalls extends JFrame {
     }
 
     void initBalls(int count) {
+        int x, y, d;
         for (int i = 0; i < count; i++) {
             addBall();
         }
