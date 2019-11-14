@@ -21,9 +21,10 @@ class BlowUpBalls extends JFrame {
 
     Random random;
     List<Ball> balls;
+    Canvas canvas;
 
     public static void main(String[] args) {
-        new BlowUpBalls();
+        new BlowUpBalls().game();
     }
 
     public BlowUpBalls() {
@@ -32,9 +33,8 @@ class BlowUpBalls extends JFrame {
 
         random = new Random();
         balls = new ArrayList<>();
-        initBalls(NUMBER_OF_BALLS);
 
-        Canvas canvas = new Canvas();
+        canvas = new Canvas();
         canvas.setBackground(Color.white);
         canvas.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
         canvas.addMouseListener(new MouseAdapter() {
@@ -50,6 +50,22 @@ class BlowUpBalls extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    void game() {
+        while (true) {
+            addBall();
+            sleep(700);
+            canvas.repaint();
+        }
+    }
+
+    void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     void initBalls(int count) {
