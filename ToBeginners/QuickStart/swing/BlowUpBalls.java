@@ -18,6 +18,8 @@ class BlowUpBalls extends JFrame {
     final Color[] COLORS = {
         Color.gray, Color.blue, Color.green, Color.red, Color.yellow, Color.pink, Color.magenta, Color.orange
     };
+    int showDelay = 1000;
+    int counter = 0;
 
     Random random;
     List<Ball> balls;
@@ -54,8 +56,9 @@ class BlowUpBalls extends JFrame {
 
     void game() {
         while (true) {
+            counter++;
             addBall();
-            sleep(700);
+            sleep(showDelay);
             canvas.repaint();
         }
     }
