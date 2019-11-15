@@ -56,10 +56,13 @@ class BlowUpBalls extends JFrame {
 
     void game() {
         while (true) {
-            counter++;
             addBall();
             sleep(showDelay);
             canvas.repaint();
+            counter++;
+            if (counter % 10 == 0) {
+                showDelay -= 100;
+            }
         }
     }
 
