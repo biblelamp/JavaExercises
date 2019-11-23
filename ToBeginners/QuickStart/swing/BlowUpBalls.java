@@ -90,9 +90,7 @@ class BlowUpBalls extends JFrame {
 
     void deleteBall(int x, int y) {
         for (Ball ball : balls) {
-            double d = Math.sqrt(Math.pow(ball.x + ball.d/2 - x, 2) +
-                Math.pow(ball.y  + ball.d/2 - y, 2));
-            if (d < ball.d/2) {
+            if (ball.isPointInside(x, y)) {
                 balls.remove(ball);
                 break;
             }
@@ -122,6 +120,12 @@ class BlowUpBalls extends JFrame {
             this.y = y;
             this.d = d;
             this.color = color;
+        }
+
+        boolean isPointInside(int x, int y) {
+            double d = Math.sqrt(Math.pow(this.x + this.d/2 - x, 2) +
+                Math.pow(this.y  + this.d/2 - y, 2));
+            return d < this.d/2;
         }
 
         void paint(Graphics g) {
