@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -108,31 +108,6 @@ class BlowUpBalls extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             paintBalls(g);
-        }
-    }
-
-    class Ball {
-        int x, y, d;
-        Color color;
-
-        Ball(int x, int y, int d, Color color) {
-            this.x = x;
-            this.y = y;
-            this.d = d;
-            this.color = color;
-        }
-
-        boolean isPointInside(int x, int y) {
-            double d = Math.sqrt(Math.pow(this.x + this.d/2 - x, 2) +
-                Math.pow(this.y  + this.d/2 - y, 2));
-            return d < this.d/2;
-        }
-
-        void paint(Graphics g) {
-            g.setColor(color);
-            g.fillOval(x, y, d, d);
-            g.setColor(Color.black);
-            g.drawOval(x, y, d, d);
         }
     }
 }
