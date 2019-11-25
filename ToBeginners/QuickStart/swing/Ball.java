@@ -12,6 +12,11 @@ class Ball {
         this.color = color;
     }
 
+    void move(int dx, int dy) {
+        x += dx;
+        y += dy;
+    }
+
     boolean isPointInside(int x, int y) {
         double dx = this.x + this.d/2 - x;
         double dy = this.y  + this.d/2 - y;
