@@ -4,6 +4,8 @@ class Kettle {
         System.out.println("Take a kettle");
         if (water == 0) {
             System.out.println("Pour water into the kettle");
+        } else {
+            System.out.println("Enough water");
         }
         System.out.println("Put the kettle on fire");
     }
