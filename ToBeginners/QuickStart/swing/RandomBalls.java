@@ -3,6 +3,8 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class RandomBalls extends JFrame {
@@ -27,7 +29,13 @@ public class RandomBalls extends JFrame {
         Canvas canvas = new Canvas();
         canvas.setBackground(Color.white);
         canvas.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
-
+        canvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                canvas.repaint();
+            }
+        });
         add(canvas);
         pack();
         setLocationRelativeTo(null);
