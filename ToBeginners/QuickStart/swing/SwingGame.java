@@ -1,6 +1,10 @@
-import javax.swing.*;
-import java.awt.*;
-//import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SwingGame extends JFrame {
 
@@ -22,8 +26,9 @@ public class SwingGame extends JFrame {
 
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent event) {
                 // key handling
+                System.out.println(event.getKeyCode());
             }
         });
         add(canvas);
