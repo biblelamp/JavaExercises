@@ -19,5 +19,8 @@ https://docs.google.com/document/d/1fOv7CVlA65_AY3vhBIKQZ3IJfuawpAVMOA8oEPUhEX4
 ## Sololearn online free
 https://www.sololearn.com/Course/Java/
 
+## W3School Java online tutorial
+https://www.w3schools.com/java/default.asp
+
 ## Movement of a body thrown at an angle to the horizon (RU)
 https://ido.tsu.ru/schools/physmat/data/res/virtlab/text/m2_1.html
