@@ -42,7 +42,6 @@ class BlowUpBalls extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
                 deleteBall(e.getX(), e.getY());
                 canvas.repaint();
             }

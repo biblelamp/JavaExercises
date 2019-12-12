@@ -32,7 +32,6 @@ public class RandomBalls extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
                 canvas.repaint();
             }
         });
