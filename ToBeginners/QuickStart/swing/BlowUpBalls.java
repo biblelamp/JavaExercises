@@ -56,20 +56,20 @@ class BlowUpBalls extends JFrame {
     void game() {
         while (true) {
             addBall();
-            sleep(showDelay);
+            if (balls.size() >= 5) {
+                System.out.println("Game Over");
+                break;
+            }
             canvas.repaint();
             counter++;
             if (counter % 10 == 0) {
                 showDelay -= 100;
             }
-        }
-    }
-
-    void sleep(long ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(showDelay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,17 +88,14 @@ class BlowUpBalls extends JFrame {
     }
 
     void deleteBall(int x, int y) {
-        for (Ball ball : balls) {
-            if (ball.isPointInside(x, y)) {
-                balls.remove(ball);
+        for (int i = balls.size() - 1; i > -1; i--) {
+            double dx = balls.get(i).x + balls.get(i).d/2 - x;
+            double dy = balls.get(i).y  + balls.get(i).d/2 - y;
+            double d = Math.sqrt(dx * dx + dy * dy);
+            if (d < balls.get(i).d/2) {
+                balls.remove(i);
                 break;
             }
-        }
-    }
-
-    void paintBalls(Graphics g) {
-        for (Ball ball : balls) {
-            ball.paint(g);
         }
     }
 
@@ -106,7 +103,9 @@ class BlowUpBalls extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            paintBalls(g);
+            for (Ball ball : balls) {
+                ball.paint(g);
+            }
         }
     }
 }
