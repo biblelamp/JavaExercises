@@ -45,7 +45,6 @@ class TicTacToe extends JFrame {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
                 human.turn(e.getX()/CELL_SIZE, e.getY()/CELL_SIZE, field, ai);
                 panel.repaint();
                 if (field.isGameOver())
