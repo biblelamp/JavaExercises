@@ -62,7 +62,7 @@ class BlowUpBalls extends JFrame {
             }
             canvas.repaint();
             counter++;
-            if (counter % 10 == 0) {
+            if (counter % 10 == 0 && showDelay > 100) {
                 showDelay -= 100;
             }
             try {
