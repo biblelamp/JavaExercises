@@ -13,8 +13,8 @@ https://docs.google.com/presentation/d/1vQXHc4XwMg68fsoG5_z_7WESIh84fkYxIS1BD3ZS
 Ссылка на статью с инструкцией по установке JDK:
 https://geekbrains.ru/posts/java_quick_start_part1
 
-Ссылка на статью серии "Быстрый старт":
-https://docs.google.com/document/d/1fOv7CVlA65_AY3vhBIKQZ3IJfuawpAVMOA8oEPUhEX4
+Ссылка на статью из серии Быстрый старт "Изучаем Java: шаг за шагом"
+https://docs.google.com/document/d/14LrF6Jt-mt_fXiAnMIL-Ci3557PfI8JXpjB-KYOsK3g
 
 Телеграм-чат:
 https://t.me/joinchat/EuijNhMfrdv0AqK4lLapsw открыт для ваших вопросов.
