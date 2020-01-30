@@ -19,6 +19,9 @@ https://docs.google.com/document/d/14LrF6Jt-mt_fXiAnMIL-Ci3557PfI8JXpjB-KYOsK3g
 Телеграм-чат:
 https://t.me/joinchat/EuijNhMfrdv0AqK4lLapsw открыт для ваших вопросов.
 
+JDK 8u202 - последняя сборка non-commerce
+https://www.oracle.com/java/technologies/javase-java-archive-javase8-downloads.html
+
 -- old version
 
 1. Основная цель: дать общее представление о Java и процессе разработки.
