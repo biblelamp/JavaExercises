@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.Locale;
 import java.text.ParseException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,10 +11,10 @@ import java.text.SimpleDateFormat;
 class DateAndTimeParsing {
 
     public static void main(String[] args) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy:mm:dd");
-        Date date = df.parse("2012:02:22 11:12-13");
+        DateFormat df = new SimpleDateFormat("(HH:mm a EEE, MMM dd, yyyy)", Locale.ENGLISH);
+        Date date = df.parse("(3:39 PM Friday, December 20, 2002)");
 
         System.out.println(date);
-        System.out.println(String.format("%tY-%tm-%tdT00:00:00Z", date, date, date));
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(date));
     }
 }
