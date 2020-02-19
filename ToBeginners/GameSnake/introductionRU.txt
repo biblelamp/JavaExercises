@@ -25,9 +25,15 @@ https://t.me/joinchat/EuijNhMfrdv0AqK4lLapsw открыт для ваших во
 JDK 8u202 - последняя сборка non-commerce
 https://www.oracle.com/java/technologies/javase-java-archive-javase8-downloads.html
 
-План(ы) изучение Java:
+Изучение Java:
 https://javarush.ru/groups/posts/1902-kak-nachatjh-programmirovatjh
 https://javarush.ru/groups/posts/2398-java-plan-deystviy
+
+Переквалифицироваться в java-программиста (после 50), устроиться удаленщиком.
+https://smartprogress.do/goal/293741/
+
+С нуля до трудоустройства, Фуллстек Java + JS
+https://job4j.ru/courses/java_with_zero_to_job.html
 
 -- old version
 
