@@ -19,5 +19,8 @@ Atom – современный кросс-платформенный текст
 Источник: https://mediadoma.com/atom-obzor-sravnenie-s-sublime-visual-studio-code-vim
 
 2. Geany
-
 3. Notepad++
+
+Хорошую инструкцию по настройке можно найти по адресу https://geekbrains.ru/posts/npp_java
+
+4. Brackets (?) http://brackets.io/
