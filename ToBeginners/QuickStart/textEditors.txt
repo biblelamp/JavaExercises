@@ -14,7 +14,7 @@ Atom – современный кросс-платформенный текст
 
 После перезапуска проводим небольшую настройку Script. Проходим File → Settings → Packages и у нашего свежеустановленного пакета нажимаем кнопку Settings. У параметра Default Working Directory (CWD) Behavior выбираем значение Directory of the script.
 
-Теперь мы може запускать компиляцию и выполнение нашего кода на Java и Go нажимая сочетание клавиш Clrl+Shift+B.
+Теперь мы можем запускать компиляцию и выполнение нашего кода на Java и Go нажимая сочетание клавиш Clrl+Shift+B.
 
 Источник: https://mediadoma.com/atom-obzor-sravnenie-s-sublime-visual-studio-code-vim
 
@@ -22,5 +22,10 @@ Atom – современный кросс-платформенный текст
 3. Notepad++
 
 Хорошую инструкцию по настройке можно найти по адресу https://geekbrains.ru/posts/npp_java
+
+После установки:
+- настройка шрифтов: Settings → Style Configurator...
+- табуляция 4 пробела: Settings → Preferences... → Language → Java
+- плагин NppExec
 
 4. Brackets (?) http://brackets.io/
