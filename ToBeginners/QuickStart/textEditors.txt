@@ -28,4 +28,16 @@ Atom – современный кросс-платформенный текст
 - табуляция 4 пробела: Settings → Preferences... → Language → Java
 - плагин NppExec
 
+Включить пункты:
+No internal messages
+Save all files on execute
+Follow $(CURRENT_DIRECTORY)
+
+Содержимое окна Command(s):
+cd "$(CURRENT_DIRECTORY)"
+javac $(FILE_NAME)
+if $(EXITCODE) !=0 goto exit
+java $(NAME_PART)
+:exit
+
 4. Brackets (?) http://brackets.io/
