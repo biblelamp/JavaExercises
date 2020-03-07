@@ -29,15 +29,17 @@ Atom – современный кросс-платформенный текст
 - плагин NppExec
 
 Включить пункты:
-No internal messages
-Save all files on execute
-Follow $(CURRENT_DIRECTORY)
+- No internal messages
+- Save all files on execute
+- Follow $(CURRENT_DIRECTORY)
 
-Содержимое окна Command(s):
-cd "$(CURRENT_DIRECTORY)"
+Содержимое окна Command(s) для Java:
 javac $(FILE_NAME)
 if $(EXITCODE) !=0 goto exit
 java $(NAME_PART)
 :exit
+
+Содержимое окна Command(s) для Go:
+go run $(FILE_NAME)
 
 4. Brackets (?) http://brackets.io/
