@@ -22,6 +22,9 @@ https://docs.google.com/document/d/14LrF6Jt-mt_fXiAnMIL-Ci3557PfI8JXpjB-KYOsK3g
 Ссылка на статью "Пишем на Java и Go в текстовом редакторе"
 https://docs.google.com/document/d/1TLZRgD3XMyt2sEdQ7h9m9fNIW8E3QlJD07HhbCEJSFg
 
+Ссылка на статью "Учим Java: 10 практических советов"
+https://docs.google.com/document/d/1oXzQ__LhsqqWYpVDRAfj1H4SuZNrbWycArYCrKe-BOM
+
 Телеграм-чат:
 https://t.me/joinchat/EuijNhMfrdv0AqK4lLapsw открыт для ваших вопросов.
 
