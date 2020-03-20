@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Interpreter {
 
+    private static String WELCOME = "JFocal, version 0.02";
+    private static String PROMT = "* ";
+
+    private static String COMMAND_NOT_RECOGNIZED = "Error - command '%s' not recognized\n";
+
     private Scanner scanner;
     private boolean quit;
 
@@ -13,9 +18,9 @@ public class Interpreter {
     }
 
     public void run() {
-        System.out.println("JFocal, version 0.01");
+        System.out.println(WELCOME);
         while (!quit) {
-            System.out.print("# ");
+            System.out.print(PROMT);
             String line = scanner.nextLine();
             processLine(line);
         }
@@ -29,7 +34,7 @@ public class Interpreter {
                 quit = true;
                 break;
             default:
-                System.out.printf("Error - command '%s' not recognized\n", tokens[0]);
+                System.out.printf(COMMAND_NOT_RECOGNIZED, tokens[0]);
         }
     }
 }
