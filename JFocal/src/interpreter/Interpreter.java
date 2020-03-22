@@ -1,9 +1,6 @@
 package interpreter;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,6 +24,7 @@ public class Interpreter {
     private final static String COMMAND_NOT_RECOGNIZED = "Error: Command '%s' not recognized\n";
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'\n";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
+    private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
     private final static String BAD_LINE_NUMBER = "Error: Bad line number %s\n";
 
@@ -62,7 +60,16 @@ public class Interpreter {
     }
 
     private void outputProgram(String fileName) {
-
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(fileName), StandardCharsets.UTF_8))){
+            for (Float key : program.keySet()) {
+                writer.write(String.format("%02d.%02d %s\n",
+                        key.intValue(), (int)(key * 100 % 100), program.get(key)));
+            }
+        } catch (IOException e) {
+            System.out.printf(ERROR_WRITING_FILE, fileName);
+        }
     }
 
     private void inputProgram(String fileName) {
