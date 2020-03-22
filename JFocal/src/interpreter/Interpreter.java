@@ -11,12 +11,14 @@ import java.util.TreeMap;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.04";
+    private final static String WELCOME = "JFocal, version 0.05";
     private final static String PROMT = "* ";
 
     private final static String Q = "Q";
     private final static String QUIT = "QUIT";
 
+    private final static String E = "E";
+    private final static String ERASE = "ERASE";
     private final static String O = "O";
     private final static String OPEN = "OPEN";
     private final static String W = "W";
@@ -88,9 +90,11 @@ public class Interpreter {
         }
         String operation = tokens[1].toUpperCase();
         switch (operation) {
+            case "I":
             case "INPUT":
                 inputProgram(tokens[2]);
                 break;
+            case "O":
             case "OUTPUT":
                 outputProgram(tokens[2]);
                 break;
@@ -113,6 +117,10 @@ public class Interpreter {
                 case Q:
                 case QUIT:
                     quit = true;
+                    break;
+                case E:
+                case ERASE:
+                    program.clear();
                     break;
                 case O:
                 case OPEN:

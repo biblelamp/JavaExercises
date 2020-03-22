@@ -2,4 +2,4 @@
 2020-03-19 added an interpreter base
 2020-03-20 using constants
 2020-03-21 basic work with program lines (enter, write)
-2020-03-22 reading program file
+2020-03-22 reading program file, erasing program lines
