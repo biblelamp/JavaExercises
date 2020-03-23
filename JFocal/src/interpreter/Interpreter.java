@@ -8,9 +8,11 @@ import java.util.TreeMap;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.05";
+    private final static String WELCOME = "JFocal, version 0.06";
     private final static String PROMT = "* ";
 
+    private final static String T = "T";
+    private final static String TYPE = "TYPE";
     private final static String Q = "Q";
     private final static String QUIT = "QUIT";
 
@@ -27,6 +29,7 @@ public class Interpreter {
     private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
     private final static String BAD_LINE_NUMBER = "Error: Bad line number %s\n";
+    private final static String UNPAIRED_BRACKETS = "Error: Unpaired brackets %s\n";
 
     private Scanner scanner;
     private Map<Float, String> program;
@@ -45,6 +48,24 @@ public class Interpreter {
             String line = scanner.nextLine();
             if (line.length() > 0) {
                 processLine(line);
+            }
+        }
+    }
+
+    private void commandType(String line) {
+        String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
+        for (String parameter : parameters) {
+            String item = parameter.trim();
+            if (item.startsWith("\"")) {
+                if (item.endsWith("\"")) {
+                    System.out.print(item.substring(1, item.length() - 1));
+                } else {
+                    System.out.printf(UNPAIRED_BRACKETS, item);
+                }
+            } else if (item.startsWith("%")) {
+                // TODO number output format
+            } else {
+                // TODO number, variable or expression result
             }
         }
     }
@@ -121,6 +142,10 @@ public class Interpreter {
         } else {
             String cmd = tokens[0].toUpperCase();
             switch (cmd) {
+                case T:
+                case TYPE:
+                    commandType(line);
+                    break;
                 case Q:
                 case QUIT:
                     quit = true;
