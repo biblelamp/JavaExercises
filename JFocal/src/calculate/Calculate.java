@@ -3,17 +3,17 @@ package calculate;
 import interpreter.Interpreter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Calculate {
 
-    public static float calculate(String expression) {
-        return calculatePostfix(infixToPostfix(expression));
+    public static float calculate(String expression, Map<String, Float> variables) {
+        return calculatePostfix(infixToPostfix(expression), variables);
     }
 
-    private static float calculatePostfix(List<String> list) {
+    private static float calculatePostfix(List<String> list, Map<String, Float> variables) {
         LinkedList<Float> stack = new LinkedList<>();
         float second;
         for (String str : list) {
@@ -40,7 +40,8 @@ public class Calculate {
                     try {
                         stack.push(Float.parseFloat(str));
                     } catch (NumberFormatException ex) {
-                        System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
+                        stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
+                        //System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
                     }
             }
         }
@@ -82,7 +83,7 @@ public class Calculate {
         if (!numberOrVariable.isEmpty()) {
             result.add(numberOrVariable);
         }
-        for (int i = 0; i < stackOper.size() + 1; i++) {
+        while (stackOper.size() > 0) {
             result.add(stackOper.pop().toString());
         }
         return result;

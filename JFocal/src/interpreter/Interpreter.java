@@ -3,17 +3,17 @@ package interpreter;
 import calculate.Calculate;
 import program.ProgramLines;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class Interpreter {
 
     private final static String WELCOME = "JFocal, version 0.07";
     private final static String PROMT = "* ";
 
+    private final static String S = "S";
+    private final static String SET = "SET";
     private final static String T = "T";
     private final static String TYPE = "TYPE";
     private final static String Q = "Q";
@@ -34,11 +34,13 @@ public class Interpreter {
 
     private Scanner scanner;
     private ProgramLines program;
+    private Map<String, Float> variables;
     private boolean quit;
 
     public Interpreter() {
         scanner = new Scanner(System.in);
         program = new ProgramLines();
+        variables = new HashMap<>();
         quit = false;
     }
 
@@ -51,6 +53,16 @@ public class Interpreter {
                 processLine(line);
             }
         }
+    }
+
+    private void commandSet(String line) {
+        String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
+        if (parts.length < 2) {
+            System.out.printf(NOT_ENOUGH_PARAMETERS, "SET");
+            return;
+        }
+        float result = Calculate.calculate(parts[1].trim(), variables);
+        variables.put(parts[0].trim().toUpperCase(), result);
     }
 
     private void commandType(String line) {
@@ -67,7 +79,7 @@ public class Interpreter {
                 // TODO getting number output format
             } else {
                 // TODO number, variable or expression result
-                System.out.println(Calculate.calculate(parameter));
+                System.out.println(Calculate.calculate(parameter, variables));
             }
         }
     }
@@ -99,6 +111,10 @@ public class Interpreter {
         } else {
             String cmd = tokens[0].toUpperCase();
             switch (cmd) {
+                case S:
+                case SET:
+                    commandSet(line);
+                    break;
                 case T:
                 case TYPE:
                     commandType(line);
