@@ -12,6 +12,8 @@ public class Interpreter {
     private final static String WELCOME = "JFocal, version 0.07";
     private final static String PROMT = "* ";
 
+    private final static String C = "C";
+    private final static String COMMENT = "COMMENT";
     private final static String S = "S";
     private final static String SET = "SET";
     private final static String T = "T";
@@ -111,6 +113,9 @@ public class Interpreter {
         } else {
             String cmd = tokens[0].toUpperCase();
             switch (cmd) {
+                case C:
+                case COMMENT:
+                    break;
                 case S:
                 case SET:
                     commandSet(line);
