@@ -1,5 +1,7 @@
 package interpreter;
 
+import calculate.Calculate;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -29,7 +31,8 @@ public class Interpreter {
     private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
     private final static String BAD_LINE_NUMBER = "Error: Bad line number %s\n";
-    private final static String UNPAIRED_BRACKETS = "Error: Unpaired brackets %s\n";
+    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes %s\n";
+    public final static String ERROR_NUMBER_FORMAT = "Error number format %s\n";
 
     private Scanner scanner;
     private Map<Float, String> program;
@@ -60,12 +63,13 @@ public class Interpreter {
                 if (item.endsWith("\"")) {
                     System.out.print(item.substring(1, item.length() - 1));
                 } else {
-                    System.out.printf(UNPAIRED_BRACKETS, item);
+                    System.out.printf(UNPAIRED_QUOTES, item);
                 }
             } else if (item.startsWith("%")) {
-                // TODO number output format
+                // TODO getting number output format
             } else {
                 // TODO number, variable or expression result
+                System.out.println(Calculate.calculate(parameter));
             }
         }
     }
