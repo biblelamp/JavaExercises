@@ -1,5 +1,7 @@
 package program;
 
+import util.Util;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -38,7 +40,7 @@ public class ProgramLines {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(" ");
-                if (isValidLineNumber(tokens[0])) {
+                if (Util.isValidLineNumber(tokens[0])) {
                     add(tokens[0], line);
                 } else {
                     System.out.printf(BAD_LINE_NUMBER, tokens[0]);
@@ -60,10 +62,6 @@ public class ProgramLines {
         } catch (IOException e) {
             System.out.printf(ERROR_WRITING_FILE, fileName);
         }
-    }
-
-    public boolean isValidLineNumber(String numLine) {
-        return numLine.matches("\\d\\d?\\.\\d\\d?");
     }
 
 }

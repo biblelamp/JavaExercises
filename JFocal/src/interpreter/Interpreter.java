@@ -1,7 +1,8 @@
 package interpreter;
 
-import calculate.Calculate;
+import calculations.Calculate;
 import program.ProgramLines;
+import util.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +10,11 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.07";
+    private final static String WELCOME = "JFocal, version 0.08";
     private final static String PROMT = "* ";
 
+    private final static String A = "A";
+    private final static String ASK = "ASK";
     private final static String C = "C";
     private final static String COMMENT = "COMMENT";
     private final static String S = "S";
@@ -57,6 +60,23 @@ public class Interpreter {
         }
     }
 
+    private void commandAsk(String line) {
+        String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
+        for (String parameter : parameters) {
+            if (parameter.startsWith("\"")) {
+                if (parameter.endsWith("\"")) {
+                    System.out.print(parameter.substring(1, parameter.length() - 1));
+                } else {
+                    System.out.printf(UNPAIRED_QUOTES, parameter);
+                }
+            } else {
+                System.out.print("?");
+                float number = Float.parseFloat(scanner.nextLine());
+                variables.put(parameter.trim().toUpperCase(), number);
+            }
+        }
+    }
+
     private void commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
@@ -79,9 +99,14 @@ public class Interpreter {
                 }
             } else if (item.startsWith("%")) {
                 // TODO getting number output format
+            } else if (item.startsWith("!") || item.startsWith("#") || item.startsWith(":")) {
+                if (item.equals("!")) {
+                    System.out.println();
+                }
+                // TODO implement control characters: !(CR/LF) #(CR) :(TAB)
             } else {
                 // TODO number, variable or expression result
-                System.out.println(Calculate.calculate(parameter, variables));
+                System.out.print(Calculate.calculate(parameter, variables));
             }
         }
     }
@@ -108,11 +133,15 @@ public class Interpreter {
 
     private void processLine(String line) {
         String[] tokens = line.split(" ");
-        if (program.isValidLineNumber(tokens[0])) {
+        if (Util.isValidLineNumber(tokens[0])) {
             program.add(tokens[0], line);
         } else {
             String cmd = tokens[0].toUpperCase();
             switch (cmd) {
+                case A:
+                case ASK:
+                    commandAsk(line);
+                    break;
                 case C:
                 case COMMENT:
                     break;

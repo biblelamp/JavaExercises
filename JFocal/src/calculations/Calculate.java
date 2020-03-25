@@ -1,6 +1,4 @@
-package calculate;
-
-import interpreter.Interpreter;
+package calculations;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -40,6 +38,7 @@ public class Calculate {
                     try {
                         stack.push(Float.parseFloat(str));
                     } catch (NumberFormatException ex) {
+                        // TODO checking variable name
                         stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
                         //System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
                     }
