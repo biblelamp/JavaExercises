@@ -4,13 +4,11 @@ import calculations.Calculate;
 import program.ProgramLines;
 import util.Util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.08";
+    private final static String WELCOME = "JFocal, version 0.09";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -24,6 +22,7 @@ public class Interpreter {
     private final static String Q = "Q";
     private final static String QUIT = "QUIT";
 
+    private final static String GO = "GO";
     private final static String E = "E";
     private final static String ERASE = "ERASE";
     private final static String O = "O";
@@ -55,9 +54,35 @@ public class Interpreter {
             System.out.print(PROMT);
             String line = scanner.nextLine();
             if (line.length() > 0) {
-                processLine(line);
+                if (line.toUpperCase().startsWith(GO)) {
+                    if (program.size() > 0) {
+                        goProgram();
+                    }
+                } else {
+                    processLine(line);
+                }
             }
         }
+    }
+
+    private void goProgram() {
+        Set<Float> numLines = program.keySet();
+        Iterator<Float> iterator = numLines.iterator();
+        Float numLine = iterator.next();
+        do {
+            String line = program.get(numLine);
+            if (line != null) {
+                float result = processLine(line);
+                if (iterator.hasNext()) {
+                    numLine = iterator.next();
+                } else {
+                    numLine = -1f;
+                }
+            } else {
+                numLine = -1f;
+            }
+        } while (numLine > -1);
+        quit = false;
     }
 
     private void commandAsk(String line) {
@@ -131,7 +156,7 @@ public class Interpreter {
         }
     }
 
-    private void processLine(String line) {
+    private float processLine(String line) {
         String[] tokens = line.split(" ");
         if (Util.isValidLineNumber(tokens[0])) {
             program.add(tokens[0], line);
@@ -156,7 +181,7 @@ public class Interpreter {
                 case Q:
                 case QUIT:
                     quit = true;
-                    break;
+                    return -1;
                 case E:
                 case ERASE:
                     program.erase();
@@ -171,7 +196,9 @@ public class Interpreter {
                     break;
                 default:
                     System.out.printf(COMMAND_NOT_RECOGNIZED, tokens[0]);
+                    return -1;
             }
         }
+        return 0;
     }
 }

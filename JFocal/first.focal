@@ -1,0 +1,4 @@
+1.1 ASK "Enter number", A
+1.2 SET B=A*A
+1.3 TYPE A,"*",A,"=",B,!
+1.4 QUIT
