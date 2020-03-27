@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class Calculate {
 
-    public static float calculate(String expression, Map<String, Float> variables) {
+    public static Float calculate(String expression, Map<String, Float> variables) {
         return calculatePostfix(infixToPostfix(expression), variables);
     }
 
-    private static float calculatePostfix(List<String> list, Map<String, Float> variables) {
+    private static Float calculatePostfix(List<String> list, Map<String, Float> variables) {
         LinkedList<Float> stack = new LinkedList<>();
         float second;
         for (String str : list) {
@@ -35,6 +35,10 @@ public class Calculate {
                     break;
                 case "/":
                     second = stack.pop();
+                    if (second == 0) {
+                        System.out.printf(Interpreter.DIVISION_BY_ZERO);
+                        return null;
+                    }
                     stack.push(stack.pop() / second);
                     break;
                 default:
@@ -45,7 +49,7 @@ public class Calculate {
                             stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
                         } else {
                             System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
-                            return 0;
+                            return null;
                         }
                     }
             }

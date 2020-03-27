@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.09";
+    private final static String WELCOME = "JFocal, version 0.10";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -41,6 +41,7 @@ public class Interpreter {
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
     private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'\n";
     public final static String ERROR_NUMBER_FORMAT = "Error number format '%s'\n";
+    public final static String DIVISION_BY_ZERO = "Error: division by zero\n";
 
     private Scanner scanner;
     private ProgramLines program;
