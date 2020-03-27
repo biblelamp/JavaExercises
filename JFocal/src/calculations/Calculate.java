@@ -10,6 +10,15 @@ import java.util.Map;
 
 public class Calculate {
 
+    private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+    private final static String DIVISION_BY_ZERO = "Error: Division by zero";
+
+    /**
+     * Returns the result of an expression or null on error
+     * @param expression in string
+     * @param variables map of variables
+     * @return float number or null
+     */
     public static Float calculate(String expression, Map<String, Float> variables) {
         return calculatePostfix(infixToPostfix(expression), variables);
     }
@@ -36,7 +45,7 @@ public class Calculate {
                 case "/":
                     second = stack.pop();
                     if (second == 0) {
-                        System.out.printf(Interpreter.DIVISION_BY_ZERO);
+                        System.out.printf(DIVISION_BY_ZERO);
                         return null;
                     }
                     stack.push(stack.pop() / second);
@@ -48,7 +57,7 @@ public class Calculate {
                         if (Util.isValidVariableName(str)) {
                             stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
                         } else {
-                            System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
+                            System.out.printf(INVALID_NUMBER_FORMAT, str);
                             return null;
                         }
                     }

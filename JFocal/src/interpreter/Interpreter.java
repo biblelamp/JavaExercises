@@ -40,12 +40,11 @@ public class Interpreter {
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'\n";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
     private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'\n";
-    public final static String ERROR_NUMBER_FORMAT = "Error number format '%s'\n";
-    public final static String DIVISION_BY_ZERO = "Error: division by zero\n";
 
     private Scanner scanner;
     private ProgramLines program;
     private Map<String, Float> variables;
+    private Float numLine;
     private boolean quit;
 
     public Interpreter() {
@@ -58,6 +57,7 @@ public class Interpreter {
     public void run() {
         System.out.println(WELCOME);
         while (!quit) {
+            numLine = null;
             System.out.print(PROMT);
             String line = scanner.nextLine();
             if (line.length() > 0) {
@@ -75,7 +75,7 @@ public class Interpreter {
     private void goProgram() {
         Set<Float> numLines = program.keySet();
         Iterator<Float> iterator = new Iterator<>(numLines);
-        Float numLine = iterator.next();
+        numLine = iterator.next();
         do {
             String line = program.get(numLine);
             if (line != null) {
@@ -84,16 +84,16 @@ public class Interpreter {
                     if (iterator.hasNext()) {
                         numLine = iterator.next();
                     } else {
-                        numLine = -1f;
+                        numLine = null;
                     }
                 } else {
                     numLine = result;
                     iterator.set(result);
                 }
             } else {
-                numLine = -1f;
+                numLine = null;
             }
-        } while (numLine > -1);
+        } while (numLine != null);
         quit = false;
     }
 
@@ -119,17 +119,23 @@ public class Interpreter {
         return number;
     }
 
-    private void commandSet(String line) {
+    private float commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
             System.out.printf(NOT_ENOUGH_PARAMETERS, "SET");
-            return;
+            return -1;
         }
-        float result = Calculate.calculate(parts[1].trim(), variables);
-        variables.put(parts[0].trim().toUpperCase(), result);
+        Float result = Calculate.calculate(parts[1].trim(), variables);
+        if (result != null) {
+            variables.put(parts[0].trim().toUpperCase(), result);
+        } else {
+            Util.printErrorMsgAddition(numLine);
+            return -1;
+        }
+        return 0;
     }
 
-    private void commandType(String line) {
+    private float commandType(String line) {
         String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
         for (String parameter : parameters) {
             String item = parameter.trim();
@@ -138,6 +144,7 @@ public class Interpreter {
                     System.out.print(item.substring(1, item.length() - 1));
                 } else {
                     System.out.printf(UNPAIRED_QUOTES, item);
+                    return -1;
                 }
             } else if (item.startsWith("%")) {
                 // TODO getting number output format
@@ -147,10 +154,16 @@ public class Interpreter {
                 }
                 // TODO implement control characters: !(CR/LF) #(CR) :(TAB)
             } else {
-                // TODO number, variable or expression result
-                System.out.print(Calculate.calculate(parameter, variables));
+                Float result = Calculate.calculate(parameter, variables);
+                if (result != null) {
+                    System.out.print(result);
+                } else {
+                    Util.printErrorMsgAddition(numLine);
+                    return -1; // error in expression
+                }
             }
         }
+        return 0;
     }
 
     private void commandOpen(String[] tokens) {
@@ -192,12 +205,10 @@ public class Interpreter {
                     return commandGoto(tokens[1]);
                 case S:
                 case SET:
-                    commandSet(line);
-                    break;
+                    return commandSet(line);
                 case T:
                 case TYPE:
-                    commandType(line);
-                    break;
+                    return commandType(line);
                 case Q:
                 case QUIT:
                     quit = true;

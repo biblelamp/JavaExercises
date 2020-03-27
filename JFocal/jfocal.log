@@ -6,5 +6,5 @@
 2020-03-23 start of implementation TYPE command
 2020-03-24 expressions calculation, SET command, variables, comments
 2020-03-25 refactoring, ASK command
-2020-03-26 execution of linear programs
-2020-03-27 GO command, return null if error in expression
+2020-03-26 GO command, execution of linear programs
+2020-03-27 GOTO command, return null if error in expression
