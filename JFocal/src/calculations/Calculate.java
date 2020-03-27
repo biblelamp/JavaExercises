@@ -1,5 +1,8 @@
 package calculations;
 
+import interpreter.Interpreter;
+import util.Util;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,9 +41,12 @@ public class Calculate {
                     try {
                         stack.push(Float.parseFloat(str));
                     } catch (NumberFormatException ex) {
-                        // TODO checking variable name
-                        stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
-                        //System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
+                        if (Util.isValidVariableName(str)) {
+                            stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
+                        } else {
+                            System.out.printf(Interpreter.ERROR_NUMBER_FORMAT, str);
+                            return 0;
+                        }
                     }
             }
         }

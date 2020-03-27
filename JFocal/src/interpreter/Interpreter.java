@@ -2,9 +2,13 @@ package interpreter;
 
 import calculations.Calculate;
 import program.ProgramLines;
+import util.Iterator;
 import util.Util;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Interpreter {
 
@@ -15,6 +19,8 @@ public class Interpreter {
     private final static String ASK = "ASK";
     private final static String C = "C";
     private final static String COMMENT = "COMMENT";
+    private final static String G = "G";
+    private final static String GOTO = "GOTO";
     private final static String S = "S";
     private final static String SET = "SET";
     private final static String T = "T";
@@ -33,8 +39,8 @@ public class Interpreter {
     private final static String COMMAND_NOT_RECOGNIZED = "Error: Command '%s' not recognized\n";
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'\n";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
-    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes %s\n";
-    public final static String ERROR_NUMBER_FORMAT = "Error number format %s\n";
+    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'\n";
+    public final static String ERROR_NUMBER_FORMAT = "Error number format '%s'\n";
 
     private Scanner scanner;
     private ProgramLines program;
@@ -67,16 +73,21 @@ public class Interpreter {
 
     private void goProgram() {
         Set<Float> numLines = program.keySet();
-        Iterator<Float> iterator = numLines.iterator();
+        Iterator<Float> iterator = new Iterator<>(numLines);
         Float numLine = iterator.next();
         do {
             String line = program.get(numLine);
             if (line != null) {
                 float result = processLine(line);
-                if (iterator.hasNext()) {
-                    numLine = iterator.next();
+                if (result == 0) {
+                    if (iterator.hasNext()) {
+                        numLine = iterator.next();
+                    } else {
+                        numLine = -1f;
+                    }
                 } else {
-                    numLine = -1f;
+                    numLine = result;
+                    iterator.set(result);
                 }
             } else {
                 numLine = -1f;
@@ -100,6 +111,11 @@ public class Interpreter {
                 variables.put(parameter.trim().toUpperCase(), number);
             }
         }
+    }
+
+    private float commandGoto(String numLine) {
+        float number = Float.parseFloat(numLine);
+        return number;
     }
 
     private void commandSet(String line) {
@@ -136,7 +152,7 @@ public class Interpreter {
         }
     }
 
-    private void readWriteProgram(String[] tokens) {
+    private void commandOpen(String[] tokens) {
         if (tokens.length < 3) {
             System.out.printf(NOT_ENOUGH_PARAMETERS, tokens[0]);
             return;
@@ -170,6 +186,9 @@ public class Interpreter {
                 case C:
                 case COMMENT:
                     break;
+                case G:
+                case GOTO:
+                    return commandGoto(tokens[1]);
                 case S:
                 case SET:
                     commandSet(line);
@@ -188,7 +207,7 @@ public class Interpreter {
                     break;
                 case O:
                 case OPEN:
-                    readWriteProgram(tokens);
+                    commandOpen(tokens);
                     break;
                 case W:
                 case WRITE:
