@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Calculate {
 
-    private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+    public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
     private final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
     /**

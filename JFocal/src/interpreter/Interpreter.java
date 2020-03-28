@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.10";
+    private final static String WELCOME = "JFocal, version 0.11, 28 Mar 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -97,7 +97,7 @@ public class Interpreter {
         quit = false;
     }
 
-    private void commandAsk(String line) {
+    private float commandAsk(String line) {
         String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
         for (String parameter : parameters) {
             if (parameter.startsWith("\"")) {
@@ -105,13 +105,22 @@ public class Interpreter {
                     System.out.print(parameter.substring(1, parameter.length() - 1));
                 } else {
                     System.out.printf(UNPAIRED_QUOTES, parameter);
+                    return -1;
                 }
             } else {
                 System.out.print("?");
-                float number = Float.parseFloat(scanner.nextLine());
-                variables.put(parameter.trim().toUpperCase(), number);
+                String floatNumber = scanner.nextLine();
+                try {
+                    float number = Float.parseFloat(floatNumber);
+                    variables.put(parameter.trim().toUpperCase(), number);
+                } catch (NumberFormatException e) {
+                    System.out.printf(Calculate.INVALID_NUMBER_FORMAT, floatNumber);
+                    Util.printErrorMsgAddition(numLine);
+                    return -1;
+                }
             }
         }
+        return 0;
     }
 
     private float commandGoto(String numLine) {
@@ -191,43 +200,46 @@ public class Interpreter {
         if (Util.isValidLineNumber(tokens[0])) {
             program.add(tokens[0], line);
         } else {
-            String cmd = tokens[0].toUpperCase();
-            switch (cmd) {
-                case A:
-                case ASK:
-                    commandAsk(line);
-                    break;
-                case C:
-                case COMMENT:
-                    break;
-                case G:
-                case GOTO:
-                    return commandGoto(tokens[1]);
-                case S:
-                case SET:
-                    return commandSet(line);
-                case T:
-                case TYPE:
-                    return commandType(line);
-                case Q:
-                case QUIT:
-                    quit = true;
-                    return -1;
-                case E:
-                case ERASE:
-                    program.erase();
-                    break;
-                case O:
-                case OPEN:
-                    commandOpen(tokens);
-                    break;
-                case W:
-                case WRITE:
-                    program.write();
-                    break;
-                default:
-                    System.out.printf(COMMAND_NOT_RECOGNIZED, tokens[0]);
-                    return -1;
+            String[] parts = Util.splitCommandLine(line, ';');
+            for (String part : parts) {
+                tokens = part.split(" ");
+                String cmd = tokens[0].toUpperCase();
+                switch (cmd) {
+                    case A:
+                    case ASK:
+                        return commandAsk(part);
+                    case C:
+                    case COMMENT:
+                        break;
+                    case G:
+                    case GOTO:
+                        return commandGoto(tokens[1]);
+                    case S:
+                    case SET:
+                        return commandSet(part);
+                    case T:
+                    case TYPE:
+                        return commandType(part);
+                    case Q:
+                    case QUIT:
+                        quit = true;
+                        return -1;
+                    case E:
+                    case ERASE:
+                        program.erase();
+                        break;
+                    case O:
+                    case OPEN:
+                        commandOpen(tokens);
+                        break;
+                    case W:
+                    case WRITE:
+                        program.write();
+                        break;
+                    default:
+                        System.out.printf(COMMAND_NOT_RECOGNIZED, tokens[0]);
+                        return -1;
+                }
             }
         }
         return 0;
