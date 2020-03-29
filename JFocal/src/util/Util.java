@@ -14,7 +14,7 @@ public class Util {
     }
 
     public static String numLineToString(Float numLine) {
-        return String.format("%02d.%02d %s\n", numLine.intValue(), (int)(numLine * 100 % 100));
+        return String.format("%02d.%02d", numLine.intValue(), (int)(numLine * 100 % 100));
     }
 
     public static void printErrorMsgAddition(Float numLine) {

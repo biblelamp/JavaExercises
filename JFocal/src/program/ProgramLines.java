@@ -12,7 +12,7 @@ public class ProgramLines {
 
     private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
-    private final static String BAD_LINE_NUMBER = "Error: Bad line number %s\n";
+    public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
 
     private final static String EXT_FILE = ".focal";
 

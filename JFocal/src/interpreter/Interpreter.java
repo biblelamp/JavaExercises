@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.11, 28 Mar 2020";
+    private final static String WELCOME = "JFocal, version 0.12, 29 Mar 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -40,6 +40,7 @@ public class Interpreter {
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'\n";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
     private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'\n";
+    private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
 
     private Scanner scanner;
     private ProgramLines program;
@@ -86,6 +87,8 @@ public class Interpreter {
                     } else {
                         numLine = null;
                     }
+                } else if (result < 0) {
+                    numLine = null;
                 } else {
                     numLine = result;
                     iterator.set(result);
@@ -123,8 +126,21 @@ public class Interpreter {
         return 0;
     }
 
-    private float commandGoto(String numLine) {
-        float number = Float.parseFloat(numLine);
+    private float commandGoto(String toLine) {
+        float number;
+        try {
+            number = Float.parseFloat(toLine);
+        } catch (NumberFormatException e) {
+            System.out.printf(ProgramLines.BAD_LINE_NUMBER, toLine);
+            Util.printErrorMsgAddition(numLine);
+            return -1;
+        }
+        String line = program.get(number);
+        if (line == null) {
+            System.out.printf(NO_LINE_WITH_NUMBER, toLine);
+            Util.printErrorMsgAddition(numLine);
+            return -1;
+        }
         return number;
     }
 
