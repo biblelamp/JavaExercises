@@ -10,14 +10,17 @@
 Приветствие:
 Всем привет, скоро начинаем. Если уже кто пришел и есть вопросы - не стесняйтесь, пишите, спрашивайте. И напишите - что лично вы ждёте от этого интенсива?
 
-Ссылка на презентацию:
-https://docs.google.com/presentation/d/1vQXHc4XwMg68fsoG5_z_7WESIh84fkYxIS1BD3ZShQw
+Java: быстрый старт (презентация)
+https://bit.ly/2xvVX97
 
-Ссылка на статью с инструкцией по установке JDK:
-https://geekbrains.ru/posts/java_quick_start_part1
+Java: быстрый старт:
+bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
 
-Ссылка на статью из серии Быстрый старт "Изучаем Java: шаг за шагом"
-https://docs.google.com/document/d/14LrF6Jt-mt_fXiAnMIL-Ci3557PfI8JXpjB-KYOsK3g
+Изучаем Java: шаг за шагом
+https://bit.ly/2JpL0Zt
+
+Пишем код на Java и Go в текстовом редакторе
+https://bit.ly/3apw5KF
 
 Страница со ссылками на статьи по Java
 https://docs.google.com/document/d/1D4MjlEWXyX0A9kljekQydy7paXpbV-eF-5ZTOY_WRwk
