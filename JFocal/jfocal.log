@@ -10,3 +10,4 @@
 2020-03-27 GOTO command, return null if error in expression
 2020-03-28 several commands per line, delimiter ';'
 2020-03-29 error handling in the GOTO command
+2020-03-30 IF command

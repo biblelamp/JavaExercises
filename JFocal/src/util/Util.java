@@ -21,7 +21,7 @@ public class Util {
         System.out.println(numLine == null? "" : " in line " + numLineToString(numLine));
     }
 
-    public static String[] splitCommandLine(String line, char delimiter) {
+    public static String[] splitString(String line, char delimiter) {
         List<String> parts = new ArrayList<>();
         if (line.indexOf(delimiter) < 0) {
             return new String[]{line};

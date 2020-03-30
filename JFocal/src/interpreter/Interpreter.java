@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.12, 29 Mar 2020";
+    private final static String WELCOME = "JFocal, version 0.13, 30 Mar 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -21,6 +21,8 @@ public class Interpreter {
     private final static String COMMENT = "COMMENT";
     private final static String G = "G";
     private final static String GOTO = "GOTO";
+    private final static String I = "I";
+    private final static String IF = "IF";
     private final static String S = "S";
     private final static String SET = "SET";
     private final static String T = "T";
@@ -144,6 +146,37 @@ public class Interpreter {
         return number;
     }
 
+    public float commandIf(String line) {
+        String[] parts = line.split("[()]");
+        Float condition = Calculate.calculate(parts[1].trim(), variables);
+        if (condition == null) {
+            return -1;
+        }
+        String[] lineNums = parts[2].trim().split(",");
+        if (condition < 0) {
+            try {
+                return Float.parseFloat(lineNums[0].trim());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+        }
+        if (condition == 0) {
+            try {
+                return Float.parseFloat(lineNums[1].trim());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+        }
+        if (condition > 0) {
+            try {
+                return Float.parseFloat(lineNums[2].trim());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
     private float commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
@@ -161,7 +194,7 @@ public class Interpreter {
     }
 
     private float commandType(String line) {
-        String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
+        String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1), ',');
         for (String parameter : parameters) {
             String item = parameter.trim();
             if (item.startsWith("\"")) {
@@ -216,7 +249,7 @@ public class Interpreter {
         if (Util.isValidLineNumber(tokens[0])) {
             program.add(tokens[0], line);
         } else {
-            String[] parts = Util.splitCommandLine(line, ';');
+            String[] parts = Util.splitString(line, ';');
             for (String part : parts) {
                 tokens = part.split(" ");
                 String cmd = tokens[0].toUpperCase();
@@ -230,6 +263,9 @@ public class Interpreter {
                     case G:
                     case GOTO:
                         return commandGoto(tokens[1]);
+                    case I:
+                    case IF:
+                        return commandIf(part);
                     case S:
                     case SET:
                         return commandSet(part);
