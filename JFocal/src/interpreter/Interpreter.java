@@ -12,13 +12,15 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.13, 30 Mar 2020";
+    private final static String WELCOME = "JFocal, version 0.14, 31 Mar 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
     private final static String ASK = "ASK";
     private final static String C = "C";
     private final static String COMMENT = "COMMENT";
+    private final static String F = "F";
+    private final static String FOR = "FOR";
     private final static String G = "G";
     private final static String GOTO = "GOTO";
     private final static String I = "I";
@@ -123,6 +125,22 @@ public class Interpreter {
                     Util.printErrorMsgAddition(numLine);
                     return -1;
                 }
+            }
+        }
+        return 0;
+    }
+
+    private float commandFor(String[] parts) {
+        String[] first = parts[0].substring(parts[0].indexOf(' ') + 1).split("=");
+        String countName = first[0].trim();
+        String[] paramStr = first[1].trim().split(",");
+        int init = Integer.parseInt(paramStr[0]);
+        int stop = Integer.parseInt(paramStr[1]);
+        int step = paramStr.length < 3? 1 : Integer.parseInt(paramStr[2]);
+        for (int i = init; i <= stop; i += step) {
+            variables.put(countName, (float)i);
+            for (int j = 1; j < parts.length; j++) {
+                processLine(parts[j].trim());
             }
         }
         return 0;
@@ -260,6 +278,9 @@ public class Interpreter {
                     case C:
                     case COMMENT:
                         break;
+                    case F:
+                    case FOR:
+                        return commandFor(parts);
                     case G:
                     case GOTO:
                         return commandGoto(tokens[1]);
