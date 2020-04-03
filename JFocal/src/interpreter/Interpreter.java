@@ -12,19 +12,23 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.14, 31 Mar 2020";
+    private final static String WELCOME = "JFocal, version 0.15, 1 Apr 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
     private final static String ASK = "ASK";
     private final static String C = "C";
     private final static String COMMENT = "COMMENT";
+    private final static String D = "D";
+    private final static String DO = "DO";
     private final static String F = "F";
     private final static String FOR = "FOR";
     private final static String G = "G";
     private final static String GOTO = "GOTO";
     private final static String I = "I";
     private final static String IF = "IF";
+    private final static String R = "R";
+    private final static String RETURN = "RETURN";
     private final static String S = "S";
     private final static String SET = "SET";
     private final static String T = "T";
@@ -49,7 +53,9 @@ public class Interpreter {
     private Scanner scanner;
     private ProgramLines program;
     private Map<String, Float> variables;
+    private Iterator<Float> iterator;
     private Float numLine;
+    private Float returnToLine;
     private boolean quit;
 
     public Interpreter() {
@@ -79,7 +85,7 @@ public class Interpreter {
 
     private void goProgram() {
         Set<Float> numLines = program.keySet();
-        Iterator<Float> iterator = new Iterator<>(numLines);
+        iterator = new Iterator<>(numLines);
         numLine = iterator.next();
         do {
             String line = program.get(numLine);
@@ -128,6 +134,14 @@ public class Interpreter {
             }
         }
         return 0;
+    }
+
+    private float commandDo(String toLine) {
+        float number = Float.parseFloat(toLine);
+        if (numLine != null) {
+            returnToLine = iterator.next();
+        }
+        return number;
     }
 
     private float commandFor(String[] parts) {
@@ -193,6 +207,10 @@ public class Interpreter {
             }
         }
         return 0;
+    }
+
+    private float commandReturn() {
+        return returnToLine;
     }
 
     private float commandSet(String line) {
@@ -278,6 +296,9 @@ public class Interpreter {
                     case C:
                     case COMMENT:
                         break;
+                    case D:
+                    case DO:
+                        return commandDo(tokens[1]);
                     case F:
                     case FOR:
                         return commandFor(parts);
@@ -287,6 +308,9 @@ public class Interpreter {
                     case I:
                     case IF:
                         return commandIf(part);
+                    case R:
+                    case RETURN:
+                        return commandReturn();
                     case S:
                     case SET:
                         return commandSet(part);

@@ -1,0 +1,6 @@
+1.1 TYPE 1,!
+1.2 DO 2.1
+1.3 TYPE 2,!
+1.4 QUIT
+2.1 TYPE "subroutine",!
+2.2 RETURN
