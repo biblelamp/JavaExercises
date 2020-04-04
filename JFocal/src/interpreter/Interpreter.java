@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.15, 1 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.16, 2 Apr 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -138,10 +138,16 @@ public class Interpreter {
 
     private float commandDo(String toLine) {
         float number = Float.parseFloat(toLine);
-        if (numLine != null) {
-            returnToLine = iterator.next();
+        if (!Util.isGroupLineNumber(number)) {
+            number = processLine(program.get(number));
+        } else {
+            if (numLine != null) {
+                returnToLine = iterator.next();
+            }
+            number = iterator.firstInGroup(number);
+            return number;
         }
-        return number;
+        return 0;
     }
 
     private float commandFor(String[] parts) {

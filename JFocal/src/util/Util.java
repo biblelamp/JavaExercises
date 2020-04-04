@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Util {
 
+    public static boolean isGroupLineNumber(float numLine) {
+        return numLine == Math.ceil(numLine);
+    }
+
     public static boolean isValidLineNumber(String numLine) {
         return numLine.matches("\\d\\d?\\.\\d\\d?");
     }
@@ -14,7 +18,7 @@ public class Util {
     }
 
     public static String numLineToString(Float numLine) {
-        return String.format("%02d.%02d", numLine.intValue(), (int)(numLine * 100 % 100));
+        return String.format("%02d.%02d", numLine.intValue(), (int)((numLine - numLine.intValue()) * 100));
     }
 
     public static void printErrorMsgAddition(Float numLine) {
