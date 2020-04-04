@@ -1,2 +1,2 @@
 1.1 FOR X=1,5; TYPE X,!
-1.2 FOR X=1,10,2; TYPE X,!
+1.2 FOR X=1,3,10; TYPE X,!

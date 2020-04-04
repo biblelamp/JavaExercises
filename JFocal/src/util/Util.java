@@ -17,12 +17,8 @@ public class Util {
         return "01234567890Ff".indexOf(name.charAt(0)) < 0;
     }
 
-    public static String numLineToString(Float numLine) {
-        return String.format("%02d.%02d", numLine.intValue(), (int)((numLine - numLine.intValue()) * 100));
-    }
-
     public static void printErrorMsgAddition(Float numLine) {
-        System.out.println(numLine == null? "" : " in line " + numLineToString(numLine));
+        System.out.println(numLine == null? "" : " in line " + String.format("%05.2f", numLine));
     }
 
     public static String[] splitString(String line, char delimiter) {

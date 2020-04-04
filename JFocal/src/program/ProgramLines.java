@@ -28,7 +28,7 @@ public class ProgramLines {
 
     public void write() {
         for (Float key : programLines.keySet()) {
-            System.out.printf("%s %s\n", Util.numLineToString(key), programLines.get(key));
+            System.out.printf("%05.2f %s\n", key, programLines.get(key));
         }
     }
 
@@ -73,7 +73,7 @@ public class ProgramLines {
                 new OutputStreamWriter(
                         new FileOutputStream(fileName), StandardCharsets.UTF_8))){
             for (Float key : programLines.keySet()) {
-                writer.write(String.format("%s %s\n", Util.numLineToString(key), programLines.get(key)));
+                writer.write(String.format("%05.2f %s\n", key, programLines.get(key)));
             }
         } catch (IOException e) {
             System.out.printf(ERROR_WRITING_FILE, fileName);

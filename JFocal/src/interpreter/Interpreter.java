@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.16, 2 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.17, 3 Apr 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";
@@ -155,8 +155,8 @@ public class Interpreter {
         String countName = first[0].trim();
         String[] paramStr = first[1].trim().split(",");
         int init = Integer.parseInt(paramStr[0]);
-        int stop = Integer.parseInt(paramStr[1]);
-        int step = paramStr.length < 3? 1 : Integer.parseInt(paramStr[2]);
+        int stop = Integer.parseInt(paramStr.length < 3? paramStr[1] : paramStr[2]);
+        int step = paramStr.length < 3? 1 : Integer.parseInt(paramStr[1]);
         for (int i = init; i <= stop; i += step) {
             variables.put(countName, (float)i);
             for (int j = 1; j < parts.length; j++) {
