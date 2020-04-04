@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.17, 3 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.18, 4 Apr 2020";
     private final static String PROMT = "* ";
 
     private final static String A = "A";

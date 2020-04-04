@@ -50,6 +50,9 @@ public class Calculate {
                     }
                     stack.push(stack.pop() / second);
                     break;
+                case "FABS":
+                    stack.push(stack.pop() * (-1));
+                    break;
                 default:
                     try {
                         stack.push(Float.parseFloat(str));
@@ -69,13 +72,22 @@ public class Calculate {
     private static List<String> infixToPostfix(String expression) {
         List<String> result = new ArrayList<>();
         LinkedList<Character> stackOper = new LinkedList<>();
+        LinkedList<String> stackFunc = new LinkedList<>();
         String numberOrVariable = "";
-        for (int i = 0; i <expression.length(); i++) {
+        for (int i = 0; i < expression.length(); i++) {
             char c = expression.charAt(i);
+
+            if (c == ' ') { // ignore spaces
+                continue;
+            }
 
             // added in list number or variable
             if (precedence(c) > -1 && !numberOrVariable.isEmpty()) {
-                result.add(numberOrVariable);
+                if (c == '(' && numberOrVariable.toUpperCase().startsWith("F")) {
+                    stackFunc.push(numberOrVariable.toUpperCase());
+                } else {
+                    result.add(numberOrVariable);
+                }
                 numberOrVariable = "";
             }
 
@@ -87,9 +99,12 @@ public class Calculate {
                 stackOper.push(c);
             } else if (c == ')') {
                 char x = stackOper.pop();
-                while(x != '('){
+                while (x != '('){
                     result.add(Character.toString(x));
                     x = stackOper.pop();
+                }
+                if (stackFunc.size() > 0 && stackOper.size() == 0) {
+                    result.add(stackFunc.pop());
                 }
             } else if (c == '(') {
                 stackOper.push(c);
@@ -122,6 +137,10 @@ public class Calculate {
                 return 0;
         }
         return -1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(infixToPostfix("FABS(1+2*(2+2)) + 3"));
     }
 
 }
