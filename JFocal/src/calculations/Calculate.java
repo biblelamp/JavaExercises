@@ -1,6 +1,5 @@
 package calculations;
 
-import interpreter.Interpreter;
 import util.Util;
 
 import java.util.ArrayList;
@@ -50,18 +49,20 @@ public class Calculate {
                     }
                     stack.push(stack.pop() / second);
                     break;
-                case "FABS":
-                    stack.push(stack.pop() * (-1));
-                    break;
                 default:
-                    try {
-                        stack.push(Float.parseFloat(str));
-                    } catch (NumberFormatException ex) {
-                        if (Util.isValidVariableName(str)) {
-                            stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
-                        } else {
-                            System.out.printf(INVALID_NUMBER_FORMAT, str);
-                            return null;
+                    // calculation of built-in functions
+                    if (Function.isFunction(str)) {
+                        stack.push(Function.calculate(str, stack.pop()));
+                    } else {
+                        try {
+                            stack.push(Float.parseFloat(str));
+                        } catch (NumberFormatException ex) {
+                            if (Util.isValidVariableName(str)) {
+                                stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
+                            } else {
+                                System.out.printf(INVALID_NUMBER_FORMAT, str);
+                                return null;
+                            }
                         }
                     }
             }
@@ -83,7 +84,7 @@ public class Calculate {
 
             // added in list number or variable
             if (precedence(c) > -1 && !numberOrVariable.isEmpty()) {
-                if (c == '(' && numberOrVariable.toUpperCase().startsWith("F")) {
+                if (c == '(' && Function.isFunction(numberOrVariable)) {
                     stackFunc.push(numberOrVariable.toUpperCase());
                 } else {
                     result.add(numberOrVariable);
@@ -140,7 +141,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FABS(1+2*(2+2)) + 3"));
+        System.out.println(infixToPostfix("FSQT(1+2*(2+2)) + 3"));
     }
 
 }
