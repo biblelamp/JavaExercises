@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class Calculate {
 
+    public final static String ERROR_IN_EXPRESSION = "Error in expression '%s'";
+    private final static String UNPAIRED_PARENTHESES = "Error: Unpaired parentheses '%s'";
     public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
     private final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
@@ -23,6 +25,9 @@ public class Calculate {
     }
 
     private static Float calculatePostfix(List<String> list, Map<String, Float> variables) {
+        if (list == null) {
+            return null;
+        }
         LinkedList<Float> stack = new LinkedList<>();
         float second;
         for (String str : list) {
@@ -39,7 +44,7 @@ public class Calculate {
                     break;
                 case "-":
                     second = stack.pop();
-                    stack.push(stack.pop() - second);
+                    stack.push((stack.size() == 0? 0 : stack.pop()) - second);
                     break;
                 case "/":
                     second = stack.pop();
@@ -75,6 +80,7 @@ public class Calculate {
         LinkedList<Character> stackOper = new LinkedList<>();
         LinkedList<String> stackFunc = new LinkedList<>();
         String numberOrVariable = "";
+        char previous = ' ';
         for (int i = 0; i < expression.length(); i++) {
             char c = expression.charAt(i);
 
@@ -94,7 +100,11 @@ public class Calculate {
 
             // check if char is operator +,-,*,/,^
             if (precedence(c) > 0) {
-                while(!stackOper.isEmpty() && precedence(stackOper.peek()) >= precedence(c)) {
+                if ("+-*/^".indexOf(previous) > -1) {
+                    System.out.printf(ERROR_IN_EXPRESSION, expression);
+                    return null;
+                }
+                while (!stackOper.isEmpty() && precedence(stackOper.peek()) >= precedence(c)) {
                     result.add(stackOper.pop().toString());
                 }
                 stackOper.push(c);
@@ -110,15 +120,21 @@ public class Calculate {
             } else if (c == '(') {
                 stackOper.push(c);
             } else {
-                // character is neither operator nor (,)
+                // character is neither operator nor parentheses
                 numberOrVariable += Character.toString(c);
             }
+            previous = c;
         }
         if (!numberOrVariable.isEmpty()) {
             result.add(numberOrVariable);
         }
         while (stackOper.size() > 0) {
-            result.add(stackOper.pop().toString());
+            String operation = stackOper.pop().toString();
+            if ("()".indexOf(operation) > -1) {
+                System.out.printf(UNPAIRED_PARENTHESES, expression);
+                return null;
+            }
+            result.add(operation);
         }
         return result;
     }
@@ -141,7 +157,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FSQT(1+2*(2+2)) + 3"));
+        System.out.println(infixToPostfix("1+((2*2)"));
     }
 
 }

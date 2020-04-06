@@ -50,6 +50,6 @@ class InfixToPostfix {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("-1"));
+        System.out.println(infixToPostfix("2*((1+1)"));
     }
 }

@@ -16,4 +16,5 @@
 2020-04-02 DO fixed implementation
 2020-04-03 FOR fixed implementation
 2020-04-04 built-in FNNN() functions in calculations
-2020-04-05 created the Functionion class
+2020-04-05 created the Function class
+2020-04-06 error handling in expressions
