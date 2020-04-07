@@ -13,12 +13,19 @@ public class Util {
         return numLine.matches("\\d\\d?\\.\\d\\d?");
     }
 
+    public static boolean isValidFormatNumber(String format) {
+        return format.matches("%\\d\\.\\d\\d?");
+    }
+
     public static boolean isValidVariableName(String name) {
         return "01234567890Ff".indexOf(name.charAt(0)) < 0;
     }
 
-    public static void printErrorMsgAddition(Float numLine) {
-        System.out.println(numLine == null? "" : " in line " + String.format("%05.2f", numLine));
+    public static void printErrorMsg(String message, String parameter, Float numLine) {
+        if (message != null && parameter != null) {
+            System.out.printf(message, parameter);
+        }
+        System.out.println(numLine == null? "" : String.format(" in line %05.2f", numLine));
     }
 
     public static String[] splitString(String line, char delimiter) {

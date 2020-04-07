@@ -14,6 +14,8 @@ public class ProgramLines {
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
     public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
 
+    private final static String LINE_FORMAT = "%05.2f %s\n";
+
     private final static String EXT_FILE = ".focal";
 
     private Map<Float, String> programLines;
@@ -28,7 +30,7 @@ public class ProgramLines {
 
     public void write() {
         for (Float key : programLines.keySet()) {
-            System.out.printf("%05.2f %s\n", key, programLines.get(key));
+            System.out.printf(LINE_FORMAT, key, programLines.get(key));
         }
     }
 
@@ -73,7 +75,7 @@ public class ProgramLines {
                 new OutputStreamWriter(
                         new FileOutputStream(fileName), StandardCharsets.UTF_8))){
             for (Float key : programLines.keySet()) {
-                writer.write(String.format("%05.2f %s\n", key, programLines.get(key)));
+                writer.write(String.format(LINE_FORMAT, key, programLines.get(key)));
             }
         } catch (IOException e) {
             System.out.printf(ERROR_WRITING_FILE, fileName);

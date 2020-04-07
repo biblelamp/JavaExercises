@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.20, 6 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.21, 7 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -44,11 +44,15 @@ public class Interpreter {
     private final static String W = "W";
     private final static String WRITE = "WRITE";
 
-    private final static String COMMAND_NOT_RECOGNIZED = "Error: Command '%s' not recognized\n";
-    private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'\n";
-    private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized\n";
-    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'\n";
+    private final static String COMMAND_NOT_RECOGNIZED = "Error: Command '%s' not recognized";
+    private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'";
+    private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized";
+    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'";
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
+    private final static String UNKNOWN_CTRL_CHARACTER = "Error: Unknown control character '%s'";
+    private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+
+    private static String formatNumber = "%8.4f";
 
     private Scanner scanner;
     private ProgramLines program;
@@ -117,7 +121,7 @@ public class Interpreter {
                 if (parameter.endsWith("\"")) {
                     System.out.print(parameter.substring(1, parameter.length() - 1));
                 } else {
-                    System.out.printf(UNPAIRED_QUOTES, parameter);
+                    Util.printErrorMsg(UNPAIRED_QUOTES, parameter, numLine);
                     return -1;
                 }
             } else {
@@ -127,8 +131,7 @@ public class Interpreter {
                     float number = Float.parseFloat(floatNumber);
                     variables.put(parameter.trim().toUpperCase(), number);
                 } catch (NumberFormatException e) {
-                    System.out.printf(Calculate.INVALID_NUMBER_FORMAT, floatNumber);
-                    Util.printErrorMsgAddition(numLine);
+                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, floatNumber, numLine);
                     return -1;
                 }
             }
@@ -171,14 +174,12 @@ public class Interpreter {
         try {
             number = Float.parseFloat(toLine);
         } catch (NumberFormatException e) {
-            System.out.printf(ProgramLines.BAD_LINE_NUMBER, toLine);
-            Util.printErrorMsgAddition(numLine);
+            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, numLine);
             return -1;
         }
         String line = program.get(number);
         if (line == null) {
-            System.out.printf(NO_LINE_WITH_NUMBER, toLine);
-            Util.printErrorMsgAddition(numLine);
+            Util.printErrorMsg(NO_LINE_WITH_NUMBER, toLine, numLine);
             return -1;
         }
         return number;
@@ -222,14 +223,14 @@ public class Interpreter {
     private float commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
-            System.out.printf(NOT_ENOUGH_PARAMETERS, "SET");
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "SET", numLine);
             return -1;
         }
         Float result = Calculate.calculate(parts[1].trim(), variables);
         if (result != null) {
             variables.put(parts[0].trim().toUpperCase(), result);
         } else {
-            Util.printErrorMsgAddition(numLine);
+            Util.printErrorMsg(null, null, numLine);
             return -1;
         }
         return 0;
@@ -243,22 +244,42 @@ public class Interpreter {
                 if (item.endsWith("\"")) {
                     System.out.print(item.substring(1, item.length() - 1));
                 } else {
-                    System.out.printf(UNPAIRED_QUOTES, item);
+                    Util.printErrorMsg(UNPAIRED_QUOTES, item, numLine);
                     return -1;
                 }
             } else if (item.startsWith("%")) {
-                // TODO getting number output format
-            } else if (item.startsWith("!") || item.startsWith("#") || item.startsWith(":")) {
-                if (item.equals("!")) {
-                    System.out.println();
+                if (item.equals("%")) {
+                    formatNumber = "%e";
+                } else if (!Util.isValidFormatNumber(item)) {
+                    Util.printErrorMsg(INVALID_NUMBER_FORMAT, item, numLine);
+                    return -1;
+                } else {
+                    formatNumber = item + 'f';
                 }
-                // TODO implement control characters: !(CR/LF) #(CR) :(TAB)
+            } else if ("!#:".indexOf(item.substring(0, 1)) > -1) {
+                for (int i = 0; i < item.length(); i++) {
+                    char c = item.charAt(i);
+                    switch (c) {
+                        case '!':
+                            System.out.println();
+                            break;
+                        case '#':
+                            System.out.print("\r");
+                            break;
+                        case ':':
+                            System.out.print("\t");
+                            break;
+                        default:
+                            Util.printErrorMsg(UNKNOWN_CTRL_CHARACTER, Character.toString(c), numLine);
+                            return -1;
+                    }
+                }
             } else {
                 Float result = Calculate.calculate(parameter, variables);
                 if (result != null) {
-                    System.out.print(result);
+                    System.out.printf(formatNumber, result);
                 } else {
-                    Util.printErrorMsgAddition(numLine);
+                    Util.printErrorMsg(null, null, numLine);
                     return -1; // error in expression
                 }
             }
@@ -340,7 +361,7 @@ public class Interpreter {
                         program.write();
                         break;
                     default:
-                        System.out.printf(COMMAND_NOT_RECOGNIZED, tokens[0]);
+                        Util.printErrorMsg(COMMAND_NOT_RECOGNIZED, tokens[0], numLine);
                         return -1;
                 }
             }
