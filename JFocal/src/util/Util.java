@@ -14,11 +14,15 @@ public class Util {
     }
 
     public static boolean isValidFormatNumber(String format) {
-        return format.matches("%\\d\\.\\d\\d?");
+        return format.matches("%[123456789]\\.\\d\\d?");
     }
 
     public static boolean isValidVariableName(String name) {
         return "01234567890Ff".indexOf(name.charAt(0)) < 0;
+    }
+
+    public static String shortenVariableName(String name) {
+        return name.length() > 2 ? name.substring(0, 2) : name;
     }
 
     public static void printErrorMsg(String message, String parameter, Float numLine) {

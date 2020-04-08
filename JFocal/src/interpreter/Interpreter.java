@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.21, 7 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.22, 8 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -129,7 +129,7 @@ public class Interpreter {
                 String floatNumber = scanner.nextLine();
                 try {
                     float number = Float.parseFloat(floatNumber);
-                    variables.put(parameter.trim().toUpperCase(), number);
+                    variables.put(Util.shortenVariableName(parameter.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
                     Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, floatNumber, numLine);
                     return -1;
@@ -155,13 +155,13 @@ public class Interpreter {
 
     private float commandFor(String[] parts) {
         String[] first = parts[0].substring(parts[0].indexOf(' ') + 1).split("=");
-        String countName = first[0].trim();
+        String countName = first[0].trim().toUpperCase();
         String[] paramStr = first[1].trim().split(",");
         int init = Integer.parseInt(paramStr[0]);
         int stop = Integer.parseInt(paramStr.length < 3? paramStr[1] : paramStr[2]);
         int step = paramStr.length < 3? 1 : Integer.parseInt(paramStr[1]);
         for (int i = init; i <= stop; i += step) {
-            variables.put(countName, (float)i);
+            variables.put(Util.shortenVariableName(countName), (float)i);
             for (int j = 1; j < parts.length; j++) {
                 processLine(parts[j].trim());
             }
@@ -228,7 +228,7 @@ public class Interpreter {
         }
         Float result = Calculate.calculate(parts[1].trim(), variables);
         if (result != null) {
-            variables.put(parts[0].trim().toUpperCase(), result);
+            variables.put(Util.shortenVariableName(parts[0].trim().toUpperCase()), result);
         } else {
             Util.printErrorMsg(null, null, numLine);
             return -1;
@@ -274,6 +274,10 @@ public class Interpreter {
                             return -1;
                     }
                 }
+            } else if (item.equals("$")) {
+                for (String name : variables.keySet()) {
+                    System.out.printf("%s=" + formatNumber + "\n", name, variables.get(name));
+                }
             } else {
                 Float result = Calculate.calculate(parameter, variables);
                 if (result != null) {
@@ -287,10 +291,10 @@ public class Interpreter {
         return 0;
     }
 
-    private void commandOpen(String[] tokens) {
+    private float commandOpen(String[] tokens) {
         if (tokens.length < 3) {
-            System.out.printf(NOT_ENOUGH_PARAMETERS, tokens[0]);
-            return;
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], numLine);
+            return -1;
         }
         String operation = tokens[1].toUpperCase();
         switch (operation) {
@@ -303,8 +307,10 @@ public class Interpreter {
                 program.output(tokens[2]);
                 break;
             default:
-                System.out.printf(OPERATION_NOT_RECOGNIZED, tokens[1]);
+                Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], numLine);
+                return -1;
         }
+        return 0;
     }
 
     private float processLine(String line) {
@@ -340,7 +346,10 @@ public class Interpreter {
                         return commandReturn();
                     case S:
                     case SET:
-                        return commandSet(part);
+                        if (commandSet(part) < 0) {
+                            return -1;
+                        }
+                        break;
                     case T:
                     case TYPE:
                         return commandType(part);
@@ -354,8 +363,7 @@ public class Interpreter {
                         break;
                     case O:
                     case OPEN:
-                        commandOpen(tokens);
-                        break;
+                        return commandOpen(tokens);
                     case W:
                     case WRITE:
                         program.write();

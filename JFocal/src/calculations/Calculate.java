@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class Calculate {
 
@@ -63,7 +64,7 @@ public class Calculate {
                             stack.push(Float.parseFloat(str));
                         } catch (NumberFormatException ex) {
                             if (Util.isValidVariableName(str)) {
-                                stack.push(variables.getOrDefault(str.toUpperCase(), 0f));
+                                stack.push(variables.getOrDefault(Util.shortenVariableName(str.toUpperCase()), 0f));
                             } else {
                                 System.out.printf(INVALID_NUMBER_FORMAT, str);
                                 return null;
@@ -76,6 +77,7 @@ public class Calculate {
     }
 
     private static List<String> infixToPostfix(String expression) {
+        expression = expression.replaceAll(" ", ""); // remove all spaces
         List<String> result = new ArrayList<>();
         LinkedList<Character> stackOper = new LinkedList<>();
         LinkedList<String> stackFunc = new LinkedList<>();
@@ -83,10 +85,6 @@ public class Calculate {
         char previous = ' ';
         for (int i = 0; i < expression.length(); i++) {
             char c = expression.charAt(i);
-
-            if (c == ' ') { // ignore spaces
-                continue;
-            }
 
             // added in list number or variable
             if (precedence(c) > -1 && !numberOrVariable.isEmpty()) {
@@ -109,10 +107,15 @@ public class Calculate {
                 }
                 stackOper.push(c);
             } else if (c == ')') {
-                char x = stackOper.pop();
-                while (x != '('){
-                    result.add(Character.toString(x));
-                    x = stackOper.pop();
+                try {
+                    char x = stackOper.pop();
+                    while (x != '(') {
+                        result.add(Character.toString(x));
+                        x = stackOper.pop();
+                    }
+                } catch (NoSuchElementException ex) {
+                    System.out.printf(UNPAIRED_PARENTHESES, expression);
+                    return null;
                 }
                 if (stackFunc.size() > 0 && stackOper.size() == 0) {
                     result.add(stackFunc.pop());
@@ -128,13 +131,12 @@ public class Calculate {
         if (!numberOrVariable.isEmpty()) {
             result.add(numberOrVariable);
         }
+        if (stackOper.contains('(')) {
+            System.out.printf(UNPAIRED_PARENTHESES, expression);
+            return null;
+        }
         while (stackOper.size() > 0) {
-            String operation = stackOper.pop().toString();
-            if ("()".indexOf(operation) > -1) {
-                System.out.printf(UNPAIRED_PARENTHESES, expression);
-                return null;
-            }
-            result.add(operation);
+            result.add(stackOper.pop().toString());
         }
         return result;
     }
@@ -157,7 +159,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("1+((2*2)"));
+        System.out.println(infixToPostfix("FSIN(2*2)"));
     }
 
 }
