@@ -50,6 +50,10 @@ public class ProgramLines {
         programLines.clear();
     }
 
+    public void erase(String numLine) {
+        programLines.remove(Float.parseFloat(numLine));
+    }
+
     public void input(String fileName) {
         fileName = addExtensionToFileName(fileName, EXT_FILE);
         try (BufferedReader reader = new BufferedReader(

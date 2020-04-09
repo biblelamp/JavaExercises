@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.22, 8 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.23, 9 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -291,6 +291,17 @@ public class Interpreter {
         return 0;
     }
 
+    private float commandErase(String parameter) {
+        if (parameter == null) {
+            variables.clear();
+        } else if (parameter.toUpperCase().equals("ALL")) {
+            program.erase();
+        } else {
+            program.erase(parameter);
+        }
+        return 0;
+    }
+
     private float commandOpen(String[] tokens) {
         if (tokens.length < 3) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], numLine);
@@ -325,7 +336,10 @@ public class Interpreter {
                 switch (cmd) {
                     case A:
                     case ASK:
-                        return commandAsk(part);
+                        if (commandAsk(part) < 0) {
+                            return -1;
+                        }
+                        break;
                     case C:
                     case COMMENT:
                         break;
@@ -352,14 +366,19 @@ public class Interpreter {
                         break;
                     case T:
                     case TYPE:
-                        return commandType(part);
+                        if (commandType(part) < 0) {
+                            return -1;
+                        }
+                        break;
                     case Q:
                     case QUIT:
                         quit = true;
                         return -1;
                     case E:
                     case ERASE:
-                        program.erase();
+                        if (commandErase(tokens.length < 2? null : tokens[1]) < 0) {
+                            return -1;
+                        }
                         break;
                     case O:
                     case OPEN:
