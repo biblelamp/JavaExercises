@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.23, 9 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.24, 10 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -291,7 +291,7 @@ public class Interpreter {
         return 0;
     }
 
-    private float commandErase(String parameter) {
+    private void commandErase(String parameter) {
         if (parameter == null) {
             variables.clear();
         } else if (parameter.toUpperCase().equals("ALL")) {
@@ -299,7 +299,6 @@ public class Interpreter {
         } else {
             program.erase(parameter);
         }
-        return 0;
     }
 
     private float commandOpen(String[] tokens) {
@@ -322,6 +321,16 @@ public class Interpreter {
                 return -1;
         }
         return 0;
+    }
+
+    private void commandWrite(String parameter) {
+        if (parameter == null) {
+            // ignore command without parameter
+        } else if (parameter.toUpperCase().equals("ALL")) {
+            program.write();
+        } else {
+            program.write(parameter);
+        }
     }
 
     private float processLine(String line) {
@@ -376,16 +385,14 @@ public class Interpreter {
                         return -1;
                     case E:
                     case ERASE:
-                        if (commandErase(tokens.length < 2? null : tokens[1]) < 0) {
-                            return -1;
-                        }
+                        commandErase(tokens.length < 2? null : tokens[1]);
                         break;
                     case O:
                     case OPEN:
                         return commandOpen(tokens);
                     case W:
                     case WRITE:
-                        program.write();
+                        commandWrite(tokens.length < 2? null : tokens[1]);
                         break;
                     default:
                         Util.printErrorMsg(COMMAND_NOT_RECOGNIZED, tokens[0], numLine);

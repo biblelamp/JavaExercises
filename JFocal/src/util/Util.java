@@ -9,6 +9,10 @@ public class Util {
         return numLine == Math.ceil(numLine);
     }
 
+    public static boolean isValidGroupNumber(String numLine) {
+        return numLine.matches("\\d\\d?");
+    }
+
     public static boolean isValidLineNumber(String numLine) {
         return numLine.matches("\\d\\d?\\.\\d\\d?");
     }

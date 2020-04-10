@@ -4,6 +4,7 @@ import util.Util;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -30,7 +31,24 @@ public class ProgramLines {
 
     public void write() {
         for (Float key : programLines.keySet()) {
-            System.out.printf(LINE_FORMAT, key, programLines.get(key));
+            System.out.printf(Locale.ROOT, LINE_FORMAT, key, programLines.get(key));
+        }
+    }
+
+    public void write(String numLine) {
+        if (Util.isValidLineNumber(numLine)) {
+            float key = Float.parseFloat(numLine);
+            String line = programLines.get(key);
+            if (line != null) {
+                System.out.printf(Locale.ROOT, LINE_FORMAT, key, line);
+            }
+        } else if (Util.isValidGroupNumber(numLine)) {
+            Float group = Float.parseFloat(numLine);
+            for (Float key : programLines.keySet()) {
+                if (key.intValue() == group.intValue()) {
+                    System.out.printf(Locale.ROOT, LINE_FORMAT, key, programLines.get(key));
+                }
+            }
         }
     }
 
@@ -51,7 +69,11 @@ public class ProgramLines {
     }
 
     public void erase(String numLine) {
-        programLines.remove(Float.parseFloat(numLine));
+        if (Util.isValidLineNumber(numLine)) {
+            programLines.remove(Float.parseFloat(numLine));
+        } else if (Util.isValidGroupNumber(numLine)) {
+            // TODO implement line group erasing
+        }
     }
 
     public void input(String fileName) {
@@ -79,7 +101,7 @@ public class ProgramLines {
                 new OutputStreamWriter(
                         new FileOutputStream(fileName), StandardCharsets.UTF_8))){
             for (Float key : programLines.keySet()) {
-                writer.write(String.format(LINE_FORMAT, key, programLines.get(key)));
+                writer.write(String.format(Locale.ROOT, LINE_FORMAT, key, programLines.get(key)));
             }
         } catch (IOException e) {
             System.out.printf(ERROR_WRITING_FILE, fileName);
