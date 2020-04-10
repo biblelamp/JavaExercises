@@ -23,7 +23,10 @@ https://bit.ly/2JpL0Zt
 https://bit.ly/3apw5KF
 
 Страница со ссылками на статьи по Java
-https://docs.google.com/document/d/1D4MjlEWXyX0A9kljekQydy7paXpbV-eF-5ZTOY_WRwk
+https://bit.ly/2UTEpwM
+
+IntelliJ IDEA для новичков: советы и секреты
+https://geekbrains.ru/events/770
 
 Телеграм-чат:
 https://t.me/joinchat/EuijNhMfrdv0AqK4lLapsw открыт для ваших вопросов.
