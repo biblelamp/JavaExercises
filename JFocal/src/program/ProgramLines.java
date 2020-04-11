@@ -76,7 +76,7 @@ public class ProgramLines {
         }
     }
 
-    public void input(String fileName) {
+    public void call(String fileName) {
         fileName = addExtensionToFileName(fileName, EXT_FILE);
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
@@ -95,7 +95,7 @@ public class ProgramLines {
         }
     }
 
-    public void output(String fileName) {
+    public void save(String fileName) {
         fileName = addExtensionToFileName(fileName, EXT_FILE);
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(

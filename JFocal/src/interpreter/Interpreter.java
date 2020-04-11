@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.24, 10 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.25, 11 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -39,8 +39,8 @@ public class Interpreter {
     private final static String GO = "GO";
     private final static String E = "E";
     private final static String ERASE = "ERASE";
-    private final static String O = "O";
-    private final static String OPEN = "OPEN";
+    private final static String L = "L";
+    private final static String LIBRARY = "LIBRARY";
     private final static String W = "W";
     private final static String WRITE = "WRITE";
 
@@ -78,7 +78,7 @@ public class Interpreter {
             if (line.length() > 0) {
                 if (line.toUpperCase().startsWith(GO)) {
                     if (program.size() > 0) {
-                        goProgram();
+                        goProgram(null);
                     }
                 } else {
                     processLine(line);
@@ -87,10 +87,15 @@ public class Interpreter {
         }
     }
 
-    private void goProgram() {
+    private void goProgram(Float toLine) {
         Set<Float> numLines = program.keySet();
         iterator = new Iterator<>(numLines);
-        numLine = iterator.next();
+        if (toLine == null) {
+            numLine = iterator.next();
+        } else {
+            numLine = toLine;
+            iterator.set(numLine);
+        }
         do {
             String line = program.get(numLine);
             if (line != null) {
@@ -170,10 +175,10 @@ public class Interpreter {
     }
 
     private float commandGoto(String toLine) {
-        float number;
-        try {
+        Float number;
+        if (Util.isValidLineNumber(toLine)) {
             number = Float.parseFloat(toLine);
-        } catch (NumberFormatException e) {
+        } else {
             Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, numLine);
             return -1;
         }
@@ -181,6 +186,9 @@ public class Interpreter {
         if (line == null) {
             Util.printErrorMsg(NO_LINE_WITH_NUMBER, toLine, numLine);
             return -1;
+        }
+        if (numLine == null) { // command mode
+            goProgram(number);
         }
         return number;
     }
@@ -301,20 +309,20 @@ public class Interpreter {
         }
     }
 
-    private float commandOpen(String[] tokens) {
+    private float commandLibrary(String[] tokens) {
         if (tokens.length < 3) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], numLine);
             return -1;
         }
         String operation = tokens[1].toUpperCase();
         switch (operation) {
-            case "I":
-            case "INPUT":
-                program.input(tokens[2]);
+            case "C":
+            case "CALL":
+                program.call(tokens[2]);
                 break;
-            case "O":
-            case "OUTPUT":
-                program.output(tokens[2]);
+            case "S":
+            case "SAVE":
+                program.save(tokens[2]);
                 break;
             default:
                 Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], numLine);
@@ -387,9 +395,9 @@ public class Interpreter {
                     case ERASE:
                         commandErase(tokens.length < 2? null : tokens[1]);
                         break;
-                    case O:
-                    case OPEN:
-                        return commandOpen(tokens);
+                    case L:
+                    case LIBRARY:
+                        return commandLibrary(tokens);
                     case W:
                     case WRITE:
                         commandWrite(tokens.length < 2? null : tokens[1]);

@@ -1,4 +1,4 @@
-2020-03-18 init day: reading material and thinking
+2020-03-18 init day: reading language guide and thinking
 2020-03-19 added an interpreter base
 2020-03-20 using constants
 2020-03-21 basic work with program lines (enter, write)
@@ -22,3 +22,4 @@
 2020-04-08 shorten variable name and implemented TYPE $
 2020-04-09 improved implementation ERASE
 2020-04-10 improved implementation WRITE
+2020-04-11 file commands changed, improved GOTO
