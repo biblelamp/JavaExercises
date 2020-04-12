@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.25, 11 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.26, 12 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -201,23 +201,41 @@ public class Interpreter {
         }
         String[] lineNums = parts[2].trim().split(",");
         if (condition < 0) {
-            try {
+            if (lineNums[0].trim().length() == 0) {
+                return 0;
+            }
+            if (Util.isValidLineNumber(lineNums[0].trim())) {
                 return Float.parseFloat(lineNums[0].trim());
-            } catch (NumberFormatException e) {
+            } else {
+                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[0], numLine);
                 return -1;
             }
         }
         if (condition == 0) {
-            try {
+            if (lineNums.length < 2) {
+                return 0;
+            }
+            if (lineNums[1].trim().length() == 0) {
+                return 0;
+            }
+            if (Util.isValidLineNumber(lineNums[1].trim())) {
                 return Float.parseFloat(lineNums[1].trim());
-            } catch (NumberFormatException e) {
+            } else {
+                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[1], numLine);
                 return -1;
             }
         }
         if (condition > 0) {
-            try {
+            if (lineNums.length < 3) {
+                return 0;
+            }
+            if (lineNums[2].trim().length() == 0) {
+                return 0;
+            }
+            if (Util.isValidLineNumber(lineNums[2].trim())) {
                 return Float.parseFloat(lineNums[2].trim());
-            } catch (NumberFormatException e) {
+            } else {
+                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[2], numLine);
                 return -1;
             }
         }
