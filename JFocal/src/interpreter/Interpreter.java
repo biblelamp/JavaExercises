@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.26, 12 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.27, 13 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -58,8 +58,9 @@ public class Interpreter {
     private ProgramLines program;
     private Map<String, Float> variables;
     private Iterator<Float> iterator;
-    private Float numLine;
-    private Float returnToLine;
+    private Float numLine;      // current line number in program mode
+    private Float returnToLine; // line number for return
+    private Float doNumGroup;   // group number for do
     private boolean quit;
 
     public Interpreter() {
@@ -97,9 +98,15 @@ public class Interpreter {
             iterator.set(numLine);
         }
         do {
+            if (doNumGroup != null) {
+                if (numLine.intValue() != doNumGroup) {
+                    numLine = commandReturn();
+                    continue;
+                }
+            }
             String line = program.get(numLine);
             if (line != null) {
-                float result = processLine(line);
+                Float result = processLine(line);
                 if (result == 0) {
                     if (iterator.hasNext()) {
                         numLine = iterator.next();
@@ -109,8 +116,12 @@ public class Interpreter {
                 } else if (result < 0) {
                     numLine = null;
                 } else {
-                    numLine = result;
-                    iterator.set(result);
+                    if (!iterator.set(result)) {
+                        Util.printErrorMsg(NO_LINE_WITH_NUMBER, String.valueOf(result), numLine);
+                        numLine = null;
+                    } else {
+                        numLine = result;
+                    }
                 }
             } else {
                 numLine = null;
@@ -144,15 +155,19 @@ public class Interpreter {
         return 0;
     }
 
-    private float commandDo(String toLine) {
-        float number = Float.parseFloat(toLine);
-        if (!Util.isGroupLineNumber(number)) {
-            number = processLine(program.get(number));
-        } else {
+    private float commandDo(String doLine) {
+        if (Util.isValidLineNumber(doLine)) {
+            return processLine(program.get(Float.parseFloat(doLine)));
+        } else if (Util.isValidGroupNumber(doLine)) {
             if (numLine != null) {
-                returnToLine = iterator.next();
+                returnToLine = iterator.next(); // save line for return
             }
-            number = iterator.firstInGroup(number);
+            doNumGroup = Float.parseFloat(doLine);
+            Float number = iterator.firstInGroup(doNumGroup);
+            if (number == null) {
+                Util.printErrorMsg(ProgramLines.NO_LINE_IN_GROUP, doLine, numLine);
+                return -1;
+            }
             return number;
         }
         return 0;
@@ -243,6 +258,7 @@ public class Interpreter {
     }
 
     private float commandReturn() {
+        doNumGroup = null;
         return returnToLine;
     }
 
@@ -336,11 +352,11 @@ public class Interpreter {
         switch (operation) {
             case "C":
             case "CALL":
-                program.call(tokens[2]);
+                program.call(tokens[2]); // read program from file
                 break;
             case "S":
             case "SAVE":
-                program.save(tokens[2]);
+                program.save(tokens[2]); // save program to file
                 break;
             default:
                 Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], numLine);

@@ -14,6 +14,7 @@ public class ProgramLines {
     private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
     public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
+    public final static String NO_LINE_IN_GROUP = "Error: No line in group number '%s'";
 
     private final static String LINE_FORMAT = "%05.2f %s\n";
 
