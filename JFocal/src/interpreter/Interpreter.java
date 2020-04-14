@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.27, 13 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.28, 14 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -214,44 +214,23 @@ public class Interpreter {
         if (condition == null) {
             return -1;
         }
+        condition = Math.signum(condition);
         String[] lineNums = parts[2].trim().split(",");
-        if (condition < 0) {
-            if (lineNums[0].trim().length() == 0) {
-                return 0;
-            }
-            if (Util.isValidLineNumber(lineNums[0].trim())) {
-                return Float.parseFloat(lineNums[0].trim());
-            } else {
-                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[0], numLine);
-                return -1;
-            }
-        }
-        if (condition == 0) {
-            if (lineNums.length < 2) {
-                return 0;
-            }
-            if (lineNums[1].trim().length() == 0) {
-                return 0;
-            }
-            if (Util.isValidLineNumber(lineNums[1].trim())) {
-                return Float.parseFloat(lineNums[1].trim());
-            } else {
-                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[1], numLine);
-                return -1;
-            }
-        }
-        if (condition > 0) {
-            if (lineNums.length < 3) {
-                return 0;
-            }
-            if (lineNums[2].trim().length() == 0) {
-                return 0;
-            }
-            if (Util.isValidLineNumber(lineNums[2].trim())) {
-                return Float.parseFloat(lineNums[2].trim());
-            } else {
-                Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, lineNums[2], numLine);
-                return -1;
+        for (int i = 0; i < 3; i++) {
+            if (condition == (i - 1)) { // condition -> [-1,0,1]
+                if (lineNums.length < i + 1) {
+                    return 0;
+                }
+                String toLine = lineNums[i].trim();
+                if (toLine.length() == 0) {
+                    return 0;
+                }
+                if (Util.isValidLineNumber(toLine)) {
+                    return Float.parseFloat(toLine);
+                } else {
+                    Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, numLine);
+                    return -1;
+                }
             }
         }
         return 0;
