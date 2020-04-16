@@ -15,6 +15,9 @@ public class Calculate {
     public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
     private final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
+    private final static String OPEN_BRACKETS = "(<[";
+    private final static String CLOSE_BRACKETS = ")>]";
+
     /**
      * Returns the result of an expression or null on error
      * @param expression in string
@@ -88,7 +91,7 @@ public class Calculate {
 
             // added in list number or variable
             if (precedence(c) > -1 && !numberOrVariable.isEmpty()) {
-                if (c == '(' && Function.isFunction(numberOrVariable)) {
+                if (OPEN_BRACKETS.indexOf(c) > -1 && Function.isFunction(numberOrVariable)) {
                     stackFunc.push(numberOrVariable.toUpperCase());
                 } else {
                     result.add(numberOrVariable);
@@ -106,10 +109,10 @@ public class Calculate {
                     result.add(stackOper.pop().toString());
                 }
                 stackOper.push(c);
-            } else if (c == ')') {
+            } else if (CLOSE_BRACKETS.indexOf(c) > -1) {
                 try {
                     char x = stackOper.pop();
-                    while (x != '(') {
+                    while (x != OPEN_BRACKETS.charAt(CLOSE_BRACKETS.indexOf(c))) {
                         result.add(Character.toString(x));
                         x = stackOper.pop();
                     }
@@ -120,7 +123,7 @@ public class Calculate {
                 if (stackFunc.size() > 0 && stackOper.size() == 0) {
                     result.add(stackFunc.pop());
                 }
-            } else if (c == '(') {
+            } else if (OPEN_BRACKETS.indexOf(c) > -1) {
                 stackOper.push(c);
             } else {
                 // character is neither operator nor parentheses
@@ -153,6 +156,10 @@ public class Calculate {
                 return 3;
             case '(':
             case ')':
+            case '<':
+            case '>':
+            case '[':
+            case ']':
                 return 0;
         }
         return -1;

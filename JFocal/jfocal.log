@@ -26,3 +26,4 @@
 2020-04-12 improved command IF
 2020-04-13 improved command DO
 2020-04-14 refactored method commandIf()
+2020-04-15 added types of brackets <>[] in expressions
