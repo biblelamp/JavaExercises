@@ -27,3 +27,4 @@
 2020-04-13 improved command DO
 2020-04-14 refactored method commandIf()
 2020-04-15 added types of brackets <>[] in expressions
+2020-04-16 GOTO and DO error handling, deleting 1 line

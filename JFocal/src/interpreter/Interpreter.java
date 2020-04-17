@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.29, 15 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.30, 16 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -156,7 +156,10 @@ public class Interpreter {
     }
 
     private float commandDo(String doLine) {
-        if (Util.isValidLineNumber(doLine)) {
+        if (doLine == null) {
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", numLine);
+            return -1;
+        }        if (Util.isValidLineNumber(doLine)) {
             return processLine(program.get(Float.parseFloat(doLine)));
         } else if (Util.isValidGroupNumber(doLine)) {
             if (numLine != null) {
@@ -190,6 +193,10 @@ public class Interpreter {
     }
 
     private float commandGoto(String toLine) {
+        if (toLine == null) {
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "G/GOTO", numLine);
+            return -1;
+        }
         Float number;
         if (Util.isValidLineNumber(toLine)) {
             number = Float.parseFloat(toLine);
@@ -357,7 +364,11 @@ public class Interpreter {
     private float processLine(String line) {
         String[] tokens = line.split(" ");
         if (Util.isValidLineNumber(tokens[0])) {
-            program.add(tokens[0], line);
+            if (tokens.length > 1) {
+                program.add(tokens[0], line);
+            } else {
+                program.erase(tokens[0]);
+            }
         } else {
             String[] parts = Util.splitString(line, ';');
             for (String part : parts) {
@@ -375,13 +386,13 @@ public class Interpreter {
                         break;
                     case D:
                     case DO:
-                        return commandDo(tokens[1]);
+                        return commandDo(tokens.length < 2? null: tokens[1]);
                     case F:
                     case FOR:
                         return commandFor(parts);
                     case G:
                     case GOTO:
-                        return commandGoto(tokens[1]);
+                        return commandGoto(tokens.length < 2? null: tokens[1]);
                     case I:
                     case IF:
                         return commandIf(part);
