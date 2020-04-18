@@ -24,7 +24,7 @@ public class Function {
             case 3: // FEXP
                 return (float)Math.exp(parameter);
             case 4: // FITR
-                return (float)Math.rint(parameter);
+                return (float)parameter.intValue();
             case 5: // FLOG
                 return (float)Math.log(parameter);
             case 6: // FRAN
