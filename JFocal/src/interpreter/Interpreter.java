@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.30, 16 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.31, 17 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -98,12 +98,6 @@ public class Interpreter {
             iterator.set(numLine);
         }
         do {
-            if (doNumGroup != null) {
-                if (numLine.intValue() != doNumGroup) {
-                    numLine = commandReturn();
-                    continue;
-                }
-            }
             String line = program.get(numLine);
             if (line != null) {
                 Float result = processLine(line);
@@ -141,13 +135,13 @@ public class Interpreter {
                     return -1;
                 }
             } else {
-                System.out.print("?");
-                String floatNumber = scanner.nextLine();
+                String stringNumber = scanner.nextLine();
                 try {
-                    float number = Float.parseFloat(floatNumber);
+                    // TODO the procedure for converting letters to numbers
+                    float number = Float.parseFloat(stringNumber);
                     variables.put(Util.shortenVariableName(parameter.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
-                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, floatNumber, numLine);
+                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, stringNumber, numLine);
                     return -1;
                 }
             }
@@ -159,21 +153,33 @@ public class Interpreter {
         if (doLine == null) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", numLine);
             return -1;
-        }        if (Util.isValidLineNumber(doLine)) {
+        } if (Util.isValidLineNumber(doLine)) {
             return processLine(program.get(Float.parseFloat(doLine)));
         } else if (Util.isValidGroupNumber(doLine)) {
-            if (numLine != null) {
-                returnToLine = iterator.next(); // save line for return
+            Float number = null;
+            Float numGroup = Float.parseFloat(doLine);
+            if (iterator != null) {
+                returnToLine = iterator.get(); // save line for return
+                number = iterator.firstInGroup(numGroup);
             }
-            doNumGroup = Float.parseFloat(doLine);
-            Float number = iterator.firstInGroup(doNumGroup);
             if (number == null) {
                 Util.printErrorMsg(ProgramLines.NO_LINE_IN_GROUP, doLine, numLine);
                 return -1;
             }
-            return number;
+            iterator.set(number);
+            do {
+                number = processLine(program.get(number));
+                if (number == 0) {
+                    number = iterator.next();
+                } else if (number < 0) {
+                    return -1;
+                }
+            } while (number != null && numGroup == number.intValue());
+            return returnToLine;
+        } else {
+            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, doLine, numLine);
+            return -1;
         }
-        return 0;
     }
 
     private float commandFor(String[] parts) {
@@ -186,7 +192,10 @@ public class Interpreter {
         for (int i = init; i <= stop; i += step) {
             variables.put(Util.shortenVariableName(countName), (float)i);
             for (int j = 1; j < parts.length; j++) {
-                processLine(parts[j].trim());
+                float result = processLine(parts[j].trim());
+                if (result == -1) {
+                    return -1;
+                }
             }
         }
         return 0;
@@ -244,8 +253,7 @@ public class Interpreter {
     }
 
     private float commandReturn() {
-        doNumGroup = null;
-        return returnToLine;
+        return 0;
     }
 
     private float commandSet(String line) {

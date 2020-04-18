@@ -34,6 +34,10 @@ public class Iterator<E> {
         return false;
     }
 
+    public E get() {
+        return items[index];
+    }
+
     public E firstInGroup(E number) {
         for (E item : items) {
             if (((Float)item).intValue() == ((Float)number).intValue()) {
