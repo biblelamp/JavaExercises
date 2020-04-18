@@ -120,7 +120,7 @@ public class Calculate {
                     System.out.printf(UNPAIRED_PARENTHESES, expression);
                     return null;
                 }
-                if (stackFunc.size() > 0 && stackOper.size() == 0) {
+                if (!stackFunc.isEmpty()) {
                     result.add(stackFunc.pop());
                 }
             } else if (OPEN_BRACKETS.indexOf(c) > -1) {
@@ -166,7 +166,8 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FSIN(2*2)"));
+        System.out.println(infixToPostfix("FRAN(1)*10"));
+        System.out.println(infixToPostfix("FITR(FRAN(1)*10)"));
     }
 
 }
