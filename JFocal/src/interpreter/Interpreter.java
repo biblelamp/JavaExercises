@@ -8,11 +8,10 @@ import util.Util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.32, 18 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.33, 19 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -58,9 +57,7 @@ public class Interpreter {
     private ProgramLines program;
     private Map<String, Float> variables;
     private Iterator<Float> iterator;
-    private Float numLine;      // current line number in program mode
-    private Float returnToLine; // line number for return
-    private Float doNumGroup;   // group number for do
+    private Float numLine; // current line number in program mode
     private boolean quit;
 
     public Interpreter() {
@@ -89,8 +86,7 @@ public class Interpreter {
     }
 
     private void goProgram(Float toLine) {
-        Set<Float> numLines = program.keySet();
-        iterator = new Iterator<>(numLines);
+        iterator = new Iterator<>(program.keySet());
         if (toLine == null) {
             numLine = iterator.next();
         } else {
@@ -158,8 +154,12 @@ public class Interpreter {
         } else if (Util.isValidGroupNumber(doLine)) {
             Float number = null;
             Float numGroup = Float.parseFloat(doLine);
+            Float returnToLine = 0f;
             if (iterator != null) {
                 returnToLine = iterator.get(); // save line for return
+                number = iterator.firstInGroup(numGroup);
+            } else {
+                iterator = new Iterator<>(program.keySet());
                 number = iterator.firstInGroup(numGroup);
             }
             if (number == null) {

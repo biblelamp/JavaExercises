@@ -30,3 +30,4 @@
 2020-04-16 GOTO and DO error handling, deleting 1 line
 2020-04-17 improved commands DO and FOR
 2020-04-18 fixed handling of functions in expressions
+2020-04-19 improved command DO
