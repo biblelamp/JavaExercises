@@ -16,8 +16,11 @@ https://bit.ly/2xvVX97
 Java: быстрый старт:
 bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
 
-Изучаем Java: шаг за шагом
+Изучаем Java: 7 первых шагов
 https://bit.ly/2JpL0Zt
+
+Учим Java: 10 практических советов
+https://bit.ly/3atJb9N
 
 Пишем код на Java и Go в текстовом редакторе
 https://bit.ly/3apw5KF
