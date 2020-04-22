@@ -32,3 +32,4 @@
 2020-04-18 fixed handling of functions in expressions
 2020-04-19 improved command DO
 2020-04-20 improved DO/RETURN
+2020-04-21 improved goProgram() method

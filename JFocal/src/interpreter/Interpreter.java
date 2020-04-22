@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.34, 20 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.35, 21 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -58,19 +58,17 @@ public class Interpreter {
     private Map<String, Float> variables;
     private Iterator<Float> iterator;
     private Float currentLine; // current line number in program mode
-    private boolean quit;
 
     public Interpreter() {
         scanner = new Scanner(System.in);
         program = new ProgramLines();
         variables = new HashMap<>();
-        quit = false;
+        currentLine = null;
     }
 
     public void run() {
         System.out.println(WELCOME);
-        while (!quit) {
-            currentLine = null;
+        while (currentLine == null) {
             System.out.print(PROMT);
             String line = scanner.nextLine();
             if (line.length() > 0) {
@@ -93,27 +91,18 @@ public class Interpreter {
             currentLine = toLine;
             iterator.set(currentLine);
         }
-        do {
-            String line = program.get(currentLine);
-            if (line != null) {
-                Float result = processLine(line);
-                if (result == 0) {
-                    currentLine = iterator.next();
-                } else if (result < 0) {
-                    currentLine = null;
-                } else {
-                    if (!iterator.set(result)) {
-                        Util.printErrorMsg(NO_LINE_WITH_NUMBER, String.valueOf(result), currentLine);
-                        currentLine = null;
-                    } else {
-                        currentLine = result;
-                    }
-                }
+        while (true) {
+            float number = processLine(program.get(currentLine));
+            if (number == 0) {
+                currentLine = iterator.next();
+            } else if (number > 0) {
+                currentLine = number;
+                iterator.set(currentLine);
             } else {
                 currentLine = null;
+                return;
             }
-        } while (currentLine != null);
-        quit = false;
+        }
     }
 
     private float commandAsk(String line) {
@@ -172,8 +161,9 @@ public class Interpreter {
                 } else {
                     return -1;
                 }
-            } while (numGroup == currentLine.intValue());
-            return returnToLine;
+            } while (currentLine != null && numGroup == currentLine.intValue());
+            iterator.set(returnToLine);
+            return 0;
         } else {
             Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, doLine, currentLine);
             return -1;
@@ -418,7 +408,6 @@ public class Interpreter {
                         break;
                     case Q:
                     case QUIT:
-                        quit = true;
                         return -1;
                     case E:
                     case ERASE:
