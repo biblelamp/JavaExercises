@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.35, 21 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.36, 22 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -51,24 +51,25 @@ public class Interpreter {
     private final static String UNKNOWN_CTRL_CHARACTER = "Error: Unknown control character '%s'";
     private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
 
-    private static String formatNumber = "%8.4f";
+    private final static String DEFAULT_FORMAT_NUMBER = "%8.4f";
 
     private Scanner scanner;
     private ProgramLines program;
     private Map<String, Float> variables;
     private Iterator<Float> iterator;
-    private Float currentLine; // current line number in program mode
+    private String formatNumber;
 
     public Interpreter() {
         scanner = new Scanner(System.in);
         program = new ProgramLines();
         variables = new HashMap<>();
-        currentLine = null;
+        iterator = null;
+        formatNumber = DEFAULT_FORMAT_NUMBER;
     }
 
     public void run() {
         System.out.println(WELCOME);
-        while (currentLine == null) {
+        while (iterator == null) {
             System.out.print(PROMT);
             String line = scanner.nextLine();
             if (line.length() > 0) {
@@ -86,20 +87,18 @@ public class Interpreter {
     private void goProgram(Float toLine) {
         iterator = new Iterator<>(program.keySet());
         if (toLine == null) {
-            currentLine = iterator.next();
+            iterator.next();
         } else {
-            currentLine = toLine;
-            iterator.set(currentLine);
+            iterator.set(toLine);
         }
         while (true) {
-            float number = processLine(program.get(currentLine));
+            float number = processLine(program.get(iterator.get()));
             if (number == 0) {
-                currentLine = iterator.next();
+                iterator.next();
             } else if (number > 0) {
-                currentLine = number;
-                iterator.set(currentLine);
+                iterator.set(number);
             } else {
-                currentLine = null;
+                iterator = null;
                 return;
             }
         }
@@ -112,7 +111,7 @@ public class Interpreter {
                 if (parameter.endsWith("\"")) {
                     System.out.print(parameter.substring(1, parameter.length() - 1));
                 } else {
-                    Util.printErrorMsg(UNPAIRED_QUOTES, parameter, currentLine);
+                    Util.printErrorMsg(UNPAIRED_QUOTES, parameter, iterator);
                     return -1;
                 }
             } else {
@@ -123,7 +122,7 @@ public class Interpreter {
                     float number = Float.parseFloat(stringNumber);
                     variables.put(Util.shortenVariableName(parameter.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
-                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, stringNumber, currentLine);
+                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, stringNumber, iterator);
                     return -1;
                 }
             }
@@ -133,7 +132,7 @@ public class Interpreter {
 
     private float commandDo(String doLine) {
         if (doLine == null) {
-            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", currentLine);
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", iterator);
             return -1;
         } if (Util.isValidLineNumber(doLine)) {
             return processLine(program.get(Float.parseFloat(doLine)));
@@ -142,30 +141,30 @@ public class Interpreter {
             Float returnToLine = 0f;
             if (iterator != null) {
                 returnToLine = iterator.get(); // save line for return
-                currentLine = iterator.firstInGroup(numGroup);
             } else {
                 iterator = new Iterator<>(program.keySet()); // start program mode
-                currentLine = iterator.firstInGroup(numGroup);
             }
-            if (currentLine == null) {
-                Util.printErrorMsg(ProgramLines.NO_LINE_IN_GROUP, doLine, currentLine);
+            Float numLine = iterator.firstInGroup(numGroup);
+            if (numLine == null) {
+                Util.printErrorMsg(ProgramLines.NO_LINE_IN_GROUP, doLine, iterator);
                 return -1;
             }
-            iterator.set(currentLine);
+            iterator.set(numLine);
             do {
-                float number = processLine(program.get(currentLine));
+                float number = processLine(program.get(iterator.get()));
                 if (number == 0) {
-                    currentLine = iterator.next();
+                    iterator.next();
                 } else if (number > 0) {
-                    currentLine = number;
+                    iterator.set(number);
                 } else {
+                    iterator = null;
                     return -1;
                 }
-            } while (currentLine != null && numGroup == currentLine.intValue());
+            } while (iterator.get() != null && numGroup == iterator.get().intValue());
             iterator.set(returnToLine);
             return 0;
         } else {
-            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, doLine, currentLine);
+            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, doLine, iterator);
             return -1;
         }
     }
@@ -191,22 +190,22 @@ public class Interpreter {
 
     private float commandGoto(String toLine) {
         if (toLine == null) {
-            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "G/GOTO", currentLine);
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "G/GOTO", iterator);
             return -1;
         }
         Float number;
         if (Util.isValidLineNumber(toLine)) {
             number = Float.parseFloat(toLine);
         } else {
-            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, currentLine);
+            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, iterator);
             return -1;
         }
         String line = program.get(number);
         if (line == null) {
-            Util.printErrorMsg(NO_LINE_WITH_NUMBER, toLine, currentLine);
+            Util.printErrorMsg(NO_LINE_WITH_NUMBER, toLine, iterator);
             return -1;
         }
-        if (currentLine == null) { // command mode
+        if (iterator == null) { // command mode
             goProgram(number);
         }
         return number;
@@ -232,7 +231,7 @@ public class Interpreter {
                 if (Util.isValidLineNumber(toLine)) {
                     return Float.parseFloat(toLine);
                 } else {
-                    Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, currentLine);
+                    Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, iterator);
                     return -1;
                 }
             }
@@ -243,14 +242,14 @@ public class Interpreter {
     private float commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
-            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "SET", currentLine);
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "SET", iterator);
             return -1;
         }
         Float result = Calculate.calculate(parts[1].trim(), variables);
         if (result != null) {
             variables.put(Util.shortenVariableName(parts[0].trim().toUpperCase()), result);
         } else {
-            Util.printErrorMsg(null, null, currentLine);
+            Util.printErrorMsg(null, null, iterator);
             return -1;
         }
         return 0;
@@ -264,14 +263,14 @@ public class Interpreter {
                 if (item.endsWith("\"")) {
                     System.out.print(item.substring(1, item.length() - 1));
                 } else {
-                    Util.printErrorMsg(UNPAIRED_QUOTES, item, currentLine);
+                    Util.printErrorMsg(UNPAIRED_QUOTES, item, iterator);
                     return -1;
                 }
             } else if (item.startsWith("%")) {
                 if (item.equals("%")) {
                     formatNumber = "%e";
                 } else if (!Util.isValidFormatNumber(item)) {
-                    Util.printErrorMsg(INVALID_NUMBER_FORMAT, item, currentLine);
+                    Util.printErrorMsg(INVALID_NUMBER_FORMAT, item, iterator);
                     return -1;
                 } else {
                     formatNumber = item + 'f';
@@ -290,7 +289,7 @@ public class Interpreter {
                             System.out.print("\t");
                             break;
                         default:
-                            Util.printErrorMsg(UNKNOWN_CTRL_CHARACTER, Character.toString(c), currentLine);
+                            Util.printErrorMsg(UNKNOWN_CTRL_CHARACTER, Character.toString(c), iterator);
                             return -1;
                     }
                 }
@@ -303,7 +302,7 @@ public class Interpreter {
                 if (result != null) {
                     System.out.printf(formatNumber, result);
                 } else {
-                    Util.printErrorMsg(null, null, currentLine);
+                    Util.printErrorMsg(null, null, iterator);
                     return -1; // error in expression
                 }
             }
@@ -313,6 +312,7 @@ public class Interpreter {
 
     private void commandErase(String parameter) {
         if (parameter == null) {
+            formatNumber = DEFAULT_FORMAT_NUMBER;
             variables.clear();
         } else if (parameter.toUpperCase().equals("ALL")) {
             program.erase();
@@ -323,7 +323,7 @@ public class Interpreter {
 
     private float commandLibrary(String[] tokens) {
         if (tokens.length < 3) {
-            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], currentLine);
+            Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], iterator);
             return -1;
         }
         String operation = tokens[1].toUpperCase();
@@ -337,7 +337,7 @@ public class Interpreter {
                 program.save(tokens[2]); // save program to file
                 break;
             default:
-                Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], currentLine);
+                Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], iterator);
                 return -1;
         }
         return 0;
@@ -421,7 +421,7 @@ public class Interpreter {
                         commandWrite(tokens.length < 2? null : tokens[1]);
                         break;
                     default:
-                        Util.printErrorMsg(COMMAND_NOT_RECOGNIZED, tokens[0], currentLine);
+                        Util.printErrorMsg(COMMAND_NOT_RECOGNIZED, tokens[0], iterator);
                         return -1;
                 }
             }

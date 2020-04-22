@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Util {
 
@@ -29,11 +30,11 @@ public class Util {
         return name.length() > 2 ? name.substring(0, 2) : name;
     }
 
-    public static void printErrorMsg(String message, String parameter, Float numLine) {
+    public static void printErrorMsg(String message, String parameter, Iterator iterator) {
         if (message != null && parameter != null) {
             System.out.printf(message, parameter);
         }
-        System.out.println(numLine == null? "" : String.format(" in line %05.2f", numLine));
+        System.out.println(iterator == null? "" : String.format(Locale.ROOT, " in line %05.2f", iterator.get()));
     }
 
     public static String[] splitString(String line, char delimiter) {
