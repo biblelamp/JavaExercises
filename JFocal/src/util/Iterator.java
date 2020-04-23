@@ -22,6 +22,7 @@ public class Iterator<E> {
         if (hasNext()) {
             return items[++index];
         }
+        index = items.length;
         return null;
     }
 
@@ -35,7 +36,7 @@ public class Iterator<E> {
     }
 
     public E get() {
-        return items[index];
+        return index < items.length? items[index] : null;
     }
 
     public E firstInGroup(E number) {
