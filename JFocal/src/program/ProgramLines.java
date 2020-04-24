@@ -84,11 +84,13 @@ public class ProgramLines {
                         new FileInputStream(fileName), StandardCharsets.UTF_8))){
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(" ");
-                if (Util.isValidLineNumber(tokens[0])) {
-                    add(tokens[0], line);
-                } else {
-                    System.out.printf(BAD_LINE_NUMBER, tokens[0]);
+                if (line.trim().length() > 0) {
+                    String[] tokens = line.split(" ");
+                    if (Util.isValidLineNumber(tokens[0])) {
+                        add(tokens[0], line);
+                    } else {
+                        System.out.printf(BAD_LINE_NUMBER, tokens[0]);
+                    }
                 }
             }
         } catch (IOException e) {

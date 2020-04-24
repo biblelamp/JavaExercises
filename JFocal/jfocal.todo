@@ -1,0 +1,6 @@
++ implement a string splitting for ASK and TYPE
+- add method for reading characters as numbers
+- add error handling RETURN without DO
+- add one-dimensional arrays
+- add javadoc comments
+- add unit tests

@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.37, 23 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.38, 24 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -46,9 +46,7 @@ public class Interpreter {
     private final static String COMMAND_NOT_RECOGNIZED = "Error: Command '%s' not recognized";
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized";
-    private final static String UNPAIRED_QUOTES = "Error: Unpaired quotes '%s'";
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
-    private final static String UNKNOWN_CTRL_CHARACTER = "Error: Unknown control character '%s'";
     private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
 
     private final static String DEFAULT_FORMAT_NUMBER = "%8.4f";
@@ -105,22 +103,19 @@ public class Interpreter {
     }
 
     private float commandAsk(String line) {
-        String[] parameters = line.substring(line.indexOf(' ') + 1).split(",");
-        for (String parameter : parameters) {
-            if (parameter.startsWith("\"")) {
-                if (parameter.endsWith("\"")) {
-                    System.out.print(parameter.substring(1, parameter.length() - 1));
-                } else {
-                    Util.printErrorMsg(UNPAIRED_QUOTES, parameter, iterator);
-                    return -1;
-                }
+        String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1));
+        for (String item : parameters) {
+            if (item.startsWith("\"")) {
+                System.out.print(item.substring(1, item.length() - (item.endsWith("\"")? 1 : 0)));
+            } else if (item.equals("!")) {
+                System.out.println();
             } else {
                 System.out.print(":");
                 String stringNumber = scanner.nextLine();
                 try {
                     // TODO the procedure for converting letters to numbers
                     float number = Float.parseFloat(stringNumber);
-                    variables.put(Util.shortenVariableName(parameter.trim().toUpperCase()), number);
+                    variables.put(Util.shortenVariableName(item.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
                     Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, stringNumber, iterator);
                     return -1;
@@ -256,16 +251,10 @@ public class Interpreter {
     }
 
     private float commandType(String line) {
-        String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1), ',');
-        for (String parameter : parameters) {
-            String item = parameter.trim();
+        String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1));
+        for (String item : parameters) {
             if (item.startsWith("\"")) {
-                if (item.endsWith("\"")) {
-                    System.out.print(item.substring(1, item.length() - 1));
-                } else {
-                    Util.printErrorMsg(UNPAIRED_QUOTES, item, iterator);
-                    return -1;
-                }
+                System.out.print(item.substring(1, item.length() - (item.endsWith("\"")? 1 : 0)));
             } else if (item.startsWith("%")) {
                 if (item.equals("%")) {
                     formatNumber = "%e";
@@ -275,30 +264,24 @@ public class Interpreter {
                 } else {
                     formatNumber = item + 'f';
                 }
-            } else if ("!#:".indexOf(item.substring(0, 1)) > -1) {
-                for (int i = 0; i < item.length(); i++) {
-                    char c = item.charAt(i);
-                    switch (c) {
-                        case '!':
-                            System.out.println();
-                            break;
-                        case '#':
-                            System.out.print("\r");
-                            break;
-                        case ':':
-                            System.out.print("\t");
-                            break;
-                        default:
-                            Util.printErrorMsg(UNKNOWN_CTRL_CHARACTER, Character.toString(c), iterator);
-                            return -1;
-                    }
+            } else if ("!#:".indexOf(item) > -1) {
+                switch (item) {
+                    case "!":
+                        System.out.println();
+                        break;
+                    case "#":
+                        System.out.print("\r");
+                        break;
+                    case ":":
+                        System.out.print("\t");
+                        break;
                 }
             } else if (item.equals("$")) {
                 for (String name : variables.keySet()) {
                     System.out.printf("%s=" + formatNumber + "\n", name, variables.get(name));
                 }
             } else {
-                Float result = Calculate.calculate(parameter, variables);
+                Float result = Calculate.calculate(item, variables);
                 if (result != null) {
                     System.out.printf(formatNumber, result);
                 } else {
