@@ -1,4 +1,5 @@
 + implement a string splitting for ASK and TYPE
++ empty parameter for function FRAN
 - add method for reading characters as numbers
 - add error handling RETURN without DO
 - add one-dimensional arrays

@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.38, 24 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.39, 25 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";

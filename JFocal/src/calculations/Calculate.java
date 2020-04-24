@@ -110,8 +110,9 @@ public class Calculate {
                 }
                 stackOper.push(c);
             } else if (CLOSE_BRACKETS.indexOf(c) > -1) {
+                char x;
                 try {
-                    char x = stackOper.pop();
+                    x = stackOper.pop();
                     while (x != OPEN_BRACKETS.charAt(CLOSE_BRACKETS.indexOf(c))) {
                         result.add(Character.toString(x));
                         x = stackOper.pop();
@@ -121,6 +122,9 @@ public class Calculate {
                     return null;
                 }
                 if (!stackFunc.isEmpty()) {
+                    if (stackFunc.peek().equals("FRAN") && x == '(') {
+                        result.add("0"); // dummy parameter
+                    }
                     result.add(stackFunc.pop());
                 }
             } else if (OPEN_BRACKETS.indexOf(c) > -1) {
@@ -166,8 +170,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FRAN(1)*10"));
-        System.out.println(infixToPostfix("FITR(FRAN(1)*10)"));
+        System.out.println(infixToPostfix("FITR(FRAN()*10)"));
     }
 
 }

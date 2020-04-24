@@ -54,7 +54,7 @@ public class ProgramLines {
     }
 
     public String get(Float key) {
-        return programLines.getOrDefault(key, null);
+        return key == null? null : programLines.getOrDefault(key, null);
     }
 
     public Set<Float> keySet() {
