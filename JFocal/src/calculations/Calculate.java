@@ -1,5 +1,6 @@
 package calculations;
 
+import interpreter.Interpreter;
 import util.Util;
 
 import java.util.ArrayList;
@@ -9,11 +10,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class Calculate {
-
-    public final static String ERROR_IN_EXPRESSION = "Error in expression '%s'";
-    private final static String UNPAIRED_PARENTHESES = "Error: Unpaired parentheses '%s'";
-    public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
-    private final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
     private final static String OPEN_BRACKETS = "(<[";
     private final static String CLOSE_BRACKETS = ")>]";
@@ -53,7 +49,7 @@ public class Calculate {
                 case "/":
                     second = stack.pop();
                     if (second == 0) {
-                        System.out.printf(DIVISION_BY_ZERO);
+                        System.out.printf(Interpreter.DIVISION_BY_ZERO);
                         return null;
                     }
                     stack.push(stack.pop() / second);
@@ -69,7 +65,7 @@ public class Calculate {
                             if (Util.isValidVariableName(str)) {
                                 stack.push(variables.getOrDefault(Util.shortenVariableName(str.toUpperCase()), 0f));
                             } else {
-                                System.out.printf(INVALID_NUMBER_FORMAT, str);
+                                System.out.printf(Interpreter.INVALID_NUMBER_FORMAT, str);
                                 return null;
                             }
                         }
@@ -102,7 +98,7 @@ public class Calculate {
             // check if char is operator +,-,*,/,^
             if (precedence(c) > 0) {
                 if ("+-*/^".indexOf(previous) > -1) {
-                    System.out.printf(ERROR_IN_EXPRESSION, expression);
+                    System.out.printf(Interpreter.ERROR_IN_EXPRESSION, expression);
                     return null;
                 }
                 while (!stackOper.isEmpty() && precedence(stackOper.peek()) >= precedence(c)) {
@@ -118,7 +114,7 @@ public class Calculate {
                         x = stackOper.pop();
                     }
                 } catch (NoSuchElementException ex) {
-                    System.out.printf(UNPAIRED_PARENTHESES, expression);
+                    System.out.printf(Interpreter.UNPAIRED_PARENTHESES, expression);
                     return null;
                 }
                 if (!stackFunc.isEmpty()) {
@@ -139,7 +135,7 @@ public class Calculate {
             result.add(numberOrVariable);
         }
         if (stackOper.contains('(')) {
-            System.out.printf(UNPAIRED_PARENTHESES, expression);
+            System.out.printf(Interpreter.UNPAIRED_PARENTHESES, expression);
             return null;
         }
         while (stackOper.size() > 0) {

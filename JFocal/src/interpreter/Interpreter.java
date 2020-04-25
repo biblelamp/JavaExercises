@@ -47,7 +47,16 @@ public class Interpreter {
     private final static String NOT_ENOUGH_PARAMETERS = "Error: Not enough parameters command '%s'";
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized";
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
-    private final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+    public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+
+    public final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
+    public final static String ERROR_READING_FILE = "Error reading file '%s'\n";
+    public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
+    public final static String NO_LINE_IN_GROUP = "Error: No line in group number '%s'";
+
+    public final static String ERROR_IN_EXPRESSION = "Error in expression '%s'";
+    public final static String UNPAIRED_PARENTHESES = "Error: Unpaired parentheses '%s'";
+    public final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
     private final static String DEFAULT_FORMAT_NUMBER = "%8.4f";
 
@@ -117,7 +126,7 @@ public class Interpreter {
                     float number = Float.parseFloat(stringNumber);
                     variables.put(Util.shortenVariableName(item.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
-                    Util.printErrorMsg(Calculate.INVALID_NUMBER_FORMAT, stringNumber, iterator);
+                    Util.printErrorMsg(INVALID_NUMBER_FORMAT, stringNumber, iterator);
                     return -1;
                 }
             }
@@ -141,7 +150,7 @@ public class Interpreter {
             }
             Float numLine = iterator.firstInGroup(numGroup);
             if (numLine == null) {
-                Util.printErrorMsg(ProgramLines.NO_LINE_IN_GROUP, doLine, iterator);
+                Util.printErrorMsg(NO_LINE_IN_GROUP, doLine, iterator);
                 return -1;
             }
             iterator.set(numLine);
@@ -159,7 +168,7 @@ public class Interpreter {
             iterator.set(returnToLine);
             return 0;
         } else {
-            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, doLine, iterator);
+            Util.printErrorMsg(BAD_LINE_NUMBER, doLine, iterator);
             return -1;
         }
     }
@@ -192,7 +201,7 @@ public class Interpreter {
         if (Util.isValidLineNumber(toLine)) {
             number = Float.parseFloat(toLine);
         } else {
-            Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, iterator);
+            Util.printErrorMsg(BAD_LINE_NUMBER, toLine, iterator);
             return -1;
         }
         String line = program.get(number);
@@ -226,7 +235,7 @@ public class Interpreter {
                 if (Util.isValidLineNumber(toLine)) {
                     return Float.parseFloat(toLine);
                 } else {
-                    Util.printErrorMsg(ProgramLines.BAD_LINE_NUMBER, toLine, iterator);
+                    Util.printErrorMsg(BAD_LINE_NUMBER, toLine, iterator);
                     return -1;
                 }
             }

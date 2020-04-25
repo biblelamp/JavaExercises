@@ -1,5 +1,6 @@
 package program;
 
+import interpreter.Interpreter;
 import util.Util;
 
 import java.io.*;
@@ -10,11 +11,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class ProgramLines {
-
-    private final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
-    private final static String ERROR_READING_FILE = "Error reading file '%s'\n";
-    public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
-    public final static String NO_LINE_IN_GROUP = "Error: No line in group number '%s'";
 
     private final static String LINE_FORMAT = "%05.2f %s\n";
 
@@ -89,12 +85,12 @@ public class ProgramLines {
                     if (Util.isValidLineNumber(tokens[0])) {
                         add(tokens[0], line);
                     } else {
-                        System.out.printf(BAD_LINE_NUMBER, tokens[0]);
+                        System.out.printf(Interpreter.BAD_LINE_NUMBER, tokens[0]);
                     }
                 }
             }
         } catch (IOException e) {
-            System.out.printf(ERROR_READING_FILE, fileName);
+            System.out.printf(Interpreter.ERROR_READING_FILE, fileName);
         }
     }
 
@@ -107,7 +103,7 @@ public class ProgramLines {
                 writer.write(String.format(Locale.ROOT, LINE_FORMAT, key, programLines.get(key)));
             }
         } catch (IOException e) {
-            System.out.printf(ERROR_WRITING_FILE, fileName);
+            System.out.printf(Interpreter.ERROR_WRITING_FILE, fileName);
         }
     }
 
