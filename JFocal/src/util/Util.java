@@ -99,7 +99,7 @@ public class Util {
             if (c == '"') {
                 isString = !isString;
             }
-            if (c == delimiter && !isString) {
+            if (c == delimiter && (!isString || (i == line.length() - 1))) {
                 if (!part.isEmpty()) {
                     parts.add(part.trim());
                     part = "";

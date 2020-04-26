@@ -86,6 +86,7 @@ public class Interpreter {
                     }
                 } else {
                     processLine(line);
+                    iterator = null;
                 }
             }
         }
@@ -135,7 +136,7 @@ public class Interpreter {
     private float commandDo(String doLine) {
         if (doLine == null) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", iterator);
-            return -1;
+             return -1;
         } if (Util.isValidLineNumber(doLine)) {
             return processLine(program.get(Float.parseFloat(doLine)));
         } else if (Util.isValidGroupNumber(doLine)) {
