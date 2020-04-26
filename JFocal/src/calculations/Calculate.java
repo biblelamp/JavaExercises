@@ -24,6 +24,12 @@ public class Calculate {
         return calculatePostfix(infixToPostfix(expression), variables);
     }
 
+    /**
+     * Calculation of the result using a data stack and variables
+     * @param list data stack
+     * @param variables current variables
+     * @return calculation result as a float number
+     */
     private static Float calculatePostfix(List<String> list, Map<String, Float> variables) {
         if (list == null) {
             return null;
@@ -65,8 +71,7 @@ public class Calculate {
                             if (Util.isValidVariableName(str)) {
                                 stack.push(variables.getOrDefault(Util.shortenVariableName(str.toUpperCase()), 0f));
                             } else {
-                                System.out.printf(Interpreter.INVALID_NUMBER_FORMAT, str);
-                                return null;
+                                stack.push(Util.convertLettersToNumber(str));
                             }
                         }
                     }
@@ -75,6 +80,11 @@ public class Calculate {
         return stack.pop();
     }
 
+    /**
+     * Convert expression to data stack
+     * @param expression like string
+     * @return data stack with numbers, variables, functions and operations
+     */
     private static List<String> infixToPostfix(String expression) {
         expression = expression.replaceAll(" ", ""); // remove all spaces
         List<String> result = new ArrayList<>();
@@ -144,6 +154,11 @@ public class Calculate {
         return result;
     }
 
+    /**
+     * Returns operation priority
+     * @param c sign of arithmetic operation
+     * @return number as operation priority
+     */
     private static int precedence(char c) {
         switch (c) {
             case '+':

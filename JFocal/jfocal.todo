@@ -1,6 +1,7 @@
 + implement a string splitting for ASK and TYPE
 + empty parameter for function FRAN
-- add method for reading characters as numbers
++ add method to convert string of letters to number
+- implement erasing a group of lines by group number
 - add error handling RETURN without DO
 - add one-dimensional arrays
 - add javadoc comments

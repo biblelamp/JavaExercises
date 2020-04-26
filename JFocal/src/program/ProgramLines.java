@@ -22,16 +22,28 @@ public class ProgramLines {
         programLines = new TreeMap<>();;
     }
 
+    /**
+     * Adding a line to the program
+     * @param numLine line number
+     * @param line program line
+     */
     public void add(String numLine, String line) {
         programLines.put(Float.valueOf(numLine), line.substring(line.indexOf(' ') + 1));
     }
 
+    /**
+     * Print program text to the console
+     */
     public void write() {
         for (Float key : programLines.keySet()) {
             System.out.printf(Locale.ROOT, LINE_FORMAT, key, programLines.get(key));
         }
     }
 
+    /**
+     * Print a line or group of lines to the console
+     * @param numLine line number or group of lines
+     */
     public void write(String numLine) {
         if (Util.isValidLineNumber(numLine)) {
             float key = Float.parseFloat(numLine);
@@ -49,22 +61,42 @@ public class ProgramLines {
         }
     }
 
+    /**
+     * Getting the program line by number
+     * @param key line number
+     * @return program line
+     */
     public String get(Float key) {
         return key == null? null : programLines.getOrDefault(key, null);
     }
 
+    /**
+     * Get a set of line numbers
+     * @return set of line numbers
+     */
     public Set<Float> keySet() {
         return programLines.keySet();
     }
 
+    /**
+     * The number of lines in the program
+     * @return number of lines
+     */
     public int size() {
         return programLines.size();
     }
 
+    /**
+     * Erase all program lines
+     */
     public void erase() {
         programLines.clear();
     }
 
+    /**
+     * Delete a program line or group of lines
+     * @param numLine line number or group of lines
+     */
     public void erase(String numLine) {
         if (Util.isValidLineNumber(numLine)) {
             programLines.remove(Float.parseFloat(numLine));
@@ -73,6 +105,10 @@ public class ProgramLines {
         }
     }
 
+    /**
+     * Reading all program lines from a file
+     * @param fileName
+     */
     public void call(String fileName) {
         fileName = addExtensionToFileName(fileName, EXT_FILE);
         try (BufferedReader reader = new BufferedReader(
@@ -94,6 +130,10 @@ public class ProgramLines {
         }
     }
 
+    /**
+     * Saving all program lines to a file
+     * @param fileName
+     */
     public void save(String fileName) {
         fileName = addExtensionToFileName(fileName, EXT_FILE);
         try (BufferedWriter writer = new BufferedWriter(
@@ -107,6 +147,12 @@ public class ProgramLines {
         }
     }
 
+    /**
+     * Add extension to file name
+     * @param fileName file name
+     * @param ext extension
+     * @return file name with extension
+     */
     private String addExtensionToFileName(String fileName, String ext) {
         if (fileName.indexOf('.') < 0) {
             return fileName + ext;

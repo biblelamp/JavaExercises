@@ -53,9 +53,24 @@ public class Util {
     }
 
     /**
+     * Convert a string of letters to a number
+     * @param str string containing letters for conversion
+     * @return conversion result as number
+     */
+    public static float convertLettersToNumber(String str) {
+        float result = 0;
+        for (byte b : str.toUpperCase().getBytes()) {
+            if (b > 64 && b < 91) { // only from 'A' to 'Z'
+                result += b - 64;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Print error message with line number if the program is running
-     * @param message
-     * @param parameter
+     * @param message error message
+     * @param parameter to message
      * @param iterator
      */
     public static void printErrorMsg(String message, String parameter, Iterator iterator) {
@@ -66,9 +81,9 @@ public class Util {
     }
 
     /**
-     * Dividing a string into parts using a delimiter
-     * @param line
-     * @param delimiter
+     * Splitting a string into parts using a delimiter
+     * @param line string for splitting
+     * @param delimiter delimiter character
      * @return array of strings
      */
     public static String[] splitString(String line, char delimiter) {
@@ -97,8 +112,8 @@ public class Util {
     }
 
     /**
-     * Dividing a string into parts using special rules
-     * @param line
+     * Splitting a string into parts using special rules
+     * @param line string for splitting
      * @return array of strings
      */
     public static String[] splitString(String line) {
@@ -145,6 +160,6 @@ public class Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.asList(splitString("\"Enter number\",A")));
+        System.out.println(convertLettersToNumber("Z"));
     }
 }

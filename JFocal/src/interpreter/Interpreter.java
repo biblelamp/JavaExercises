@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.39, 25 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.40, 26 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -122,12 +122,10 @@ public class Interpreter {
                 System.out.print(":");
                 String stringNumber = scanner.nextLine();
                 try {
-                    // TODO the procedure for converting letters to numbers
                     float number = Float.parseFloat(stringNumber);
                     variables.put(Util.shortenVariableName(item.trim().toUpperCase()), number);
                 } catch (NumberFormatException e) {
-                    Util.printErrorMsg(INVALID_NUMBER_FORMAT, stringNumber, iterator);
-                    return -1;
+                    variables.put(Util.shortenVariableName(item.trim().toUpperCase()), Util.convertLettersToNumber(stringNumber));
                 }
             }
         }
