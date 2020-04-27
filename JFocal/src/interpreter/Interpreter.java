@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.40, 26 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.41, 27 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -48,6 +48,7 @@ public class Interpreter {
     private final static String OPERATION_NOT_RECOGNIZED = "Error: Operation '%s' not recognized";
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
     public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
+    public final static String RETURN_WITHOUT_DO = "Error: RETURN without %s";
 
     public final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     public final static String ERROR_READING_FILE = "Error reading file '%s'\n";
@@ -93,21 +94,23 @@ public class Interpreter {
     }
 
     private void goProgram(Float toLine) {
-        iterator = new Iterator<>(program.keySet());
+        iterator = new Iterator<Float>(program.keySet());
         if (toLine == null) {
             iterator.next();
         } else {
             iterator.set(toLine);
         }
-        while (true) {
+        while (iterator != null) {
             float number = processLine(program.get(iterator.get()));
             if (number == 0) {
                 iterator.next();
+            } else if (number == 100) {
+                Util.printErrorMsg(RETURN_WITHOUT_DO, "DO", iterator);
+                iterator = null;
             } else if (number > 0) {
                 iterator.set(number);
             } else {
                 iterator = null;
-                return;
             }
         }
     }
@@ -153,8 +156,9 @@ public class Interpreter {
                 return -1;
             }
             iterator.set(numLine);
+            float number;
             do {
-                float number = processLine(program.get(iterator.get()));
+                number = processLine(program.get(iterator.get()));
                 if (number == 0) {
                     iterator.next();
                 } else if (number > 0) {
@@ -163,7 +167,7 @@ public class Interpreter {
                     iterator = null;
                     return -1;
                 }
-            } while (iterator.get() != null && numGroup == iterator.get().intValue());
+            } while (iterator.get() != null && number != 100 && numGroup == iterator.get().intValue());
             iterator.set(returnToLine);
             return 0;
         } else {

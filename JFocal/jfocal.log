@@ -37,4 +37,4 @@
 2020-04-23 fixed Iterator
 2020-04-24 special splitting for ASK and TYPE
 2020-04-25 empty parameter for FRAN()
-2020-04-26 
+2020-04-26 error handling RETURN without DO
