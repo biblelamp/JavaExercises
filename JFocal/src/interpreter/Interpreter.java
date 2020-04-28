@@ -6,6 +6,7 @@ import util.Iterator;
 import util.Util;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -59,7 +60,7 @@ public class Interpreter {
     public final static String UNPAIRED_PARENTHESES = "Error: Unpaired parentheses '%s'";
     public final static String DIVISION_BY_ZERO = "Error: Division by zero";
 
-    private final static String DEFAULT_FORMAT_NUMBER = "%8.4f";
+    private final static String DEFAULT_FORMAT_NUMBER = "%10.4f";
 
     private Scanner scanner;
     private ProgramLines program;
@@ -290,12 +291,12 @@ public class Interpreter {
                 }
             } else if (item.equals("$")) {
                 for (String name : variables.keySet()) {
-                    System.out.printf("%s=" + formatNumber + "\n", name, variables.get(name));
+                    System.out.printf("%s= " + formatNumber + "\n", name, variables.get(name));
                 }
             } else {
                 Float result = Calculate.calculate(item, variables);
                 if (result != null) {
-                    System.out.printf(formatNumber, result);
+                    System.out.printf(Locale.ROOT, " " + formatNumber, result);
                 } else {
                     Util.printErrorMsg(null, null, iterator);
                     return -1; // error in expression

@@ -2,7 +2,8 @@
 + empty parameter for function FRAN
 + add method to convert string of letters to number
 + add error handling RETURN without DO
-- implement erasing a group of lines by group number
++ implement erasing a group of lines by group number
+- fixed pattern for number in TYPE
 - add one-dimensional arrays
 - add javadoc comments
 - add unit tests

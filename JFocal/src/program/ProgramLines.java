@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 public class ProgramLines {
@@ -101,7 +102,13 @@ public class ProgramLines {
         if (Util.isValidLineNumber(numLine)) {
             programLines.remove(Float.parseFloat(numLine));
         } else if (Util.isValidGroupNumber(numLine)) {
-            // TODO implement line group erasing
+            Float numGroup = Float.parseFloat(numLine);
+            Iterator<Float> iterator = programLines.keySet().iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().intValue() == numGroup) {
+                    iterator.remove();
+                }
+            }
         }
     }
 
