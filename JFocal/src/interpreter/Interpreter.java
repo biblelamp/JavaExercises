@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.41, 27 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.42, 28 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -388,7 +388,14 @@ public class Interpreter {
                         return commandGoto(tokens.length < 2? null: tokens[1]);
                     case I:
                     case IF:
-                        return commandIf(part);
+                        float result = commandIf(part);
+                        if (result > 0) {
+                            return result;
+                        }
+                        if (result < 0) {
+                            return -1;
+                        }
+                        break;
                     case R:
                     case RETURN:
                         return 100;
