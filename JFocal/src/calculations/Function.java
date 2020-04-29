@@ -8,10 +8,21 @@ public class Function {
     private final static List<String> functions = Arrays.asList(
             "FABS", "FATN", "FCOS", "FEXP", "FITR", "FLOG", "FRAN", "FSGN", "FSIN", "FSQT");
 
+    /**
+     * Checking if the function name is valid
+     * @param funcName function name
+     * @return true if function name is valid
+     */
     public static boolean isFunction(String funcName) {
         return functions.contains(funcName.toUpperCase());
     }
 
+    /**
+     * Calculation of built-in functions
+     * @param funcName function name
+     * @param parameter
+     * @return function calculation result
+     */
     public static Float calculate(String funcName, Float parameter) {
         int index = functions.indexOf(funcName.toUpperCase());
         switch (index) {

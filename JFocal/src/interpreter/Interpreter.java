@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.42, 28 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.43, 29 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -76,6 +76,9 @@ public class Interpreter {
         formatNumber = DEFAULT_FORMAT_NUMBER;
     }
 
+    /**
+     * Run of dialogue with the interpreter
+     */
     public void run() {
         System.out.println(WELCOME);
         while (iterator == null) {
@@ -94,6 +97,10 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Program execution
+     * @param toLine start line number
+     */
     private void goProgram(Float toLine) {
         iterator = new Iterator<Float>(program.keySet());
         if (toLine == null) {
@@ -116,6 +123,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Command ASK [A] getting values for variables from the user
+     * @param line
+     * @return
+     */
     private float commandAsk(String line) {
         String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1));
         for (String item : parameters) {
@@ -137,6 +149,11 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command DO [D] subroutine execution
+     * @param doLine
+     * @return
+     */
     private float commandDo(String doLine) {
         if (doLine == null) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "D/DO", iterator);
@@ -177,6 +194,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Command FOR [F] loop implementation
+     * @param parts
+     * @return
+     */
     private float commandFor(String[] parts) {
         String[] first = parts[0].substring(parts[0].indexOf(' ') + 1).split("=");
         String countName = first[0].trim().toUpperCase();
@@ -196,6 +218,11 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command GOTO [G] go to a new line by number
+     * @param toLine
+     * @return
+     */
     private float commandGoto(String toLine) {
         if (toLine == null) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "G/GOTO", iterator);
@@ -219,8 +246,13 @@ public class Interpreter {
         return number;
     }
 
+    /**
+     * Command IF [I] condition check and goto
+     * @param line
+     * @return
+     */
     public float commandIf(String line) {
-        String[] parts = line.split("[()]");
+        String[] parts = Util.splitIf(line);
         Float condition = Calculate.calculate(parts[1].trim(), variables);
         if (condition == null) {
             return -1;
@@ -247,6 +279,11 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command SET [S] assigning value(s) to variable(s)
+     * @param line
+     * @return
+     */
     private float commandSet(String line) {
         String[] parts = line.substring(line.indexOf(' ') + 1).split("=");
         if (parts.length < 2) {
@@ -263,6 +300,11 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command TYPE [T] type string and numbers to the console
+     * @param line
+     * @return
+     */
     private float commandType(String line) {
         String[] parameters = Util.splitString(line.substring(line.indexOf(' ') + 1));
         for (String item : parameters) {
@@ -291,7 +333,7 @@ public class Interpreter {
                 }
             } else if (item.equals("$")) {
                 for (String name : variables.keySet()) {
-                    System.out.printf("%s= " + formatNumber + "\n", name, variables.get(name));
+                    System.out.printf(Locale.ROOT, "%s= " + formatNumber + "\n", name, variables.get(name));
                 }
             } else {
                 Float result = Calculate.calculate(item, variables);
@@ -306,6 +348,10 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command ERASE [E] erasing program line(s)
+     * @param parameter
+     */
     private void commandErase(String parameter) {
         if (parameter == null) {
             formatNumber = DEFAULT_FORMAT_NUMBER;
@@ -317,6 +363,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Command LIBRARY [L] call/save program file
+     * @param tokens
+     * @return
+     */
     private float commandLibrary(String[] tokens) {
         if (tokens.length < 3) {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, tokens[0], iterator);
@@ -339,6 +390,10 @@ public class Interpreter {
         return 0;
     }
 
+    /**
+     * Command WRITE [W] write program line(s)
+     * @param parameter
+     */
     private void commandWrite(String parameter) {
         if (parameter == null) {
             // ignore command without parameter
@@ -349,6 +404,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Command line execution
+     * @param line command line
+     * @return -1 if error, 0 continue, >0 to goto
+     */
     private float processLine(String line) {
         if (line == null) {
             return -1;

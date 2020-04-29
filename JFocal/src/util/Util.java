@@ -159,7 +159,22 @@ public class Util {
         return parts.toArray(new String[parts.size()]);
     }
 
+    /**
+     * Splitting a string command IF
+     * @param line
+     * @return array of strings
+     */
+    public static String[] splitIf(String line) {
+        List<String> parts = new ArrayList<>();
+        int x = line.indexOf('(');
+        int y = line.lastIndexOf(')');
+        parts.add(line.substring(0, x));
+        parts.add(line.substring(x + 1, y));
+        parts.add(line.substring(y + 1));
+        return parts.toArray(new String[parts.size()]);
+    }
+
     public static void main(String[] args) {
-        System.out.println(convertLettersToNumber("Z"));
+        System.out.println(Arrays.asList(splitIf("I (FITR(D/2)-S-1)4.65")));
     }
 }

@@ -3,6 +3,7 @@
 + add method to convert string of letters to number
 + add error handling RETURN without DO
 + implement erasing a group of lines by group number
++ fixed error using function in Calculate
 - fixed pattern for number in TYPE
 - add one-dimensional arrays
 - add javadoc comments

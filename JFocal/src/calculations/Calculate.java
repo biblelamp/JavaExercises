@@ -128,13 +128,19 @@ public class Calculate {
                     return null;
                 }
                 if (!stackFunc.isEmpty()) {
-                    if (stackFunc.peek().equals("FRAN") && x == '(') {
-                        result.add("0"); // dummy parameter
+                    stackFunc.pop();
+                    if (OPEN_BRACKETS.indexOf(stackFunc.peek()) < 0) {
+                        if (stackFunc.peek().equals("FRAN") && x == '(') {
+                            result.add("0"); // dummy parameter
+                        }
+                        result.add(stackFunc.pop());
                     }
-                    result.add(stackFunc.pop());
                 }
             } else if (OPEN_BRACKETS.indexOf(c) > -1) {
                 stackOper.push(c);
+                if (!stackFunc.isEmpty()) {
+                    stackFunc.push(String.valueOf(c));
+                }
             } else {
                 // character is neither operator nor parentheses
                 numberOrVariable += Character.toString(c);
@@ -181,7 +187,8 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FITR(FRAN()*10)"));
+        System.out.println(infixToPostfix("FITR(C*(20*A+S)/P/100+1)"));
+        System.out.println(infixToPostfix("FITR(D/2)-S-1"));
     }
 
 }
