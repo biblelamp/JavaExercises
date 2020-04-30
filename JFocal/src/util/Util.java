@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Util {
 
@@ -22,7 +24,7 @@ public class Util {
      * @return true if numLine format match line number
      */
     public static boolean isValidLineNumber(String numLine) {
-        return numLine.matches("\\d\\d?\\.\\d\\d?");
+        return numLine.matches("\\d\\d\\.\\d\\d?");
     }
 
     /**
@@ -31,7 +33,24 @@ public class Util {
      * @return true if format valid
      */
     public static boolean isValidFormatNumber(String format) {
-        return format.matches("%[123456789]\\.\\d\\d?");
+        return format.matches("%[123456789]\\.?\\d?\\d?");
+    }
+
+    /**
+     * Format string conversion %N.nn to %N+nn.nnf
+     * @param format like %N.nn
+     * @return  converted format string
+     */
+    public static String convertFormatNumber(String format) {
+        Matcher m = Pattern.compile("\\d+").matcher(format);
+        int n = 5, d = 0;
+        if (m.find()) {
+            n = Integer.parseInt(m.group());
+        }
+        if (m.find()) {
+            d = Integer.parseInt(m.group());
+        }
+        return '%' + String.format("%d.%df", n + d + 1, d);
     }
 
     /**

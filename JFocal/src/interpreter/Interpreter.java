@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.43, 29 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.44, 30 Apr 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -313,11 +313,11 @@ public class Interpreter {
             } else if (item.startsWith("%")) {
                 if (item.equals("%")) {
                     formatNumber = "%e";
-                } else if (!Util.isValidFormatNumber(item)) {
+                } else if (Util.isValidFormatNumber(item)) {
+                    formatNumber = Util.convertFormatNumber(item);
+                } else {
                     Util.printErrorMsg(INVALID_NUMBER_FORMAT, item, iterator);
                     return -1;
-                } else {
-                    formatNumber = item + 'f';
                 }
             } else if ("!#:".indexOf(item) > -1) {
                 switch (item) {
@@ -333,7 +333,7 @@ public class Interpreter {
                 }
             } else if (item.equals("$")) {
                 for (String name : variables.keySet()) {
-                    System.out.printf(Locale.ROOT, "%s= " + formatNumber + "\n", name, variables.get(name));
+                    System.out.printf(Locale.ROOT, "%s()=" + formatNumber + "\n", name, variables.get(name));
                 }
             } else {
                 Float result = Calculate.calculate(item, variables);
