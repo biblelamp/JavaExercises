@@ -2,6 +2,10 @@ Java Core Guide
 
 https://proselyte.net/tutorials/java-core/
 
+What is the difference between Java and Core Java?
+
+https://codengineering.ru/q/what-is-the-difference-between-java-and-core-java-5477/
+
 Java Core course
 
 https://dou.ua/forums/topic/6130/

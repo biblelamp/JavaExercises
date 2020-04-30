@@ -10,11 +10,14 @@
 Приветствие:
 Всем привет, скоро начинаем. Если уже кто пришел и есть вопросы - не стесняйтесь, пишите, спрашивайте. И напишите - что лично вы ждёте от этого интенсива?
 
+Установка JDK и настройка системных переменных Windows 10
+https://bit.ly/2xpnqtw
+
 Java: быстрый старт (презентация)
 https://bit.ly/2xvVX97
 
 Java: быстрый старт:
-bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
+https://bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
 
 Изучаем Java: 7 первых шагов
 https://bit.ly/2JpL0Zt
