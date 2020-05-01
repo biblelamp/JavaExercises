@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,6 +85,17 @@ public class Util {
             }
         }
         return result;
+    }
+
+    /**
+     * Print all variables
+     * @param format
+     * @param variables
+     */
+    public static void printVariables(String format, Map<String, Float> variables) {
+        for (String name : variables.keySet()) {
+            System.out.printf(Locale.ROOT, "%s()=" + format + "\n", name, variables.get(name));
+        }
     }
 
     /**

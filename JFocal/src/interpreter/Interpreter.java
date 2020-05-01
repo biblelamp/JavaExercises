@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.44, 30 Apr 2020";
+    private final static String WELCOME = "JFocal, version 0.45, 01 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -332,9 +332,7 @@ public class Interpreter {
                         break;
                 }
             } else if (item.equals("$")) {
-                for (String name : variables.keySet()) {
-                    System.out.printf(Locale.ROOT, "%s()=" + formatNumber + "\n", name, variables.get(name));
-                }
+                Util.printVariables(formatNumber, variables);
             } else {
                 Float result = Calculate.calculate(item, variables);
                 if (result != null) {
