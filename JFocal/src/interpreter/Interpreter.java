@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.45, 01 May 2020";
+    private final static String WELCOME = "JFocal, version 0.46, 02 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -50,6 +50,7 @@ public class Interpreter {
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
     public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
     public final static String RETURN_WITHOUT_DO = "Error: RETURN without %s";
+    private final static String INDEX_ISNT_INTEGER = "Error: Index isn't an integer (%s)";
 
     public final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     public final static String ERROR_READING_FILE = "Error reading file '%s'\n";
@@ -290,9 +291,25 @@ public class Interpreter {
             Util.printErrorMsg(NOT_ENOUGH_PARAMETERS, "SET", iterator);
             return -1;
         }
+        String varName = Util.shortenVariableName(parts[0].trim().toUpperCase());
+        String[] var = parts[0].trim().split("[()]");
+        if (var.length > 1) {
+            Float index = Calculate.calculate(var[1].trim(), variables);
+            if (index != null) {
+                if (index == index.intValue()) {
+                    varName += "(" + String.valueOf(index.intValue());
+                } else {
+                    Util.printErrorMsg(INDEX_ISNT_INTEGER, var[1].trim(), iterator);
+                    return -1;
+                }
+            } else {
+                Util.printErrorMsg(null, null, iterator);
+                return -1;
+            }
+        }
         Float result = Calculate.calculate(parts[1].trim(), variables);
         if (result != null) {
-            variables.put(Util.shortenVariableName(parts[0].trim().toUpperCase()), result);
+            variables.put(varName, result);
         } else {
             Util.printErrorMsg(null, null, iterator);
             return -1;

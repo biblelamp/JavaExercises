@@ -69,6 +69,9 @@ public class Util {
      * @return shortened variable name
      */
     public static String shortenVariableName(String name) {
+        if (name.indexOf('(') > -1) {
+            name = name.substring(0, name.indexOf('('));
+        }
         return name.length() > 2 ? name.substring(0, 2) : name;
     }
 
@@ -88,13 +91,15 @@ public class Util {
     }
 
     /**
-     * Print all variables
+     * Print all live variables, using TYPE $
      * @param format
      * @param variables
      */
     public static void printVariables(String format, Map<String, Float> variables) {
         for (String name : variables.keySet()) {
-            System.out.printf(Locale.ROOT, "%s()=" + format + "\n", name, variables.get(name));
+            System.out.printf(Locale.ROOT,
+                    (name.indexOf('(') < 0 ? "%s()=" : "%s)=") + format + "\n",
+                    name, variables.get(name));
         }
     }
 
