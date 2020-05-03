@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.46, 02 May 2020";
+    private final static String WELCOME = "JFocal, version 0.47, 03 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -50,7 +50,7 @@ public class Interpreter {
     private final static String NO_LINE_WITH_NUMBER = "Error: No line with number %s";
     public final static String INVALID_NUMBER_FORMAT = "Error: Invalid number format '%s'";
     public final static String RETURN_WITHOUT_DO = "Error: RETURN without %s";
-    private final static String INDEX_ISNT_INTEGER = "Error: Index isn't an integer (%s)";
+    public final static String INDEX_ISNT_INTEGER = "Error: Index isn't an integer (%s)";
 
     public final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     public final static String ERROR_READING_FILE = "Error reading file '%s'\n";

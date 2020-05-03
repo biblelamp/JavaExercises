@@ -5,6 +5,6 @@
 + implement erasing a group of lines by group number
 + fixed error using function in Calculate
 + fixed pattern for numbers in TYPE
-- add one-dimensional arrays
++ add one-dimensional arrays
 - add javadoc comments
 - add unit tests

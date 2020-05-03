@@ -64,6 +64,15 @@ public class Calculate {
                     // calculation of built-in functions
                     if (Function.isFunction(str)) {
                         stack.push(Function.calculate(str, stack.pop()));
+                        // getting an array element
+                    } else if (str.indexOf('(') > -1) {
+                        Float index = stack.pop();
+                        if (index != index.intValue()) {
+                            System.out.printf(Interpreter.INDEX_ISNT_INTEGER, String.valueOf(index));
+                            return null;
+                        }
+                        Float number = variables.getOrDefault(str + String.valueOf(index.intValue()), 0f);
+                        stack.push(number);
                     } else {
                         try {
                             stack.push(Float.parseFloat(str));
@@ -97,8 +106,12 @@ public class Calculate {
 
             // added in list number or variable
             if (precedence(c) > -1 && !numberOrVariable.isEmpty()) {
-                if (OPEN_BRACKETS.indexOf(c) > -1 && Function.isFunction(numberOrVariable)) {
-                    stackFunc.push(numberOrVariable.toUpperCase());
+                if (OPEN_BRACKETS.indexOf(c) > -1) {
+                    if (Function.isFunction(numberOrVariable)) {
+                        stackFunc.push(numberOrVariable.toUpperCase());
+                    } else {
+                        stackFunc.push(Util.shortenVariableName(numberOrVariable.toUpperCase()) + "(");
+                    }
                 } else {
                     result.add(numberOrVariable);
                 }
@@ -188,7 +201,7 @@ public class Calculate {
 
     public static void main(String[] args) {
         System.out.println(infixToPostfix("FITR(C*(20*A+S)/P/100+1)"));
-        System.out.println(infixToPostfix("FITR(D/2)-S-1"));
+        System.out.println(infixToPostfix("10+A(1+2)"));
     }
 
 }
