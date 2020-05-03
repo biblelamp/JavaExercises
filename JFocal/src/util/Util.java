@@ -25,7 +25,7 @@ public class Util {
      * @return true if numLine format match line number
      */
     public static boolean isValidLineNumber(String numLine) {
-        return numLine.matches("\\d\\d\\.\\d\\d?");
+        return numLine.matches("\\d\\d?\\.\\d\\d?");
     }
 
     /**

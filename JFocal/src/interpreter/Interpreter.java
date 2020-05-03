@@ -394,6 +394,11 @@ public class Interpreter {
             case "CALL":
                 program.call(tokens[2]); // read program from file
                 break;
+            case "G":
+            case "GO":
+                program.call(tokens[2]); // read from file
+                goProgram(null);         // and go program
+                break;
             case "S":
             case "SAVE":
                 program.save(tokens[2]); // save program to file

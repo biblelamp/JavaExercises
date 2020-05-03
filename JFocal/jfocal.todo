@@ -6,5 +6,6 @@
 + fixed error using function in Calculate
 + fixed pattern for numbers in TYPE
 + add one-dimensional arrays
++ add load+go program command
 - add javadoc comments
 - add unit tests
