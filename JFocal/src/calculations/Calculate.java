@@ -124,6 +124,10 @@ public class Calculate {
                     System.out.printf(Interpreter.ERROR_IN_EXPRESSION, expression);
                     return null;
                 }
+                // for expressions like: -3; 2*(-2-3)
+                if (c == '-' && (OPEN_BRACKETS.contains(String.valueOf(stackOper.peek())) || result.isEmpty())) {
+                    result.add("0");
+                }
                 while (!stackOper.isEmpty() && precedence(stackOper.peek()) >= precedence(c)) {
                     result.add(stackOper.pop().toString());
                 }
@@ -200,8 +204,10 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("FITR(C*(20*A+S)/P/100+1)"));
-        System.out.println(infixToPostfix("10+A(1+2)"));
+        //System.out.println(infixToPostfix("FITR(C*(20*A+S)/P/100+1)"));
+        //System.out.println(infixToPostfix("10+A(1+2)"));
+        System.out.println(infixToPostfix("2*(-2-3)"));
+        System.out.println(infixToPostfix("-3"));
     }
 
 }

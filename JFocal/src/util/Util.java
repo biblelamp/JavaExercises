@@ -162,12 +162,12 @@ public class Util {
                 isString = !isString;
                 if (isString) {
                     if (!part.isEmpty()) {
-                        parts.add(part.trim());
+                        parts.add(part);
                         part = "";
                     }
                     part += c;
                 } else {
-                    parts.add(part.trim());
+                    parts.add(part + '"');
                     part = "";
                 }
                 continue;
@@ -211,6 +211,7 @@ public class Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.asList(splitIf("I (FITR(D/2)-S-1)4.65")));
+        System.out.println(
+                Arrays.asList(splitString("\"    \",%3,L,\"       \",FITR(A),\"  \",%4,5280*(A-FITR(A))")));
     }
 }
