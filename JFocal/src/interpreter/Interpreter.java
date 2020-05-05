@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.48, 04 May 2020";
+    private final static String WELCOME = "JFocal, version 0.49, 05 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -198,10 +198,11 @@ public class Interpreter {
     /**
      * Command FOR [F] loop implementation
      * @param parts
+     * @param idx
      * @return
      */
-    private float commandFor(String[] parts) {
-        String[] first = parts[0].substring(parts[0].indexOf(' ') + 1).split("=");
+    private float commandFor(String[] parts, int idx) {
+        String[] first = parts[idx].substring(parts[idx].indexOf(' ') + 1).split("=");
         String countName = first[0].trim().toUpperCase();
         String[] paramStr = first[1].trim().split(",");
         int init = Integer.parseInt(paramStr[0]);
@@ -209,7 +210,7 @@ public class Interpreter {
         int step = paramStr.length < 3? 1 : Integer.parseInt(paramStr[1]);
         for (int i = init; i <= stop; i += step) {
             variables.put(Util.shortenVariableName(countName), (float)i);
-            for (int j = 1; j < parts.length; j++) {
+            for (int j = idx + 1; j < parts.length; j++) {
                 float result = processLine(parts[j].trim());
                 if (result == -1) {
                     return -1;
@@ -416,7 +417,7 @@ public class Interpreter {
      */
     private void commandWrite(String parameter) {
         if (parameter == null) {
-            // ignore command without parameter
+            program.write();
         } else if (parameter.toUpperCase().equals("ALL")) {
             program.write();
         } else {
@@ -442,7 +443,8 @@ public class Interpreter {
             }
         } else {
             String[] parts = Util.splitString(line, ';');
-            for (String part : parts) {
+            for (int i = 0; i < parts.length; i++) {
+                String part = parts[i];
                 tokens = part.split(" ");
                 String cmd = tokens[0].toUpperCase();
                 switch (cmd) {
@@ -463,7 +465,10 @@ public class Interpreter {
                         break;
                     case F:
                     case FOR:
-                        return commandFor(parts);
+                        if (commandFor(parts, i) < 0) {
+                            return -1;
+                        }
+                        break;
                     case G:
                     case GOTO:
                         return commandGoto(tokens.length < 2? null: tokens[1]);

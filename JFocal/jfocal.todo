@@ -7,5 +7,6 @@
 + fixed pattern for numbers in TYPE
 + add one-dimensional arrays
 + add load+go program command
+- add HELP[H] command
 - add javadoc comments
 - add unit tests
