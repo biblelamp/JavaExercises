@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.49, 05 May 2020";
+    private final static String WELCOME = "JFocal, version 0.50, 06 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -354,7 +354,7 @@ public class Interpreter {
             } else {
                 Float result = Calculate.calculate(item, variables);
                 if (result != null) {
-                    System.out.printf(Locale.ROOT, " " + formatNumber, result);
+                    System.out.printf(Locale.ROOT, formatNumber, result);
                 } else {
                     Util.printErrorMsg(null, null, iterator);
                     return -1; // error in expression

@@ -125,7 +125,7 @@ public class Calculate {
                     return null;
                 }
                 // for expressions like: -3; 2*(-2-3)
-                if (c == '-' && (OPEN_BRACKETS.contains(String.valueOf(stackOper.peek())) || result.isEmpty())) {
+                if (c == '-' && (result.isEmpty() || OPEN_BRACKETS.contains(String.valueOf(expression.charAt(i-1))))) {
                     result.add("0");
                 }
                 while (!stackOper.isEmpty() && precedence(stackOper.peek()) >= precedence(c)) {
@@ -208,6 +208,7 @@ public class Calculate {
         //System.out.println(infixToPostfix("10+A(1+2)"));
         System.out.println(infixToPostfix("2*(-2-3)"));
         System.out.println(infixToPostfix("-3"));
+        System.out.println(infixToPostfix("5280*(A-FITR(A))"));
     }
 
 }
