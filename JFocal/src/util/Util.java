@@ -170,17 +170,13 @@ public class Util {
                     parts.add(part + '"');
                     part = "";
                 }
-                continue;
-            }
-            if ("!#:".indexOf(c) > -1 && !isString) {
+            } else if ("!#:".indexOf(c) > -1 && !isString) {
                 if (!part.isEmpty()) {
                     parts.add(part.trim());
                 }
                 parts.add(String.valueOf(c));
                 part = "";
-                continue;
-            }
-            if ((c == ',') && !isString) {
+            } else if ((c == ',') && !isString) {
                 if (!part.isEmpty()) {
                     parts.add(part.trim());
                     part = "";
