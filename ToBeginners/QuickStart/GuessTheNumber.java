@@ -6,10 +6,11 @@ class GuessTheNumber {
         Random random = new Random();
         Scanner sc = new Scanner(System.in);
         final int limit = 3;
+        int count, guess, number;
         do {
-            int count = 0;
-            int guess = -1;
-            int number = random.nextInt(10);
+            count = 0;
+            guess = -1;
+            number = random.nextInt(10);
             while (count < limit && guess != number) {
                 System.out.printf(
                     "Guess [%d attempts] the number (0..9): ", limit-count);
