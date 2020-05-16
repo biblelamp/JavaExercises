@@ -16,7 +16,7 @@ public class Util {
      * @return true if numGrp format match group number
      */
     public static boolean isValidGroupNumber(String numGrp) {
-        return numGrp.matches("\\d\\d?");
+        return numGrp.matches("[1-9]\\d?");
     }
 
     /**
@@ -25,7 +25,7 @@ public class Util {
      * @return true if numLine format match line number
      */
     public static boolean isValidLineNumber(String numLine) {
-        return numLine.matches("\\d\\d?\\.\\d\\d?");
+        return numLine.matches("[1-9]\\d?\\.[1-9]\\d?");
     }
 
     /**
@@ -170,13 +170,17 @@ public class Util {
                     parts.add(part + '"');
                     part = "";
                 }
-            } else if ("!#:".indexOf(c) > -1 && !isString) {
+                continue;
+            }
+            if ("!#:".indexOf(c) > -1 && !isString) {
                 if (!part.isEmpty()) {
                     parts.add(part.trim());
                 }
                 parts.add(String.valueOf(c));
                 part = "";
-            } else if ((c == ',') && !isString) {
+                continue;
+            }
+            if ((c == ',') && !isString) {
                 if (!part.isEmpty()) {
                     parts.add(part.trim());
                     part = "";
