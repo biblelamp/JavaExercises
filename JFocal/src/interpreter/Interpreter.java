@@ -337,7 +337,7 @@ public class Interpreter {
                     Util.printErrorMsg(INVALID_NUMBER_FORMAT, item, iterator);
                     return -1;
                 }
-            } else if ("!#:".indexOf(item) > -1) {
+            } else if ("!#:".contains(item)) {
                 switch (item) {
                     case "!":
                         System.out.println();

@@ -25,7 +25,8 @@ public class Util {
      * @return true if numLine format match line number
      */
     public static boolean isValidLineNumber(String numLine) {
-        return numLine.matches("[1-9]\\d?\\.[1-9]\\d?");
+        return numLine.matches("\\d\\d?\\.\\d\\d?");
+        // TODO control format N.0 like invalid
     }
 
     /**

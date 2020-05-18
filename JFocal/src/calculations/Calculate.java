@@ -146,7 +146,7 @@ public class Calculate {
                 }
                 if (!stackFunc.isEmpty()) {
                     stackFunc.pop();
-                    if (OPEN_BRACKETS.indexOf(stackFunc.peek()) < 0) {
+                    if (!OPEN_BRACKETS.contains(stackFunc.peek())) {
                         if (stackFunc.peek().equals("FRAN") && x == '(') {
                             result.add("0"); // dummy parameter
                         }

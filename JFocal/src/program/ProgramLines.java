@@ -20,7 +20,7 @@ public class ProgramLines {
     private Map<Float, String> programLines;
 
     public ProgramLines() {
-        programLines = new TreeMap<>();;
+        programLines = new TreeMap<>();
     }
 
     /**
