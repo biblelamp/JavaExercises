@@ -25,8 +25,12 @@ public class Util {
      * @return true if numLine format match line number
      */
     public static boolean isValidLineNumber(String numLine) {
-        return numLine.matches("\\d\\d?\\.\\d\\d?");
-        // TODO control format N.0 like invalid
+        if (numLine.matches("\\d\\d?\\.\\d\\d?")) {
+            Float value = Float.parseFloat(numLine);
+            return value != value.intValue() && value.intValue() > 0;
+        } else {
+            return false;
+        }
     }
 
     /**
