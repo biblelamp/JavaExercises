@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Interpreter {
 
-    private final static String WELCOME = "JFocal, version 0.51, 16 May 2020";
+    private final static String WELCOME = "JFocal, version 0.52, 21 May 2020";
     private final static String PROMT = "*";
 
     private final static String A = "A";
@@ -54,7 +54,7 @@ public class Interpreter {
 
     public final static String ERROR_WRITING_FILE = "Error writing file '%s'\n";
     public final static String ERROR_READING_FILE = "Error reading file '%s'\n";
-    public final static String BAD_LINE_NUMBER = "Error: Bad line number '%s'";
+    public final static String INVALID_LINE_NUMBER = "Error: Invalid line number '%s'";
     public final static String NO_LINE_IN_GROUP = "Error: No line in group number '%s'";
 
     public final static String ERROR_IN_EXPRESSION = "Error in expression '%s'";
@@ -190,7 +190,7 @@ public class Interpreter {
             iterator.set(returnToLine);
             return 0;
         } else {
-            Util.printErrorMsg(BAD_LINE_NUMBER, doLine, iterator);
+            Util.printErrorMsg(INVALID_LINE_NUMBER, doLine, iterator);
             return -1;
         }
     }
@@ -234,7 +234,7 @@ public class Interpreter {
         if (Util.isValidLineNumber(toLine)) {
             number = Float.parseFloat(toLine);
         } else {
-            Util.printErrorMsg(BAD_LINE_NUMBER, toLine, iterator);
+            Util.printErrorMsg(INVALID_LINE_NUMBER, toLine, iterator);
             return -1;
         }
         String line = program.get(number);
@@ -273,7 +273,7 @@ public class Interpreter {
                 if (Util.isValidLineNumber(toLine)) {
                     return Float.parseFloat(toLine);
                 } else {
-                    Util.printErrorMsg(BAD_LINE_NUMBER, toLine, iterator);
+                    Util.printErrorMsg(INVALID_LINE_NUMBER, toLine, iterator);
                     return -1;
                 }
             }
@@ -435,11 +435,16 @@ public class Interpreter {
             return -1;
         }
         String[] tokens = line.split(" ");
-        if (Util.isValidLineNumber(tokens[0])) {
-            if (tokens.length > 1) {
-                program.add(tokens[0], line);
+        if ("0123456789".contains(tokens[0].substring(0, 1))) {
+            if (Util.isValidLineNumber(tokens[0])) {
+                if (tokens.length > 1) {
+                    program.add(tokens[0], line);
+                } else {
+                    program.erase(tokens[0]);
+                }
             } else {
-                program.erase(tokens[0]);
+                Util.printErrorMsg(INVALID_LINE_NUMBER, tokens[0], iterator);
+                return -1;
             }
         } else {
             String[] parts = Util.splitString(line, ';');

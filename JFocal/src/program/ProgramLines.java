@@ -128,7 +128,7 @@ public class ProgramLines {
                     if (Util.isValidLineNumber(tokens[0])) {
                         add(tokens[0], line);
                     } else {
-                        System.out.printf(Interpreter.BAD_LINE_NUMBER, tokens[0]);
+                        System.out.printf(Interpreter.INVALID_LINE_NUMBER, tokens[0]);
                     }
                 }
             }
