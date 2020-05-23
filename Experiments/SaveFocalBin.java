@@ -19,7 +19,7 @@ class SaveFocalBin {
     14 00 00 00 - yet leave as a constant
     43 3A 20 20 E6 EF EB E1 EC 2D E2 EB 30 30 31 30 8E 00 - constant
 
-    FE F6
+    FB F6
     FB FE if 1 line = 6 bytes
     FB F6 if 2 line x 6 bytes (-8)
     FB EE if 3 line x 6 bytes (-8)
@@ -30,7 +30,7 @@ class SaveFocalBin {
 
     private final static String LINE_FORMAT = "%05.2f %s\n";
 
-    private static int startAddr = 0x0FEF6;
+    private static int startAddr = 0x0FBFE;
 
     public static void main(String[] args) {
         byte[] head = {
@@ -39,15 +39,12 @@ class SaveFocalBin {
             0x14, 0x00, 0x00, 0x00, 
             0x43, (byte)0x3A, 0x20, 0x20, (byte)0xE6, (byte)0xEF, (byte)0xEB, (byte)0xE1, (byte)0xEC, (byte)0x2D, (byte)0xE2, (byte)0xEB, 0x30, 0x30, 0x31, 0x30,
             (byte)0x8E, 0x00
-            //(byte)0xF6, (byte)0xFB,
-            //(byte)0x8E
-            //(byte)0xFE, (byte)0xFB,
-            //0x19, 0x01, 0x54, (byte)0x80, 0x31, 0x32, (byte)0x8E, 0x00
         };
         StretchArray dump = new StretchArray(head);
 
         Map<Float, String> prg = new TreeMap<>();
-        prg.put(1.1f, "T 12");
+        prg.put(1.1f, "T 1");
+        prg.put(1.2f, "T 2");
 
         int counter = 0;
         for (Float key : prg.keySet()) {
@@ -55,6 +52,7 @@ class SaveFocalBin {
             counter++;
             byte[] line = toByte(key, prg.get(key), counter == prg.size());
             dump.addAll(line);
+            startAddr -= line.length;
         }
 
 
@@ -75,22 +73,24 @@ class SaveFocalBin {
     static byte[] toByte(Float key, String line, boolean lastLine) {
         byte[] result = new byte[line.length() + 5 + (line.length()%2 == 0? 1 : 0)];
         for (int i = 0; i < line.length(); i++) {
-            result[i + 4] = (byte)line.charAt(i);
+            if (line.charAt(i) == ' ') {
+                result[i + 4] = (byte)0x80;
+            } else {
+                result[i + 4] = (byte)line.charAt(i);
+            }
         }
         byte length = (byte)(line.length() + 4 + (line.length()%2 == 0? 0 : 1));
-        startAddr -= length + 2;
         if (lastLine) {
             String hex = Integer.toHexString(startAddr);
-            System.out.println(hex);
-            result[0] = (byte) Integer.parseInt(hex.substring(2, 3), 16);
-            result[1] = (byte) Integer.parseInt(hex.substring(0, 1), 16);
+            result[0] = (byte) Integer.parseInt(hex.substring(2, 4), 16);
+            result[1] = (byte) Integer.parseInt(hex.substring(0, 2), 16);
         } else {
-            result[0] = length;
+            result[0] = (byte)(length - 2);
         }
-        Float second = (key - key.intValue())*100 * 2.5f;
+        Float second = (key - key.intValue())*100 * 2.55f;
         result[2] = (byte)second.intValue();
         result[3] = (byte)key.intValue();
-        result[line.length() + 4 + (line.length()%2 == 0? 0 : 1)] = (byte)0x8E;
+        result[line.length() + 2 + (line.length()%2 == 0? 1 : 2)] = (byte)0x8E;
         return result;
     }
 
