@@ -43,8 +43,9 @@ class SaveFocalBin {
         StretchArray dump = new StretchArray(head);
 
         Map<Float, String> prg = new TreeMap<>();
-        prg.put(1.1f, "T 1");
-        prg.put(1.2f, "T 2");
+        prg.put(1.1f, "S A=3");
+        prg.put(1.2f, "T A*A,!");
+        prg.put(1.3f, "Q");
 
         int counter = 0;
         for (Float key : prg.keySet()) {
@@ -73,8 +74,14 @@ class SaveFocalBin {
     static byte[] toByte(Float key, String line, boolean lastLine) {
         byte[] result = new byte[line.length() + 5 + (line.length()%2 == 0? 1 : 0)];
         for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) == ' ') {
+            if (line.charAt(i) == 0x20) { // space
                 result[i + 4] = (byte)0x80;
+            } else if (line.charAt(i) == 0x3D) { // =
+                result[i + 4] = (byte)0x8F;
+            } else if (line.charAt(i) == 0x2A) { // *
+                result[i + 4] = (byte)0x84;
+            } else if (line.charAt(i) == 0x2C) { // ,
+                result[i + 4] = (byte)0x8C;
             } else {
                 result[i + 4] = (byte)line.charAt(i);
             }
