@@ -23,10 +23,10 @@ https://bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
 https://bit.ly/2JpL0Zt
 
 Учим Java: 10 практических советов
-https://bit.ly/3atJb9N
+https://bit.ly/3atJb9N | https://geekbrains.ru/posts/kak-uchit-java-10-prakticheskih-sovetov-dlya-novichkov
 
 Пишем код на Java и Go в текстовом редакторе
-https://bit.ly/3apw5KF
+https://bit.ly/3apw5KF | https://geekbrains.ru/posts/pishem-kod-na-java-i-go-v-tekstovom-redaktore
 
 Страница со ссылками на статьи по Java
 https://bit.ly/2UTEpwM
