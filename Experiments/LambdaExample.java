@@ -8,10 +8,12 @@ class LambdaExample {
             new Artist("Leonid Sobinov", "Moscow"),
             new Artist("John Lennon", "London")
         );
+        System.out.println(allArtists);
 
-        List<Artist> london = 
+        List<String> london = 
             allArtists.stream()
                 .filter(artist -> artist.isFrom("London"))
+                .map(artist -> artist.getName())
                 .collect(Collectors.toList());
         System.out.println(london);
 
@@ -41,7 +43,7 @@ class LambdaExample {
 
         @Override
         public String toString() {
-            return String.format("{%s, %s}", name, city);
+            return String.format("{name: %s, city: %s}", name, city);
         }
     }
 }
