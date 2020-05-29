@@ -17,6 +17,12 @@ class LambdaExample {
                 .collect(Collectors.toList());
         System.out.println(london);
 
+        String names =
+            allArtists.stream()
+                .map(artist -> artist.getName())
+                .collect(Collectors.joining(","));
+        System.out.println(names);
+
         List<String> collected = 
             Stream.of("a", "b", "hello")
                 .map(string -> string.toUpperCase())
