@@ -23,6 +23,11 @@ class LambdaExample {
                 .collect(Collectors.joining(","));
         System.out.println(names);
 
+        Map<String, String> map = 
+            allArtists.stream()
+                .collect(Collectors.toMap(Artist::getName, Artist::getCity));
+        System.out.println(map);
+
         List<String> collected = 
             Stream.of("a", "b", "hello")
                 .map(string -> string.toUpperCase())
@@ -45,6 +50,10 @@ class LambdaExample {
 
         String getName() {
             return name;
+        }
+
+        String getCity() {
+            return city;
         }
 
         @Override
