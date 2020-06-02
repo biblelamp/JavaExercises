@@ -12,3 +12,4 @@ http://samlib.ru/u/uirh/kn_o_foc.shtml
 
 #### Games on FOCAL
 https://r-games.net/games/focalbk/
+http://bk0010.narod.ru/files
