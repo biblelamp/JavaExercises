@@ -395,6 +395,10 @@ public class Interpreter {
             case "CALL":
                 program.call(tokens[2]); // read program from file
                 break;
+            case "BC":
+            case "BCALL":
+                // TODO read program from bin file
+                break;
             case "G":
             case "GO":
                 program.call(tokens[2]); // read from file
@@ -403,6 +407,10 @@ public class Interpreter {
             case "S":
             case "SAVE":
                 program.save(tokens[2]); // save program to file
+                break;
+            case "BS":
+            case "BSAVE":
+                // TODO save program to bin file
                 break;
             default:
                 Util.printErrorMsg(OPERATION_NOT_RECOGNIZED, tokens[1], iterator);
