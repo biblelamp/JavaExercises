@@ -14,7 +14,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 class DateAndTime {
 
     public static void main(String[] args) throws DatatypeConfigurationException {
-        Date d1 = Date.valueOf("1805-01-01");
+        String strDate = "3333-03-03 00:00:00";
+        Date d1 = Date.valueOf(strDate.substring(0, 10));
         //System.out.println(d1 + 1);
         System.out.println(String.format("%tY", d1));
         System.out.println(String.format("%tY/%tm/%td", d1, d1, d1));
