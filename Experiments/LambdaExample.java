@@ -33,6 +33,14 @@ class LambdaExample {
                 .map(string -> string.toUpperCase())
                 .collect(Collectors.toList());
         System.out.println(collected);
+
+        Map<Integer, List<String>> mapList =
+            Stream.of("a", "bb", "c", "dd", "eeee")
+            .collect(Collectors.groupingBy(String::length, 
+                HashMap::new, 
+                Collectors.mapping(p -> p, Collectors.toList())));
+                //Collectors.toCollection(ArrayList::new)));
+        System.out.println(mapList);
     }
 
     static class Artist {
