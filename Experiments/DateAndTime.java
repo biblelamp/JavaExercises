@@ -1,4 +1,6 @@
 import java.sql.Date;
+import java.sql.Timestamp;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -52,5 +54,9 @@ class DateAndTime {
         String creationDate = "2019-11-17T19:11:37" + "Z";
         Instant instant = Instant.parse(creationDate);
         System.out.println(instant);
+
+        String dateTime = "1966-12-01T00:00:00";
+        Timestamp ts = Timestamp.from(Instant.parse(dateTime + "Z"));
+        System.out.println(ts);
     }
 }
