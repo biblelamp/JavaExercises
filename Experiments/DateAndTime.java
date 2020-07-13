@@ -50,7 +50,7 @@ class DateAndTime {
         System.out.println(date);
         date = OffsetDateTime.of(Integer.valueOf(dateOd.substring(0, 4)), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
         System.out.println(date);
-        
+
         String creationDate = "2019-11-17T19:11:37" + "Z";
         Instant instant = Instant.parse(creationDate);
         System.out.println(instant);
@@ -58,5 +58,8 @@ class DateAndTime {
         String dateTime = "1966-12-01T00:00:00";
         Timestamp ts = Timestamp.from(Instant.parse(dateTime + "Z"));
         System.out.println(ts);
+
+        Date dateNow = new Date(Instant.now().toEpochMilli());
+        System.out.println(dateNow);
     }
 }
