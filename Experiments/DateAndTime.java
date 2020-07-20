@@ -1,6 +1,9 @@
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -15,7 +18,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 class DateAndTime {
 
-    public static void main(String[] args) throws DatatypeConfigurationException {
+    public static void main(String[] args) throws DatatypeConfigurationException, ParseException {
         String strDate = "3333-03-03 00:00:00";
         Date d1 = Date.valueOf(strDate.substring(0, 10));
         //System.out.println(d1 + 1);
@@ -58,6 +61,10 @@ class DateAndTime {
         String dateTime = "1966-12-01T00:00:00";
         Timestamp ts = Timestamp.from(Instant.parse(dateTime + "Z"));
         System.out.println(ts);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt = new Date(sdf.parse(dateTime).getTime());
+        System.out.println(dt);
 
         Date dateNow = new Date(Instant.now().toEpochMilli());
         System.out.println(dateNow);
