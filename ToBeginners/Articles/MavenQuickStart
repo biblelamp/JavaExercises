@@ -1,0 +1,7 @@
+Быстрый старт с Maven
+
+Apache Maven — фреймворк для автоматизации сборки проектов на основе описания их структуры в файлах на языке POM (англ. Project Object Model), являющемся подмножеством XML. Название системы является словом из языка идиш, смысл которого можно примерно выразить как «собиратель знания».
+
+
+
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart
