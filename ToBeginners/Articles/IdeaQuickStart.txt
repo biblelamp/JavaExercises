@@ -33,4 +33,7 @@ Chain Completion (Ctrl+Shift+Double Space) проводит более глуб�
 
 Источники:
 https://javarush.ru/groups/posts/intellij-idea
+https://javarush.ru/quests/lectures/questsyntaxpro.level20.lecture01
+
 https://www.kv.by/blog/users/fetisovvs/1049285-osnovy-raboty-s-intellij-idea-interfeys-programmy
+https://proglib.io/p/intellij-idea-pro-tips/
