@@ -32,6 +32,9 @@ Smart completion (Ctrl+Shift+Space) дает программисту списо
 Chain Completion (Ctrl+Shift+Double Space) проводит более глубокий анализ текущей ситуации и предлагает использовать методы классов или переменных для текущего контекста.
 
 Источники:
+https://geekbrains.ru/posts/intellij_idea_setup
+https://www.jetbrains.com/ru-ru/idea/documentation/
+
 https://javarush.ru/groups/posts/intellij-idea
 https://javarush.ru/quests/lectures/questsyntaxpro.level20.lecture01
 
