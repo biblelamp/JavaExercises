@@ -14,7 +14,8 @@ SQL (англ. structured query language — «язык структуриров
 
 
 Книги:
-Крис Фиайли, SQL Quick Start
+Крис Фиайли, SQL Быстрый старт
+Бен Форта, Освой самостоятельно SQL. 10 минут на урок, 3-е издание.
 
 Полезные ссылки:
 https://ru.wikipedia.org/wiki/SQL
