@@ -25,6 +25,9 @@ https://bit.ly/33TD8c2 | https://geekbrains.ru/posts/java_quick_start_part1
 Изучаем Java: 7 первых шагов
 https://bit.ly/2JpL0Zt
 
+Что такое Java Core?
+https://bit.ly/2EXeS0m | https://docs.google.com/document/d/1RggtaDyZ3O-WJnKkqIV4jzMVApIMxArh_Ngn1TZqy48/
+
 Учим Java: 10 практических советов
 https://bit.ly/3atJb9N | https://geekbrains.ru/posts/kak-uchit-java-10-prakticheskih-sovetov-dlya-novichkov
 
