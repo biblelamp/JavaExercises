@@ -130,7 +130,7 @@ Thread
 
 @Question
 Какой запрос позволит очистить таблицу students в SQLite?
-@Options @OnlyOne @Key=2
+@Options @OnlyOne @Key=3
 REMOVE students;
 DELETE * FROM students;
 DELETE FROM students;
