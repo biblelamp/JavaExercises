@@ -10,6 +10,8 @@ class StringToDouble {
         System.out.println(StrToDouble("12345.25"));
         System.out.println(StrToDouble("0.1234"));
         System.out.println(StrToDouble(".567"));
+
+        System.out.println("123456789".substring(8 - 7, 8));
     }
 
     static double StrToDouble(String str) {
