@@ -1,5 +1,15 @@
 Заметки к занятиям:
 
+Ссылки на все методички:
+   1. https://docs.google.com/document/d/1zbo8fNRPDHNr6kJ9DJynn5Mi4_ncDYVAIF9pTFjngiI/
+   2. https://docs.google.com/document/d/1Ewxcleh5IgFE1CEUGty5sr0_qH1BSonK3cuN6fpG4Io/
+   3. https://docs.google.com/document/d/1dHxZd2wTRe4Kqo0cj4SnP1AZEYNzrxCQn2sg0C-0YFA/
+   4. https://docs.google.com/document/d/1Rk_xwF65CJvJ0mzxVO1LOSM4I-5DBdOqub0TWXfflls/
+   5. https://docs.google.com/document/d/11EhLrIXlloOmm5Znufff36RBkMnDwLSkS-L2BeUqX7k/
+   6. https://docs.google.com/document/d/1EKdUfBQ9snU8gSgCUWFALke1b5p46A_Iq9Xgn2X2myo/
+   7. https://docs.google.com/document/d/1HxvN5jvGyRJ_b_LspE2kEmg7fw24SQdyCnJu7OQSGQ8/
+   8. https://docs.google.com/document/d/1x8x3rFxZ4a64gMi9EwNnodgrlIM3hRn6y_QlQ8vjiuE/
+
 1. Java. Введение
 
    1. Вводные замечания
@@ -58,7 +68,7 @@
       - импорт пакетов (библиотек), пакет по умолчанию java.lang
       - получение информации о пакетах: http://docs.oracle.com/javase/8/docs/api/
       - методы класса Arrays (манипуляции с массивами):
-        - toString() вывод в виде строки
+      - toString() вывод в виде строки
         - fill() заполнение одним значением
         - sort() сортировка
         - binarySearch() бинарный поиск
@@ -69,7 +79,7 @@
       - генерация случайных чисел, класс Random
       - ввод данных из консоли, класс Scanner
       - printf форматированный вывод
-    4. Дополнение1
+   4. Дополнение1
       - запись и чтение текстовых файлов, перехват исключений
 
 4. Крестики-нолики в процедурном стиле
@@ -95,7 +105,7 @@
       - перегрузка конструкторов (и методов, в принципе)
       - ключевое слово this
       - инкапсуляция, модификаторы доступа, геттеры и сеттеры
-    4. Дополнение
+   4. Дополнение
       - основы работы со swing (coздание окна)
 
 6. Продвинутое ООП
@@ -113,7 +123,7 @@
       - переопределение методов @Override
       - предотвращение переопределения - final
       - абстрактные методы и классы, полиморфизм
-    4. Дополнение
+   4. Дополнение
       - интерфейс
       - swing компоненты и Layout компоновщик
 
@@ -127,7 +137,7 @@
       - строки StringBuffer/Buider против String
       - чтение файлов FileReader против BufferedReader
       - взаимодействие объектов, задача про кормление кота
-    4. Дополнение
+   4. Дополнение
       - паттерны проектирования https://habr.com/post/210288/ Singleton
       - обработка событий в swing
 
