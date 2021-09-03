@@ -10,20 +10,25 @@
    7. https://docs.google.com/document/d/1HxvN5jvGyRJ_b_LspE2kEmg7fw24SQdyCnJu7OQSGQ8/
    8. https://docs.google.com/document/d/1x8x3rFxZ4a64gMi9EwNnodgrlIM3hRn6y_QlQ8vjiuE/
 
+Информировать до начала занятий:
+
+   - пройти курс по Git и создать свой профиль на github.com
+   - завести учётную запись в Google чтобы писать в чате занятия
+
 1. Java. Введение
 
    1. Вводные замечания
       - краткий обзор 8 занятий (нужны все методички?)
       - как проходить курс, делать ли ДЗ? сертификат
       - Git. Быстрый старт https://geekbrains.ru/courses/66 уроки 8, 9
-      - общение в процессе курса: телеграм-чат https://t.me/joinchat/EuijNkjNM4M8zBHAjcOSfA
+      - общение в процессе курса: телеграм-чат https://t.me/joinchat/xr78JINUS1I4NzIy
       - файлы рекомендации к чтению, список навыков
       - рекомендованные книги в браузере + тест
-      - вебинар IntelliJ IDEA для новичков https://geekbrains.ru/events/770
-      - статья Виктора Темпалова Notepad++ https://geekbrains.ru/posts/npp_java
+      - IntelliJ IDEA для новичков: советы и секреты https://gb.ru/events/770
+      - Пишем код на Java и Go в текстовом редакторе https://gb.ru/posts/pishem-kod-na-java-i-go-v-tekstovom-redaktore
       - Как обмануть мозг и эффективно учиться программированию https://proglib.io/p/effective-learning/
    2. Основная тема
-      - инструменты разработчика (JDK 8)
+      - инструменты разработчика (JDK 8 или 11)
       - первая программа, компиляция, выполнение
       - переменные и типы данных
       - арифметические операции
