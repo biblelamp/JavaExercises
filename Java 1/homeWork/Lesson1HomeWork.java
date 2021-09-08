@@ -16,11 +16,7 @@ class Lesson1HomeWork {
     static void checkSumSign() {
         int a = 5;
         int b = 3;
-        if (a + b >= 0) {
-            System.out.println("The sum is positive");
-        } else {
-            System.out.println("The sum is negative");
-        }
+        System.out.println("The sum is " + (a + b >= 0? "positive" : "negative"));
     }
 
     static void printColor() {
@@ -29,7 +25,7 @@ class Lesson1HomeWork {
             System.out.println("Red");
         } else if (value <= 100) {
             System.out.println("Yellow");
-        } else if (value > 100) {
+        } else {
             System.out.println("Green");
         }
     }
@@ -37,10 +33,6 @@ class Lesson1HomeWork {
     static void compareNumbers() {
         int c = 10;
         int d = 10;
-        if (c >= d) {
-            System.out.println(c + ">=" + d);
-        } else if (c < d) {
-            System.out.println(c + "<" + d);
-        }
+        System.out.println(c + (c >= d? ">=" : "<") + d);
     }
 }
