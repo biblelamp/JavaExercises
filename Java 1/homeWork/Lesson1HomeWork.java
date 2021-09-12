@@ -1,3 +1,9 @@
+/**
+ * Java 1. Homework 1
+ * 
+ * @author Sergey
+ * @version 6.9.2021
+ */
 class Lesson1HomeWork {
 
     public static void main(String[] args) {
@@ -31,8 +37,8 @@ class Lesson1HomeWork {
     }
 
     static void compareNumbers() {
-        int c = 10;
-        int d = 10;
-        System.out.println(c + (c >= d? ">=" : "<") + d);
+        int a = 10;
+        int b = 10;
+        System.out.println(a >= b? "a >= b" : "a < b");
     }
 }
