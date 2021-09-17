@@ -1,0 +1,21 @@
+*Видео:*
+
+**Установка JDK 8u202** для Windows 7
+https://www.youtube.com/watch?v=8OEcsVHr_JQ
+
+*Полезные статьи:*
+
+Что такое **Java Core**?
+https://geekbrains.ru/posts/chto-takoe-java-core
+
+Java: **быстрый старт**:
+https://geekbrains.ru/posts/java_quick_start_part1
+
+Пишем код на Java и Go **в текстовом редакторе**:
+https://geekbrains.ru/posts/pishem-kod-na-java-i-go-v-tekstovom-redaktore
+
+*Книги для начинающих:*
+
+*Майк МакГрат*, **Java программирование для начинающих**
+*Кэти Сьерра, Берт Бейтс*, **Изучаем Java**
+*Яков Файн*, **Программирование на Java для детей, родителей, бабушек и дедушек**
