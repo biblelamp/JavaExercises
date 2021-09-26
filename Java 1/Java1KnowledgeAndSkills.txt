@@ -46,7 +46,7 @@ SoloLearn (ENG) https://www.sololearn.com/Course/Java/
 
 Рекомендуемые курсы, вебинары и статьи:
 
-Git, быстрый старт. Курс https://geekbrains.ru/courses/66
+Git, быстрый старт. Курс https://gb.ru/courses/1117
 Интерактивный курс по Git https://learngitbranching.js.org/
 Apache Ant: быстрый старт. Вебинар https://geekbrains.ru/events/517
 Сборка Java проектов: быстрый взгляд на Ant, Maven и Gradle. Вебинар https://geekbrains.ru/events/758
