@@ -47,15 +47,16 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
    1. Вводные замечания
       - краткий обзор 8 занятий (нужны все методички?)
       - как проходить курс, делать ли ДЗ? сертификат
-      - Git. Быстрый старт https://geekbrains.ru/courses/66 уроки 8, 9
+      - Git. Быстрый старт https://gb.ru/courses/1117
       - общение в процессе курса:
-        - вопросы в чате ютуб
+        - вопросы в чате ютуб во время занятий
         - вопросы на страницах занятия (Обсуждение)
-        - телеграм-чат https://t.me/joinchat/xr78JINUS1I4NzIy
+        - телеграм-чат https://t.me/joinchat/kGoTwtNfd_gwMmEy
         - организационный вопросы: телеграм-чат группы
       - файлы рекомендации к чтению, список навыков
-      - рекомендованные книги в браузере + тест https://gb.ru/tests/39
-      - IntelliJ IDEA для новичков: советы и секреты https://gb.ru/events/770
+      - рекомендованные книги в браузере (МакГратт, Сьерра, Шилдт)
+      - тест как финальное дз №8 https://gb.ru/tests/39
+      - IntelliJ IDEA для новичков: советы и секреты https://www.youtube.com/watch?v=mcvnjaLqVWQ
       - Пишем код на Java и Go в текстовом редакторе https://gb.ru/posts/pishem-kod-na-java-i-go-v-tekstovom-redaktore
       - Как обмануть мозг и эффективно учиться программированию https://proglib.io/p/effective-learning/
       - Java Code Conventions, соглашение о написании кода
@@ -78,13 +79,13 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - напомнить про дополнительное чтение (файл Java1RecommendedBooks.txt)
       - почему используем Notepad++, настройка (файл Java1KnowledgeAndSkills.txt)
       - напомнить про вебинар по IDEA https://gb.ru/events/770 лайки :)
-      - разрешение конфликтов и проблем
+      - работа с git, настройка .gitignore
    2. Разбор ДЗ
       - стиль кода, отступы, пробелы, аккуратность
       - java-doc комментарий в начале, @author и @version
       - не использовать пакеты, если не понятно - зачем они?
       - внимательно читать задание
-      - не использовать то, что не изучалось
+      - реализовывать только затребованное, YAGNI
    3. Тема, порядок изложения
       - switch, коротко, перенесён в тему №1
       - массивы, одномерные, многомерные, нерегулярные
@@ -93,6 +94,7 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - break и continue
       - кодовые блоки, область видимости переменных
     4. Дополнение
+      - принципы программирования DRY (DIE), KISS, YAGNI
       - класс Arrays, метод toString(), пакет java.util
       - списочные массивы, класс ArrayList
 
