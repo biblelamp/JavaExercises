@@ -85,17 +85,16 @@ class Lesson3HomeWork {
     }
 
     static int[] findMinMax(int[] array) {
-        int[] minMax = new int[2];
-        minMax[0] = minMax[1] = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (minMax[0] > array[i]) {
-                minMax[0] = array[i];
+        int min = array[0], max = array[0];
+        for (int i : array) {
+            if (min > i) {
+                min = i;
             }
-            if (minMax[1] < array[i]) {
-                minMax[1] = array[i];
+            if (max < i) {
+                max = i;
             }
         }
-        return minMax;
+        return new int[]{min, max};
     }
 
     static boolean checkBalance(int[] array) {
