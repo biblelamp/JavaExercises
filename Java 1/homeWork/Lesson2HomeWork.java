@@ -15,9 +15,9 @@ class Lesson2HomeWork {
         isPositiveOrNegative(0);
         isPositiveOrNegative(1);
 
-        System.out.println(isNegativeOrPositive(-1));
-        System.out.println(isNegativeOrPositive(0));
-        System.out.println(isNegativeOrPositive(1));
+        System.out.println(isNegative(-1));
+        System.out.println(isNegative(0));
+        System.out.println(isNegative(1));
 
         repeatString("Hello, Java!", 3);
 
@@ -32,11 +32,11 @@ class Lesson2HomeWork {
     }
 
     static void isPositiveOrNegative(int a) {
-        System.out.println(a < 0? "Negative" : "Positive");
+        System.out.println(a >= 0? "Positive" : "Negative");
     }
 
-    static boolean isNegativeOrPositive(int a) {
-        return a >= 0;
+    static boolean isNegative(int a) {
+        return a < 0;
     }
 
     static void repeatString(String s, int count) {
