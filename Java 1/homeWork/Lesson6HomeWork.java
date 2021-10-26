@@ -7,7 +7,7 @@
 class Lesson6HomeWork {
 
     public static void main(String[] args) {
-        Cat cat = new Cat(200, -1);
+        Cat cat = new Cat(200);
         Dog dog = new Dog(500, 10);
 
         IAnimal[] animals = {cat, dog};
@@ -34,6 +34,10 @@ class Cat extends Animal {
 
     Cat(int runLimit, int swimLimit) {
         super(runLimit, swimLimit);
+    }
+
+    Cat(int runLimit) {
+        super(runLimit, -1);
     }
 
     @Override
