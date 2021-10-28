@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +9,23 @@ import java.util.Random;
  *  Class Poison: it's deadly for a snake
  *
  * @author Sergey Iryupin
- * @version dated Dec 28, 2018
+ * @version dated Oct 26, 2021
  */
 
 public class Poison {
-    private List<Cell> poison;
+    private static List<Cell> poison;
     private Random random;
-    private GameSnake gameSnake;
+    private Snake snake;
+    private Food food;
 
-    public Poison(GameSnake gameSnake) {
+    public Poison(Snake snake) {
         poison = new ArrayList<>();
         random = new Random();
-        this.gameSnake = gameSnake;
+        this.snake = snake;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public boolean isPoison(int x, int y) {
@@ -32,12 +38,12 @@ public class Poison {
     public void add() {
         int x, y;
         do {
-            x = random.nextInt(gameSnake.CANVAS_WIDTH);
-            y = random.nextInt(gameSnake.CANVAS_HEIGHT);
+            x = random.nextInt(GameSnake.CANVAS_WIDTH);
+            y = random.nextInt(GameSnake.CANVAS_HEIGHT);
         } while (isPoison(x, y) ||
-                gameSnake.snake.isInSnake(x, y) ||
-                gameSnake.food.isFood(x, y));
-        poison.add(new Cell(x, y, gameSnake.CELL_SIZE, gameSnake.POISON_COLOR));
+                snake.isInSnake(x, y) ||
+                food.isFood(x, y));
+        poison.add(new Cell(x, y, GameSnake.CELL_SIZE, GameSnake.POISON_COLOR));
     }
 
     public void paint(Graphics2D g) {
