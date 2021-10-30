@@ -34,7 +34,7 @@
    8. https://docs.google.com/document/d/1x8x3rFxZ4a64gMi9EwNnodgrlIM3hRn6y_QlQ8vjiuE/
 
 Взлом анонимности отзывов:
-fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=27103', {headers:{'Range': '0-100'}}).then(res=>res.json()).then(json=>{json.map(i=>{console.log(`https://geekbrains.ru/courses/${i.feedback.course_id}/${i.feedback.url}`)})})
+fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=31856', {headers:{'Range': '0-100'}}).then(res=>res.json()).then(json=>{json.map(i=>{console.log(`https://geekbrains.ru/courses/${i.feedback.course_id}/${i.feedback.url}`)})})
 
 Информировать до начала занятий:
 
@@ -81,11 +81,11 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - напомнить про вебинар по IDEA https://gb.ru/events/770 лайки :)
       - работа с git, настройка .gitignore
    2. Разбор ДЗ
-      - стиль кода, отступы, пробелы, аккуратность
+      - стиль кода, отступы, пробелы, пустые строки, аккуратность
       - java-doc комментарий в начале, @author и @version
       - не использовать пакеты, если не понятно - зачем они?
       - внимательно читать задание
-      - реализовывать только то, что требуется, YAGNI
+      - реализовывать только то, что требуют, YAGNI (You aren't gonna need it)
    3. Тема, порядок изложения
       - switch, коротко, перенесён в тему №1
       - массивы, одномерные, многомерные, нерегулярные
@@ -95,7 +95,6 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - кодовые блоки, область видимости переменных
    4. Дополнение
       - принципы программирования DRY (DIE), KISS, YAGNI
-      - класс Arrays, метод toString(), пакет java.util
       - списочные массивы, класс ArrayList
 
 3. Практика
@@ -129,6 +128,7 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - статические и нестатические методы
       - классы и объекты
       - списочные массивы, класс ArrayList
+      - класс Arrays, метод toString(), пакет java.util
       - запись и чтение текстовых файлов, перехват исключений
         статья: Эволюция Java на примере чтения строк из файла
         https://habr.com/ru/post/269667/
@@ -202,6 +202,7 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
         - plate.decreaseFood(cat.getAppetite());
         - cat.eat(plate);
    4. Дополнение
+      - Java для тестировщиков: https://ru.wikipedia.org/wiki/Selenium
       - чтение файлов FileReader против BufferedReader
       - паттерны проектирования https://habr.com/post/210288/ Singleton
       - обработка событий в swing
