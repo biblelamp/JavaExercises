@@ -32,7 +32,7 @@ class WeatherData implements Observable {
     public WeatherData() {
         observers = new LinkedList<>();
     }
-    
+
     @Override
     public void registerObserver(Observer o) {
         observers.add(o);
@@ -45,10 +45,11 @@ class WeatherData implements Observable {
 
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers)
+        for (Observer observer : observers) {
             observer.update(temperature, humidity, pressure);
+        }
     }
-         
+
     public void setMeasurements(float temperature, float humidity, int pressure) {
         this.temperature = temperature;
         this.humidity = humidity;
@@ -80,7 +81,7 @@ public class ObserverExample {
     public static void main(String[] args) {
         WeatherData weatherData = new WeatherData();
 
-        Observer currentDisplay = new CurrentConditionsDisplay ();
+        Observer currentDisplay = new CurrentConditionsDisplay();
 
         weatherData.registerObserver(currentDisplay);
 
