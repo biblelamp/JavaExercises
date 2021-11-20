@@ -37,8 +37,8 @@
 4. Крестики-нолики в процедурном стиле
 
     Литература:
-    - Быстрый старт с Java: пишем «крестики-нолики»
-      https://gb.ru/posts/java_ticktacktoe_game
+    1. Статья: Быстрый старт с Java: пишем «крестики-нолики»
+       https://gb.ru/posts/java_ticktacktoe_game
 
 5. Введение в ООП
 
@@ -85,3 +85,5 @@
        Глава 16
     4. Брюс Эккель, Философия Java
        Глава 22
+    5. Статья: Быстрый старт с Java: «лопни шарик»
+       https://gb.ru/posts/bystryj-start-s-java-lopni-sharik
