@@ -1,8 +1,8 @@
 /**
- * Java 1. Homework 6
+ * Java 1. Homework 5
  *
  * @author Sergey Iryupin
- * @version 21.10.2021
+ * @version 23.9.2021
  */
 class Lesson5HomeWork {
 
@@ -25,5 +25,38 @@ class Lesson5HomeWork {
                 System.out.println(employee);
             }
         }
+    }
+}
+
+class Employee {
+    private String name;
+    private String position;
+    private String email;
+    private String phone;
+    private int salary;
+    private int age;
+
+    public Employee(String name, String position, String email, String phone,
+            int salary, int age) {
+        this.name = name;
+        this.position = position;
+        this.email = email;
+        this.phone = phone;
+        this.salary = salary;
+        this.age = age;
+    }
+
+    public int getAge() { // getter for age
+        return age;
+    }
+
+    @Override
+    public String toString() { // overrided method toString()
+        return (name +
+            "\n| Position: " + position +
+            "\n| Email: " + email +
+            "\n| Phone: " + phone +
+            "\n| Salary: " + salary +
+            "\n| Age: " + age);
     }
 }
