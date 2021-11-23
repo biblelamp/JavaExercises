@@ -126,7 +126,7 @@ String a = "java;
 a.toUpperCase();
 System.out.println(a);
 </code>
-@Options @OnlyOne @Key=1
+@Options @OnlyOne @Key=3
 JAVA
 Ошибка времени исполнения
 java
