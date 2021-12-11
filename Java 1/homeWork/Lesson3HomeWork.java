@@ -27,6 +27,7 @@ class Lesson3HomeWork {
 
         // 3. Loop over array elements with condition
         int[] arrThree = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        System.out.println(Arrays.toString(arrThree));
         for (int i = 0; i < arrThree.length; i++) {
             if (arrThree[i] < 6) {
                 arrThree[i] *= 2;
