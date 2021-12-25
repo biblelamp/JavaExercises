@@ -87,3 +87,5 @@
        Глава 22
     5. Статья: Быстрый старт с Java: «лопни шарик»
        https://gb.ru/posts/bystryj-start-s-java-lopni-sharik
+    6. Руководство: Введение в Swing (перевод)
+       https://w1zard350.wordpress.com/2011/01/22/введение-в-swing
