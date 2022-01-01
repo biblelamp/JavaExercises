@@ -105,7 +105,7 @@ class GameTicTacToe extends JFrame {
     }
 
     boolean isCellEmpty(int x, int y) {
-        return map[x][y] == DOT_EMPTY);
+        return map[x][y] == DOT_EMPTY;
     }
 
     void aiTurn() {
