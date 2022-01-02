@@ -33,7 +33,7 @@
    8. https://docs.google.com/document/d/1x8x3rFxZ4a64gMi9EwNnodgrlIM3hRn6y_QlQ8vjiuE/
 
 Взлом анонимности отзывов:
-fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=32870', {headers:{'Range': '0-100'}}).then(res=>res.json()).then(json=>{json.map(i=>{console.log(`https://geekbrains.ru/courses/${i.feedback.course_id}/${i.feedback.url}`)})})
+fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=36621', {headers:{'Range': '0-100'}}).then(res=>res.json()).then(json=>{json.map(i=>{console.log(`https://geekbrains.ru/courses/${i.feedback.course_id}/${i.feedback.url}`)})})
 
 Информировать до начала занятий:
 
@@ -47,11 +47,13 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
       - краткий обзор 8 занятий (нужны все методички?)
       - как можно проходить курс, делать ли ДЗ?
       - Git. Быстрый старт https://gb.ru/courses/1117 или https://habr.com/ru/post/125799/
+      - как сдавать дз через github https://docs.google.com/document/d/1RAT_ukE39iOfbz1xa39QXae2hBUEZ4U6Fko_wFDdrsM/
       - общение в процессе курса:
         - вопросы в чате ютуб во время занятий
         - вопросы на страницах занятия (Обсуждение)
         - телеграм-чат https://t.me/joinchat/kGoTwtNfd_gwMmEy
-        - организационный вопросы: телеграм-чат группы
+        - организационные вопросы: телеграм-чат группы
+        - личные сообщения на сайте - нет, нет и нет!
       - файлы рекомендации к чтению, список навыков
       - рекомендованные книги в браузере (МакГратт, Сьерра, Шилдт)
       - Как учить Java: 10 практических советов для новичков https://gb.ru/posts/kak-uchit-java-10-prakticheskih-sovetov-dlya-novichkov
@@ -74,10 +76,7 @@ fetch('https://gb.ru/api/v2/feedbacks?&feedbackable_type=Stream&feedbackable_id=
 2. Основные конструкции
 
    1. Вводные замечания
-      - претензии ко мне (жду персональных сообщений)
-        - извинения, если необходимо
-        - система оценок
-      - тест как финальное дз №8 https://gb.ru/tests/39
+      - тест Java как финальное дз №8 https://gb.ru/tests/39
       - напомнить Java Code Conventions, форматирование кода
       - форматирование кода, плагин JSTool для Notepad++
       - напомнить про дополнительное чтение (файл Java1RecommendedBooks.txt)
