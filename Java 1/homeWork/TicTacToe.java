@@ -122,8 +122,9 @@ class TicTacToe {
                 }
             }
         }
-         simple checking of win in 3x3 table
         /*
+        //simple checking of win in 3x3 table
+        //
         // check horizontals and verticals
         for (int i = 0; i < SIZE; i++) {
             if ((table[i][0] == ch && table[i][1] == ch && table[i][2] == ch) ||
