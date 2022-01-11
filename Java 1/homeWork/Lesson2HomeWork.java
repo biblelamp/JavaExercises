@@ -11,9 +11,9 @@ class Lesson2HomeWork {
         System.out.println(isBetween10And20(12, 5));
         System.out.println(isBetween10And20(20, 1));
 
-        isPositiveOrNegative(-1);
-        isPositiveOrNegative(0);
-        isPositiveOrNegative(1);
+        printPositiveOrNegative(-1);
+        printPositiveOrNegative(0);
+        printPositiveOrNegative(1);
 
         System.out.println(isNegative(-1));
         System.out.println(isNegative(0));
@@ -31,7 +31,7 @@ class Lesson2HomeWork {
         return a + b >= 10 && a + b <= 20;
     }
 
-    static void isPositiveOrNegative(int a) {
+    static void printPositiveOrNegative(int a) {
         System.out.println(a >= 0? "Positive" : "Negative");
     }
 
@@ -39,9 +39,9 @@ class Lesson2HomeWork {
         return a < 0;
     }
 
-    static void repeatString(String s, int count) {
+    static void repeatString(String str, int count) {
         for (int i = 0; i < count; i++) {
-            System.out.println(s);
+            System.out.println(str);
         }
     }
 
