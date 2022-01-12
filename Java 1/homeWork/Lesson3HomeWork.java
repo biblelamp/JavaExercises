@@ -14,7 +14,7 @@ class Lesson3HomeWork {
     public static void main(String[] args) {
 
         // 1. Invert array values
-        int[] arrOne = createAndFllArray(10, true, 2);
+        int[] arrOne = createAndFillArray(10, true, 2);
         System.out.println(Arrays.toString(arrOne));
         for (int i = 0; i < arrOne.length; i++) {
             arrOne[i] = 1 - arrOne[i];
@@ -22,7 +22,7 @@ class Lesson3HomeWork {
         System.out.println(Arrays.toString(arrOne));
 
         // 2. Fill the array with values from 1 to N
-        int[] arrTwo = createAndFllArray(100, false, 1);
+        int[] arrTwo = createAndFillArray(100, false, 1);
         System.out.println(Arrays.toString(arrTwo));
 
         // 3. Loop over array elements with condition
@@ -46,11 +46,11 @@ class Lesson3HomeWork {
         }
 
         // 5. Create and fill an array with the same values
-        int[] arrFive = createAndFllArray(15, 5);
+        int[] arrFive = createAndFillArray(15, 5);
         System.out.println(Arrays.toString(arrFive));
 
         // 6. Find the min and max value in an array
-        int[] arrSix = createAndFllArray(25, true, 25);
+        int[] arrSix = createAndFillArray(25, true, 25);
         System.out.println(Arrays.toString(arrSix));
         int[] minMax = findMinMax(arrSix);
         System.out.println(Arrays.toString(minMax));
@@ -67,13 +67,13 @@ class Lesson3HomeWork {
         System.out.println(Arrays.toString(shiftArray(new int[]{1, 2, 3, 4, 5}, -3)));
     }
 
-    static int[] createAndFllArray(int len, int initialValue) {
+    static int[] createAndFillArray(int len, int initialValue) {
         int[] arr = new int[len];
         Arrays.fill(arr, initialValue);
         return arr;
     }
 
-    static int[] createAndFllArray(int length, boolean rnd, int value) {
+    static int[] createAndFillArray(int length, boolean rnd, int value) {
         int[] arr = new int[length];
         for (int i = 0; i < arr.length; i++) {
             if (rnd) {
