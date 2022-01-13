@@ -32,10 +32,6 @@ class Dog extends Animal {
 
 class Cat extends Animal {
 
-    Cat(int runLimit, int swimLimit) {
-        super(runLimit, swimLimit);
-    }
-
     Cat(int runLimit) {
         super(runLimit, -1);
     }
@@ -47,10 +43,10 @@ class Cat extends Animal {
 }
 
 abstract class Animal implements IAnimal {
-    private int runLimit;
-    private int swimLimit;
-    private String className;
-    private static int countOfAnimals = 0;
+    protected int runLimit;
+    protected int swimLimit;
+    protected String className;
+    protected static int countOfAnimals = 0;
 
     Animal(int runLimit, int swimLimit) {
         this.runLimit = runLimit;
