@@ -62,11 +62,11 @@ class Cat {
 }
 
 class Plate {
-    private int volume;
+    private int maxVolume;
     private int food;
 
-    Plate(int volume, int food) {
-        this.volume = volume;
+    Plate(int maxVolume, int food) {
+        this.maxVolume = maxVolume;
         this.food = food;
     }
 
@@ -79,7 +79,7 @@ class Plate {
     }
 
     void add(int food) {
-        if (this.food + food <= volume) {
+        if (this.food + food <= maxVolume) {
             this.food += food;
         }
     }
