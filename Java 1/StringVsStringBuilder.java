@@ -13,10 +13,10 @@ class StringVsStringBuilder {
 
         // using StringBuilder
         startTime = System.currentTimeMillis();
-        StringBuilder builder = new StringBuilder();
+        StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < COUNT; i++) {
-            builder.append("x");
+            buffer.append("x");
         }
-        System.out.println("StringBuilder: " + (System.currentTimeMillis() - startTime));
+        System.out.println("StringBuffer: " + (System.currentTimeMillis() - startTime));
     }
 }
