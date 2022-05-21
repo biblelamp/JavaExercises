@@ -45,7 +45,7 @@ class SimpleServer {
         Socket socket;
         String name;
 
-        ClientHandler(Socket clientSocket, int clientCount) {
+        public ClientHandler(Socket clientSocket, int clientCount) {
             try {
                 socket = clientSocket;
                 reader = new BufferedReader(
