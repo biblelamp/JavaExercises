@@ -1,0 +1,125 @@
+Группы тем:
+
+1. OOP. Object oriented programming
+2. JCF. Java Collections Framework
+3. Lambdas & Stream API
+4. I/O. Ввод-вывод
+5. Multithreading
+6. Spring & Spring Boot
+7. Miscellaneous
+
+1. OOP. Object oriented programming (5)
+
+    1. Classes, objects, fields and methods of an object. Encapsulation. Fields and methods of a Class. Modifier 'static' and 'final.'
+    4. Inheritance. Abstract classes. Polymorphism
+    10. Understanding reference type.
+    14. Understanding OOP: implementing custom data structure with 'add', 'remove', 'get' and 'getMax' methods.
+    25. Enums in Java.
+
+2. JCF. Java Collections Framework (11)
+
+    3. Sorted collection of elements.
+    7. Data structures definition. Interfaces. Data structure 'List'. ArraysList implementation, beginning.
+    8. Iterators and Iterable. Foreach syntax.
+    9. Comparing objects in Java. Comparator, Comparable. Method sort.
+    11. Lists implementations. LinkedList.
+    12. Data structures 'Queue', 'Stack'. Custom ArrayDeque implementation.
+    13. Java List and Deque implementations. Examples of problems solved via List, Deque.
+    15. Data structure 'Map'. Object.hashCode, HashMap implementation.
+    16. Graphs. Trees, Binary Trees, Tree Map.
+    17. Data structure 'Set'. HashSet.
+    18. Java Set implementation. Exercises.
+
+3. Lambdas & Stream API (5)
+
+    33. Lambdas, Functional Interfaces, Method references.
+    34. Existing Functional Interfaces in Java 8. Functions and Predicates.
+    35. Stream API: Stream, primitive streams. Intermediate and Terminal operations.
+    36. Java Streams: Flat map.
+    37. Java Streams: Collectors and Custom Collectors.
+
+4. I/O. Ввод-вывод (3)
+
+    20. Introduction to Input and Output in Java.
+    21. Reading/Writing streams of bytes.
+    22. Reading/Writing streams of strings.
+
+5. Multithreading (5)
+
+    27. Thread, Runnable, Daemon threads, Interrupted Exception.
+    28. Synchronization. Mutex, Monitor. Atomic types.
+    29. Object.wait, Object.join. One-element blocking queue (Messenger)
+    30. JavaUtilConcurrent. Concurrent Collections.
+    32. Threads Executors
+
+6. Spring & Spring Boot (8)
+
+    38. Spring Framework: Introduction, Context and Beans
+    39. Spring Framework: Beans configuration
+    40. Spring Boot: Onion (Hexagonal) architecture
+    41. Spring Boot: Implementing Rest Controllers
+    42. Spring Boot: JPA and databases
+    43. Spring Boot: validation
+    44. Spring Boot: logging and AOP basics
+    45. Spring Boot: scheduled jobs
+
+7. Miscellaneous (8)
+
+    2. Working with Arrays in Java. Binary search. Sort.
+    5. Generics, Object.equals, Exceptions.
+    6. Unit testing. JUnit.
+    19. Class String and its methods. Immutable. StringBuilder, StringBuffer, performance test.
+    23. Reflections. Annotations.
+    26. LocalDate, LocalDateTime, ZonedDateTime, exercises.
+    34. Mini-project 1.
+    31. Mini-project 2.
+
+TOTAL: 5+11+5+3+5+8+8 = 45
+
+Программа Java Proffecional (исходные пункты):
+
+1. Classes, objects, fields and methods of an object. Encapsulation. Fields and methods of a Class. Modifier 'static' and 'final.'
+2. Working with Arrays in Java. Binary search. Sort.
+3. Sorted collection of elements.
+4. Inheritance. Abstract classes. Polymorphism
+5. Generics, Object.equals, Exceptions.
+6. Unit testing. JUnit.
+7. Data structures definition. Interfaces. Data structure 'List'. ArraysList implementation, beginning.
+8. Iterators and Iterable. Foreach syntax.
+9. Comparing objects in Java. Comparator, Comparable. Method sort.
+10. Understanding reference type.
+11. Lists implementations. LinkedList.
+12. Data structures 'Queue', 'Stack'. Custom ArrayDeque implementation.
+13. Java List and Deque implementations. Examples of problems solved via List, Deque.
+14. Understanding OOP: implementing custom data structure with 'add', 'remove', 'get' and 'getMax' methods.
+15. Data structure 'Map'. Object.hashCode, HashMap implementation.
+16. Graphs. Trees, Binary Trees, Tree Map.
+17. Data structure 'Set'. HashSet.
+18. Java Set implementation. Exercises.
+19. Class String and its methods. Immutable. StringBuilder, StringBuffer, performance test.
+20. Introduction to Input and Output in Java.
+21. Reading/Writing streams of bytes.
+22. Reading/Writing streams of strings.
+23. Reflections. Annotations.
+34. Mini-project 1.
+25. Enums in Java.
+26. LocalDate, LocalDateTime, ZonedDateTime, exercises.
+27. Thread, Runnable, Daemon threads, Interrupted Exception.
+28. Synchronization. Mutex, Monitor. Atomic types.
+29. Object.wait, Object.join. One-element blocking queue (Messenger)
+30. JavaUtilConcurrent. Concurrent Collections.
+31. Mini-project 2.
+32. Threads Executors
+33. Lambdas, Functional Interfaces, Method references.
+34. Existing Functional Interfaces in Java 8. Functions and Predicates.
+35. Stream API: Stream, primitive streams. Intermediate and Terminal operations.
+36. Java Streams: Flat map.
+37. Java Streams: Collectors and Custom Collectors.
+38. Spring Framework: Introduction, Context and Beans
+39. Spring Framework: Beans configuration
+40. Spring Boot: Onion (Hexagonal) architecture
+41. Spring Boot: Implementing Rest Controllers
+42. Spring Boot: JPA and databases
+43. Spring Boot: validation
+44. Spring Boot: logging and AOP basics
+45. Spring Boot: scheduled jobs
