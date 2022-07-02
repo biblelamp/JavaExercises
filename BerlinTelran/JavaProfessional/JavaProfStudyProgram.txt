@@ -1,4 +1,4 @@
-Группы тем:
+Программа Java Professional темы по группам:
 
 1. OOP. Object oriented programming
 2. JCF. Java Collections Framework
@@ -76,7 +76,7 @@
 
 TOTAL: 5+11+5+3+5+8+8 = 45
 
-Программа Java Proffecional (исходные пункты):
+Программа Java Professional (исходный список тем):
 
 1. Classes, objects, fields and methods of an object. Encapsulation. Fields and methods of a Class. Modifier 'static' and 'final.'
 2. Working with Arrays in Java. Binary search. Sort.
