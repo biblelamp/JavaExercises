@@ -16,6 +16,13 @@
     14. Understanding OOP: implementing custom data structure with 'add', 'remove', 'get' and 'getMax' methods.
     25. Enums in Java.
 
+    По книге Герберт Шилдт, Java Полное руководство, 10-е издание 2018:
+    - Глава 6. Введение в классы, стр.163-184
+    - Глава 7. Подробное рассмотрение классов и методов, стр.185-220
+    - Глава 8. Наследование, стр.221-248
+    - Глава 9. Пакеты и интерфейсы, стр.249-278
+    - Глава 12. Перечисления, автоупаковка и аннотации, стр.337-378
+
 2. JCF. Java Collections Framework (11)
 
     3. Sorted collection of elements.
