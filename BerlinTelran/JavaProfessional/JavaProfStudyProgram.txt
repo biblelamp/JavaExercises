@@ -23,6 +23,14 @@
     - Глава 9. Пакеты и интерфейсы, стр.249-278
     - Глава 12. Перечисления, автоупаковка и аннотации, стр.337-378
 
+    Методички:
+    - Введение в ООП https://docs.google.com/document/d/1A-28OXodFeY3zonhxy_diBE6sSRU_mPGEUa7oHLu5l8/
+    - Углубляемся в ООП https://docs.google.com/document/d/1XMBp4OMpUlkLhl4z7lT_OXcf6BHGuoYIz6Uz17-kj1w/
+    - Практика ООП https://docs.google.com/document/d/1IK1xNN0wn3-I2SHlJcftr5gbBeKrRtWj2g7_oZPZ5uE/
+    - ООП Java https://docs.google.com/document/d/1Dym7XCCX2o3Ut4fc4nCs_Xl8wjwyEPTYNZ-wouzK0VM/
+    Статьи:
+    - Перечисления enum http://developer.alexanderklimov.ru/android/java/enum.php
+
 2. JCF. Java Collections Framework (11)
 
     3. Sorted collection of elements.
