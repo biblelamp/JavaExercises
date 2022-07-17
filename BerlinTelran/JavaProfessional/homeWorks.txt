@@ -1,0 +1,46 @@
+https://github.com/tel-ran-de/26-27-evning-basic/issues
+
+1st Home work
+   1. Following the example of the task in the class, make a program to calculate the area of a rectangle
+
+   2. Following the example of the task in the class, make a program to calculate the area of circle (3.1415*r*r) and the perimeter (2*3.1415*r)
+
+   3. Try to find on your keyboard the specials symbols: “ [ ] { } ( ) & * ^ ~ - + _ : ; “” \ / | ”. You should be able to find these symbols quite quickly.
+
+   4. Implement the program that prints to screen the result of addition, subtraction, multiplication and division of two int numbers. You should declare two int variables number1 and number2. Assign values and print the results of addition, subtraction, multiplication and division this values.
+
+2nd Home work
+   1. If you did not do the previous tasks, please, do it
+
+   2. Read about variables pdf
+
+   3. Let’s given an amount in American dollars (USD) we need to pay. I think obviously it should be a variable. But we have only Euro (EUR). The dollar rate is given too and should be variable too. So, implement the program which prints the amount in euro.
+   For example: You need to pay 100
+   you need 83.3333 Euro
+
+   3. Write a program that gets the speed km / h and returns the speed m / s
+   For example: 10km/h = 10 * (1000/3600) m/s = 2.77777 m/s
+
+3rd Home work
+   1. Let’s imagine that we have a device, which has two flasks. The device works correct if temperature of the first flask is above 100 degrees and the temperature of the second flask is less than 100 degree. You should write the program that checks this device. You should write the method check device with two arguments: temperature1 and temperature2. And as a result this method returns true or false.
+
+   2. The conditions of this task is the same like the first task but the device works correct if temperature of the one of the flasks is above 100 degrees and the temperature of the another flask is less than 100 degree. (NOTE! The first flask’s temperature may be above 100 or less 100 then the second flask’s temperature is less 100 or above 100 respectively.)
+
+4th Home work
+   1. Imagine you have a bank account. Implement a method that get two arguments: balance, debitAmount and check if the transaction is possible. If the transaction is possible then the method prints “The transaction complete. The account balance is ..”. If the transaction is not possible then the method prints “transaction declined”
+   Example:
+   checkTransaction (1000, 100) -> “The transaction complete. The account balance is 900”
+   checkTransaction (50, 100) -> “transaction declined”
+
+   2. Implement the previous task, but note that the bank takes the fee. The fee is 1% of transaction amount.
+   checkTransaction2 (1000, 100) -> “The transaction complete. The account balance is 899”
+   checkTransaction2 (50, 100) -> “transaction declined”
+
+   3. Implement the previous task, but note that the bank takes the fee. The fee is 1% of transaction amount, but not less than 2 euro
+   In this task, you should change the checkTransaction method. It should returns true or false and another method should print messages based on the result of checking.
+   (1000, 100) -> “The transaction complete. The account balance is 898”
+   (50, 100) -> “transaction declined”
+   (1000, 300) -> “The transaction complete. The account balance is 697”
+
+5th Home work
+
