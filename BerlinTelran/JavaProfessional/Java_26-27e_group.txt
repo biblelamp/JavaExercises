@@ -4,3 +4,10 @@ Intro:	7.6
 OOP:	9.6, 13.6, 16.6, 21.6 (4)
 JCF:	24.6, 28.6, 30.6, 5.7, 7.7, 12.7 (6)
 Stream API:	14.7
+
+Студенты:
+
+1. Alexej Lange			
+2. Georgiy Volochaev	
+3. Igor Cijov			
+4. Viktors Soltums		
