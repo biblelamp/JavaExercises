@@ -7,7 +7,7 @@ Stream API:	14.7
 
 Студенты:
 
-1. Alexej Lange			
-2. Georgiy Volochaev	
-3. Igor Cijov			
-4. Viktors Soltums		
+1. Alexej Lange			https://github.com/AlexejLange/
+2. Georgiy Volochaev	?
+3. Igor Cijov			https://github.com/igorcijov/
+4. Viktors Soltums		https://github.com/SoltVik/
