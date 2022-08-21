@@ -52,6 +52,10 @@
         a. Глава 8. Обобщенное программирование, стр.377-414
         b. Глава 9. Коллекции, стр.415-480
 
+    Методички:
+        a. Коллекции https://docs.google.com/document/d/1n3oeHX-2lHGmTVdIhpJ_sl7n50EGX7oSZrq5Sjfkopo/
+        b. Обобщения https://docs.google.com/document/d/17wWOIcvo9JVU6hDjW_tKDfcdN6wiA8uGvlEH7Q6fiDM/
+
 3. Lambdas & Stream API (5)
 
     33. Lambdas, Functional Interfaces, Method references.
