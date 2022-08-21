@@ -74,6 +74,13 @@
     21. Reading/Writing streams of bytes.
     22. Reading/Writing streams of strings.
 
+    По книге Герберт Шилдт, Java Полное руководство, 10-е издание 2018:
+        a. Глава 10. Обработка исключения, стр.279-301
+        b. Глава 21. Пакет java.io для ввода-вывода, стр.795-850
+        c. Глава 22. Система ввода-вывода NIO, стр.851-888
+    По книге Кей Хорстманн, Java Библиотека профессионала, том 2:
+        a. Глава 2. Ввод и вывод, стр.63-139
+
 5. Multithreading (5)
 
     27. Thread, Runnable, Daemon threads, Interrupted Exception.
