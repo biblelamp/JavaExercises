@@ -7,11 +7,14 @@ Stream API:	14.7, 2.8
 Exception:	4.8
 I/O:		9.8
 JUnit+Mvn:	11.8
-Multithreading:	16.8, 18.8
+Multithreading:	16.8, 18.8, 23.8, 25.8
+Мини-projects:	30.8, 1.9
+Java JDBC:		8.9
+
 
 Студенты:
 
 1. Alexej Lange			https://github.com/AlexejLange/
-2. Georgiy Volochaev	?
+2. Georgiy Volochaev	https://github.com/GeorgeVolochaev/
 3. Igor Cijov			https://github.com/igorcijov/
 4. Viktors Soltums		https://github.com/SoltVik/
