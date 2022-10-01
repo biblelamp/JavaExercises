@@ -3,14 +3,17 @@
 Intro:		7.6
 OOP:		9.6, 13.6, 16.6, 21.6 (4)
 JCF:		24.6, 28.6, 30.6, 5.7, 7.7, 12.7 (6)
-Stream API:	14.7, 2.8
+Stream API:	14.7, 2.8 (2)
 Exception:	4.8
 I/O:		9.8
 JUnit+Mvn:	11.8
-Multithreading:	16.8, 18.8, 23.8, 25.8
-Мини-projects:	30.8, 1.9
+Multithreading:	16.8, 18.8, 23.8, 25.8 (4)
+Мини-projects:	30.8, 1.9 (2)
 Java JDBC:		8.9
+Reflection & annotation:	17.9
+Spring:	22.9, 29.9
 
+ИТОГО: 1+10+2+4+4+3 = 24+
 
 Студенты:
 
