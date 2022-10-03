@@ -72,6 +72,12 @@
         a. Глава 2. Лямбда-выражения, стр.20-30
         b. Глава 3. Потоки, стр.31-54
 
+    Статьи:
+        a. Введение в лямбда-выражения https://metanit.com/java/tutorial/9.1.php
+        b. Lambda-выражения в Java https://habr.com/ru/post/512730/
+        c. Java 8 Stream API: шпаргалка для программиста https://highload.today/java-stream-api/
+        d. How to Convert List to Map https://www.baeldung.com/java-list-to-map
+
 4. I/O. Ввод-вывод (3)
 
     20. Introduction to Input and Output in Java.
