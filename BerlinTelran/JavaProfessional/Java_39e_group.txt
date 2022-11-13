@@ -1,11 +1,15 @@
 Группа Java 39e, занятия:
 
+Intro:		31.10
+OOP:		3.11, 7.11
+JCF:		10.11
+
 ИТОГО:
 
 Студенты:
 
-1. Daniil Izmajlov		https://github.com/
-2. Dzmitry Kryvialeu	https://github.com/
-3. Sergey Bugaienko		https://github.com/
-4. Yurii Kuzmenko		https://github.com/
-5. Артыш Намчыл			https://github.com/
+1. Daniil Izmajlov		https://github.com/TremoziDaniel/
+2. Dzmitry Kryvialeu	https://github.com/dfkrivelev/
+3. Sergey Bugaienko		https://github.com/Bugaienko/
+4. Yurii Kuzmenko		https://github.com/YuriiKuzmenk/
+5. Artysh Namchyl		https://github.com/namchylartysh/
