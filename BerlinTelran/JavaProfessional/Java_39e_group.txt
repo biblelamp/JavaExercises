@@ -6,7 +6,8 @@ JCF:		10.11, 14.11, 17.11, 21.11, 24.11, 28.11, 01.12, 5.12, 8.12, 12.12, 15.12,
 Stream API:	22.12, 12.1
 IO:			16.1, 19.1
 Mvn+JUnit:	23.1
-Multithreading:	26.1
+Mini-projects:	26.1
+Multithreading:	2.2, 6.2
 
 ИТОГО: 1+2+12+2
 
