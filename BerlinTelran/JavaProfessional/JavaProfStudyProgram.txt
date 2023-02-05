@@ -8,6 +8,10 @@
 6. Spring & Spring Boot
 7. Miscellaneous
 
+Вопросы к собеседованию:
+1. ООП https://javastudy.ru/interview/java-oop (62)
+2. Коллекции https://javastudy.ru/interview/collections (37)
+
 1. OOP. Object oriented programming (5)
 
     1. Classes, objects, fields and methods of an object. Encapsulation. Fields and methods of a Class. Modifier 'static' and 'final.'
