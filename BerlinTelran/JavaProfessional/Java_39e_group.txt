@@ -7,9 +7,9 @@ Stream API:	22.12, 12.1
 IO:			16.1, 19.1
 Mvn+JUnit:	23.1
 Mini-projects:	26.1
-Multithreading:	2.2, 6.2
+Multithreading:	2.2, 6.2, 13.2, 16.2
 
-ИТОГО: 1+2+12+2
+ИТОГО: 1+2+12+2+2+1+1+
 
 Студенты:
 
