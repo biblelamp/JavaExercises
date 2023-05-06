@@ -1,21 +1,22 @@
 Группа Java 39e, занятия:
 
-Intro:		31.10
-OOP:		3.11, 7.11
-JCF:		10.11, 14.11, 17.11, 21.11, 24.11, 28.11, 01.12, 5.12, 8.12, 12.12, 15.12, 19.12 (12)
-Stream API:	22.12, 12.1
-IO:			16.1, 19.1
-Mvn+JUnit:	23.1
+Intro:			31.10
+OOP:			3.11, 7.11
+JCF:			10.11, 14.11, 17.11, 21.11, 24.11, 28.11, 01.12, 5.12, 8.12, 12.12, 15.12, 19.12 (12)
+Stream API:		22.12, 12.1
+IO:				16.1, 19.1
+Mvn+JUnit:		23.1
 Mini-projects:	26.1
 Multithreading:	30.1, 2.2, 6.2, 9.2, (4)
 Mini-projects:	13.2, 16.2, 20.2, 23.2 (4)
 Java JDBC:		27.2
-Reflection & annotation:	2.3, 6.3
+Reflection & 
+	annotation:	2.3, 6.3
 Spring:			9.3, 13.3, 16.3, 20.3, 23.3, 27.3, 30.3, 3.4 (8)
-Project:		6.4, 17.4, 20.4, 24.4, 27.4
+Project:		6.4, 17.4, 20.4, 24.4, 27.4, 4.5
 
 Проект:
-	май:		4,8,11,15,22,25
+	май:		8,11,15,22,25
 	июнь:		1
 
 ИТОГО:		1+2+12+2+2+1+1+4+4+1+2+8 = 40
@@ -28,3 +29,4 @@ Project:		6.4, 17.4, 20.4, 24.4, 27.4
 3. Sergey Bugaienko		https://github.com/Bugaienko/		пиццерия
 4. Yurii Kuzmenko		https://github.com/YuriiKuzmenk/	турнир
 5. Artysh Namchyl		https://github.com/namchylartysh/	банк
+6. Anton Khudyakov		https://github.com/
