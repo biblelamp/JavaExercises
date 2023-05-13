@@ -1,7 +1,7 @@
 Группа Java 10-170123-e-be, занятия:
 
 Intro:			2.5
-OOP:			5.5, 
+OOP:			5.5, 9.5, 12.5
 JCF:			
 Stream API:		
 Exception:		
@@ -19,7 +19,7 @@ Project:
 ПРОЕКТ:		12
 
 Осталось:
-	май:		9,12,16,19,23,26,30
+	май:		16,19,23,26,30
 	июнь:		2,6,8,13,15,20,22,27,29
 	июль:		4,6,11,13
 	август:		1,3,8,10,15,17,22,24,29,31
@@ -38,7 +38,7 @@ Project:
 9. Yehor Zhornik			https://github.com/Yegor2043
 10. Vyacheslav Studennikov	https://github.com/Slava8112
 11. Yauheni Parkhomchyk		https://github.com/yauheni-parkhomchyk
-12. Alexej Chekmarev		?
+12. Alexejs Chekmarevs		https://github.com/Cheefeer
 13. Vladyslav Mosiuk		https://github.com/VladMsq
 14. Dzmitry Chemel			https://github.com/dmitrychemel
 15. Vitalii Lapickii		https://github.com/lapan1ch
