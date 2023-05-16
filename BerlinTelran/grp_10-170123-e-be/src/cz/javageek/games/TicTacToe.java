@@ -16,44 +16,45 @@ public class TicTacToe {
 
     private char[][] table;
     private Random random;
-    private String gameStatus;
+    private String gameOverStatus;
 
     public TicTacToe() {
         table = new char[SIZE][SIZE];
         random = new Random();
+        init();
     }
 
-    public void init() {
+    private void init() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                table[i][j] = 0;
+                table[i][j] = '.';
             }
         }
-        gameStatus = null;
+        gameOverStatus = null;
     }
 
-    public String getGameStatus() {
-        return gameStatus;
+    public String getGameOverStatus() {
+        return gameOverStatus;
     }
 
     public boolean isGameOver() {
-        return gameStatus != null;
+        return gameOverStatus != null;
     }
 
     public boolean turn(int x, int y) {
         if (isCellValid(x, y)) {
             table[y][x] = CHAR_X;
             if (isWin(CHAR_X)) {
-                gameStatus = YOU_WON;
+                gameOverStatus = YOU_WON;
             } else if (isTableFull()) {
-                gameStatus = SORRY_DRAW;
+                gameOverStatus = SORRY_DRAW;
             }
-            if (gameStatus == null) {
+            if (gameOverStatus == null) {
                 turnAI();
                 if (isWin(CHAR_O)) {
-                    gameStatus = AI_WON;
+                    gameOverStatus = AI_WON;
                 } else if (isTableFull()) {
-                    gameStatus = SORRY_DRAW;
+                    gameOverStatus = SORRY_DRAW;
                 }
             }
             return true;
@@ -70,10 +71,10 @@ public class TicTacToe {
         table[y][x] = CHAR_O;
     }
 
-    public boolean isTableFull() {
+    private boolean isTableFull() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                if (table[y][x] == 0) {
+                if (table[y][x] == '.') {
                     return false;
                 }
             }
@@ -81,7 +82,7 @@ public class TicTacToe {
         return true;
     }
 
-    public boolean isWin(char ch) {
+    private boolean isWin(char ch) {
         for (int i = 0; i < SIZE; i++) {
             if (table[i][0] == ch && table[i][1] == ch && table[i][2] == ch) return true;
             if (table[0][i] == ch && table[1][i] == ch && table[2][i] == ch) return true;
@@ -96,7 +97,7 @@ public class TicTacToe {
         if (x < 0 || y < 0 || x > 2 || y > 2) {
             return false;
         }
-        return table[y][x] == 0;
+        return table[y][x] == '.';
     }
 
     @Override

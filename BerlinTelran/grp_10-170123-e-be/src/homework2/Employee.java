@@ -8,8 +8,7 @@ public class Employee {
     private int salary;
     private int age;
 
-    public Employee(String name, Position position, String email, String phone,
-                    int salary, int age) {
+    public Employee(String name, Position position, String email, String phone, int salary, int age) {
         this.name = name;
         this.position = position;
         this.email = email;
