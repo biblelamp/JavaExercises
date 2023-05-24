@@ -5,8 +5,8 @@ import java.util.List;
 
 /*
  * Домашнее задание: реализовать:
- * add(int index, int value)
  * addAll(int... values)
+ * add(int index, int value)
  * contains(int value)
  * indexOf(int value)
  * isEmpty()
