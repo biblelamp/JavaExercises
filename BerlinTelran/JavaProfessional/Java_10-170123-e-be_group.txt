@@ -2,7 +2,7 @@
 
 Intro:			2.5
 OOP:			5.5, 9.5, 12.5
-JCF:			16.5, 19.5
+JCF:			16.5, 19.5, 23.5
 Stream API:		
 Exception:		
 I/O:			
@@ -19,7 +19,7 @@ Project:
 ПРОЕКТ:		12
 
 Осталось:
-	май:		23,26,30
+	май:		26,30
 	июнь:		2,6,8,13,15,20,22,27,29
 	июль:		4,6,11,13
 	август:		1,3,8,10,15,17,22,24,29,31
@@ -42,4 +42,3 @@ Project:
 13. Vladyslav Mosiuk		https://github.com/VladMsq
 14. Dzmitry Chemel			https://github.com/dmitrychemel
 15. Vitalii Lapickii		https://github.com/lapan1ch
-16. Bogdan Panchuk?			?

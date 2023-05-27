@@ -13,10 +13,9 @@ Java JDBC:		27.2
 Reflection & 
 	annotation:	2.3, 6.3
 Spring:			9.3, 13.3, 16.3, 20.3, 23.3, 27.3, 30.3, 3.4 (8)
-Project:		6.4, 17.4, 20.4, 24.4, 27.4, 4.5, 8.5, 11.5, 15.5
+Project:		6.4, 17.4, 20.4, 24.4, 27.4, 4.5, 8.5, 11.5, 15.5, 22.5, 25.5
 
 Проект:
-	май:		22,25
 	июнь:		1
 
 ИТОГО:		1+2+12+2+2+1+1+4+4+1+2+8 = 40
@@ -30,4 +29,3 @@ Project:		6.4, 17.4, 20.4, 24.4, 27.4, 4.5, 8.5, 11.5, 15.5
 4. Yurii Kuzmenko		https://github.com/YuriiKuzmenk/	турнир
 5. Artysh Namchyl		https://github.com/namchylartysh/	банк
 6. Anton Khudyakov		https://github.com/deithwein/		пиццерия
-7. Илья Рогожников		https://github.com/
