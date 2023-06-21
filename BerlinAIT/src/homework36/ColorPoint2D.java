@@ -1,7 +1,5 @@
 package homework36;
 
-import java.util.Objects;
-
 public class ColorPoint2D extends Point2D {
     private String color;
 
