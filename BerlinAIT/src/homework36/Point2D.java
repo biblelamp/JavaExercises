@@ -11,7 +11,7 @@ public class Point2D {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        //if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Point2D point2D = (Point2D) o;
 
