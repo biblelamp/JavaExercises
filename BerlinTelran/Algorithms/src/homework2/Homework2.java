@@ -5,6 +5,7 @@ package homework2;
  *
  * @author Sergey Iryupin
  * @version 25 Jun 2023
+ * @see Оценка сложности алгоритмов https://habr.com/ru/articles/104219/
  */
 
 /**
@@ -54,6 +55,47 @@ package homework2;
 
 public class Homework2 {
     public static void main(String[] args) {
-
+        // Task #1: O(n)
+        // Task #2: O(n log n)
+        // Task #3: O(n^2)
+        // Task #4: O(log n)
+    }
+    // best O(1) worst O(n)+1 = O(n)
+    static void task1(int n) {
+        if (n == 1) {
+            return;
+        }
+        for (int i = 1; i <= n; i++) {     // times = n
+            for (int j = 1; j <= n; j++) { // times = 1
+                System.out.println("*");
+                break;
+            }
+        }
+    }
+    // n/2 * log(n) = O(n log n)
+    static void task2(int n) {
+        int a = 0;
+        for (int i = n/2; i <= n; i++) {      // times = n/2
+            for (int j = 2; j <= n; j *= 2) { // times = log(n)
+                a = a + n / 2;
+            }
+        }
+    }
+    // n * n = O(n^2)
+    static void task3(int n) {
+        int a = 0;
+        for (int i = 0; i < n; i++) {     // times = n
+            for (int j = n; j > i; j--) { // times = n
+                a = a + i + j;
+            }
+        }
+    }
+    // n/2^n = O(log n)
+    static void task4(int n) {
+        int a = 0, i = n;
+        while (i > 0) { // times = n/2^n
+            a += i;
+            i /= 2;
+        }
     }
 }
