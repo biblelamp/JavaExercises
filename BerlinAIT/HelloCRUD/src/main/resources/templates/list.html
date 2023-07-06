@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Event list page</title>
+</head>
+<body>
+  <h2>Event list</h2>
+  <p><a href="/add">Add Event</a></p>
+  <table border="1">
+    <tr>
+      <th>Event Name</th>
+      <th>City</th>
+      <th colspan="2">Action</th>
+    </tr>
+    <tr th:each ="event : ${events}">
+      <td th:utext="${event.name}">...</td>
+      <td th:utext="${event.city}">...</td>
+      <td>
+        <form th:action="@{/delete}" th:method="DELETE">
+          <input type="hidden" name="id" th:value="${events.indexOf(event)}">
+          <button>delete</button>
+        </form>
+      </td>
+      <td>
+        <a th:href="@{/update/{id}(id=${events.indexOf(event)})}">edit</a>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
