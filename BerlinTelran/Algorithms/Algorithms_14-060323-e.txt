@@ -1,0 +1,35 @@
+Algorithms группа 14-060323-e, занятия:
+
+1. Что такое алгоритмы
+   https://docs.google.com/presentation/d/1_czDR4adA2x2CnysEAH302visynno3TnNOkWGnX2VM0/
+
+2. Сложность алгоритмов, Big-O notation
+   https://docs.google.com/presentation/d/1PSlTqqYOCUX4Vj025uDgJoU_adYpG_oAZAxgVJBZfb8/
+
+3. Рекурсия и итерация
+   https://docs.google.com/presentation/d/1GdKm973BQrkGp8fnmEMfmNb4PaBm3onU7Y6n6v9WrBw/
+
+4. Разделяй и властвуй, сортировка слиянием
+   https://docs.google.com/presentation/d/1fQQdlocQvJEhCu8G3n8_2PbB11UZuctNo_1Xrxs_b7A/
+
+5. Быстрая сортировка
+6. Амортизированный анализ и динамические массивы
+7. Стек и очередь
+8. Жадный алгоритм
+9. Жадный алгоритм. Практика
+10. Популярные алгоритмы для технических собеседований
+
+Студенты:
+
+1. Boris Romanenko    [x,x,x] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev    [x,x,x] https://github.com/Viktor-Uv/
+3. Rychard Famichou   [x,-,-]
+4. Mykhailo Shved     [x,x,x] https://github.com/behaunter/
+5. Emilbek Dzheenbaev [x,x,x] https://github.com/EmilDzh/
+6. Artur Voldaev      [x,x,x] https://github.com/ArturVoldaev/
+7. Anna Leonova       [-,x,-]
+8. Tetiana Tatsenko   [x,x,x] https://github.com/madeinflower/
+9. Андрей Приймак     [x,x,x] https://github.com/Andrey5041975/
+10. Daniils Berezins  [x,x,-]
+11. Anton Kiyashov    [x,-,-]
+12. Nicolai Songrov   [x,-,-]
