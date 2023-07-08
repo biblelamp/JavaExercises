@@ -1,0 +1,18 @@
+Java backend группа cohort24:
+
+1. Что такое frontend и backend. Протоколы http и https, утилита curl. Введение в Spring
+2. Spring и Spring Boot. Spring MVC, шаблонизатор Thymeleaf
+3. MVC шаблон и его реализация в Spring Boot. Шаблонизатор Thymeleaf, рендеринг на стороне сервера
+4. 
+5. 
+
+Студенты:
+
+1. Alex Nesterov			https://github.com/NesterovAlexsey/
+2. Alexander Stopkin		https://github.com/StopkinOlexandr/
+3. Andrii Golik				https://github.com/GolikAndrii/
+4. Andrii Lytvyn			https://github.com/Andrii-Lytvyn/
+5. Elena Vdovina			https://github.com/Elena-Vdovina/
+6. Artem Shvidchenko		
+7. Eugen Borodin			https://github.com/EugenBorodin/
+8. Valentyna Kondrashenko	
