@@ -1,10 +1,19 @@
 Java backend группа cohort24:
 
-1. Что такое frontend и backend. Протоколы http и https, утилита curl. Введение в Spring
+1. Frontend и backend. Основы http протокола, https, утилита curl. Введение в Spring
 2. Spring и Spring Boot. Spring MVC, шаблонизатор Thymeleaf
-3. MVC шаблон и его реализация в Spring Boot. Шаблонизатор Thymeleaf, рендеринг на стороне сервера
-4. 
-5. 
+3. Шаблон MVC, его реализация в Spring Boot. Шаблонизатор Thymeleaf, рендеринг на стороне сервера
+4. Что такое Spring? Dependency injection (DI), Inversion of control (IoC). От внедрения зависимостей до Web MVC
+5. REST и REST API. @RestController против @Controller
+6. 
+
+Занятия:
+	июль:	4,5,6
+	август:	
+
+Осталось:
+	июль:	11,13,18,20,21,24,26,28,31
+	август:	2,4
 
 Студенты:
 
