@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Update Event Form</title>
+</head>
+<body>
+  <h2>Update Event Form</h2>
+  <form th:action="@{/update/{id}(id=${events.indexOf(event)})}" th:object="${event}" method="POST">
+    Event name: <input type="text" th:field="*{name}" />
+    <br/>
+    City: <input type="text" th:field="*{city}" />
+    <br/>
+     <input type="submit" value="Update event" />
+  </form>
+
+  <div th:if="${errorMessage}" th:utext="${errorMessage}" style="color:red;font-style:italic;">...</div>
+
+</body>
+</html>
