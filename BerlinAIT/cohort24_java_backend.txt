@@ -8,11 +8,11 @@ Java backend группа cohort24:
 6. 
 
 Занятия:
-	июль:	4,5,6
+	июль:	4,5,6,11
 	август:	
 
 Осталось:
-	июль:	11,13,18,20,21,24,26,28,31
+	июль:	13,18,20,21,24,26,28,31
 	август:	2,4
 
 Студенты:
@@ -22,6 +22,7 @@ Java backend группа cohort24:
 3. Andrii Golik				https://github.com/GolikAndrii/
 4. Andrii Lytvyn			https://github.com/Andrii-Lytvyn/
 5. Elena Vdovina			https://github.com/Elena-Vdovina/
-6. Artem Shvidchenko		
+6. Artem Shvidchenko		https://github.com/ArtemShvidchenko
 7. Eugen Borodin			https://github.com/EugenBorodin/
-8. Valentyna Kondrashenko	
+8. Valentyna Kondrashenko	https://github.com/Oreshkav/
+9. Averkin Maksym			https://github.com/Maxoverking/
