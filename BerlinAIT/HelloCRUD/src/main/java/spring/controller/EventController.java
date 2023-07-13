@@ -49,7 +49,7 @@ public class EventController {
         return "update";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public String updateEvent(Model model, @ModelAttribute("event") Event event, @PathVariable Integer id) {
         String name = event.getName();
         String city = event.getCity();

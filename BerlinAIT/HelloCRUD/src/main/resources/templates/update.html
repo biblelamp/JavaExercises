@@ -5,12 +5,14 @@
 </head>
 <body>
   <h2>Update Event Form</h2>
+  <!-- https://stackoverflow.com/questions/8054165/using-put-method-in-html-form -->
   <form th:action="@{/update/{id}(id=${events.indexOf(event)})}" th:object="${event}" method="POST">
+    <input type="hidden" name="_method" value="PUT" />
     Event name: <input type="text" th:field="*{name}" />
     <br/>
     City: <input type="text" th:field="*{city}" />
     <br/>
-     <input type="submit" value="Update event" />
+    <input type="submit" value="Update event" />
   </form>
 
   <div th:if="${errorMessage}" th:utext="${errorMessage}" style="color:red;font-style:italic;">...</div>
