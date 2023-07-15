@@ -8,11 +8,21 @@ Algorithms группа 14-060323-e, занятия:
 
 3. Рекурсия и итерация
    https://docs.google.com/presentation/d/1GdKm973BQrkGp8fnmEMfmNb4PaBm3onU7Y6n6v9WrBw/
+   визуально: https://spro.blog/lafores-applets/
+              http://towersofhanoi.info/Animate.aspx
+              https://www.mathsisfun.com/games/towerofhanoi.html
+              https://cs.brynmawr.edu/Courses/cs206/spring2004/lafore.html
 
 4. Разделяй и властвуй, сортировка слиянием
    https://docs.google.com/presentation/d/1fQQdlocQvJEhCu8G3n8_2PbB11UZuctNo_1Xrxs_b7A/
+   статья: https://habr.com/ru/articles/710620/
 
 5. Быстрая сортировка
+   https://docs.google.com/presentation/d/156YMp32XDdB89E5H2AS3PN428jTM9dsv6Fmc3Cd8Jx0/
+   статья: https://otus.ru/nest/post/788/
+           https://academy.yandex.ru/journal/osnovnye-vidy-sortirovok-i-primery-ikh-realizatsii
+           путь новичка: https://habr.com/ru/sandbox/165737/
+
 6. Амортизированный анализ и динамические массивы
 7. Стек и очередь
 8. Жадный алгоритм
@@ -21,15 +31,15 @@ Algorithms группа 14-060323-e, занятия:
 
 Студенты:
 
-1. Boris Romanenko    [x,x,x] https://github.com/RomanenkoBoris/
-2. Viktor Uvarchev    [x,x,x] https://github.com/Viktor-Uv/
-3. Rychard Famichou   [x,-,-]
-4. Mykhailo Shved     [x,x,x] https://github.com/behaunter/
-5. Emilbek Dzheenbaev [x,x,x] https://github.com/EmilDzh/
-6. Artur Voldaev      [x,x,x] https://github.com/ArturVoldaev/
-7. Anna Leonova       [-,x,-]
-8. Tetiana Tatsenko   [x,x,x] https://github.com/madeinflower/
-9. Андрей Приймак     [x,x,x] https://github.com/Andrey5041975/
-10. Daniils Berezins  [x,x,-]
-11. Anton Kiyashov    [x,-,-]
-12. Nicolai Songrov   [x,-,-]
+1. Boris Romanenko		[x,x,x,x] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev		[x,x,x,-] https://github.com/Viktor-Uv/
+3. Mykhailo Shved		[x,x,x,-] https://github.com/behaunter/
+4. Emilbek Dzheenbaev	[x,x,x,x] https://github.com/EmilDzh/
+5. Tetiana Tatsenko		[x,x,x,x] https://github.com/madeinflower/
+6. Artur Voldaev		[x,x,x,-] https://github.com/ArturVoldaev/
+7. Андрей Приймак		[x,x,x,-] https://github.com/Andrey5041975/
+8. Anna Leonova			[x,x,-,-] https://github.com/AnnaLeonova1808/
+9. Daniils Berezins		[x,x,-,-] https://github.com/daniilberez/
+10. Anton Kiyashov		[x,-,-,-]
+11. Nicolai Songrov		[x,-,-,-]
+12. Rychard Famichou	[x,-,-,-]
