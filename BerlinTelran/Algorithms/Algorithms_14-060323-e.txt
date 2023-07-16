@@ -24,6 +24,8 @@ Algorithms группа 14-060323-e, занятия:
            путь новичка: https://habr.com/ru/sandbox/165737/
 
 6. Амортизированный анализ и динамические массивы
+   https://docs.google.com/presentation/d/16RhrFL-_WEhRXzsJxvhTzVlk0w4AOnqVOKXMA19F8Z0/
+
 7. Стек и очередь
 8. Жадный алгоритм
 9. Жадный алгоритм. Практика
