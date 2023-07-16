@@ -1,18 +1,23 @@
 Java backend группа cohort24:
 
+Программа:	https://docs.google.com/spreadsheets/d/13wPXo6hq8_cWPu4Ki7dvx3LvOQDfqbnm751--LtiNFM/
+Расписание:	https://docs.google.com/spreadsheets/d/18wXC2jlGwDY1MnYdxXxcPufbjl0A6pduPlXY1kPNfeA/
+
 1. Frontend и backend. Основы http протокола, https, утилита curl. Введение в Spring
 2. Spring и Spring Boot. Spring MVC, шаблонизатор Thymeleaf
 3. Шаблон MVC, его реализация в Spring Boot. Шаблонизатор Thymeleaf, рендеринг на стороне сервера
 4. Что такое Spring? Dependency injection (DI), Inversion of control (IoC). От внедрения зависимостей до Web MVC
-5. REST и REST API. @RestController против @Controller
-6. 
+5. REST и REST API. @RestController против @Controller https://habr.com/ru/companies/piter/articles/668616/
+6. DTOs. Mapping request body (@RequestBody). Lombok. SwaggerUI.
+7. 
+8. 
 
 Занятия:
-	июль:	4,5,6,11
+	июль:	4,5,6,11,13
 	август:	
 
 Осталось:
-	июль:	13,18,20,21,24,26,28,31
+	июль:	18,20,21,24,26,28,31
 	август:	2,4
 
 Студенты:
@@ -26,3 +31,4 @@ Java backend группа cohort24:
 7. Eugen Borodin			https://github.com/EugenBorodin/
 8. Valentyna Kondrashenko	https://github.com/Oreshkav/
 9. Averkin Maksym			https://github.com/Maxoverking/
+10. Vadim Balanciuc			https://github.com/VadimBJ/
