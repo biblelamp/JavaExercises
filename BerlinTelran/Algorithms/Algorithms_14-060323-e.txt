@@ -33,15 +33,15 @@ Algorithms группа 14-060323-e, занятия:
 
 Студенты:
 
-1. Boris Romanenko		[x,x,x,x] https://github.com/RomanenkoBoris/
-2. Viktor Uvarchev		[x,x,x,-] https://github.com/Viktor-Uv/
-3. Mykhailo Shved		[x,x,x,-] https://github.com/behaunter/
-4. Emilbek Dzheenbaev	[x,x,x,x] https://github.com/EmilDzh/
-5. Tetiana Tatsenko		[x,x,x,x] https://github.com/madeinflower/
-6. Artur Voldaev		[x,x,x,-] https://github.com/ArturVoldaev/
-7. Андрей Приймак		[x,x,x,-] https://github.com/Andrey5041975/
-8. Anna Leonova			[x,x,-,-] https://github.com/AnnaLeonova1808/
-9. Daniils Berezins		[x,x,-,-] https://github.com/daniilberez/
-10. Anton Kiyashov		[x,-,-,-]
-11. Nicolai Songrov		[x,-,-,-]
+1. Boris Romanenko		[x,x,x,x,-] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev		[x,x,x,-,-] https://github.com/Viktor-Uv/
+3. Mykhailo Shved		[x,x,x,-,-] https://github.com/behaunter/
+4. Emilbek Dzheenbaev	[x,x,x,x,-] https://github.com/EmilDzh/
+5. Tetiana Tatsenko		[x,x,x,x,-] https://github.com/madeinflower/
+6. Nicolai Songrov		[x,-,x,x,x] https://github.com/Songrov/
+7. Artur Voldaev		[x,x,x,-,-] https://github.com/ArturVoldaev/
+8. Андрей Приймак		[x,x,x,-,-] https://github.com/Andrey5041975/
+9. Anna Leonova			[x,x,-,-,-] https://github.com/AnnaLeonova1808/
+10. Daniils Berezins	[x,x,-,-,-] https://github.com/daniilberez/
+11. Anton Kiyashov		[x,-,-,-]
 12. Rychard Famichou	[x,-,-,-]
