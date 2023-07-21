@@ -10,8 +10,14 @@ import spring.service.EventService;
 @Controller
 public class EventController {
 
+    // внедрение зависимости через аннотацию
     @Autowired
     EventService eventService;
+
+    // внедрение зависимости через конструктор
+//    public EventController(EventService eventService) {
+//        this.eventService = eventService;
+//    }
 
     @GetMapping("/")
     public String findAll(Model model) {
