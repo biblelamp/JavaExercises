@@ -24,3 +24,27 @@ Project:		21.12, 11.1, 18.1, 25.1, 1.2, 8.2, 15.2, 22.2, 1.3
 2. Georgiy Volochaev	https://github.com/GeorgeVolochaev/
 3. Igor Cijov			https://github.com/igorcijov/
 4. Viktors Soltums		https://github.com/SoltVik/
+
+Запись занятий:
+07.6.2022	https://www.youtube.com/watch?v=OhAkt0MxX0g
+09.6		https://www.youtube.com/watch?v=mKRkRPB-8b8
+13.6		https://www.youtube.com/watch?v=AnIKH3gemVI
+16.6		https://www.youtube.com/watch?v=H7VAxBZMLqQ
+21.6		https://www.youtube.com/watch?v=2OyRHFkisBc
+24.6		https://www.youtube.com/watch?v=wJkfZZNmh4Y
+28.6		https://www.youtube.com/watch?v=9jn5X_DW7bw
+30.6		https://www.youtube.com/watch?v=CZLxnev6wXw
+05.7		https://www.youtube.com/watch?v=xUO1v4Tut18
+07.7		https://www.youtube.com/watch?v=TqSjYnL5G3w
+12.7		https://www.youtube.com/watch?v=M6nubv9YdhE
+14.7		
+02.8		
+04.8		
+09.8		
+11.8		
+16.8		
+18.8		
+23.8		
+25.8		
+30.8		
+01.9		
