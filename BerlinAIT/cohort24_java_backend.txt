@@ -13,14 +13,18 @@ https://docs.google.com/document/d/1UOGF45esoeR8xT09uaG7EJttd9UZ7PM3oYm2pLoEiGo/
 6. REST API и REST контроллер, SwaggerUI
 7. Spring Data JPA, слой repository, Lombok, DTO классы, ModelMapper
 8. Управление структурой БД при помощи Liquibase
+9. Использование Spring Security, ModelMapper, логгирование
+10. Разработка проекта: структура БД, Liquibase, доменные сущности
 
 Занятия:
-	июль:	4,5,6,11,13,18,20,21
+	июль:	4,5,6,11,13,18,20,21,24,26
 	август:	
+	итого:	10
 
 Осталось:
-	июль:	24,26,28,31
-	август:	2,4,?
+	июль:	28,31
+	август:	1,2,3 + 7,8,10,11,15,16,17,18
+	итого:	5 + 8
 
 Студенты:
 
@@ -29,7 +33,7 @@ https://docs.google.com/document/d/1UOGF45esoeR8xT09uaG7EJttd9UZ7PM3oYm2pLoEiGo/
 3. Andrii Golik				https://github.com/GolikAndrii/
 4. Andrii Lytvyn			https://github.com/Andrii-Lytvyn/
 5. Elena Vdovina			https://github.com/Elena-Vdovina/
-6. Artem Shvidchenko		https://github.com/ArtemShvidchenko
+6. Artem Shvidchenko		https://github.com/ArtemShvidchenko/
 7. Eugen Borodin			https://github.com/EugenBorodin/
 8. Valentyna Kondrashenko	https://github.com/Oreshkav/
 9. Averkin Maksym			https://github.com/Maxoverking/
