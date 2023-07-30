@@ -27,16 +27,25 @@ Algorithms группа 14-060323-e, занятия:
    https://docs.google.com/presentation/d/16RhrFL-_WEhRXzsJxvhTzVlk0w4AOnqVOKXMA19F8Z0/
 
 7. Стек и очередь
+   https://docs.google.com/presentation/d/1Vg23k_5zIRMaTYGz2LwHgp6hVfq-21laLUX-JPew3q0/
 8. Жадный алгоритм
+   https://docs.google.com/presentation/d/1irBU6cFaxeDJtxqWpEj-k9mIVv-7IlD58FlzVZ7hWTw/
 9. Жадный алгоритм. Практика
+   https://docs.google.com/presentation/d/1oEMKVh6aQn1MGdkKZxB8Bu9oCU_Stp28aYThHMARPr8/
 10. Популярные алгоритмы для технических собеседований
+    https://docs.google.com/presentation/d/1kktzMErQRjaZUc3OThRp4epzF3lUNxzRB7bWfzO0slw/
+
+Расписание:
+	июнь:	15,22,29
+	июль:	7,14
+	август:	3(->4),10(->11),17,24(->25),31
 
 Студенты:
 
-1. Boris Romanenko		[x,x,x,x,-] https://github.com/RomanenkoBoris/
+1. Boris Romanenko		[x,x,x,x,x] https://github.com/RomanenkoBoris/
 2. Viktor Uvarchev		[x,x,x,-,-] https://github.com/Viktor-Uv/
 3. Mykhailo Shved		[x,x,x,-,-] https://github.com/behaunter/
-4. Emilbek Dzheenbaev	[x,x,x,x,-] https://github.com/EmilDzh/
+4. Emilbek Dzheenbaev	[x,x,x,x,x] https://github.com/EmilDzh/
 5. Tetiana Tatsenko		[x,x,x,x,-] https://github.com/madeinflower/
 6. Nicolai Songrov		[x,-,x,x,x] https://github.com/Songrov/
 7. Artur Voldaev		[x,x,x,-,-] https://github.com/ArturVoldaev/
