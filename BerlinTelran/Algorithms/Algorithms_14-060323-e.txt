@@ -3,7 +3,7 @@ Algorithms группа 14-060323-e, занятия:
 1. Что такое алгоритмы
    https://docs.google.com/presentation/d/1_czDR4adA2x2CnysEAH302visynno3TnNOkWGnX2VM0/
 
-2. Сложность алгоритмов, Big-O notation
+2. Сложность алгоритмов, Big-O notation,
    https://docs.google.com/presentation/d/1PSlTqqYOCUX4Vj025uDgJoU_adYpG_oAZAxgVJBZfb8/
 
 3. Рекурсия и итерация
@@ -28,6 +28,7 @@ Algorithms группа 14-060323-e, занятия:
 
 7. Стек и очередь
    https://docs.google.com/presentation/d/1Vg23k_5zIRMaTYGz2LwHgp6hVfq-21laLUX-JPew3q0/
+
 8. Жадный алгоритм
    https://docs.google.com/presentation/d/1irBU6cFaxeDJtxqWpEj-k9mIVv-7IlD58FlzVZ7hWTw/
 9. Жадный алгоритм. Практика
@@ -45,13 +46,14 @@ Algorithms группа 14-060323-e, занятия:
 
 1. Boris Romanenko		[x,x,x,x,x] https://github.com/RomanenkoBoris/
 2. Viktor Uvarchev		[x,x,x,x,x] https://github.com/Viktor-Uv/
-3. Mykhailo Shved		[x,x,x,x,-] https://github.com/behaunter/
+3. Mykhailo Shved		[x,x,x,x,x] https://github.com/behaunter/
 4. Emilbek Dzheenbaev	[x,x,x,x,x] https://github.com/EmilDzh/
 5. Tetiana Tatsenko		[x,x,x,x,x] https://github.com/madeinflower/
 6. Nicolai Songrov		[x,-,x,x,x] https://github.com/Songrov/
-7. Artur Voldaev		[x,x,x,-,-] https://github.com/ArturVoldaev/
-8. Андрей Приймак		[x,x,x,x,-] https://github.com/Andrey5041975/
-9. Anna Leonova			[x,x,-,-,-] https://github.com/AnnaLeonova1808/
-10. Daniils Berezins	[x,x,-,-,-] https://github.com/daniilberez/
-11. Anton Kiyashov		[x,-,-,-]
-12. Rychard Famichou	[x,-,-,-]
+7. Андрей Приймак		[x,x,x,x,-] https://github.com/Andrey5041975/
+8. Artur Voldaev		[x,x,x,-,-] https://github.com/ArturVoldaev/
+9. Kateryna Zurr		[-,-,-,-,-] https://github.com/zurrK/
+10. Anna Leonova		[x,x,-,-,-] https://github.com/AnnaLeonova1808/
+11. Daniils Berezins	[x,x,-,-,-] https://github.com/daniilberez/
+12. Anton Kiyashov		[x,-,-,-,-]
+13. Rychard Famichou	[x,-,-,-,-]
