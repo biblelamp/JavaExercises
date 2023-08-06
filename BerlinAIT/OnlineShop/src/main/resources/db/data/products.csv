@@ -1,0 +1,6 @@
+category_id,supplier_id,product_name,description,price,is_deleted
+2,1,Ford Focus,"Ford Focus, Combi, Engine 1.6, 5x manual",25000,false
+1,2,Mercedes A160,"Mercedes A160, Hatchback, Engine 1.6, 5x manual",28000,false
+1,3,Peugeot 206,"Peugeot 206, Hatchback, Engine 1.1, 5x manual",22000,false
+1,4,Škoda Fabia,"Škoda Fabia, Combi, Engine 1.2, 5x manual",23000,false
+3,5,Toyota Yarys,"Toyota Yaris, Hatchback, Engine 1.5 Hybrid, auto",30000,false

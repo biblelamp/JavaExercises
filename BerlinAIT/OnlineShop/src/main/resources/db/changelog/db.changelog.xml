@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<!--
+    from: https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+Table products {
+  product_id    int [PK]
+  category_id   int
+  supplier_id   int
+  product_name  varchar
+  description   varchar
+  price         float
+  is_deleted    boolean
+}
+
+Table orders {
+  order_id      int[PK]
+  customer_id   int
+  shop_id       int
+  order_date    date
+  state         varchar
+}
+
+Table order_details {
+  order_detail_id int[PK]
+  order_id        int
+  product_id      int
+  quantity        int
+}
+
+Table customers {
+  customer_id   int[PK]
+  customer_name varchar
+  address       varchar
+  country_id    int
+}
+
+Table categories {
+  category_id   int[PK]
+  category_name varchar
+  description   varchar
+}
+
+Table suppliers {
+  supplier_id   int[PK]
+  supplier_name varchar
+  address       varchar
+  country_id    int
+}
+
+Table shops {
+  shop_id       int[PK]
+  shop_name     varchar
+}
+
+Table products_in_shop {
+   product_in_shop_id int[PK]
+   product_id         int
+   shop_id            int
+   quantity           int
+}
+
+Table countries {
+  country_id    int[PK]
+  country_name  varchar
+}
+
+Ref: products.category_id > categories.category_id
+Ref: orders.customer_id > customers.customer_id
+Ref: order_details.order_id > orders.order_id
+Ref: order_details.product_id > products.product_id
+Ref: products.supplier_id > suppliers.supplier_id
+Ref: suppliers.country_id > countries.country_id
+Ref: customers.country_id > countries.country_id
+Ref: orders.shop_id > shops.shop_id
+Ref: products_in_shop.product_id > products.product_id
+Ref: products_in_shop.shop_id > shops.shop_id
+-->
+    <changeSet id="#1" author="sergey">
+        <createTable tableName="categories">
+            <column name="category_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="category_name" type="varchar(50)"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="countries">
+            <column name="country_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="country_name" type="varchar(50)"/>
+        </createTable>
+        <createTable tableName="customers">
+            <column name="customer_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_name" type="varchar(100)"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="country_id" type="int"/>
+        </createTable>
+        <createTable tableName="order_details">
+            <column name="order_detail_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="order_id" type="int"/>
+            <column name="product_id" type="int"/>
+            <column name="quantity" type="int"/>
+        </createTable>
+        <createTable tableName="orders">
+            <column name="order_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_id" type="int"/>
+            <column name="shop_id" type="int"/>
+            <column name="order_date" type="timestamp"/>
+            <column name="state" type="varchar(25)"/>
+        </createTable>
+        <createTable tableName="products">
+            <column name="product_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="category_id" type="int"/>
+            <column name="supplier_id" type="int"/>
+            <column name="product_name" type="varchar(50)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="price" type="numeric(10,2)"/>
+            <column name="is_deleted" type="boolean"/>
+        </createTable>
+        <createTable tableName="products_in_shop">
+            <column name="product_in_shop_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="int"/>
+            <column name="shop_id" type="int"/>
+            <column name="quantity" type="int"/>
+        </createTable>
+        <createTable tableName="shops">
+            <column name="shop_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="shop_name" type="varchar(50)"/>
+        </createTable>
+        <createTable tableName="suppliers">
+            <column name="supplier_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="supplier_name" type="varchar(50)"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="country_id" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="customers" baseColumnNames="country_id"
+                                 constraintName="fk_customers_countries" referencedTableName="countries"
+                                 referencedColumnNames="country_id"/>
+        <addForeignKeyConstraint baseTableName="order_details" baseColumnNames="order_id"
+                                 constraintName="fk_order_details_orders" referencedTableName="orders"
+                                 referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint baseTableName="order_details" baseColumnNames="product_id"
+                                 constraintName="fk_order_details_products" referencedTableName="products"
+                                 referencedColumnNames="product_id"/>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="customer_id"
+                                 constraintName="fk_orders_customers" referencedTableName="customers"
+                                 referencedColumnNames="customer_id"/>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="shop_id"
+                                 constraintName="fk_orders_shops" referencedTableName="shops"
+                                 referencedColumnNames="shop_id"/>
+        <addForeignKeyConstraint baseTableName="products" baseColumnNames="category_id"
+                                 constraintName="fk_products_categories" referencedTableName="categories"
+                                 referencedColumnNames="category_id"/>
+        <addForeignKeyConstraint baseTableName="products" baseColumnNames="supplier_id"
+                                 constraintName="fk_products_suppliers" referencedTableName="suppliers"
+                                 referencedColumnNames="supplier_id"/>
+        <addForeignKeyConstraint baseTableName="products_in_shop" baseColumnNames="product_id"
+                                 constraintName="fk_products_in_shop_products" referencedTableName="products"
+                                 referencedColumnNames="product_id"/>
+        <addForeignKeyConstraint baseTableName="products_in_shop" baseColumnNames="shop_id"
+                                 constraintName="fk_products_in_shop_shops" referencedTableName="shops"
+                                 referencedColumnNames="shop_id"/>
+        <addForeignKeyConstraint baseTableName="suppliers" baseColumnNames="country_id"
+                                 constraintName="fk_suppliers_countries" referencedTableName="countries"
+                                 referencedColumnNames="country_id"/>
+    </changeSet>
+
+    <changeSet id="#2" author="sergey">
+        <loadData tableName="countries"
+                  separator=","
+                  file="db/data/countries.csv">
+        </loadData>
+        <loadData tableName="categories"
+                  separator=","
+                  file="db/data/categories.csv">
+        </loadData>
+        <loadData tableName="suppliers"
+                  separator=","
+                  file="db/data/suppliers.csv">
+        </loadData>
+        <loadData tableName="products"
+                  separator=","
+                  file="db/data/products.csv">
+        </loadData>
+        <loadData tableName="shops"
+                  separator=","
+                  file="db/data/shops.csv">
+        </loadData>
+        <loadData tableName="products_in_shop"
+                  separator=","
+                  file="db/data/products_in_shop.csv">
+        </loadData>
+        <loadData tableName="customers"
+                  separator=","
+                  file="db/data/customers.csv">
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
