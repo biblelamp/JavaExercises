@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="#1" author="sergey">
+        <createTable tableName="event">
+            <column name="event_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="city" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="#2" author="sergey">
+        <createTable tableName="city">
+            <column name="city_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+        </createTable>
+        <dropColumn tableName="event" columnName="city"/>
+        <addColumn tableName="event">
+            <column name="city_id" type="int"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="event" baseColumnNames="city_id"
+                                 constraintName="fk_event_city" referencedTableName="city"
+                                 referencedColumnNames="city_id"/>
+    </changeSet>
+
+</databaseChangeLog>
