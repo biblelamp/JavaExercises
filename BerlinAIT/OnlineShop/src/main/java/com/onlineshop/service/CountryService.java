@@ -26,9 +26,16 @@ public class CountryService {
     }
 
     public CountryDTO add(CountryDTO country) {
+        // control: if this name exists
+        List<Country> countries = countryRepository.findByCountryNameIgnoreCase(country.getCountryName());
+        if (!countries.isEmpty()) {
+            log.error("Duplicate Name of Country: {}", country.getCountryName());
+            return null;
+        }
         Country newCountry = new Country();
         newCountry.setCountryName(country.getCountryName());
         newCountry = countryRepository.save(newCountry);
+        log.info("Country {} successfully added.", country.getCountryName());
         return CountryDTO.getInstance(newCountry);
     }
 
@@ -40,6 +47,7 @@ public class CountryService {
             updCountry = countryRepository.save(updCountry);
             return CountryDTO.getInstance(updCountry);
         }
+        log.error("Not found Country {} countryId: {}", countryDTO.getCountryName(), id);
         return null;
     }
 
@@ -50,6 +58,7 @@ public class CountryService {
             countryRepository.delete(delCountry);
             return CountryDTO.getInstance(delCountry);
         }
+        log.error("Not found Country countryId: {}", id);
         return null;
     }
 }

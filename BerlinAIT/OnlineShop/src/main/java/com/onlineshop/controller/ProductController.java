@@ -9,14 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Операции с товарными позициями (доступно для всех):
- * - найти все товарные позиции
- * - найти товарную позицию по id
- * - найти товарные позиции по части описания
- * - найти товарные позиции по категории
- */
-
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -40,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("/all/category/{categoryId}")
-    public ProductsDTO findByCategory(@PathVariable Integer categoryId) {
+    public ProductsDTO findByCategoryId(@PathVariable Integer categoryId) {
         return productService.findByCategoryId(categoryId);
     }
 }

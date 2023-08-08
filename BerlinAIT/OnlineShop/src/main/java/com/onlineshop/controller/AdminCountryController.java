@@ -21,21 +21,29 @@ public class AdminCountryController {
     }
 
     @PostMapping("/add")
-    public CountryDTO addCountry(@RequestBody CountryDTO country) {
-        return countryService.add(country);
+    public ResponseEntity<CountryDTO> addCountry(@RequestBody CountryDTO country) {
+        CountryDTO newCountry = countryService.add(country);
+        if (newCountry == null) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        return ResponseEntity.ok(newCountry);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<CountryDTO> updateCountry(@RequestBody CountryDTO country, @PathVariable Integer id) {
-        CountryDTO countryDTO = countryService.update(id, country);
-        if (countryDTO == null) {
+        CountryDTO updCountryDTO = countryService.update(id, country);
+        if (updCountryDTO == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(countryDTO);
+        return ResponseEntity.ok(updCountryDTO);
     }
 
     @DeleteMapping("/delete/{id}")
-    public CountryDTO deleteCountry(@PathVariable Integer id) {
-        return countryService.delete(id);
+    public ResponseEntity<CountryDTO> deleteCountry(@PathVariable Integer id) {
+        CountryDTO delCountryDTO = countryService.delete(id);
+        if (delCountryDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(delCountryDTO);
     }
 }

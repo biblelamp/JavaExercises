@@ -3,22 +3,11 @@ package com.onlineshop.controller;
 import com.onlineshop.controller.dto.ShopDTO;
 import com.onlineshop.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Администрирование записей БД:
- * + редактирование справочника стран (countries)
- * - редактирование справочника поставшиков (suppliers)
- * - редактирование справочника покупателей (customers)
- * + редактирование справочника товаров (products)
- * + редактирование справочника магазинов (shops)
- *
- * Управление товарными запасами:
- * - оформление поставки товара в магазин(ы)
- * - оформление отгрузки товара покупателю согласно заказу
- */
 @RestController
 @RequestMapping("/admin/shop")
 public class AdminShopController {
@@ -37,12 +26,20 @@ public class AdminShopController {
     }
 
     @PutMapping("/update/{id}")
-    public ShopDTO updateShop(@PathVariable Integer id, @RequestBody ShopDTO shopDTO) {
-        return shopService.update(id, shopDTO);
+    public ResponseEntity<ShopDTO> updateShop(@PathVariable Integer id, @RequestBody ShopDTO shopDTO) {
+        ShopDTO updShopDTO = shopService.update(id, shopDTO);
+        if (updShopDTO != null) {
+            return ResponseEntity.ok(updShopDTO);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ShopDTO deleteShop(@PathVariable Integer id) {
-        return shopService.delete(id);
+    public ResponseEntity<ShopDTO> deleteShop(@PathVariable Integer id) {
+        ShopDTO delShopDTO = shopService.delete(id);
+        if (delShopDTO != null) {
+            return ResponseEntity.ok(delShopDTO);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

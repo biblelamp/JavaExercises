@@ -8,3 +8,4 @@ build
 *.iml
 .idea
 .gradle
+*.log

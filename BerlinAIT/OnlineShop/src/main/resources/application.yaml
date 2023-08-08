@@ -19,4 +19,4 @@ logging:
   file:
     name: online-shop.log
   level:
-    com.onlineshop: DEBUG
+    com.onlineshop: INFO
