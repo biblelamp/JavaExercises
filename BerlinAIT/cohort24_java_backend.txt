@@ -20,27 +20,30 @@ https://docs.google.com/document/d/1UOGF45esoeR8xT09uaG7EJttd9UZ7PM3oYm2pLoEiGo/
 13. Проект: разработка контроллеров + DTO, SwaggerUI
 14. Проект: разработка контроллеров и сервисов
 15. Проект: возврат 404 статуса контроллером, класс ResponseEntity, логгирование
+16. Проект: тестирование Spring Boot приложения, h2 database
+17. Проект: тестирование, контроллеры и сервисы
+18. Проект: написание оставшейся бизнес-логики
 
 Занятия:
 	июль:	4,5,6,11,13,18,20,21,24,26,28,31
-	август:	1,2,3
-	итого:	15
+	август:	1,2,3,7,8,10
+	итого:	18
 
 Осталось:
-	август:	7,8,10,15,16,18
-	итого:	6
+	август:	15,16,18 
+	итого:	3
 
 Студенты:
 
 1. Alex Nesterov			https://github.com/NesterovAlexsey/
-2. Alexander Stopkin		https://github.com/StopkinOlexandr/
-3. Andrii Golik				https://github.com/GolikAndrii/
-4. Andrii Lytvyn			https://github.com/Andrii-Lytvyn/
-5. Elena Vdovina			https://github.com/Elena-Vdovina/
-6. Artem Shvidchenko		https://github.com/ArtemShvidchenko/
-7. Eugen Borodin			https://github.com/EugenBorodin/
-8. Valentyna Kondrashenko	https://github.com/Oreshkav/
+2. Elena Vdovina			https://github.com/Elena-Vdovina/
+3. Valentyna Kondrashenko	https://github.com/Oreshkav/
+4. Alexander Stopkin		https://github.com/StopkinOlexandr/
+5. Andrii Golik				https://github.com/GolikAndrii/
+6. Andrii Lytvyn			https://github.com/Andrii-Lytvyn/
+7. Artem Shvidchenko		https://github.com/ArtemShvidchenko/
+8. Eugen Borodin			https://github.com/EugenBorodin/
 9. Averkin Maksym			https://github.com/Maxoverking/
 10. Vadim Balanciuc			https://github.com/VadimBJ/
 11. Yana Tykhonenko			https://github.com/Yana-Tihonenko/
-12. Dmitri Mandaji			https://github.com/JIaTpoH/ (!)
+12. Dmitri Mandaji			https://github.com/JIaTpoH/
