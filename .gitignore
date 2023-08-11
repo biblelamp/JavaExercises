@@ -9,3 +9,4 @@ build
 .idea
 .gradle
 *.log
+*.gz
