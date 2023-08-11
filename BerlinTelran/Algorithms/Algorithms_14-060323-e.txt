@@ -19,7 +19,7 @@ Algorithms группа 14-060323-e, занятия:
 
 5. Быстрая сортировка
    https://docs.google.com/presentation/d/156YMp32XDdB89E5H2AS3PN428jTM9dsv6Fmc3Cd8Jx0/
-   статья: https://otus.ru/nest/post/788/
+   статьи: https://otus.ru/nest/post/788/
            https://academy.yandex.ru/journal/osnovnye-vidy-sortirovok-i-primery-ikh-realizatsii
            путь новичка: https://habr.com/ru/sandbox/165737/
 
@@ -28,6 +28,8 @@ Algorithms группа 14-060323-e, занятия:
 
 7. Стек и очередь
    https://docs.google.com/presentation/d/1Vg23k_5zIRMaTYGz2LwHgp6hVfq-21laLUX-JPew3q0/
+   статьи: Что такое стек https://thecode.media/stack/
+           Очередь https://codechick.io/tutorials/dsa/dsa-queue
 
 8. Жадный алгоритм
    https://docs.google.com/presentation/d/1irBU6cFaxeDJtxqWpEj-k9mIVv-7IlD58FlzVZ7hWTw/
@@ -44,16 +46,16 @@ Algorithms группа 14-060323-e, занятия:
 
 Студенты:
 
-1. Boris Romanenko		[x,x,x,x,x] https://github.com/RomanenkoBoris/
-2. Viktor Uvarchev		[x,x,x,x,x] https://github.com/Viktor-Uv/
-3. Mykhailo Shved		[x,x,x,x,x] https://github.com/behaunter/
-4. Emilbek Dzheenbaev	[x,x,x,x,x] https://github.com/EmilDzh/
-5. Tetiana Tatsenko		[x,x,x,x,x] https://github.com/madeinflower/
-6. Nicolai Songrov		[x,-,x,x,x] https://github.com/Songrov/
-7. Андрей Приймак		[x,x,x,x,-] https://github.com/Andrey5041975/
-8. Artur Voldaev		[x,x,x,-,-] https://github.com/ArturVoldaev/
-9. Kateryna Zurr		[-,-,-,-,-] https://github.com/zurrK/
-10. Anna Leonova		[x,x,-,-,-] https://github.com/AnnaLeonova1808/
-11. Daniils Berezins	[x,x,-,-,-] https://github.com/daniilberez/
-12. Anton Kiyashov		[x,-,-,-,-]
-13. Rychard Famichou	[x,-,-,-,-]
+1. Boris Romanenko		[x,x,x,x,x,x] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev		[x,x,x,x,x,x] https://github.com/Viktor-Uv/
+3. Mykhailo Shved		[x,x,x,x,x,x] https://github.com/behaunter/
+4. Emilbek Dzheenbaev	[x,x,x,x,x,x] https://github.com/EmilDzh/
+5. Artur Voldaev		[x,x,x,x,x,x] https://github.com/ArturVoldaev/
+6. Tetiana Tatsenko		[x,x,x,x,x,-] https://github.com/madeinflower/
+7. Nicolai Songrov		[x,-,x,x,x,-] https://github.com/Songrov/
+8. Андрей Приймак		[x,x,x,x,-,x] https://github.com/Andrey5041975/
+9. Kateryna Zurr		[-,-,-,-,-,-] https://github.com/zurrK/
+10. Anna Leonova		[x,x,-,-,-,-] https://github.com/AnnaLeonova1808/
+11. Daniils Berezins	[x,x,-,-,-,-] https://github.com/daniilberez/
+12. Anton Kiyashov		[x,-,-,-,-,-]
+13. Rychard Famichou	[x,-,-,-,-,-]
