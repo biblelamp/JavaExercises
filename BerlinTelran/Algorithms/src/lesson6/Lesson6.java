@@ -15,12 +15,18 @@ public class Lesson6 {
         da.add(12);
         da.add(3);
         da.add(-1);
-        da.add(7);
-        da.add(13);
         System.out.println(da);
+        //da.add(7);
+        //da.add(13);
+        //System.out.println(da);
         da.add(2, -5);
         System.out.println(da);
-        da.remove(3);
+        //da.remove(3);
+        da.add(8);
+        da.add(4);
+        da.add(12);
+        da.add(3);
+        da.add(-1);
         System.out.println(da);
     }
 }

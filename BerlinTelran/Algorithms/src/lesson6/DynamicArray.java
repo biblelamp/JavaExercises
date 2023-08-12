@@ -23,26 +23,29 @@ public class DynamicArray {
     }
 
     public void add(int value) {
-        if (size < array.length) {
-            array[size] = value;
-            size++;
-        } else {
-            int[] extArray = new int[array.length * 2];
-            System.arraycopy(array, 0, extArray, 0, array.length);
-            array = extArray;
-            array[size] = value;
-            size++;
-        }
+        expandArrayIfNeed();
+        array[size] = value;
+        size++;
     }
 
     public void add(int idx, int value) {
-        // TODO you have to control array's capacity
+        expandArrayIfNeed();
         System.arraycopy(array, idx, array, idx + 1, array.length - idx - 1);
         array[idx] = value;
         size++;
     }
 
+    private void expandArrayIfNeed() {
+        if (size == array.length) {
+            int[] extArray = new int[array.length * 2];
+            System.arraycopy(array, 0, extArray, 0, array.length);
+            array = extArray;
+            //System.out.println("Array size *2 = " + array.length);
+        }
+    }
+
     public void remove(int idx) {
+        // TODO check size array
         System.arraycopy(array, idx + 1, array, idx, array.length - idx - 1);
         size--;
     }
