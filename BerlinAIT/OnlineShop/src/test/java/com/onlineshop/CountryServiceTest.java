@@ -1,7 +1,6 @@
 package com.onlineshop;
 
 import com.onlineshop.controller.dto.CountryDTO;
-import com.onlineshop.repository.CountryRepository;
 import com.onlineshop.service.CountryService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,45 +15,47 @@ public class CountryServiceTest {
     @Autowired
     private CountryService countryService;
 
-    @Autowired
-    private CountryRepository countryRepository;
-
     @Test
     @Order(1)
-    public void findAllTest() {
+    public void addTest() {
         CountryDTO countryUSA = new CountryDTO(null, "USA");
-        countryService.add(countryUSA);
+        countryUSA = countryService.add(countryUSA);
+        Assertions.assertEquals("USA", countryUSA.getCountryName());
+
         CountryDTO countryGermany = new CountryDTO(null, "Germany");
-        countryService.add(countryGermany);
+        countryGermany = countryService.add(countryGermany);
+        Assertions.assertEquals("Germany", countryGermany.getCountryName());
 
-        List<CountryDTO> countries = countryService.findAll();
-
-        Assertions.assertEquals(2, countries.size());
+        countryGermany = countryService.add(countryGermany);
+        Assertions.assertNull(countryGermany);
     }
 
     @Test
     @Order(2)
-    public void addTest() {
-        CountryDTO countryPoland = new CountryDTO(null, "Poland");
-        CountryDTO countryAdded = countryService.add(countryPoland);
-
-        Assertions.assertEquals("Poland", countryAdded.getCountryName());
+    public void findAllTest() {
+        List<CountryDTO> countries = countryService.findAll();
+        Assertions.assertEquals(2, countries.size());
     }
+
 
     @Test
     @Order(3)
     public void updateTest() {
         CountryDTO countryJapan = new CountryDTO(null, "Japan");
-        CountryDTO countryUpdated = countryService.update(3, countryJapan);
-
+        CountryDTO countryUpdated = countryService.update(2, countryJapan);
         Assertions.assertEquals("Japan", countryUpdated.getCountryName());
+
+        CountryDTO notFound = countryService.update(3, countryJapan);
+        Assertions.assertNull(notFound);
     }
 
     @Test
     @Order(4)
     public void deleteTest() {
-        CountryDTO countryDeleted = countryService.delete(3);
-
+        CountryDTO countryDeleted = countryService.delete(2);
         Assertions.assertEquals("Japan", countryDeleted.getCountryName());
+
+        CountryDTO notFound = countryService.delete(3);
+        Assertions.assertNull(notFound);
     }
 }

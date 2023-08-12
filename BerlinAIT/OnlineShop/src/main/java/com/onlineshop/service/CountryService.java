@@ -43,6 +43,7 @@ public class CountryService {
         Optional<Country> country = countryRepository.findById(id);
         if (country.isPresent()) {
             Country updCountry = country.get();
+            // TODO control: if this name exists
             updCountry.setCountryName(countryDTO.getCountryName());
             updCountry = countryRepository.save(updCountry);
             return CountryDTO.getInstance(updCountry);
