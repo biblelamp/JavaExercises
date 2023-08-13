@@ -33,6 +33,9 @@ Algorithms группа 14-060323-e, занятия:
 
 8. Жадный алгоритм
    https://docs.google.com/presentation/d/1irBU6cFaxeDJtxqWpEj-k9mIVv-7IlD58FlzVZ7hWTw/
+   статьи: Жадные алгоритмы https://htmlacademy.ru/blog/js/greedy-algo
+           Жадные алгоритмы https://habr.com/ru/articles/120343/
+
 9. Жадный алгоритм. Практика
    https://docs.google.com/presentation/d/1oEMKVh6aQn1MGdkKZxB8Bu9oCU_Stp28aYThHMARPr8/
 10. Популярные алгоритмы для технических собеседований
