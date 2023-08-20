@@ -1,4 +1,4 @@
-package spring.config;
+package com.onlineshop.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -7,7 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
-import spring.domain.User;
+import com.onlineshop.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class JwtUtil {
 
     private final String SECRET_KEY = "secretkey";
-    private final int TOKEN_VALIDITY_TIME = 1; // in min
+    private final int TOKEN_VALIDITY_TIME = 10; // in min
 
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
@@ -30,6 +30,7 @@ public class JwtUtil {
 
     public String createToken(User user) {
         Claims claims = Jwts.claims().setSubject(user.getLogin());
+        claims.put("authorities", user.getAuthorities());
         claims.put("firstName", user.getFirstName());
         claims.put("lastName", user.getLastName());
         Date tokenCreateTime = new Date();
@@ -72,12 +73,4 @@ public class JwtUtil {
             throw e;
         }
     }
-
-//    public String getLogin(Claims claims) {
-//        return claims.getSubject();
-//    }
-//
-//    private List<String> getRoles(Claims claims) {
-//        return (List<String>) claims.get("roles");
-//    }
 }

@@ -1,4 +1,4 @@
-package spring.controller.dto;
+package com.onlineshop.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

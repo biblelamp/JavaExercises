@@ -16,7 +16,7 @@ public class AdminShopController {
     private ShopService shopService;
 
     @GetMapping("/all")
-    public List<ShopDTO> findAllShop() {
+    public List<ShopDTO> findAll() {
         return shopService.findAll();
     }
 

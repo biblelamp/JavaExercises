@@ -1,2 +1,10 @@
-package com.onlineshop.repository;public interface UserRepository {
+package com.onlineshop.repository;
+
+import com.onlineshop.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User findByLogin(String login);
 }

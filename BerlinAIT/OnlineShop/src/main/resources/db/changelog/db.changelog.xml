@@ -215,4 +215,24 @@ Ref: products_in_shop.shop_id > shops.shop_id
         </loadData>
     </changeSet>
 
+    <changeSet id="#3" author="sergey">
+        <createTable tableName="users">
+            <column name="user_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar(25)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="role" type="varchar(25)">
+                <constraints nullable="false" />
+            </column>
+            <column name="first_name" type="varchar(25)"/>
+            <column name="last_name" type="varchar(25)"/>
+        </createTable>
+        <sql>INSERT INTO users (login, password, role) VALUES ('admin', 'admin', 'ADMIN'), ('user', 'user', 'USER')</sql>
+    </changeSet>
+
 </databaseChangeLog>

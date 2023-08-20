@@ -1,4 +1,4 @@
-package spring.config;
+package com.onlineshop.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,9 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -42,9 +42,15 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (claims != null & jwtUtil.validateClaims(claims)){
                 String login = claims.getSubject();
+                Collection<Map> authoryListMap = (Collection<Map>) claims.get("authorities");
                 System.out.println("login : " + login);
+                System.out.println("authorities : " + authoryListMap);
+
+                Set<GrantedAuthority> authorities = new HashSet<>();
+                authoryListMap.forEach(item -> authorities.add(new SimpleGrantedAuthority((String) item.get("authority"))));
+
                 Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(login, "", new ArrayList<>());
+                        new UsernamePasswordAuthenticationToken(login, "", authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
