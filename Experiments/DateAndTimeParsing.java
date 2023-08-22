@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
+import java.util.concurrent.TimeUnit;
+
 /*
  * Parsing different type od date
  * see https://stackoverflow.com/questions/4496359/how-to-parse-date-string-to-date
@@ -20,5 +22,9 @@ class DateAndTimeParsing {
 
         DateFormat dateFormat = new SimpleDateFormat("d.M.yyy");
         System.out.println(dateFormat.format(java.sql.Date.valueOf(LocalDate.of(2821, 1, 1))));
+
+        Date now = new Date();
+        System.out.println(now);
+        System.out.println(new Date(now.getTime() + TimeUnit.MINUTES.toMillis(1)));
     }
 }
