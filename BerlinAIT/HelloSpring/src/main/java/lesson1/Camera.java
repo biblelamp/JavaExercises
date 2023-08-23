@@ -3,9 +3,6 @@ package lesson1;
 public class Camera {
     private CameraRoll cameraRoll;
 
-    public Camera() {
-    }
-
     public Camera(CameraRoll cameraRoll) {
         this.cameraRoll = cameraRoll;
     }
@@ -18,8 +15,8 @@ public class Camera {
         this.cameraRoll = cameraRoll;
     }
 
-    public void doPhotograph() {
+    public void doPhoto() {
         System.out.println("Click!");
-        cameraRoll.processing();
+        cameraRoll.takeImage();
     }
 }

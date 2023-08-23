@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
+
     @Bean
     public CameraRoll cameraRoll() {
-        return new CameraRoll() ;
+        return new CameraRoll();
     }
 
     @Bean
     public Camera camera(CameraRoll cameraRoll) {
-        Camera camera = new Camera();
-        camera.setCameraRoll(cameraRoll);
+        Camera camera = new Camera(cameraRoll);
         return camera;
     }
 }
