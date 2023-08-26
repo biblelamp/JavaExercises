@@ -38,6 +38,8 @@ Algorithms группа 14-060323-e, занятия:
 
 9. Жадный алгоритм. Практика
    https://docs.google.com/presentation/d/1oEMKVh6aQn1MGdkKZxB8Bu9oCU_Stp28aYThHMARPr8/
+   Динамическое программирование и задача о рюкзаке: https://skillbox.ru/media/code/dinamicheskoe_programmirovanie_eto_prosto_reshaem_zadachu_o_ryukzake/
+
 10. Популярные алгоритмы для технических собеседований
     https://docs.google.com/presentation/d/1kktzMErQRjaZUc3OThRp4epzF3lUNxzRB7bWfzO0slw/
 
@@ -47,18 +49,21 @@ Algorithms группа 14-060323-e, занятия:
 	август:		4,11,17,25
 	сентябрь:	1
 
+Код в репозитории:
+https://github.com/tel-ran-de/work-tasks-algorithm/tree/main/src/main/java/org/telran
+
 Студенты:
 
-1. Boris Romanenko		[x,x,x,x,x,x] https://github.com/RomanenkoBoris/
-2. Viktor Uvarchev		[x,x,x,x,x,x] https://github.com/Viktor-Uv/
-3. Mykhailo Shved		[x,x,x,x,x,x] https://github.com/behaunter/
-4. Emilbek Dzheenbaev	[x,x,x,x,x,x] https://github.com/EmilDzh/
-5. Artur Voldaev		[x,x,x,x,x,x] https://github.com/ArturVoldaev/
-6. Tetiana Tatsenko		[x,x,x,x,x,-] https://github.com/madeinflower/
-7. Nicolai Songrov		[x,-,x,x,x,-] https://github.com/Songrov/
-8. Андрей Приймак		[x,x,x,x,-,x] https://github.com/Andrey5041975/
-9. Kateryna Zurr		[-,-,-,-,-,-] https://github.com/zurrK/
-10. Anna Leonova		[x,x,-,-,-,-] https://github.com/AnnaLeonova1808/
-11. Daniils Berezins	[x,x,-,-,-,-] https://github.com/daniilberez/
-12. Anton Kiyashov		[x,-,-,-,-,-]
-13. Rychard Famichou	[x,-,-,-,-,-]
+1. Boris Romanenko		[x,x,x,x,x,x,x,x] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev		[x,x,x,x,x,x,x,-] https://github.com/Viktor-Uv/
+3. Mykhailo Shved		[x,x,x,x,x,x,x,-] https://github.com/behaunter/
+4. Emilbek Dzheenbaev	[x,x,x,x,x,x,-,x] https://github.com/EmilDzh/
+5. Artur Voldaev		[x,x,x,x,x,x,x,-] https://github.com/ArturVoldaev/
+6. Tetiana Tatsenko		[x,x,x,x,x,-,-,-] https://github.com/madeinflower/
+7. Nicolai Songrov		[x,-,x,x,x,-,-,-] https://github.com/Songrov/
+8. Андрей Приймак		[x,x,x,x,-,x,-,-] https://github.com/Andrey5041975/
+9. Kateryna Zurr		[-,-,-,-,-,-,-,-] https://github.com/zurrK/
+10. Anna Leonova		[x,x,-,-,-,-,-,-] https://github.com/AnnaLeonova1808/
+11. Daniils Berezins	[x,x,-,-,-,-,-,-] https://github.com/daniilberez/
+12. Anton Kiyashov		[x,-,-,-,-,-,-]
+13. Rychard Famichou	[x,-,-,-,-,-,-]
