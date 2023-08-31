@@ -1,0 +1,28 @@
+Java backend группа cohort26:
+
+Программа:		https://docs.google.com/spreadsheets/d/13wPXo6hq8_cWPu4Ki7dvx3LvOQDfqbnm751--LtiNFM/
+Расписание:		https://docs.google.com/spreadsheets/d/18wXC2jlGwDY1MnYdxXxcPufbjl0A6pduPlXY1kPNfeA/
+Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
+
+1. Backend и frontend, http протокол, утилиты curl и Postman. Введение в Spring
+2. Spring и Spring Boot, spring initializr. Сборщик Maven. Spring MVC
+3. Шаблон MVC, Thymeleaf, рендеринг на стороне сервера, CRUD, слои приложения: controller, service, domain, repository
+4. CRUD приложение: add, update, delete
+5. 
+
+Занятия:
+	август:		22,24,29
+	сентябрь:	
+	итого:		3
+
+Осталось:
+	август:		31
+	сентябрь:	5,7,12,14,19,21,26,28
+	октябрь:	?,?,?,?,?,?,?,?,?
+	итого:		18
+
+Студенты:
+
+1. Elena Sidanova		https://github.com/lenaSidan
+2. Wladimir Weizen		https://github.com/weizen-w
+3. Oleksandr Zhurba		https://github.com/sdkinc
