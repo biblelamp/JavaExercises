@@ -6,29 +6,29 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.13</version>
+        <version>2.7.15</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.ait-tr</groupId>
+    <groupId>net.hellocrud</groupId>
     <artifactId>hello-crud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hello-crud</name>
-    <description>CRUD project for Spring Boot</description>
+    <name>HelloCRUD</name>
+    <description>HelloCRUD Spring Boot application</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

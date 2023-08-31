@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of events</title>
+</head>
+<body>
+    <h2>Event list</h2>
+    <table border="1">
+        <tr>
+            <th>Event Name</th>
+            <th>City</th>
+        </tr>
+        <tr th:each="event : ${events}">
+            <td th:utext="${event.name}">...</td>
+            <td th:utext="${event.city}">...</td>
+        </tr>
+    </table>
+    <p>Add event: <a href="/add">click</a></p>
+</body>
+</html>

@@ -3,77 +3,33 @@ package spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import spring.domain.Event;
 import spring.service.EventService;
+
+import java.util.List;
 
 @Controller
 public class EventController {
 
-    // внедрение зависимости через аннотацию
     @Autowired
-    EventService eventService;
-
-    // внедрение зависимости через конструктор
-//    public EventController(EventService eventService) {
-//        this.eventService = eventService;
-//    }
+    private EventService eventService;
 
     @GetMapping("/")
-    public String findAll(Model model) {
-        model.addAttribute("events", eventService.findAll());
-        return "list";
+    public String listForm(Model model) {
+        List<Event> events = eventService.findAll();
+        model.addAttribute("events", events);
+        return "listEvent";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addEventForm(Model model) {
-        Event event = new Event();
-        model.addAttribute("event", event);
-        return "add";
+    @GetMapping("/add")
+    public String addForm(Model model) {
+        return "addEvent";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addEvent(Model model, @ModelAttribute("event") Event event) {
-        String name = event.getName();
-        String city = event.getCity();
-
-        if (name != null && name.length() > 0 && city != null && city.length() > 0) {
-            Event newEvent = new Event(name, city);
-            eventService.add(newEvent);
-
-            return "redirect:/";
-        }
-        model.addAttribute("errorMessage", "Event Name & City is required!");
-        return "add";
+    @PostMapping("/add")
+    public String addPost() {
+        return null;
     }
-
-    @GetMapping("/update/{id}")
-    public String updateEventForm(Model model, @PathVariable Integer id) {
-        Event event = eventService.get(id);
-        model.addAttribute("events", eventService.findAll());
-        model.addAttribute("event", event);
-        return "update";
-    }
-
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public String updateEvent(Model model, @ModelAttribute("event") Event event, @PathVariable Integer id) {
-        String name = event.getName();
-        String city = event.getCity();
-
-        if (name != null && name.length() > 0 && city != null && city.length() > 0) {
-            Event newEvent = new Event(name, city);
-            eventService.update(id, newEvent);
-
-            return "redirect:/";
-        }
-        model.addAttribute("errorMessage", "Event Name & City is required!");
-        return "update";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public String delete(Integer id) {
-        eventService.remove(id);
-        return "redirect:/";
-    }
-
 }
