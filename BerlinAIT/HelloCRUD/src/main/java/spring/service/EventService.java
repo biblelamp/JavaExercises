@@ -20,4 +20,16 @@ public class EventService {
     public void add(Event event) {
         eventRepository.save(event);
     }
+
+    public Event findById(Integer id) {
+        return eventRepository.findById(id);
+    }
+
+    public void update(Integer id, Event event) {
+        eventRepository.save(id, event);
+    }
+
+    public void remove(Integer id) {
+        eventRepository.remove(id);
+    }
 }

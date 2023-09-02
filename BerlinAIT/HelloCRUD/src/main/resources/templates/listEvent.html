@@ -10,10 +10,18 @@
         <tr>
             <th>Event Name</th>
             <th>City</th>
+            <th colspan="2">Actions</th>
         </tr>
         <tr th:each="event : ${events}">
             <td th:utext="${event.name}">...</td>
             <td th:utext="${event.city}">...</td>
+            <td><a th:href="@{/update/{id}(id=${events.indexOf(event)})}">edit</a></td>
+            <td>
+                <form action="/delete" th:method="DELETE">
+                    <input type="hidden" name="id" th:value="${events.indexOf(event)}"/>
+                    <button>delete</button>
+                </form>
+            </td>
         </tr>
     </table>
     <p>Add event: <a href="/add">click</a></p>

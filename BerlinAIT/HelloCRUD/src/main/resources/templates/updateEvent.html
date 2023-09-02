@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Event</title>
+    <title>Update Event</title>
 </head>
 <body>
-    <h2>Add Event Page</h2>
-    <form action="/add" th:object="${event}" method="POST">
+    <h2>Update Event Page</h2>
+    <form th:action="@{/update/{id}(id=${id})}" th:object="${event}" th:method="PUT">
         <table>
             <tr>
                 <td>Event name</td>
@@ -17,7 +17,7 @@
                 <td><input type="text" th:field="*{city}"/></td>
             </tr>
         </table>
-        <input type="submit" value="Add event" />
+        <input type="submit" value="Update event" />
     </form>
 
     <div th:if="${errorMsg}" th:utext="${errorMsg}" style="color:red;font-style:italic">...</div>
