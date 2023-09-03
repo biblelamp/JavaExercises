@@ -8,21 +8,22 @@ Java backend группа cohort26:
 2. Spring и Spring Boot, spring initializr. Сборщик Maven. Spring MVC
 3. Шаблон MVC, Thymeleaf, рендеринг на стороне сервера, CRUD, слои приложения: controller, service, domain, repository
 4. CRUD приложение: add, update, delete
-5. 
+5. REST API и REST контроллер, SwaggerUI
+6. 
 
 Занятия:
-	август:		22,24,29
+	август:		22,24,29,31
 	сентябрь:	
-	итого:		3
+	итого:		4
 
 Осталось:
-	август:		31
 	сентябрь:	5,7,12,14,19,21,26,28
 	октябрь:	?,?,?,?,?,?,?,?,?
-	итого:		18
+	итого:		8 + 9 = 17
 
 Студенты:
 
 1. Elena Sidanova		https://github.com/lenaSidan
 2. Wladimir Weizen		https://github.com/weizen-w
 3. Oleksandr Zhurba		https://github.com/sdkinc
+4. Maiia Katts			https://github.com/MaiiaKatts
