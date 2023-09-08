@@ -9,19 +9,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/event")
-public class EventRestController {
+public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<Event> findAll() {
         return eventService.findAll();
     }
 
     @GetMapping("/{id}")
     public Event findById(@PathVariable Integer id) {
-        return eventService.get(id);
+        return eventService.findById(id);
     }
 
     @PostMapping("/add")
@@ -29,9 +29,9 @@ public class EventRestController {
         return eventService.add(event);
     }
 
-    @PutMapping("/update/{id}")
-    public Event update(@PathVariable Integer id, @RequestBody Event event) {
-        return eventService.update(id, event);
+    @PutMapping("/update")
+    public Event update(@RequestBody Event event) {
+        return eventService.update(event);
     }
 
     @DeleteMapping("/delete/{id}")

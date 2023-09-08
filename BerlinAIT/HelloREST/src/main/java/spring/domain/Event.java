@@ -4,18 +4,18 @@ public class Event {
     private Integer id;
     private String name;
     private String city;
-    private static int count = 0;
+    private static int counter = 0;
 
     public Event() {
     }
 
     public Event(String name, String city) {
-        this.id = ++count;
+        this.id = ++counter;
         this.name = name;
         this.city = city;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
