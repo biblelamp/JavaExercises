@@ -1,6 +1,6 @@
-package lesson5.spring;
+package lesson6.spring;
 
-import lesson5.UserDAO;
+import lesson6.UserDAO;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +12,12 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
-        PGSimpleDataSource pgDataSource = new PGSimpleDataSource();
-        pgDataSource.setServerName("localhost");
-        pgDataSource.setDatabaseName("ait_tr");
-        pgDataSource.setUser("postgres");
-        pgDataSource.setPassword("root");
-        return pgDataSource;
+        PGSimpleDataSource pgDS = new PGSimpleDataSource();
+        pgDS.setServerName("localhost");
+        pgDS.setDatabaseName("cohort26");
+        pgDS.setUser("postgres");
+        pgDS.setPassword("root");
+        return pgDS;
     }
 
     @Bean
