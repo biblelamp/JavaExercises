@@ -9,17 +9,18 @@ Java backend группа cohort26:
 3. Шаблон MVC, Thymeleaf, рендеринг на стороне сервера, CRUD, слои приложения: controller, service, domain, repository
 4. CRUD приложение: add, update, delete
 5. REST API и REST контроллер, SwaggerUI
-6. 
+6. Что такое Spring Framework? Dependency Injection (DI), Inversion of Control (IoC), PostgreSQL, JDBC
+7. 
 
 Занятия:
 	август:		22,24,29,31
-	сентябрь:	
-	итого:		4
+	сентябрь:	5,7
+	итого:		6
 
 Осталось:
-	сентябрь:	5,7,12,14,19,21,26,28
-	октябрь:	?,?,?,?,?,?,?,?,?
-	итого:		8 + 9 = 17
+	сентябрь:	12,14,19,21,26,28
+	октябрь:	5,10,12,13,16,17,18,19,20,23,24,25,26,27
+	итого:		6 + 14 = 20
 
 Студенты:
 
@@ -27,3 +28,4 @@ Java backend группа cohort26:
 2. Wladimir Weizen		https://github.com/weizen-w
 3. Oleksandr Zhurba		https://github.com/sdkinc
 4. Maiia Katts			https://github.com/MaiiaKatts
+5. Kateryna Horshkova	https://github.com/Imire0812
