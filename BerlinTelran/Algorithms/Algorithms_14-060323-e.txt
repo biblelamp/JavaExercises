@@ -42,6 +42,9 @@ Algorithms группа 14-060323-e, занятия:
 
 10. Популярные алгоритмы для технических собеседований
     https://docs.google.com/presentation/d/1kktzMErQRjaZUc3OThRp4epzF3lUNxzRB7bWfzO0slw/
+    статья: Собеседование по алгоритмам теория vs практика https://habr.com/ru/articles/485596/
+    хэш-таблицы: https://blog.skillfactory.ru/glossary/hashmap/
+                 https://javarush.com/groups/posts/2496-podrobnihy-razbor-klassa-hashmap
 
 Расписание:
 	июнь:		15,22,29
@@ -54,16 +57,16 @@ https://github.com/tel-ran-de/work-tasks-algorithm/tree/main/src/main/java/org/t
 
 Студенты:
 
-1. Boris Romanenko		[x,x,x,x,x,x,x,x] https://github.com/RomanenkoBoris/
-2. Viktor Uvarchev		[x,x,x,x,x,x,x,-] https://github.com/Viktor-Uv/
-3. Mykhailo Shved		[x,x,x,x,x,x,x,-] https://github.com/behaunter/
-4. Emilbek Dzheenbaev	[x,x,x,x,x,x,-,x] https://github.com/EmilDzh/
-5. Artur Voldaev		[x,x,x,x,x,x,x,-] https://github.com/ArturVoldaev/
-6. Tetiana Tatsenko		[x,x,x,x,x,-,-,-] https://github.com/madeinflower/
-7. Nicolai Songrov		[x,-,x,x,x,-,-,-] https://github.com/Songrov/
-8. Андрей Приймак		[x,x,x,x,-,x,-,-] https://github.com/Andrey5041975/
-9. Kateryna Zurr		[-,-,-,-,-,-,-,-] https://github.com/zurrK/
-10. Anna Leonova		[x,x,-,-,-,-,-,-] https://github.com/AnnaLeonova1808/
-11. Daniils Berezins	[x,x,-,-,-,-,-,-] https://github.com/daniilberez/
-12. Anton Kiyashov		[x,-,-,-,-,-,-]
-13. Rychard Famichou	[x,-,-,-,-,-,-]
+1. Boris Romanenko		[x,x,x,x,x,x,x,x,x,x] https://github.com/RomanenkoBoris/
+2. Viktor Uvarchev		[x,x,x,x,x,x,x,x,x,x] https://github.com/Viktor-Uv/
+3. Mykhailo Shved		[x,x,x,x,x,x,x,x,-,-] https://github.com/behaunter/
+4. Emilbek Dzheenbaev	[x,x,x,x,x,x,-,x,x,x] https://github.com/EmilDzh/
+5. Artur Voldaev		[x,x,x,x,x,x,x,x,x,-] https://github.com/ArturVoldaev/
+6. Tetiana Tatsenko		[x,x,x,x,x,-,-,-,-] https://github.com/madeinflower/
+7. Nicolai Songrov		[x,-,x,x,x,-,-,x,x] https://github.com/Songrov/
+8. Андрей Приймак		[x,x,x,x,-,x,-,-,-] https://github.com/Andrey5041975/
+9. Kateryna Zurr		[-,-,-,-,-,-,-,-,x] https://github.com/zurrK/
+10. Anna Leonova		[x,x,-,-,-,-,-,-,-] https://github.com/AnnaLeonova1808/
+11. Daniils Berezins	[x,x,-,-,-,-,-,-,-] https://github.com/daniilberez/
+12. Anton Kiyashov		[x,-,-]
+13. Rychard Famichou	[x,-,-]
