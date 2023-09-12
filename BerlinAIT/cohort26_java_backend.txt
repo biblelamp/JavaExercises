@@ -10,17 +10,18 @@ Java backend группа cohort26:
 4. CRUD приложение: add, update, delete
 5. REST API и REST контроллер, SwaggerUI
 6. Что такое Spring Framework? Dependency Injection (DI), Inversion of Control (IoC), PostgreSQL, JDBC
-7. 
+7. Spring Data, hibernate, сущность @Entity. Объектно-реляционное отображение
+8. 
 
 Занятия:
 	август:		22,24,29,31
-	сентябрь:	5,7
-	итого:		6
+	сентябрь:	5,7,12
+	итого:		7
 
 Осталось:
-	сентябрь:	12,14,19,21,26,28
+	сентябрь:	14,19,21,26,28
 	октябрь:	5,10,12,13,16,17,18,19,20,23,24,25,26,27
-	итого:		6 + 14 = 20
+	итого:		5 + 14 = 19
 
 Студенты:
 
