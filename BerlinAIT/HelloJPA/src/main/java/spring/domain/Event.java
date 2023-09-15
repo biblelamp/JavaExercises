@@ -8,20 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-/*
-Создание таблицы
-CREATE TABLE event (
-  id   SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  city TEXT NOT NULL
-);
- */
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "events")
 public class Event {
 
     @Id
@@ -29,5 +22,4 @@ public class Event {
     private Integer id;
     private String name;
     private String city;
-
 }
