@@ -16,6 +16,6 @@ public class EventDTO {
     private String city;
 
     public static EventDTO getInstance(Event event) {
-        return new EventDTO(event.getId(), event.getName(), event.getCity());
+        return new EventDTO(event.getEventId(), event.getName(), event.getCity().getName());
     }
 }

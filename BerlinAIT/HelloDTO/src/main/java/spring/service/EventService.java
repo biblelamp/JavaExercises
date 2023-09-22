@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.controller.dto.EventDTO;
+import spring.domain.City;
 import spring.domain.Event;
+import spring.repository.CityRepository;
 import spring.repository.EventRepository;
 
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private CityService cityService;
 
     public List<EventDTO> findAll() {
         List<Event> events = eventRepository.findAll();
@@ -42,7 +47,8 @@ public class EventService {
     }
 
     public EventDTO add(EventDTO e) {
-        Event event = new Event(null, e.getName(), e.getCity());
+        City city = cityService.findByName(e.getCity());
+        Event event = new Event(null, e.getName(), city);
         event = eventRepository.save(event);
         return EventDTO.getInstance(event);
     }
@@ -50,8 +56,9 @@ public class EventService {
     public EventDTO update(EventDTO e) {
         Event event = eventRepository.findById(e.getId()).orElse(null);
         if (event != null) {
+            City city = cityService.findByName(e.getCity());
             event.setName(e.getName());
-            event.setCity(e.getCity());
+            event.setCity(city);
             event = eventRepository.save(event);
             return EventDTO.getInstance(event);
         }
