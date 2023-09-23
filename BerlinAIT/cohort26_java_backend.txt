@@ -11,24 +11,25 @@ Java backend группа cohort26:
 5. REST API и REST контроллер, SwaggerUI
 6. Что такое Spring Framework? Dependency Injection (DI), Inversion of Control (IoC), PostgreSQL, JDBC
 7. Spring Data, hibernate, сущность @Entity. Объектно-реляционное отображение
-8. Spring Data JPA, слой repository, Lombok, DTO классы
-9. 
+8. Spring Data JPA, слой repository, Lombok
+9. DTO классы, нормализация БД, логгирование
+10. Связь «один ко многим», Spring приложение на Linux сервере
 
 Занятия:
 	август:		22,24,29,31
-	сентябрь:	5,7,12,14
-	итого:		8
+	сентябрь:	5,7,12,14,19,21
+	итого:		10
 
 Осталось:
-	сентябрь:	19,21,26,28
+	сентябрь:	26,28
 	октябрь:	5,10,12,13,16,17,18,19,20,23,24,25,26,27
-	итого:		4 + 14 = 18
+	итого:		2 + 14 = 16
 
 Студенты:
 
 1. Oleksandr Zhurba		https://github.com/sdkinc
-2. Elena Sidanova		https://github.com/lenaSidan
-3. Wladimir Weizen		https://github.com/weizen-w
+2. Wladimir Weizen		https://github.com/weizen-w
+3. Elena Sidanova		https://github.com/lenaSidan
 4. Maiia Katts			https://github.com/MaiiaKatts
 5. Kateryna Horshkova	https://github.com/Imire0812
 6. Tetiana Chernobai	https://github.com/Tanchik88
