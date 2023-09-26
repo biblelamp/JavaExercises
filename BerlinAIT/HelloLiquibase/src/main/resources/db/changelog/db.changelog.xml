@@ -5,30 +5,34 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="#1" author="sergey">
-        <createTable tableName="event">
+    <changeSet id="#1" author="Sergey">
+        <createTable tableName="events">
             <column name="event_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)"/>
-            <column name="city" type="varchar(50)"/>
+            <column name="name" type="varchar(255)" />
+            <column name="city" type="varchar(255)" />
         </createTable>
     </changeSet>
 
-    <changeSet id="#2" author="sergey">
-        <createTable tableName="city">
+    <changeSet id="#2" author="Sergey">
+        <createTable tableName="cities">
             <column name="city_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)"/>
+            <column name="name" type="varchar(255)"/>
         </createTable>
-        <dropColumn tableName="event" columnName="city"/>
-        <addColumn tableName="event">
-            <column name="city_id" type="int"/>
+        <sql>INSERT INTO cities (name) SELECT DISTINCT e.city FROM events e</sql>
+        <addColumn tableName="events">
+            <column name="city_id" type="int" />
         </addColumn>
-        <addForeignKeyConstraint baseTableName="event" baseColumnNames="city_id"
-                                 constraintName="fk_event_city" referencedTableName="city"
-                                 referencedColumnNames="city_id"/>
+        <sql>UPDATE events SET city_id = sq.city_id
+             FROM (SELECT * FROM cities) AS sq
+             WHERE events.city = sq.name</sql>
+        <dropColumn tableName="events" columnName="city" />
+        <addForeignKeyConstraint baseTableName="events" baseColumnNames="city_id"
+                                 constraintName="fk_events_cities"
+                                 referencedTableName="cities" referencedColumnNames="city_id" />
     </changeSet>
 
 </databaseChangeLog>

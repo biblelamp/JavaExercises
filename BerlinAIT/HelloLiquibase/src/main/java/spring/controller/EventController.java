@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.controller.dto.EventDTO;
-import spring.domain.Event;
 import spring.service.EventService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/event")
-public class EventRestController {
+public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<EventDTO> findAll() {
         return eventService.findAll();
     }
@@ -37,9 +36,9 @@ public class EventRestController {
         return eventService.add(event);
     }
 
-    @PutMapping("/update/{id}")
-    public EventDTO update(@PathVariable Integer id, @RequestBody EventDTO event) {
-        return eventService.update(id, event);
+    @PutMapping("/update")
+    public EventDTO update(@RequestBody EventDTO event) {
+        return eventService.update(event);
     }
 
     @DeleteMapping("/delete/{id}")

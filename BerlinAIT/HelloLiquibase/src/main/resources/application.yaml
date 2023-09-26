@@ -1,10 +1,11 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/cohort24
+    url: jdbc:postgresql://localhost:5432/cohort26
     username: postgres
     password: root
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
+logging:
+  file:
+    name: hello-liquibase.log
+  level:
+    spring: INFO
