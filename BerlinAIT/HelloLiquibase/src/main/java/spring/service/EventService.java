@@ -55,7 +55,9 @@ public class EventService {
         City city = cityService.findByName(e.getCity());
         Event event = new Event(null, e.getName(), city);
         event = eventRepository.save(event);
-        return EventDTO.getInstance(event);
+        EventDTO eventDTO = EventDTO.getInstance(event);
+        log.info("Added {} to Event table.", eventDTO);
+        return eventDTO;
     }
 
     public EventDTO update(EventDTO e) {
@@ -65,8 +67,11 @@ public class EventService {
             event.setName(e.getName());
             event.setCity(city);
             event = eventRepository.save(event);
-            return EventDTO.getInstance(event);
+            EventDTO eventDTO = EventDTO.getInstance(event);
+            log.info("Updated {} in Event table.", eventDTO);
+            return eventDTO;
         }
+        log.error("Not found event, eventId={} from Event table.", e.getId());
         return null;
     }
 
@@ -74,8 +79,11 @@ public class EventService {
         Event event = eventRepository.findById(id).orElse(null);
         if (event != null) {
             eventRepository.delete(event);
-            return EventDTO.getInstance(event);
+            EventDTO eventDTO = EventDTO.getInstance(event);
+            log.info("Deleted {} from Event table.", eventDTO);
+            return eventDTO;
         }
+        log.error("Not found event, eventId={} from Event table.", id);
         return null;
     }
 }
