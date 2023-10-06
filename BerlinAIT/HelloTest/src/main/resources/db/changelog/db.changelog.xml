@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="#1" author="Sergey">
+        <createTable tableName="events">
+            <column name="event_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="city" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="#2" author="Sergey">
+        <createTable tableName="cities">
+            <column name="city_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+        <sql>INSERT INTO cities (name) SELECT DISTINCT e.city FROM events e</sql>
+        <addColumn tableName="events">
+            <column name="city_id" type="int" />
+        </addColumn>
+        <sql>UPDATE events e SET city_id = (
+               SELECT c.city_id FROM cities c WHERE e.city = c.name)</sql>
+        <!-- WHERE EXISTS (
+            SELECT 1
+            FROM cities c
+            WHERE e.city = c.name -->
+        <dropColumn tableName="events" columnName="city" />
+        <addForeignKeyConstraint baseTableName="events" baseColumnNames="city_id"
+                                 constraintName="fk_events_cities"
+                                 referencedTableName="cities" referencedColumnNames="city_id" />
+    </changeSet>
+
+</databaseChangeLog>
