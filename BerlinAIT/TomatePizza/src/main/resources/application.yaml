@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/pizza
+    username: postgres
+    password: root
+#logging:
+#  file:
+#    name: hello-liquibase.log
+#  level:
+#    spring: INFO
