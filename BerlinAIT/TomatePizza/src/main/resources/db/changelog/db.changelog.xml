@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="#1" author="Sergey">
+        <createTable tableName="cafe">
+            <column name="cafe_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- TODO add colums -->
+        </createTable>
+        <createTable tableName="ingredient">
+            <column name="ingredient_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="pizza_size_id" type="int"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="price" type="number(10,2)"/>
+        </createTable>
+        <createTable tableName="order">
+            <column name="order_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int"/>
+            <column name="state" type="varchar(15)"/>
+            <column name="service" type="number(10,2)"/>
+        </createTable>
+        <createTable tableName="order_pizza">
+            <column name="order_pizza_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="int"/>
+            <column name="pizza_id" type="int"/>
+        </createTable>
+        <createTable tableName="pizza">
+            <column name="pizza_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pizza_base_id" type="int"/>
+            <column name="price" type="number(10,2)"/>
+        </createTable>
+        <createTable tableName="pizza_base">
+            <column name="pizza_base_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="pizza_size_id" type="int"/>
+            <column name="price" type="number(10,2)"/>
+        </createTable>
+        <createTable tableName="pizza_ingredient">
+            <column name="pizza_ingredient_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pizza_id" type="int"/>
+            <column name="ingredient_id" type="int"/>
+        </createTable>
+        <createTable tableName="pizza_size">
+            <column name="pizza_size_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="size" type="number(8,2)"/>
+        </createTable>
+        <createTable tableName="user">
+            <column name="user_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)"/>
+            <column name="password" type="varchar(50)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone" type="varchar(50)"/>
+            <column name="address" type="varchar(255)"/>
+        </createTable>
+        <!-- table relationships -->
+        <addForeignKeyConstraint baseTableName="ingredient" baseColumnNames="pizza_size_id"
+                                 constraintName="fk_ingredient_pizza_size"
+                                 referencedTableName="pizza_size" referencedColumnNames="pizza_size_id" />
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="user_id"
+                                 constraintName="fk_order_user"
+                                 referencedTableName="user" referencedColumnNames="user_id" />
+        <addForeignKeyConstraint baseTableName="order_pizza" baseColumnNames="order_id"
+                                 constraintName="fk_order_pizza_order"
+                                 referencedTableName="order" referencedColumnNames="order_id" />
+        <addForeignKeyConstraint baseTableName="order_pizza" baseColumnNames="pizza_id"
+                                 constraintName="fk_order_pizza_pizza"
+                                 referencedTableName="pizza" referencedColumnNames="pizza_id" />
+    </changeSet>
+
+</databaseChangeLog>
