@@ -24,5 +24,5 @@ public class PizzaSize {
     private int id;
 
     private String name;
-    private double size;
+    private String size;
 }

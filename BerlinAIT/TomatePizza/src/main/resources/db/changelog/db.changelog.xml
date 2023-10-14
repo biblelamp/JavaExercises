@@ -6,12 +6,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="#1" author="Sergey">
-        <createTable tableName="cafe">
-            <column name="cafe_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <!-- TODO add colums -->
-        </createTable>
         <createTable tableName="ingredient">
             <column name="ingredient_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -19,15 +13,17 @@
             <column name="name" type="varchar(100)"/>
             <column name="pizza_size_id" type="int"/>
             <column name="description" type="varchar(255)"/>
-            <column name="price" type="number(10,2)"/>
+            <column name="price" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="order">
             <column name="order_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="int"/>
+            <column name="order_date" type="timestamp"/>
             <column name="state" type="varchar(15)"/>
-            <column name="service" type="number(10,2)"/>
+            <column name="service" type="numeric(10,2)"/>
+            <column name="total" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="order_pizza">
             <column name="order_pizza_id" type="int" autoIncrement="true">
@@ -41,15 +37,15 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="pizza_base_id" type="int"/>
-            <column name="price" type="number(10,2)"/>
+            <column name="price" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="pizza_base">
             <column name="pizza_base_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)"/>
+            <column name="pizza_type_id" type="int"/>
             <column name="pizza_size_id" type="int"/>
-            <column name="price" type="number(10,2)"/>
+            <column name="price" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="pizza_ingredient">
             <column name="pizza_ingredient_id" type="int" autoIncrement="true">
@@ -62,8 +58,15 @@
             <column name="pizza_size_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)"/>
-            <column name="size" type="number(8,2)"/>
+            <column name="name" type="varchar(25)"/>
+            <column name="size" type="varchar(25)"/>
+        </createTable>
+        <createTable tableName="pizza_type">
+            <column name="pizza_type_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(255)"/>
         </createTable>
         <createTable tableName="user">
             <column name="user_id" type="int" autoIncrement="true">
@@ -88,6 +91,33 @@
         <addForeignKeyConstraint baseTableName="order_pizza" baseColumnNames="pizza_id"
                                  constraintName="fk_order_pizza_pizza"
                                  referencedTableName="pizza" referencedColumnNames="pizza_id" />
+        <addForeignKeyConstraint baseTableName="pizza" baseColumnNames="pizza_base_id"
+                                 constraintName="fk_pizza_pizza_base"
+                                 referencedTableName="pizza_base" referencedColumnNames="pizza_base_id" />
+        <addForeignKeyConstraint baseTableName="pizza_base" baseColumnNames="pizza_type_id"
+                                 constraintName="fk_pizza_base_pizza_type"
+                                 referencedTableName="pizza_type" referencedColumnNames="pizza_type_id" />
+        <addForeignKeyConstraint baseTableName="pizza_ingredient" baseColumnNames="pizza_id"
+                                 constraintName="fk_pizza_ingredient_pizza"
+                                 referencedTableName="pizza" referencedColumnNames="pizza_id" />
+        <addForeignKeyConstraint baseTableName="pizza_ingredient" baseColumnNames="ingredient_id"
+                                 constraintName="fk_pizza_ingredient_ingredient"
+                                 referencedTableName="ingredient" referencedColumnNames="ingredient_id" />
+    </changeSet>
+
+    <changeSet id="#2" author="Sergey">
+        <loadData tableName="pizza_type"
+                  separator=","
+                  file="db/data/pizza_type.csv">
+        </loadData>
+        <loadData tableName="pizza_size"
+                  separator=","
+                  file="db/data/pizza_size.csv">
+        </loadData>
+        <loadData tableName="pizza_base"
+                  separator=","
+                  file="db/data/pizza_base.csv">
+        </loadData>
     </changeSet>
 
 </databaseChangeLog>

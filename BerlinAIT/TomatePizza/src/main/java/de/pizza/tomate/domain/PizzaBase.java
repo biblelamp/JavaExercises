@@ -25,12 +25,13 @@ public class PizzaBase {
     @Column(name = "pizza_base_id")
     private int id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "pizza_type_id")
+    private PizzaType pizzaType;
 
     @ManyToOne
     @JoinColumn(name = "pizza_size_id")
     private PizzaSize pizzaSize;
 
-    private String description;
     private Double price;
 }

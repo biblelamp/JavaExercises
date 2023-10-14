@@ -16,11 +16,13 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Cafe {
+public class PizzaType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cafe_id")
+    @Column(name = "pizza_type_id")
     private int id;
 
+    private String name;
+    private String description;
 }
