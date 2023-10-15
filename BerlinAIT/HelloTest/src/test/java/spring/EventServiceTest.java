@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import spring.controller.dto.EventDTO;
 import spring.domain.City;
 import spring.domain.Event;
@@ -12,6 +13,7 @@ import spring.repository.EventRepository;
 import spring.service.EventService;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class EventServiceTest {
 
     @Autowired
