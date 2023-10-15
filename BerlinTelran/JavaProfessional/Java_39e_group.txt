@@ -22,6 +22,6 @@ Project:		6.4, 17.4, 20.4, 24.4, 27.4, 4.5, 8.5, 11.5, 15.5, 22.5, 25.5, 1.6
 
 1. Daniil Izmajlov		https://github.com/TremoziDaniel/	банк
 2. Dzmitry Kryvialeu	https://github.com/dfkrivelev/		банк
-3. Sergey Bugaienko		https://github.com/Bugaienko/		пиццерия
+3. Sergey Bugaienko		https://github.com/Bugaienko/		пиццерия (https://github.com/Bugaienko/Pizza-Single-Modules)
 4. Yurii Kuzmenko		https://github.com/YuriiKuzmenk/	турнир
 5. Artysh Namchyl		https://github.com/namchylartysh/	банк
