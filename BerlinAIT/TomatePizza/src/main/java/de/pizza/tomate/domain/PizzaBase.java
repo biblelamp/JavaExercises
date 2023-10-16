@@ -34,4 +34,6 @@ public class PizzaBase {
     private PizzaSize pizzaSize;
 
     private Double price;
+
+    private Boolean deleted;
 }

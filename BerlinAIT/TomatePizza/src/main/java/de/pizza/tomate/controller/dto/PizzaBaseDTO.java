@@ -6,18 +6,20 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PizzaDTO {
+public class PizzaBaseDTO {
     private Integer id;
     private String name;
     private String description;
     private String size;
     private Double price;
+    private Boolean deleted;
 
-    public static PizzaDTO getInstance(PizzaBase pizza) {
-        return new PizzaDTO(pizza.getId(),
+    public static PizzaBaseDTO getInstance(PizzaBase pizza) {
+        return new PizzaBaseDTO(pizza.getId(),
                 pizza.getPizzaType().getName(),
                 pizza.getPizzaType().getDescription(),
                 pizza.getPizzaSize().getName(),
-                pizza.getPrice());
+                pizza.getPrice(),
+                pizza.getDeleted());
     }
 }

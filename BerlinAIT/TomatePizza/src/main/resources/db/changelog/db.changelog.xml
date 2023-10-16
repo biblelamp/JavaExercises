@@ -46,6 +46,7 @@
             <column name="pizza_type_id" type="int"/>
             <column name="pizza_size_id" type="int"/>
             <column name="price" type="numeric(10,2)"/>
+            <column name="deleted" type="boolean"/>
         </createTable>
         <createTable tableName="pizza_ingredient">
             <column name="pizza_ingredient_id" type="int" autoIncrement="true">
