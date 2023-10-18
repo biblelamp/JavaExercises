@@ -37,6 +37,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="pizza_base_id" type="int"/>
+            <column name="price_base" type="numeric(10,2)"/>
             <column name="price" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="pizza_base">
@@ -46,6 +47,7 @@
             <column name="pizza_type_id" type="int"/>
             <column name="pizza_size_id" type="int"/>
             <column name="price" type="numeric(10,2)"/>
+            <column name="ordered" type="boolean"/>
             <column name="deleted" type="boolean"/>
         </createTable>
         <createTable tableName="pizza_ingredient">

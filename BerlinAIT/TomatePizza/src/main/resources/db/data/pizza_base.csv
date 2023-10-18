@@ -1,4 +1,4 @@
-pizza_type_id,pizza_size_id,price,deleted
-1,1,6.5,false
-1,2,9.5,false
-1,3,16.5,false
+pizza_type_id,pizza_size_id,price,ordered,deleted
+1,1,6.5,false,false
+1,2,9.5,false,false
+1,3,16.5,false,false

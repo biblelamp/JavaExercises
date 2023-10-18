@@ -29,5 +29,9 @@ public class Pizza {
     @JoinColumn(name = "pizza_base_id")
     private PizzaBase pizzaBase;
 
+    // to save history of price pizzaBase
+    private Double priceBase;
+
+    // price with ingredients (or not)
     private Double price;
 }

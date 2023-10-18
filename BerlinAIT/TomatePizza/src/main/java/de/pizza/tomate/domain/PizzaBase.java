@@ -35,5 +35,8 @@ public class PizzaBase {
 
     private Double price;
 
+    // if this pizza was ordered
+    private Boolean ordered;
+
     private Boolean deleted;
 }

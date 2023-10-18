@@ -64,15 +64,22 @@ public class PizzaBaseService {
     }
 
     public PizzaBaseDTO update(PizzaBaseCreateUpdate pizza) {
-        // TODO если пицца была в заказах - изменения запретить
         PizzaBase pizzaBase = pizzaBaseRepository.findById(pizza.getId()).orElse(null);
         PizzaType pizzaType = pizzaTypeRepository.findById(pizza.getPizzaTypeId()).orElse(null);
         PizzaSize pizzaSize = pizzaSizeRepository.findById(pizza.getPizzaSizeId()).orElse(null);
-        if (pizzaBase != null && pizzaType != null && pizzaSize != null) {
-            pizzaBase.setPizzaType(pizzaType);
-            pizzaBase.setPizzaSize(pizzaSize);
-            pizzaBase.setPrice(pizza.getPrice());
-            return PizzaBaseDTO.getInstance(pizzaBaseRepository.save(pizzaBase);
+        // if pizza exists
+        if (pizzaBase != null) {
+            // if pizza was ordered
+            if (pizzaBase.getOrdered()) {
+                pizzaBase.setPrice(pizza.getPrice());
+                return PizzaBaseDTO.getInstance(pizzaBaseRepository.save(pizzaBase));
+                // if pizza was NOT ordered
+            } else if (pizzaType != null && pizzaSize != null) {
+                pizzaBase.setPizzaType(pizzaType);
+                pizzaBase.setPizzaSize(pizzaSize);
+                pizzaBase.setPrice(pizza.getPrice());
+                return PizzaBaseDTO.getInstance(pizzaBaseRepository.save(pizzaBase));
+            }
         }
         return null;
     }
@@ -89,9 +96,13 @@ public class PizzaBaseService {
     public PizzaBaseDTO delete(Integer id) {
         PizzaBase pizzaBase = pizzaBaseRepository.findById(id).orElse(null);
         if (pizzaBase != null && !pizzaBase.getDeleted()) {
-            // TODO если пицца не была в заказах - удаляем физически
-            pizzaBase.setDeleted(true);
-            return PizzaBaseDTO.getInstance(pizzaBaseRepository.save(pizzaBase));
+            if (pizzaBase.getOrdered()) {
+                pizzaBase.setDeleted(true);
+                pizzaBase = pizzaBaseRepository.save(pizzaBase);
+            } else {
+                pizzaBaseRepository.delete(pizzaBase);
+            }
+            return PizzaBaseDTO.getInstance(pizzaBase);
         }
         return null;
     }
