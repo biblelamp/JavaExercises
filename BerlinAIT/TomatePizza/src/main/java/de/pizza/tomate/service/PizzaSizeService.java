@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 public class PizzaSizeService {
 
     @Autowired
@@ -36,6 +36,7 @@ public class PizzaSizeService {
     public PizzaSizeDTO update(PizzaSizeDTO pizzaSizeDTO) {
         PizzaSize pizzaSize = pizzaSizeRepository.findById(pizzaSizeDTO.getId()).orElse(null);
         if (pizzaSize != null) {
+            // TODO add check relation with Ingredient
             if (pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
                 pizzaSize.setName(pizzaSizeDTO.getName());
                 pizzaSize.setSize(pizzaSizeDTO.getSize());
@@ -49,6 +50,7 @@ public class PizzaSizeService {
     public PizzaSizeDTO delete(Integer id) {
         PizzaSize pizzaSize = pizzaSizeRepository.findById(id).orElse(null);
         if (pizzaSize != null) {
+            // TODO add check relation with Ingredient
             if (pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
                 pizzaSizeRepository.delete(pizzaSize);
                 return PizzaSizeDTO.getInstance(pizzaSize);

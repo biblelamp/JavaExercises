@@ -70,6 +70,7 @@
             </column>
             <column name="name" type="varchar(50)"/>
             <column name="description" type="varchar(255)"/>
+            <column name="path_image" type="text"/>
         </createTable>
         <createTable tableName="user">
             <column name="user_id" type="int" autoIncrement="true">

@@ -21,8 +21,9 @@ public class PizzaType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pizza_type_id")
-    private int id;
+    private Integer id;
 
     private String name;
     private String description;
+    private String pathImage;
 }
