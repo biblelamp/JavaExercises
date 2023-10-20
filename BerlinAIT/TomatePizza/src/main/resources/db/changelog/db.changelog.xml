@@ -15,7 +15,7 @@
             <column name="description" type="varchar(255)"/>
             <column name="price" type="numeric(10,2)"/>
         </createTable>
-        <createTable tableName="order">
+        <createTable tableName="orders">
             <column name="order_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -38,7 +38,7 @@
             </column>
             <column name="pizza_base_id" type="int"/>
             <column name="price_base" type="numeric(10,2)"/>
-            <column name="price" type="numeric(10,2)"/>
+            <column name="total" type="numeric(10,2)"/>
         </createTable>
         <createTable tableName="pizza_base">
             <column name="pizza_base_id" type="int" autoIncrement="true">
@@ -72,7 +72,7 @@
             <column name="description" type="varchar(255)"/>
             <column name="path_image" type="text"/>
         </createTable>
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="user_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -86,12 +86,12 @@
         <addForeignKeyConstraint baseTableName="ingredient" baseColumnNames="pizza_size_id"
                                  constraintName="fk_ingredient_pizza_size"
                                  referencedTableName="pizza_size" referencedColumnNames="pizza_size_id" />
-        <addForeignKeyConstraint baseTableName="order" baseColumnNames="user_id"
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="user_id"
                                  constraintName="fk_order_user"
-                                 referencedTableName="user" referencedColumnNames="user_id" />
+                                 referencedTableName="users" referencedColumnNames="user_id" />
         <addForeignKeyConstraint baseTableName="order_pizza" baseColumnNames="order_id"
                                  constraintName="fk_order_pizza_order"
-                                 referencedTableName="order" referencedColumnNames="order_id" />
+                                 referencedTableName="orders" referencedColumnNames="order_id" />
         <addForeignKeyConstraint baseTableName="order_pizza" baseColumnNames="pizza_id"
                                  constraintName="fk_order_pizza_pizza"
                                  referencedTableName="pizza" referencedColumnNames="pizza_id" />
@@ -121,6 +121,10 @@
         <loadData tableName="pizza_base"
                   separator=","
                   file="db/data/pizza_base.csv">
+        </loadData>
+        <loadData tableName="users"
+                  separator=","
+                  file="db/data/users.csv">
         </loadData>
     </changeSet>
 

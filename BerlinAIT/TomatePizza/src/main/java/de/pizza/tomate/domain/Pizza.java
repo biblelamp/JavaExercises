@@ -33,5 +33,5 @@ public class Pizza {
     private Double priceBase;
 
     // price with ingredients (or not)
-    private Double price;
+    private Double total;
 }

@@ -34,6 +34,7 @@ public class IngredientService {
     }
 
     public IngredientDTO add(IngredientDTO ingredientDTO) {
+        // TODO use Validate
         if (ingredientDTO.getPizzaSizeId() != null) {
             PizzaSize pizzaSize = pizzaSizeRepository.findById(ingredientDTO.getPizzaSizeId()).orElse(null);
             if (pizzaSize != null) {

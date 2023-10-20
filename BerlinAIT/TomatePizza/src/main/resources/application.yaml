@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/pizza
     username: postgres
     password: root
+  jpa:
+    show-sql: true
 #logging:
 #  file:
 #    name: hello-liquibase.log

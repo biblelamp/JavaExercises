@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "orders")
 public class Order {
 
     @Id

@@ -2,6 +2,7 @@ package de.pizza.tomate.service;
 
 import de.pizza.tomate.controller.dto.PizzaSizeDTO;
 import de.pizza.tomate.domain.PizzaSize;
+import de.pizza.tomate.repository.IngredientRepository;
 import de.pizza.tomate.repository.PizzaBaseRepository;
 import de.pizza.tomate.repository.PizzaSizeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,9 @@ public class PizzaSizeService {
     @Autowired
     private PizzaBaseRepository pizzaBaseRepository;
 
+    @Autowired
+    private IngredientRepository ingredientRepository;
+
     public List<PizzaSizeDTO> findAll() {
         List<PizzaSize> sizes = pizzaSizeRepository.findAll();
         List<PizzaSizeDTO> result = new ArrayList<>(sizes.size());
@@ -36,8 +40,9 @@ public class PizzaSizeService {
     public PizzaSizeDTO update(PizzaSizeDTO pizzaSizeDTO) {
         PizzaSize pizzaSize = pizzaSizeRepository.findById(pizzaSizeDTO.getId()).orElse(null);
         if (pizzaSize != null) {
-            // TODO add check relation with Ingredient
-            if (pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
+            // if this size not used in Ingredient AND PizzaBase tables
+            if (ingredientRepository.countByPizzaSize(pizzaSize) == 0
+                    && pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
                 pizzaSize.setName(pizzaSizeDTO.getName());
                 pizzaSize.setSize(pizzaSizeDTO.getSize());
                 return PizzaSizeDTO.getInstance(pizzaSizeRepository.save(pizzaSize));
@@ -50,8 +55,9 @@ public class PizzaSizeService {
     public PizzaSizeDTO delete(Integer id) {
         PizzaSize pizzaSize = pizzaSizeRepository.findById(id).orElse(null);
         if (pizzaSize != null) {
-            // TODO add check relation with Ingredient
-            if (pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
+            // if this size not used in Ingredient AND PizzaBase tables
+            if (ingredientRepository.countByPizzaSize(pizzaSize) == 0
+                    && pizzaBaseRepository.countByPizzaSize(pizzaSize) == 0) {
                 pizzaSizeRepository.delete(pizzaSize);
                 return PizzaSizeDTO.getInstance(pizzaSize);
             }

@@ -57,6 +57,7 @@ public class PizzaBaseService {
             pizzaBase.setPizzaType(pizzaType);
             pizzaBase.setPizzaSize(pizzaSize);
             pizzaBase.setPrice(pizza.getPrice());
+            pizzaBase.setOrdered(false);
             pizzaBase.setDeleted(false);
             return PizzaBaseDTO.getInstance(pizzaBaseRepository.save(pizzaBase));
         }
