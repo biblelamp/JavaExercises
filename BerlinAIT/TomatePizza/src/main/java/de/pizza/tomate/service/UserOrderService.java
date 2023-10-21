@@ -3,11 +3,18 @@ package de.pizza.tomate.service;
 import de.pizza.tomate.controller.dto.OrderDTO;
 import de.pizza.tomate.domain.*;
 import de.pizza.tomate.repository.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserOrderService {
 
@@ -32,6 +39,25 @@ public class UserOrderService {
     @Autowired
     private PizzaIngredientRepository pizzaIngredientRepository;
 
+    public List<OrderDTO> findByUserId(Integer userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            List<Order> orders = orderRepository.findByUser(user);
+            List<OrderDTO> result = new ArrayList<>(orders.size());
+            orders.forEach(order -> result.add(OrderDTO.getInstance(order)));
+            return result;
+        }
+        return null;
+    }
+
+    public OrderDTO findById(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            return OrderDTO.getInstance(order);
+        }
+        return null;
+    }
+
     public OrderDTO create(Integer userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
@@ -42,6 +68,28 @@ public class UserOrderService {
             order.setService(0d);
             order.setTotal(0d);
             return OrderDTO.getInstance(orderRepository.save(order));
+        }
+        return null;
+    }
+
+    public OrderDTO delete(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            Validate.isTrue(order.getState() == OrderState.NEW);
+            // delete from PizzaEngridient
+            List<OrderPizza> orderPizzaList = orderPizzaRepository.findByOrder(order);
+            List<Pizza> pizzaList = new ArrayList<>(orderPizzaList.size());
+            orderPizzaList.forEach(item -> pizzaList.add(item.getPizza()));
+            int ingredientCount = pizzaIngredientRepository.deleteByPizzaIn(pizzaList);
+            // delete from OrderPizza
+            orderPizzaRepository.deleteByOrder(order);
+            // delete Pizza
+            List<Integer> pizzaIds = pizzaList.stream().map(pizza -> pizza.getId()).collect(Collectors.toList());
+            int pizzaCount = pizzaRepository.deleteByIdIn(pizzaIds);
+            // delete order
+            orderRepository.delete(order);
+            log.info("Order deleted, orderId={}, deleted {} Pizza(s), {} Ingredient(s)", orderId, pizzaCount, ingredientCount);
+            return OrderDTO.getInstance(order);
         }
         return null;
     }
@@ -61,7 +109,7 @@ public class UserOrderService {
             orderPizza.setOrder(order);
             orderPizzaRepository.save(orderPizza);
 
-            order.setTotal(pizza.getTotal());
+            order.setTotal(order.getTotal() + pizza.getTotal());
             return OrderDTO.getInstance(orderRepository.save(order));
         }
         return null;
@@ -88,8 +136,18 @@ public class UserOrderService {
         Pizza pizza = pizzaRepository.findById(pizzaId).orElse(null);
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElse(null);
         if (order != null && pizza != null && ingredient != null) {
-            // TODO if pizza is in order -> break
-            // TODO if pizza_base size != ingredient size -> break
+            // if pizza is in order -> break
+            if (orderPizzaRepository.findByOrderAndPizza(order, pizza) == null) {
+                log.error("Pizza is not associated with Order, pizzaId={}, orderId={}", pizzaId, orderId);
+                return null;
+            }
+            // if pizza_base size != ingredient size -> break
+            if (!Objects.equals(pizza.getPizzaBase().getPizzaSize().getId(), ingredient.getPizzaSize().getId())) {
+                log.error("Ingredient size doesn't match Pizza size, pizzaSizeId={}, ingredientSizeId={}",
+                        pizza.getPizzaBase().getPizzaSize().getId(),
+                        ingredient.getPizzaSize().getId());
+                return null;
+            }
             PizzaIngredient pi = new PizzaIngredient();
             pi.setIngredient(ingredient);
             pi.setPizza(pizza);
@@ -106,12 +164,27 @@ public class UserOrderService {
         Pizza pizza = pizzaRepository.findById(pizzaId).orElse(null);
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElse(null);
         if (order != null && pizza != null && ingredient != null) {
-            // TODO if pizza is in order -> break
+            // if pizza is in order -> break
+            if (orderPizzaRepository.findByOrderAndPizza(order, pizza) == null) {
+                log.error("Pizza is not associated with Order, pizzaId={}, orderId={}", pizzaId, orderId);
+                return null;
+            }
             PizzaIngredient pi = pizzaIngredientRepository.findByPizzaAndIngredient(pizza, ingredient);
             if (pi != null) {
                 pizzaIngredientRepository.delete(pi);
 
                 order.setTotal(order.getTotal() - ingredient.getPrice());
+                return OrderDTO.getInstance(orderRepository.save(order));
+            }
+        }
+        return null;
+    }
+
+    public OrderDTO confirm(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            if (order.getState() == OrderState.NEW && order.getTotal() != 0) {
+                order.setState(OrderState.CONFIRMED);
                 return OrderDTO.getInstance(orderRepository.save(order));
             }
         }

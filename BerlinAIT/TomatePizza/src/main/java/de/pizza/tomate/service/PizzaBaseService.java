@@ -8,6 +8,7 @@ import de.pizza.tomate.domain.PizzaType;
 import de.pizza.tomate.repository.PizzaBaseRepository;
 import de.pizza.tomate.repository.PizzaSizeRepository;
 import de.pizza.tomate.repository.PizzaTypeRepository;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class PizzaBaseService {
     }
 
     public PizzaBaseDTO findById(Integer id) {
+        Validate.notNull(id, "pizzaBaseId can't be null!");
         PizzaBase pizza = pizzaBaseRepository.findById(id).orElse(null);
         if (pizza != null) {
             return PizzaBaseDTO.getInstance(pizza);
@@ -50,6 +52,11 @@ public class PizzaBaseService {
     }
 
     public PizzaBaseDTO add(PizzaBaseCreateUpdate pizza) {
+        Validate.notNull(pizza, "Object pizza can't be null!");
+        Validate.notNull(pizza.getPizzaTypeId(), "Field pizzaTypeId can't be null!");
+        Validate.notNull(pizza.getPizzaSizeId(), "Field pizzaSizeId can't be null!");
+        Validate.notNull(pizza.getPrice(), "Field price can't be null!");
+
         PizzaType pizzaType = pizzaTypeRepository.findById(pizza.getPizzaTypeId()).orElse(null);
         PizzaSize pizzaSize = pizzaSizeRepository.findById(pizza.getPizzaSizeId()).orElse(null);
         if (pizzaType != null && pizzaSize != null) {

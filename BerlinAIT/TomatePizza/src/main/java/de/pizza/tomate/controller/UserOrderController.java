@@ -15,9 +15,24 @@ public class UserOrderController {
     @Autowired
     private UserOrderService userOrderService;
 
+    @GetMapping("/user/{userId}")
+    public List<OrderDTO> findByUserId(@PathVariable Integer userId) {
+        return userOrderService.findByUserId(userId);
+    }
+
+    @GetMapping("/{orderId}")
+    public OrderDTO findById(@PathVariable Integer orderId) {
+        return userOrderService.findById(orderId);
+    }
+
     @PostMapping("/create")
     public OrderDTO create(@RequestBody OrderCreate order) {
         return userOrderService.create(order.getUserId());
+    }
+
+    @DeleteMapping("/{orderId}/delete")
+    public OrderDTO delete(@PathVariable Integer orderId) {
+        return userOrderService.delete(orderId);
     }
 
     @PutMapping("/{orderId}/add/pizza/{pizzaBaseId}")
@@ -42,4 +57,8 @@ public class UserOrderController {
         return userOrderService.deleteIngredient(orderId, pizzaId, ingredientId);
     }
 
+    @PutMapping("/{orderId}/confirm")
+    public OrderDTO confirm(@PathVariable Integer orderId) {
+        return userOrderService.confirm(orderId);
+    }
 }
