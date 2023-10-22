@@ -20,22 +20,27 @@ Java backend группа cohort26:
 14. Проект: выбор проекта, обсуждение структуры БД, доменные сущности
 15. Проект: доменные сущности, таблицы БД в Liquibase
 16. Проект: заполнение таблиц данными в Liquibase
+17. Проект: разработка контроллеров и сервисов (PizzaBase)
+18. Проект: пишем контроллеры+сервисы (PizzaBaze, PizzaSize)
+19. Проект: пишем контроллеры+сервисы (PizzaType, Ingredient)
+20. Проект: пишем контроллеры+сервисы (UserOrderController+Service)
+21. Проект: Validate, возврат статуса, ResponseEntity (UserOrderController+Service)
 
 Занятия:
 	август:		22,24,29,31
 	сентябрь:	5,7,12,14,19,21,26,28
-	октябрь:	5,10,12,13
-	итого:		16
+	октябрь:	5,10,12,13,16,17,18,19,20
+	итого:		21
 
 Осталось:
-	октябрь:	16,17,18,19,20,23,24,25,26,27
-	итого:		10
+	октябрь:	23,24,25,26,27
+	итого:		5
 
 Студенты:
 
 1. Oleksandr Zhurba		https://github.com/sdkinc
 2. Wladimir Weizen		https://github.com/weizen-w
 3. Elena Sidanova		https://github.com/lenaSidan
-4. Maiia Katts			https://github.com/MaiiaKatts
-5. Kateryna Horshkova	https://github.com/Imire0812
-6. Tetiana Chernobai	https://github.com/Tanchik88
+4. Kateryna Horshkova	https://github.com/Imire0812
+5. Tetiana Chernobai	https://github.com/Tanchik88
+6. Maiia Katts			https://github.com/MaiiaKatts
