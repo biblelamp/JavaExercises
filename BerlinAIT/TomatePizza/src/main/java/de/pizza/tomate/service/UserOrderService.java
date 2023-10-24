@@ -1,8 +1,21 @@
 package de.pizza.tomate.service;
 
 import de.pizza.tomate.controller.dto.OrderDTO;
-import de.pizza.tomate.domain.*;
-import de.pizza.tomate.repository.*;
+import de.pizza.tomate.domain.Ingredient;
+import de.pizza.tomate.domain.Order;
+import de.pizza.tomate.domain.OrderPizza;
+import de.pizza.tomate.domain.OrderState;
+import de.pizza.tomate.domain.Pizza;
+import de.pizza.tomate.domain.PizzaBase;
+import de.pizza.tomate.domain.PizzaIngredient;
+import de.pizza.tomate.domain.User;
+import de.pizza.tomate.repository.IngredientRepository;
+import de.pizza.tomate.repository.OrderPizzaRepository;
+import de.pizza.tomate.repository.OrderRepository;
+import de.pizza.tomate.repository.PizzaBaseRepository;
+import de.pizza.tomate.repository.PizzaIngredientRepository;
+import de.pizza.tomate.repository.PizzaRepository;
+import de.pizza.tomate.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +52,15 @@ public class UserOrderService {
     @Autowired
     private PizzaIngredientRepository pizzaIngredientRepository;
 
+    @Autowired
+    private PizzaService pizzaService;
+
     public List<OrderDTO> findByUserId(Integer userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             List<Order> orders = orderRepository.findByUser(user);
             List<OrderDTO> result = new ArrayList<>(orders.size());
-            orders.forEach(order -> result.add(OrderDTO.getInstance(order)));
+            orders.forEach(order -> result.add(OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order))));
             return result;
         }
         return null;
@@ -53,7 +69,7 @@ public class UserOrderService {
     public OrderDTO findById(Integer orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         if (order != null) {
-            return OrderDTO.getInstance(order);
+            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order));
         }
         return null;
     }
@@ -89,7 +105,7 @@ public class UserOrderService {
             // delete order
             orderRepository.delete(order);
             log.info("Order deleted, orderId={}, deleted {} Pizza(s), {} Ingredient(s)", orderId, pizzaCount, ingredientCount);
-            return OrderDTO.getInstance(order);
+            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order));
         }
         return null;
     }
@@ -110,7 +126,7 @@ public class UserOrderService {
             orderPizzaRepository.save(orderPizza);
 
             order.setTotal(order.getTotal() + pizza.getTotal());
-            return OrderDTO.getInstance(orderRepository.save(order));
+            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
         }
         return null;
     }
@@ -125,7 +141,7 @@ public class UserOrderService {
                 pizzaRepository.delete(pizza);
 
                 order.setTotal(order.getTotal() - pizza.getTotal());
-                return OrderDTO.getInstance(orderRepository.save(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
             }
         }
         return null;
@@ -154,7 +170,7 @@ public class UserOrderService {
             pizzaIngredientRepository.save(pi);
 
             order.setTotal(order.getTotal() + ingredient.getPrice());
-            return OrderDTO.getInstance(orderRepository.save(order));
+            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
         }
         return null;
     }
@@ -174,7 +190,7 @@ public class UserOrderService {
                 pizzaIngredientRepository.delete(pi);
 
                 order.setTotal(order.getTotal() - ingredient.getPrice());
-                return OrderDTO.getInstance(orderRepository.save(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
             }
         }
         return null;
@@ -185,7 +201,7 @@ public class UserOrderService {
         if (order != null) {
             if (order.getState() == OrderState.NEW && order.getTotal() != 0) {
                 order.setState(OrderState.CONFIRMED);
-                return OrderDTO.getInstance(orderRepository.save(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
             }
         }
         return null;

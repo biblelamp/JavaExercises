@@ -109,7 +109,7 @@
                                  referencedTableName="ingredient" referencedColumnNames="ingredient_id" />
     </changeSet>
 
-    <changeSet id="#2" author="Sergey">
+    <changeSet id="#2" author="Sergey" context="!test">
         <loadData tableName="pizza_type"
                   separator=","
                   file="db/data/pizza_type.csv">
@@ -121,6 +121,10 @@
         <loadData tableName="pizza_base"
                   separator=","
                   file="db/data/pizza_base.csv">
+        </loadData>
+        <loadData tableName="ingredient"
+                  separator=","
+                  file="db/data/ingredient.csv">
         </loadData>
         <loadData tableName="users"
                   separator=","

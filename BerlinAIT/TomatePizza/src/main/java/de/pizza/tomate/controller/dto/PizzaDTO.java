@@ -4,6 +4,9 @@ import de.pizza.tomate.domain.Pizza;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class PizzaDTO {
@@ -17,5 +20,11 @@ public class PizzaDTO {
                 PizzaBaseDTO.getInstance(pizza.getPizzaBase()),
                 pizza.getPriceBase(),
                 pizza.getTotal());
+    }
+
+    public static List<PizzaDTO> getInstance(List<Pizza> pizzas) {
+        List<PizzaDTO> result = new ArrayList<>(pizzas.size());
+        pizzas.forEach(pizza -> result.add(getInstance(pizza)));
+        return result;
     }
 }

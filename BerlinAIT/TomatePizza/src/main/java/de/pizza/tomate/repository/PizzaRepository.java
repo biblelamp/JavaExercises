@@ -1,5 +1,6 @@
 package de.pizza.tomate.repository;
 
+import de.pizza.tomate.domain.Order;
 import de.pizza.tomate.domain.Pizza;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
