@@ -33,23 +33,23 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String accessToken = jwtUtil.resolveToken(request);
-            if (accessToken == null ) {
+            if (accessToken == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
             System.out.println("token : " + accessToken);
             Claims claims = jwtUtil.resolveClaims(request);
 
-            if (claims != null & jwtUtil.validateClaims(claims)){
+            if (claims != null & jwtUtil.validateClaims(claims)) {
                 String login = claims.getSubject();
-                Collection<Map> authoryListMap = (Collection<Map>) claims.get("authorities");
+                //Collection<Map> authoryListMap = (Collection<Map>) claims.get("authorities");
                 System.out.println("login : " + login);
 
-                Set<GrantedAuthority> authorities = new HashSet<>();
-                authoryListMap.forEach(item -> authorities.add(new SimpleGrantedAuthority((String) item.get("authority"))));
+                //Set<GrantedAuthority> authorities = new HashSet<>();
+                //authoryListMap.forEach(item -> authorities.add(new SimpleGrantedAuthority((String) item.get("authority"))));
 
                 Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(login, "", authorities);
+                        new UsernamePasswordAuthenticationToken(login, "", new ArrayList<>());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
