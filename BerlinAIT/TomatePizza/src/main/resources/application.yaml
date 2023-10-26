@@ -6,6 +6,11 @@ spring:
     password: root
   jpa:
     show-sql: true
+
+springdoc:
+  sch
+
+
 #logging:
 #  file:
 #    name: hello-liquibase.log

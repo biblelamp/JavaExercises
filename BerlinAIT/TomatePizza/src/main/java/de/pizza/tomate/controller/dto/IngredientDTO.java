@@ -4,6 +4,10 @@ import de.pizza.tomate.domain.Ingredient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @AllArgsConstructor
 public class IngredientDTO {
@@ -21,5 +25,12 @@ public class IngredientDTO {
                 ingredient.getPizzaSize().getName(),
                 ingredient.getDescription(),
                 ingredient.getPrice());
+    }
+
+    public static List<IngredientDTO> getInstance(List<Ingredient> ingredients) {
+        if (ingredients == null) {
+            return new ArrayList<>();
+        }
+        return ingredients.stream().map(i -> IngredientDTO.getInstance(i)).collect(Collectors.toList());
     }
 }

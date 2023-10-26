@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * Пользователь: заказчик
  * 1. Управление своим профилем User (-)
- * 2. Управляет заказами
+ * 2. Управляет заказами UserOrderController+Service
  *    - создает заказ
  *    - удаляет свой заказ
  *    - добавляет и удаляет пиццы Pizza из Order

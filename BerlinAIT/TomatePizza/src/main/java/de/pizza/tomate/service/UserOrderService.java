@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -60,7 +61,7 @@ public class UserOrderService {
         if (user != null) {
             List<Order> orders = orderRepository.findByUser(user);
             List<OrderDTO> result = new ArrayList<>(orders.size());
-            orders.forEach(order -> result.add(OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order))));
+            orders.forEach(order -> result.add(OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order), new HashMap<>())));
             return result;
         }
         return null;
@@ -69,7 +70,7 @@ public class UserOrderService {
     public OrderDTO findById(Integer orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         if (order != null) {
-            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order));
+            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order), new HashMap<>());
         }
         return null;
     }
@@ -105,7 +106,7 @@ public class UserOrderService {
             // delete order
             orderRepository.delete(order);
             log.info("Order deleted, orderId={}, deleted {} Pizza(s), {} Ingredient(s)", orderId, pizzaCount, ingredientCount);
-            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order));
+            return OrderDTO.getInstance(order, pizzaService.pizzasByOrder(order), new HashMap<>());
         }
         return null;
     }
@@ -126,7 +127,7 @@ public class UserOrderService {
             orderPizzaRepository.save(orderPizza);
 
             order.setTotal(order.getTotal() + pizza.getTotal());
-            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
+            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order), new HashMap<>());
         }
         return null;
     }
@@ -141,7 +142,7 @@ public class UserOrderService {
                 pizzaRepository.delete(pizza);
 
                 order.setTotal(order.getTotal() - pizza.getTotal());
-                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order), new HashMap<>());
             }
         }
         return null;
@@ -170,7 +171,7 @@ public class UserOrderService {
             pizzaIngredientRepository.save(pi);
 
             order.setTotal(order.getTotal() + ingredient.getPrice());
-            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
+            return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order), new HashMap<>());
         }
         return null;
     }
@@ -190,7 +191,7 @@ public class UserOrderService {
                 pizzaIngredientRepository.delete(pi);
 
                 order.setTotal(order.getTotal() - ingredient.getPrice());
-                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order), new HashMap<>());
             }
         }
         return null;
@@ -201,7 +202,7 @@ public class UserOrderService {
         if (order != null) {
             if (order.getState() == OrderState.NEW && order.getTotal() != 0) {
                 order.setState(OrderState.CONFIRMED);
-                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order));
+                return OrderDTO.getInstance(orderRepository.save(order), pizzaService.pizzasByOrder(order), new HashMap<>());
             }
         }
         return null;
