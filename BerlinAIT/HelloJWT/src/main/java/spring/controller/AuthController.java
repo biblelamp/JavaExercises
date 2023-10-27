@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,8 @@ import spring.controller.dto.LoginRequest;
 import spring.controller.dto.LoginResponse;
 import spring.domain.User;
 
+import java.util.Collection;
+
 @RestController
 public class AuthController {
 
@@ -23,7 +26,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest loginReq)  {
@@ -31,7 +34,8 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginReq.getLogin(), loginReq.getPassword()));
             String login = authentication.getName();
-            User user = new User(login, "");
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            User user = new User(login, authorities);
             String token = jwtUtil.createToken(user);
             LoginResponse response = new LoginResponse(login, token);
 

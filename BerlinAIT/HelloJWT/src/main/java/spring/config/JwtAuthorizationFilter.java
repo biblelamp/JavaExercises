@@ -42,14 +42,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (claims != null & jwtUtil.validateClaims(claims)) {
                 String login = claims.getSubject();
-                //Collection<Map> authoryListMap = (Collection<Map>) claims.get("authorities");
+                Collection<Map> authoryListMap = (Collection<Map>) claims.get("authorities");
                 System.out.println("login : " + login);
 
-                //Set<GrantedAuthority> authorities = new HashSet<>();
-                //authoryListMap.forEach(item -> authorities.add(new SimpleGrantedAuthority((String) item.get("authority"))));
+                Set<GrantedAuthority> authorities = new HashSet<>();
+                authoryListMap.forEach(item -> authorities.add(new SimpleGrantedAuthority((String) item.get("authority"))));
 
                 Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(login, "", new ArrayList<>());
+                        new UsernamePasswordAuthenticationToken(login, "", authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {

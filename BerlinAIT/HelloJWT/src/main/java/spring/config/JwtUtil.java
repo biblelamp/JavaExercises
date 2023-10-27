@@ -1,6 +1,10 @@
 package spring.config;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import spring.domain.User;
@@ -26,7 +30,7 @@ public class JwtUtil {
 
     public String createToken(User user) {
         Claims claims = Jwts.claims().setSubject(user.getLogin());
-        //claims.put("authorities", user.getAuthorities());
+        claims.put("authorities", user.getAuthorities());
         Date tokenCreateTime = new Date();
         Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(TOKEN_VALIDITY_TIME));
         return Jwts.builder()

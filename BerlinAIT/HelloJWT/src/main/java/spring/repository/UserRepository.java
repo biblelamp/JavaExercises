@@ -8,6 +8,6 @@ public class UserRepository {
 
     public User findUserByLogin(String login) {
         String password = "123456";
-        return new User(login, password);
+        return new User(login, password, null);
     }
 }
