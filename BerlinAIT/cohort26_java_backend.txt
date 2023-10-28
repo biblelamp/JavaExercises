@@ -1,6 +1,6 @@
 Java backend группа cohort26:
 
-Программа:		https://docs.google.com/spreadsheets/d/13wPXo6hq8_cWPu4Ki7dvx3LvOQDfqbnm751--LtiNFM/
+Программа:		https://docs.google.com/spreadsheets/d/1Wk9ns9mGBcDxnh2HTX8BWogYntMdx_SO/
 Расписание:		https://docs.google.com/spreadsheets/d/18wXC2jlGwDY1MnYdxXxcPufbjl0A6pduPlXY1kPNfeA/
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
 
@@ -25,22 +25,23 @@ Java backend группа cohort26:
 19. Проект: пишем контроллеры+сервисы (PizzaType, Ingredient)
 20. Проект: пишем контроллеры+сервисы (UserOrderController+Service)
 21. Проект: Validate, возврат статуса, ResponseEntity (UserOrderController+Service)
+22. Проект: тестирование приложения (PizzaSizeServiceTest)
+23. Проект: тестирование приложения (UserOrderServiceTest)
+24. Spring Security + JWT на основе статьи
+25. Spring Security + JWT + роли + SwaggerUI
+26. Проект: добавляем Spring Security, разворачиваем на сервере
 
 Занятия:
 	август:		22,24,29,31
 	сентябрь:	5,7,12,14,19,21,26,28
-	октябрь:	5,10,12,13,16,17,18,19,20
-	итого:		21
-
-Осталось:
-	октябрь:	23,24,25,26,27
-	итого:		5
+	октябрь:	5,10,12,13,16,17,18,19,20,23,24,25,26,27
+	итого:		26
 
 Студенты:
 
 1. Oleksandr Zhurba		https://github.com/sdkinc
 2. Wladimir Weizen		https://github.com/weizen-w
-3. Elena Sidanova		https://github.com/lenaSidan
+3. Elena Sidanova		https://github.com/lenaSidan/TomatePizza
 4. Kateryna Horshkova	https://github.com/Imire0812
 5. Tetiana Chernobai	https://github.com/Tanchik88
 6. Maiia Katts			https://github.com/MaiiaKatts
