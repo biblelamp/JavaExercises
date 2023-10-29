@@ -78,6 +78,7 @@
             </column>
             <column name="login" type="varchar(50)"/>
             <column name="password" type="varchar(50)"/>
+            <column name="roles" type="varchar(50)"/>
             <column name="email" type="varchar(50)"/>
             <column name="phone" type="varchar(50)"/>
             <column name="address" type="varchar(255)"/>

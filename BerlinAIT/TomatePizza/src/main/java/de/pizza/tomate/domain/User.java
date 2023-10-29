@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -23,8 +21,9 @@ public class User {
     @Column(name = "user_id")
     private Integer id;
 
-    private String login;
+    private String login; // TODO to be uniqueue
     private String password;
+    private String roles;
     private String email;
     private String phone;
     private String address;

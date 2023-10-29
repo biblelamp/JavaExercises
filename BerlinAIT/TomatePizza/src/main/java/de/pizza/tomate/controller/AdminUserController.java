@@ -11,4 +11,6 @@ public class AdminUserController {
 
     @Autowired
     private UserService userService;
+
+    // TODO manage users profiles
 }

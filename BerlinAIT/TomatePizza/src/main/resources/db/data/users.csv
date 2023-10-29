@@ -1,2 +1,3 @@
-login,password
-user,password
+login,password,roles
+admin,admin,ADMIN
+user,user,USER
