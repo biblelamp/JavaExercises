@@ -1,0 +1,23 @@
+Java backend группа cohort29:
+
+Программа:		https://docs.google.com/spreadsheets/d/1Wk9ns9mGBcDxnh2HTX8BWogYntMdx_SO/
+Расписание:		https://docs.google.com/spreadsheets/d/18wXC2jlGwDY1MnYdxXxcPufbjl0A6pduPlXY1kPNfeA/
+Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
+
+1. Backend и frontend, http протокол, утилиты curl и Postman?
+2. Aрхитектура приложения, слои controller, service, repository?
+3. Внедрение зависимости (DI) и инверсия управления (IoC)?
+4. Maven-проект, unit-тестирование
+5. Unit-тесты, Mockito framework, введение в Spring Boot
+6. Введение в Spring, принципы DI/IoC, бины, аннотации
+7. 
+
+Занятия:
+	октябрь:	10,12,17,19,24,26
+	итого:		6
+
+Осталось:
+	октябрь:	30,31
+	ноябрь:		1,2,3,7,9,10,14,16,17,21,23,24,28,30
+	декабрь:	1,4,7,8
+	итого:		20
