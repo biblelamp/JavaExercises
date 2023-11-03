@@ -18,18 +18,26 @@ public class EventService {
     }
 
     public Event add(Event event) {
-        return eventRepository.save(event);
-    }
-
-    public Event findById(Integer id) {
-        return eventRepository.findById(id);
+        Event newEvent = new Event(event.getName(), event.getCity());
+        return eventRepository.save(newEvent);
     }
 
     public Event update(Event event) {
-        return eventRepository.save(event);
+        Event updEvent = eventRepository.findById(event.getId());
+        if (updEvent != null) {
+            updEvent.setName(event.getName());
+            updEvent.setCity(event.getCity());
+            return updEvent;
+        }
+        return null;
     }
 
-    public Event delete(Integer id) {
-        return eventRepository.remove(id);
+    public Event delete(Integer eventId) {
+        Event delEvent = eventRepository.findById(eventId);
+        if (delEvent != null) {
+            eventRepository.delete(delEvent);
+            return delEvent;
+        }
+        return null;
     }
 }

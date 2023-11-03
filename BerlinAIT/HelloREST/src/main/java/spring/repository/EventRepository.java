@@ -9,48 +9,31 @@ import java.util.List;
 
 @Repository
 public class EventRepository {
-    static List<Event> events = new ArrayList<>(Arrays.asList(
-        new Event("Opera", "London"),
-        new Event("Violin concert", "Prague"),
-        new Event("Jazz concert", "Berlin"),
-        new Event("Art exhibition", "London"),
-        new Event("Royal Variety Show", "Paris")
+    private List<Event> events = new ArrayList<>(Arrays.asList(
+            new Event("Jazz Concert", "Berlin"),
+            new Event("Lumina Park", "Prague"),
+            new Event("Violin Concert", "London")
     ));
 
     public List<Event> findAll() {
         return events;
     }
 
-    public Event save(Event event) {
-        if (event.getId() == null) {
-            // add new Event
-            Event newEvent = new Event(event.getName(), event.getCity());
-            events.add(newEvent);
-            return newEvent;
-        } else {
-            // update Event by id
-            Event updEvent = findById(event.getId());
-            if (updEvent != null) {
-                updEvent.setName(event.getName());
-                updEvent.setCity(event.getCity());
-                return updEvent;
-            }
-            return null;
-        }
+    public Event save(Event newEvent) {
+        events.add(newEvent);
+        return newEvent;
     }
 
-    public Event findById(int id) {
-        for (Event event : events) {
-            if (event.getId() == id) {
-                return event;
+    public Event findById(Integer id) {
+        for (Event e : events) {
+            if (e.getId() == id) {
+                return e;
             }
         }
         return null;
     }
 
-    public Event remove(int id) {
-        Event removeEvent = findById(id);
-        events.remove(removeEvent);
-        return removeEvent;
+    public void delete(Event event) {
+        events.remove(event);
     }
 }

@@ -8,7 +8,6 @@ import spring.service.EventService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/event")
 public class EventController {
 
     @Autowired
@@ -16,12 +15,8 @@ public class EventController {
 
     @GetMapping("/all")
     public List<Event> findAll() {
-        return eventService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Event findById(@PathVariable Integer id) {
-        return eventService.findById(id);
+        List<Event> events = eventService.findAll();
+        return events;
     }
 
     @PostMapping("/add")
@@ -34,8 +29,8 @@ public class EventController {
         return eventService.update(event);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Event delete(@PathVariable Integer id) {
-        return eventService.delete(id);
+    @DeleteMapping("/delete/{eventId}")
+    public Event delete(@PathVariable Integer eventId) {
+        return eventService.delete(eventId);
     }
 }
