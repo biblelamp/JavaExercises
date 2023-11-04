@@ -4,10 +4,10 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 
-public class PGSingltonDataSource {
+public class PGSingletonDataSource {
     private static DataSource dataSource;
 
-    private PGSingltonDataSource() {
+    private PGSingletonDataSource() {
     }
 
     public static DataSource getInstance() {
