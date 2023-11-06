@@ -5,19 +5,35 @@ Java backend группа cohort29:
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
 
 1. Backend и frontend, http протокол, утилиты curl и Postman?
-2. Aрхитектура приложения, слои controller, service, repository?
+2. Aрхитектура приложения, слои controller, service, repository, domain?
 3. Внедрение зависимости (DI) и инверсия управления (IoC)?
-4. Maven-проект, unit-тестирование
-5. Unit-тесты, Mockito framework, введение в Spring Boot
-6. Введение в Spring, принципы DI/IoC, бины, аннотации
-7. 
+4. Maven-проект, unit-тестирование?
+5. Unit-тесты, Mockito framework, введение в Spring Boot?
+6. Введение в Spring, принципы DI/IoC, бины, аннотации?
+7. Знакомство c группой, опрос, введение в Spring
+8. Spring Boot, REST API и REST контроллер			[HelloREST]
+9. Что такое Spring Framework? PostgreSQL, JDBC		[HelloJDBC]
+10. Что такое Spring Framework? DI, IoC
+11. Spring Data JPA, слой repository, проект Lombok	[HelloJPA]
+12. DTO классы, нормализация БД, логгирование
+13. Управление структурой БД при помощи Liquibase	[HelloJPA]
+14. Проект: обсуждение структуры БД, слой domain	[TomatePizza]
 
 Занятия:
-	октябрь:	10,12,17,19,24,26
-	итого:		6
+	октябрь:	-10,-12,-17,-19,-24,-26,30,31
+	ноябрь:		2,3
+	итого:		10
 
 Осталось:
-	октябрь:	30,31
-	ноябрь:		1,2,3,7,9,10,14,16,17,21,23,24,28,30
+	ноябрь:		?,7,9,10,14,16,17,21,23,24,28,30
 	декабрь:	1,4,7,8
-	итого:		20
+	итого:		16
+
+Студенты:
+
+1. Ruslan Kochkin			https://github.com/RuslanKochkin
+2. Serhii Poryvaiev			https://github.com/SerhiiPoryvaiev
+3. Viktoriia Semendiaieva	https://github.com/NikaVikaUa
+4. Stanislav Slavezki		https://github.com/CTAC-AIT-TR
+5. Vadym Naumenko			https://github.com/vadymNaumenko
+6. Olena Luhovska			https://github.com/Eladielle
