@@ -5,59 +5,55 @@ import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class EntityManagerDemo {
 
     static EntityManager em;
+
     public static void main(String[] args) {
-        // Получаем фабрику менеджеров сущностей
+        // create factory of EntityManager
         EntityManagerFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .buildSessionFactory();
-        // Из фабрики создаем EntityManager
+        // create EntityManager
         em = factory.createEntityManager();
 
-        Event event = findById(1);
-        System.out.println(event);
-
-        //Event newEvent = add(new Event("Rock Concert", "Berlin"));
-        event = findById(3);
-        System.out.println(event);
-
-        //event.setCity("Prague");
-        //event = update(event);
+        //Event event = new Event("Christmas Fair", "Prague");
+        //event = save(event);
         //System.out.println(event);
 
-        event.setName(null);
-        event.setCity(null);
-        delete(event);
+        //Event event = remove(8);
+        //System.out.println(event);
+
+        Event event = findById(9);
+        event.setCity("Berlin");
+
+        //event = save(event);
+
+        System.out.println(findAll());
     }
 
-    static Event findById(int id) {
+    static List<Event> findAll() {
+        return em.createQuery("SELECT e FROM Event e").getResultList();
+    }
+
+    static Event findById(Integer id) {
         return em.find(Event.class, id);
     }
 
-    static Event add(Event event) {
-        // Открываем транзакцию
+    static Event save(Event event) {
         em.getTransaction().begin();
-        // Create (сохраняем в базе данных, и благодаря этому сущность
-        // становится управляемой Hibernate и заносится в контекст постоянства)
         em.persist(event);
-        // Подтверждаем транзакцию
         em.getTransaction().commit();
         return event;
     }
 
-    static Event update(Event event) {
-        em.getTransaction().begin();
-        em.merge(event);
-        em.getTransaction().commit();
-        return event;
-    }
-
-    static void delete(Event event) {
+    static Event remove(Integer id) {
+        Event event = findById(id);
         em.getTransaction().begin();
         em.remove(event);
         em.getTransaction().commit();
+        return event;
     }
 }
