@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.controller.dto.EventDTO;
 import spring.service.EventService;
@@ -15,7 +14,6 @@ import spring.service.EventService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/event")
 public class EventController {
 
     @Autowired
@@ -23,12 +21,8 @@ public class EventController {
 
     @GetMapping("/all")
     public List<EventDTO> findAll() {
-        return eventService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public EventDTO findById(@PathVariable Integer id) {
-        return eventService.findById(id);
+        List<EventDTO> events = eventService.findAll();
+        return events;
     }
 
     @PostMapping("/add")
@@ -41,8 +35,8 @@ public class EventController {
         return eventService.update(event);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public EventDTO delete(@PathVariable Integer id) {
-        return eventService.delete(id);
+    @DeleteMapping("/delete/{eventId}")
+    public EventDTO delete(@PathVariable Integer eventId) {
+        return eventService.delete(eventId);
     }
 }
