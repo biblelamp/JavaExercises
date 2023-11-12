@@ -1,33 +1,33 @@
 Java backend группа cohort29:
 
 Программа:		https://docs.google.com/spreadsheets/d/1Wk9ns9mGBcDxnh2HTX8BWogYntMdx_SO/
-Расписание:		https://docs.google.com/spreadsheets/d/18wXC2jlGwDY1MnYdxXxcPufbjl0A6pduPlXY1kPNfeA/
+Расписание:		https://primetimetable.com/publish/?id=6728db17-5848-45ae-8bb6-33ee7df9f6a6&v=1&time=6#id=6728db17-5848-45ae-8bb6-33ee7df9f6a6&view=2
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
 
-1. Backend и frontend, http протокол, утилиты curl и Postman?
-2. Aрхитектура приложения, слои controller, service, repository, domain?
-3. Внедрение зависимости (DI) и инверсия управления (IoC)?
-4. Maven-проект, unit-тестирование?
-5. Unit-тесты, Mockito framework, введение в Spring Boot?
-6. Введение в Spring, принципы DI/IoC, бины, аннотации?
+1. ?Backend и frontend, http протокол, утилиты curl и Postman
+2. ?Aрхитектура приложения, слои controller, service, repository, domain
+3. ?Внедрение зависимости (DI) и инверсия управления (IoC)
+4. ?Maven-проект, unit-тестирование
+5. ?Unit-тесты, Mockito framework, введение в Spring Boot
+6. ?Введение в Spring, принципы DI/IoC, бины, аннотации
 7. Знакомство c группой, опрос, введение в Spring
 8. Spring Boot, REST API и REST контроллер			[HelloREST]
-9. Что такое Spring Framework? PostgreSQL, JDBC		[HelloJDBC]
-10. Что такое Spring Framework? DI, IoC
-11. Spring Data JPA, слой repository, проект Lombok	[HelloJPA]
-12. DTO классы, нормализация БД, логгирование
-13. Управление структурой БД при помощи Liquibase	[HelloJPA]
-14. Проект: обсуждение структуры БД, слой domain	[TomatePizza]
+9. Что такое Spring? PostgreSQL, JDBC				[HelloJDBC]
+10. Что такое Spring(продолжение)? DI, IoC
+11. Spring Data, Hibernate, ORM, сущность, Lombok	[HelloHibernate]
+12. Spring Data JPA, слой repository, SwaggerUI?	[HelloJPA]
+13. Управление структурой БД при помощи Liquibase	[HelloLiquibase]
+14. Проект?: обсуждение структуры БД, слой domain	[NewCrawler]
 
 Занятия:
 	октябрь:	-10,-12,-17,-19,-24,-26,30,31
-	ноябрь:		2,3
-	итого:		10
+	ноябрь:		2,3,7,9,10
+	итого:		13
 
 Осталось:
-	ноябрь:		?,7,9,10,14,16,17,21,23,24,28,30
+	ноябрь:		?,14,16,17,21,23,24,28,30
 	декабрь:	1,4,7,8
-	итого:		16
+	итого:		13
 
 Студенты:
 
