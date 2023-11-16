@@ -3,11 +3,13 @@ package spring.controller.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import spring.domain.Event;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class EventDTO {
     private Integer id;
     private String name;
