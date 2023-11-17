@@ -1,1 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/news_crawler
+    username: postgres
+    password: root
 
