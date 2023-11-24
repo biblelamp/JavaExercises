@@ -1,16 +1,16 @@
-package news.crawler.service;
+package news.crawler.service.executor;
 
 import lombok.extern.slf4j.Slf4j;
+import news.crawler.controller.dto.EventDTO;
 import news.crawler.domain.SourceConfig;
+import news.crawler.repository.EventRepository;
 import news.crawler.repository.SourceConfigRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import news.crawler.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Slf4j
@@ -21,6 +21,9 @@ public class CrawlerExecutor implements SmartLifecycle {
 
     @Autowired
     private SourceConfigRepository sourceConfigRepository;
+
+    @Autowired
+    private EventService eventService;
 
     private enum ThreadStatus {
         RUNNING, STOP_REQUEST, STOPPED
@@ -39,14 +42,19 @@ public class CrawlerExecutor implements SmartLifecycle {
                         Class<?> cls = Class.forName(config.getClassName());
                         Constructor<?> constructor = cls.getConstructor();
                         Execute execClass = (Execute) constructor.newInstance();
-                        execClass.execute();
+
+                        log.info("Reading from {}{}...", config.getRootUrl(), config.getNewsSuffix());
+                        List<EventDTO> events = execClass.execute(config);
+                        log.info("Read {} events from {}.", events.size(), config.getRootUrl());
+
+                        eventService.save(events, config);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
                 try {
-                    lock.wait(1000 * 5);
+                    lock.wait(1000 * 60);
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                     break;

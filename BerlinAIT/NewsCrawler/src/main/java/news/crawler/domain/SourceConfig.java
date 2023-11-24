@@ -21,4 +21,5 @@ public class SourceConfig {
     private String rootUrl;
     private String newsSuffix;
     private String className;
+    private Boolean disabled;
 }

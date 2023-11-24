@@ -13,6 +13,7 @@
             <column name="root_url" type="varchar(50)"/>
             <column name="news_suffix" type="varchar(10)"/>
             <column name="class_name" type="varchar(100)"/>
+            <column name="disabled" type="boolean"/>
         </createTable>
         <createTable tableName="events">
             <column name="event_id" type="int" autoIncrement="true">

@@ -50,8 +50,9 @@ public class WebService {
 
         // read root url + news suffix and extract title news
         Document root = Jsoup.connect(rootUrl + newsSuffix).get();
-        Elements links = root.select("h2");
+        Elements links = root.getElementsByClass("news-time");
         for (Element element : links) {
+            Element time = element.getElementsByClass("news__time").first();
             Element href = element.select("a").first();
             String title = href.text();
             String newsUrl = href.attr("href");
@@ -64,7 +65,12 @@ public class WebService {
 
             // TODO need to create some time for sorting
 
-            LocalDateTime dateTime = LocalDateTime.parse(newsData + " 00:00", DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+            LocalDateTime dateTime = null;
+            try {
+                dateTime = LocalDateTime.parse(newsData + " " + time.text(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             events.add(new EventDTO(title, rootUrl + newsUrl, dateTime, description + ' ' + text, null));
         }

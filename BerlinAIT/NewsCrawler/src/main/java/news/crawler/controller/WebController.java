@@ -21,12 +21,12 @@ public class WebController {
     @GetMapping("/events")
     public List<EventDTO> getEvents() throws IOException {
 
-//        String rootUrl = "https://www.it-world.ru";
-//        String newsSuffix = "/news/";
-//        return webService.itWorldEvents(rootUrl, newsSuffix);
+        String rootUrl = "https://www.it-world.ru";
+        String newsSuffix = "/lenta/";
+        return webService.itWorldEvents(rootUrl, newsSuffix);
 
-        String rootUrl = "https://devby.io";
-        String newsSuffix = "/news/";
-        return webService.devByEvents(rootUrl, newsSuffix);
+//        String rootUrl = "https://devby.io";
+//        String newsSuffix = "/news/";
+//        return webService.devByEvents(rootUrl, newsSuffix);
     }
 }
