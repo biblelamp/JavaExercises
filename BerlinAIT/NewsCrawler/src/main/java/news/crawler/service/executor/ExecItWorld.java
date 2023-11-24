@@ -32,13 +32,15 @@ public class ExecItWorld implements Execute {
 
                 // read news page and extract date-time and text
                 Document news = Jsoup.connect(newsUrl).get();
+                String imgUrl = news.getElementsByClass("news-detail__picture").select("a").attr("href");
                 String newsDate = news.select(".separator-line span").first().text();
                 String description = news.select(".article__lid").text();
                 String text = description + " " + news.select(".news-detail__content").text();
 
                 LocalDateTime dateTime = DateTimeUtils.convertDateTime(newsDate, time);
+                imgUrl =  config.getRootUrl() + imgUrl;
 
-                events.add(new EventDTO(title, newsUrl, dateTime, text, null));
+                events.add(new EventDTO(title, newsUrl, dateTime, text, imgUrl));
             }
         } catch (IOException e) {
             log.error(e.getMessage());
