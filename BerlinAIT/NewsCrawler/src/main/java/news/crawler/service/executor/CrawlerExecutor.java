@@ -38,23 +38,25 @@ public class CrawlerExecutor implements SmartLifecycle {
 
                 List<SourceConfig> configs = sourceConfigRepository.findAll();
                 for (SourceConfig config : configs) {
-                    try {
-                        Class<?> cls = Class.forName(config.getClassName());
-                        Constructor<?> constructor = cls.getConstructor();
-                        Execute execClass = (Execute) constructor.newInstance();
+                    if (config.getDisabled() == null || !config.getDisabled()) {
+                        try {
+                            Class<?> cls = Class.forName(config.getClassName());
+                            Constructor<?> constructor = cls.getConstructor();
+                            Execute execClass = (Execute) constructor.newInstance();
 
-                        log.info("Reading from {}{}...", config.getRootUrl(), config.getNewsSuffix());
-                        List<EventDTO> events = execClass.execute(config);
-                        log.info("Read {} events from {}.", events.size(), config.getRootUrl());
+                            log.info("Reading from {}{}...", config.getRootUrl(), config.getNewsSuffix());
+                            List<EventDTO> events = execClass.execute(config);
+                            log.info("Read {} events from {}.", events.size(), config.getRootUrl());
 
-                        eventService.save(events, config);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                            eventService.save(events, config);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
                 try {
-                    lock.wait(1000 * 60);
+                    lock.wait(1000 * 60 * 60);
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                     break;

@@ -30,10 +30,16 @@ public class ExecItWorld implements Execute {
                 String newsUrl = config.getRootUrl() + href.attr("href");
                 String time = element.getElementsByClass("news__time").first().text();
 
+                log.info("Reading news from {}...", newsUrl);
+
                 // read news page and extract date-time and text
                 Document news = Jsoup.connect(newsUrl).get();
                 String imgUrl = news.getElementsByClass("news-detail__picture").select("a").attr("href");
-                String newsDate = news.select(".separator-line span").first().text();
+                Element spanDate = news.select(".separator-line span").first();
+                if (spanDate == null) {
+                    spanDate = news.select(".color-silver span").first();
+                }
+                String newsDate = spanDate != null? spanDate.text() : "undefined";
                 String description = news.select(".article__lid").text();
                 String text = description + " " + news.select(".news-detail__content").text();
 

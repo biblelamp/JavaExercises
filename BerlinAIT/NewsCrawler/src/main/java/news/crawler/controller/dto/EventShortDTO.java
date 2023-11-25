@@ -10,15 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EventDTO {
+public class EventShortDTO {
     private String title;
     private String newsUrl;
     private LocalDateTime dateTime;
-    private String text;
-    private String imageUrl;
+    private String source;
 
-    public static EventDTO getInstance(Event event) {
-        return new EventDTO(event.getTitle(), event.getNewsUrl(), event.getDateTime(),
-                event.getText(), event.getImageUrl());
+    public static EventShortDTO getInstance(Event event) {
+        return new EventShortDTO(event.getTitle(), event.getNewsUrl(), event.getDateTime(), event.getSourceConfig().getRootUrl());
     }
 }
