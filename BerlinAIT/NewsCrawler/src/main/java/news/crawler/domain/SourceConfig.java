@@ -1,6 +1,8 @@
 package news.crawler.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class SourceConfig {
     @Id
@@ -22,4 +25,9 @@ public class SourceConfig {
     private String newsSuffix;
     private String className;
     private Boolean disabled;
+
+    public SourceConfig(String rootUrl, String newsSuffix) {
+        this.rootUrl = rootUrl;
+        this.newsSuffix = newsSuffix;
+    }
 }

@@ -1,5 +1,6 @@
 package news.crawler.service;
 
+import news.crawler.controller.dto.EventDTO;
 import news.crawler.controller.dto.SourceConfigDTO;
 import news.crawler.domain.SourceConfig;
 import news.crawler.repository.SourceConfigRepository;

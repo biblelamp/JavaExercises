@@ -1,32 +1,34 @@
 package news.crawler.controller;
 
-import news.crawler.controller.dto.EventDTO;
-import news.crawler.service.WebService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import news.crawler.controller.dto.EventDTO;
+import news.crawler.controller.dto.SourceConfigDTO;
+import news.crawler.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class WebController {
 
     @Autowired
-    private WebService webService;
+    private EventService eventService;
 
-    @GetMapping("/events")
-    public List<EventDTO> getEvents() throws IOException {
+    @GetMapping("/")
+    public String webForm(Model model) {
+        model.addAttribute("source", new SourceConfigDTO());
+        return "webForm";
+    }
 
-        String rootUrl = "https://www.it-world.ru";
-        String newsSuffix = "/lenta/";
-        return webService.itWorldEvents(rootUrl, newsSuffix);
-
-//        String rootUrl = "https://devby.io";
-//        String newsSuffix = "/news/";
-//        return webService.devByEvents(rootUrl, newsSuffix);
+    @PostMapping("/events")
+    public String getEvents(Model model, @ModelAttribute("source") SourceConfigDTO source) throws Exception {
+        List<EventDTO> events = eventService.parseTest(source);
+        model.addAttribute("events", events);
+        return "events";
     }
 }

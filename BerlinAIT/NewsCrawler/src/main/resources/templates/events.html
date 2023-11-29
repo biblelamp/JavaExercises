@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+    <h2>Event list</h2>
+    <table border="0">
+        <tr th:each="event : ${events}">
+            <td th:utext="${event.dateTime}"/>
+            <td><a th:href="${event.newsUrl}"><span th:utext="${event.title}"/></a></td>
+        </tr>
+    </table>
+</body>
+</html>

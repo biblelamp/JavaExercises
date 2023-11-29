@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Read Events from Web</title>
+</head>
+<body>
+    <h2>Read Events from Web</h2>
+    <form action="/events" th:object="${source}" method="POST">
+        <table border="0">
+            <tr>
+                <td>Root url</td>
+                <td><input type="text" th:field="*{rootUrl}"/></td>
+            </tr>
+            <tr>
+                <td>News suffix</td>
+                <td><input type="text" th:field="*{newsSuffix}"/></td>
+            </tr>
+            <tr>
+                <td>Class name</td>
+                <td><input type="text" th:field="*{className}"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Get event" />
+    </form>
+</body>
+</html>

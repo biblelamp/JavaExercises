@@ -2,12 +2,14 @@ package news.crawler.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import news.crawler.domain.SourceConfig;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class SourceConfigDTO {
     private Integer id;
     private String rootUrl;
