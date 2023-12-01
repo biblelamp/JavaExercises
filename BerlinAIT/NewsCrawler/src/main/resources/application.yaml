@@ -1,6 +1,12 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/news_crawler
     username: postgres
     password: root
+
+executor:
+  waitMin: 30
 

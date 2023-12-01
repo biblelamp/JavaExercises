@@ -3,10 +3,10 @@ package news.crawler.service.executor;
 import lombok.extern.slf4j.Slf4j;
 import news.crawler.controller.dto.EventDTO;
 import news.crawler.domain.SourceConfig;
-import news.crawler.repository.EventRepository;
 import news.crawler.repository.SourceConfigRepository;
 import news.crawler.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,12 @@ import java.util.List;
 public class CrawlerExecutor implements SmartLifecycle {
 
     //static final Logger log = LoggerFactory.getLogger(CrawlerExecutor.class);
+
+    @Value("${executor.enabled:true}")
+    private boolean serviceEnabled;
+
+    @Value("${executor.waitMin:60}")
+    private int waitMin;
 
     @Autowired
     private SourceConfigRepository sourceConfigRepository;
@@ -56,7 +62,7 @@ public class CrawlerExecutor implements SmartLifecycle {
                 }
 
                 try {
-                    lock.wait(1000 * 60 * 60);
+                    lock.wait(1000 * 60 * waitMin);
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                     break;
@@ -70,6 +76,11 @@ public class CrawlerExecutor implements SmartLifecycle {
     @Override
     public void start() {
         log.info("Service starting...");
+        if (!serviceEnabled) {
+            log.info("Service is disabled.");
+            status = ThreadStatus.STOPPED;
+            return;
+        }
         status = ThreadStatus.RUNNING;
         new Thread(() -> {
             run();
