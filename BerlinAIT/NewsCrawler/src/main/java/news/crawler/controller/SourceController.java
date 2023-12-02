@@ -3,7 +3,15 @@ package news.crawler.controller;
 import news.crawler.controller.dto.SourceConfigDTO;
 import news.crawler.service.SourceConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,12 +33,20 @@ public class SourceController {
     }
 
     @PutMapping("/update")
-    public SourceConfigDTO update(@RequestBody SourceConfigDTO config) {
-        return configService.update(config);
+    public ResponseEntity<SourceConfigDTO> update(@RequestBody SourceConfigDTO config) {
+        SourceConfigDTO responce = configService.update(config);
+        if (responce == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(responce);
     }
 
     @DeleteMapping("/delete/{id}")
-    public SourceConfigDTO delete(@PathVariable Integer id) {
-        return configService.delete(id);
+    public ResponseEntity<SourceConfigDTO> delete(@PathVariable Integer id) {
+        SourceConfigDTO responce = configService.delete(id);
+        if (responce == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(responce);
     }
 }

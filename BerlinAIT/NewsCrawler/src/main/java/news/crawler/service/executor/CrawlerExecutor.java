@@ -35,6 +35,8 @@ public class CrawlerExecutor implements SmartLifecycle {
         RUNNING, STOP_REQUEST, STOPPED
     }
 
+    private final String PACKAGE = "news.crawler.service.executor.";
+
     private ThreadStatus status = ThreadStatus.STOPPED;
     private final Object lock = new Object();
 
@@ -46,7 +48,7 @@ public class CrawlerExecutor implements SmartLifecycle {
                 for (SourceConfig config : configs) {
                     if (config.getDisabled() == null || !config.getDisabled()) {
                         try {
-                            Class<?> cls = Class.forName(config.getClassName());
+                            Class<?> cls = Class.forName(PACKAGE + config.getClassName());
                             Constructor<?> constructor = cls.getConstructor();
                             Execute execClass = (Execute) constructor.newInstance();
 

@@ -12,7 +12,7 @@
             </column>
             <column name="root_url" type="varchar(50)"/>
             <column name="news_suffix" type="varchar(10)"/>
-            <column name="class_name" type="varchar(100)"/>
+            <column name="class_name" type="varchar(50)"/>
             <column name="disabled" type="boolean"/>
         </createTable>
         <createTable tableName="events">
@@ -29,6 +29,13 @@
         <addForeignKeyConstraint baseTableName="events" baseColumnNames="source_config_id"
                                  constraintName="fk_events_source_config"
                                  referencedTableName="source_config" referencedColumnNames="source_config_id"/>
+    </changeSet>
+
+    <changeSet id="#2" author="Sergey" context="!test">
+        <loadData tableName="source_config"
+                  separator=","
+                  file="db/data/source_config.csv">
+        </loadData>
     </changeSet>
 
 </databaseChangeLog>

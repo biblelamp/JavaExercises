@@ -17,16 +17,8 @@ import java.util.List;
 @Slf4j
 public class ExecItNovyny implements Execute {
 
-    /*
-    SourceConfig
-    rootUrl: https://it.novyny.live/ru
-    newsSuffix: /news/
-    className: news.crawler.service.executor.ExecItNovyny
-     */
-
     @Override
     public List<EventDTO> execute(SourceConfig config) {
-
         List<EventDTO> events = new ArrayList<>();
         Document doc = null;
 
@@ -38,6 +30,8 @@ public class ExecItNovyny implements Execute {
                 String newsUrl = element.attr("href");
                 String title = element.select("span h3").text();
                 if (!title.isEmpty()) {
+                    log.info("Reading news from {}...", newsUrl);
+
                     Document page = Jsoup.connect(newsUrl).get();
                     String text = page.select(".content__wrapp p").text();
                     String dateTime = page.select(".content__info-create").text();
@@ -48,7 +42,6 @@ public class ExecItNovyny implements Execute {
                     events.add(new EventDTO(title, newsUrl, localDateTime, text, photoUrl));
                 }
             }
-
         } catch (IOException e) {
             log.error(e.getMessage());
         }
