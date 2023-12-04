@@ -8,7 +8,7 @@ import spring.service.EventService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/api/event")
 public class EventController {
 
     @Autowired

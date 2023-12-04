@@ -68,9 +68,20 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- to exclude application.yaml from result jar -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/application.yaml</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
