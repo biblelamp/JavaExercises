@@ -1,8 +1,7 @@
 package spring.service;
 
+import liquibase.repackaged.org.apache.commons.lang3.Validate;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.controller.dto.EventDTO;
@@ -34,6 +33,8 @@ public class EventService {
     }
 
     public EventDTO add(EventDTO event) {
+        Validate.notNull(event.getCity(), "The name of City must be defined.");
+        Validate.notNull(event.getName(), "The name of Event must be defined.");
         City city = cityRepository.findByName(event.getCity());
         if (city != null) {
             Event newEvent = new Event(event.getName(), city);
@@ -42,6 +43,7 @@ public class EventService {
             log.info("Event succesfully added. {}", result);
             return result;
         }
+        log.error("City '{}' not found.", event.getCity());
         return null;
     }
 
@@ -56,9 +58,8 @@ public class EventService {
             } else {
                 log.error("Event eventId={} not found.", event.getId());
             }
-        } else {
-            log.error("City '{}' not found.", event.getCity());
         }
+        log.error("City '{}' not found.", event.getCity());
         return null;
     }
 
@@ -67,9 +68,8 @@ public class EventService {
         if (delEvent != null) {
             eventRepository.delete(delEvent);
             return EventDTO.getInstance(delEvent);
-        } else {
-            log.error("Event eventId={} not found.", eventId);
         }
+        log.error("Event eventId={} not found.", eventId);
         return null;
     }
 }

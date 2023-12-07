@@ -4,6 +4,6 @@ spring:
     username: postgres
     password: root
 
-logging:
-  file:
-    name: hello-liquibase.log
+#logging:
+#  file:
+#    name: hello-liquibase.log
