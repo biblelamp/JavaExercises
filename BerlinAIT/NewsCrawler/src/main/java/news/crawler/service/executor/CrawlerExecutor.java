@@ -53,7 +53,7 @@ public class CrawlerExecutor implements SmartLifecycle {
                             Constructor<?> constructor = cls.getConstructor();
                             Execute execClass = (Execute) constructor.newInstance();
 
-                            // read titles of news
+                            // read titles of news from web
                             log.info("Reading from {}{}...", config.getRootUrl(), config.getNewsSuffix());
                             List<EventDTO> events = execClass.getNewsTitles(config);
                             log.info("Read {} titles from {}.", events.size(), config.getRootUrl());
@@ -62,6 +62,8 @@ public class CrawlerExecutor implements SmartLifecycle {
                             events = eventService.filterNewNews(events);
                             log.info("Define {} news as new.", events.size());
 
+                            // read new news from web
+                            events = execClass.getNews(events);
                             eventService.save(events, config);
                         } catch (Exception e) {
                             e.printStackTrace();

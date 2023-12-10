@@ -56,6 +56,7 @@ public class EventService {
             newEvents.add(event);
         }
         eventRepository.saveAll(newEvents);
+        log.info("Succesfully saved {} events .", newEvents.size());
     }
 
     public List<EventDTO> findAll() {
