@@ -16,7 +16,17 @@ import java.util.List;
 
 @Slf4j
 public class ExecEKladensko implements Execute {
+
     @Override
+    public List<EventDTO> getNewsTitles(SourceConfig config) {
+        return null;
+    }
+
+    @Override
+    public List<EventDTO> getNews(List<EventDTO> news) {
+        return null;
+    }
+
     public List<EventDTO> execute(SourceConfig config) {
         List<EventDTO> events = new ArrayList<>();
 
@@ -62,7 +72,7 @@ public class ExecEKladensko implements Execute {
                         }
                     }
 
-                    events.add(new EventDTO(title, newsUrl, dateTime, text, imgUrl));
+                    events.add(new EventDTO(title, newsUrl, imgUrl, dateTime, text));
                 }
             }
         } catch (IOException e) {

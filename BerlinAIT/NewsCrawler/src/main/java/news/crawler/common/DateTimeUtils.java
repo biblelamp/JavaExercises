@@ -14,6 +14,9 @@ public class DateTimeUtils {
     private final static String[] MONTHS_CZ = {"ledna","února","března","dubna","května","června","července","srpna",
             "září","října","listopadu","prosince"};
 
+    private final static String[] MONTHS_UA = {"січня","лютого","березня","квітня","травня","червня","липня","серпня",
+            "вересня","жовтня","листопада","грудня"};
+
     /**
      * Convert date-time in String to LocalDateTime
      *
@@ -30,6 +33,9 @@ public class DateTimeUtils {
         int idx = Arrays.asList(MONTHS_RU).indexOf(dt[1].toLowerCase());
         if (idx < 0) {
             idx = Arrays.asList(MONTHS_CZ).indexOf(dt[1].toLowerCase());
+            if (idx < 0) {
+                idx = Arrays.asList(MONTHS_UA).indexOf(dt[1].toLowerCase());
+            }
         }
         dt[1] = String.valueOf(idx + 1);
 

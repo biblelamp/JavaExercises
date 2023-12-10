@@ -107,7 +107,7 @@
             </plugin>
         </plugins>
         <!-- to exclude application.yaml from result jar -->
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -115,7 +115,7 @@
                     <exclude>**/application.yaml</exclude>
                 </excludes>
             </resource>
-        </resources>
+        </resources>-->
     </build>
 
 </project>

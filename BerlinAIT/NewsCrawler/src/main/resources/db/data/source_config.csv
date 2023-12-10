@@ -1,3 +1,4 @@
 root_url,news_suffix,class_name
-https://www.it-world.ru,/lenta/,ExecItWorld
+https://it-world.ru,/lenta/,ExecItWorld
 https://it.novyny.live/ru,/news/,ExecItNovyny
+https://devby.io,/news,ExecDevBy

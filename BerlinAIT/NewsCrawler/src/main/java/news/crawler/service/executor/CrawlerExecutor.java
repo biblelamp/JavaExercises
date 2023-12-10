@@ -35,7 +35,7 @@ public class CrawlerExecutor implements SmartLifecycle {
         RUNNING, STOP_REQUEST, STOPPED
     }
 
-    private final String PACKAGE = "news.crawler.service.executor.";
+    public static final String PACKAGE = "news.crawler.service.executor.";
 
     private ThreadStatus status = ThreadStatus.STOPPED;
     private final Object lock = new Object();
@@ -48,13 +48,19 @@ public class CrawlerExecutor implements SmartLifecycle {
                 for (SourceConfig config : configs) {
                     if (config.getDisabled() == null || !config.getDisabled()) {
                         try {
+                            // create parser object by name of class using reflection
                             Class<?> cls = Class.forName(PACKAGE + config.getClassName());
                             Constructor<?> constructor = cls.getConstructor();
                             Execute execClass = (Execute) constructor.newInstance();
 
+                            // read titles of news
                             log.info("Reading from {}{}...", config.getRootUrl(), config.getNewsSuffix());
-                            List<EventDTO> events = execClass.execute(config);
-                            log.info("Read {} events from {}.", events.size(), config.getRootUrl());
+                            List<EventDTO> events = execClass.getNewsTitles(config);
+                            log.info("Read {} titles from {}.", events.size(), config.getRootUrl());
+
+                            // because of the filtering, only new news remains
+                            events = eventService.filterNewNews(events);
+                            log.info("Define {} news as new.", events.size());
 
                             eventService.save(events, config);
                         } catch (Exception e) {

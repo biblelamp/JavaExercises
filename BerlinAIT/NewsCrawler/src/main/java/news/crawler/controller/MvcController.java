@@ -1,6 +1,5 @@
 package news.crawler.controller;
 
-
 import news.crawler.controller.dto.EventDTO;
 import news.crawler.controller.dto.SourceConfigDTO;
 import news.crawler.service.EventService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class WebController {
+public class MvcController {
 
     @Autowired
     private EventService eventService;
@@ -27,7 +26,7 @@ public class WebController {
 
     @PostMapping("/events")
     public String getEvents(Model model, @ModelAttribute("source") SourceConfigDTO source) throws Exception {
-        List<EventDTO> events = eventService.parseTest(source);
+        List<EventDTO> events = eventService.checkParser(source);
         model.addAttribute("events", events);
         return "events";
     }
