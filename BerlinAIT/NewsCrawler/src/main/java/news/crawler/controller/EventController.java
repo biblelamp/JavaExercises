@@ -17,9 +17,14 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/all")
-    public List<EventDTO> findAll() {
-        return eventService.findAll();
+    @GetMapping("/")
+    public List<EventDTO> findFirstPage() {
+        return eventService.findByPage(0, 10);
+    }
+
+    @GetMapping("/{page}/{pageSize}")
+    public List<EventDTO> findByPage(@PathVariable Integer page, @PathVariable Integer pageSize) {
+        return eventService.findByPage(page, pageSize);
     }
 
     @GetMapping("/check/{rootUrl}/{newsSuffix}/{className}")

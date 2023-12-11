@@ -9,6 +9,9 @@ import news.crawler.repository.EventRepository;
 import news.crawler.service.executor.CrawlerExecutor;
 import news.crawler.service.executor.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -59,9 +62,11 @@ public class EventService {
         log.info("Succesfully saved {} events .", newEvents.size());
     }
 
-    public List<EventDTO> findAll() {
-        List<Event> events = eventRepository.findAll(Sort.by("dateTime").descending());
-        List<EventDTO> result = new ArrayList<>(events.size());
+    public List<EventDTO> findByPage(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Event> events = eventRepository.findByPage(pageable);
+        List<EventDTO> result = new ArrayList<>(events.getSize());
+
         events.forEach(i -> result.add(EventDTO.getInstance(i)));
         return result;
     }
