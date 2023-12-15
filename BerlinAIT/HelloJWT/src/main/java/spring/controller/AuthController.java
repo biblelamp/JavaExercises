@@ -29,23 +29,23 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest loginReq)  {
+    public ResponseEntity login(@RequestBody LoginRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginReq.getLogin(), loginReq.getPassword()));
+                    new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
             String login = authentication.getName();
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             User user = new User(login, authorities);
             String token = jwtUtil.createToken(user);
-            LoginResponse response = new LoginResponse(login, token);
+            LoginResponse responce = new LoginResponse(login, token);
 
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(responce);
         } catch (BadCredentialsException e) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, "Invalid login or password");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, "Invalid login or password");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
 }

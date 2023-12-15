@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import spring.service.CustomUserDetailsService;
@@ -24,30 +25,46 @@ public class SecurityConfig {
     private JwtAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, NoOpPasswordEncoder passwordEncoder)
+    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
             throws Exception {
-        return http
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
                 .getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
+                .and
+                .passwordEncoder(passwordEncoder);
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        return authenticationManagerBuilder.build();
+//        return http
+//                .getSharedObject(AuthenticationManagerBuilder.class)
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder)
+//                .build();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .authorizeHttpRequests(authUrl -> authUrl
+//                        .requestMatchers(antMatcher("/login/**"))
+//                            .permitAll()
+//                        .anyRequest()
+//                        .authenticated())
+//                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
         return http
                 .csrf().disable()
-                .authorizeRequests()
-                    .antMatchers("/login/**").permitAll()
-                    .antMatchers("/swagger-ui/**", "/v2**", "/v3/**", "/h2-console/**").permitAll()
+                .authorizeHttpRequests()
+                    .requestMatchers("/login/**", "/noauth/**", "/swagger-ui/**", "/v3/**")
+                    .permitAll()
                 .and()
-                .authorizeRequests()
-                    .antMatchers("/helloUser").hasAnyRole("USER", "ADMIN")
+                .authorizeHttpRequests()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .authorizeRequests()
-                    .antMatchers("/helloAdmin").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .authorizeHttpRequests()
+                    .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest()
+                .authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -55,7 +72,7 @@ public class SecurityConfig {
 
     @Bean
     @Deprecated
-    public NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }

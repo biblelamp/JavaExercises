@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/helloAll")
-    public String helloAll() {
-        return "Hello All";
-    }
-
-    @GetMapping("/helloUser")
-    public String helloUser() {
-        return "Hello User";
-    }
-
-    @GetMapping("/helloAdmin")
+    @GetMapping("/admin/hello")
     public String helloAdmin() {
-        return "Hello Admin";
+        return "Hello, Admin";
+    }
+
+    @GetMapping("/user/hello")
+    public String helloUser() {
+        return "Hello, User";
+    }
+
+    @GetMapping("/noauth/hello")
+    public String hello() {
+        return "Hello, Anonimus";
     }
 }
