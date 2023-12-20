@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,20 +38,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf().disable()
-                .authorizeHttpRequests()
-                    .requestMatchers("/login/**", "/noauth/**", "/swagger-ui/**", "/v3/**")
-                    .permitAll()
-                .and()
-                .authorizeHttpRequests()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                .and()
-                .authorizeHttpRequests()
-                    .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(
+                        auth -> auth.requestMatchers("/login/**", "/noauth/**", "/swagger-ui/**", "/v3/**").permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").hasRole("ADMIN"))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN"))
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
