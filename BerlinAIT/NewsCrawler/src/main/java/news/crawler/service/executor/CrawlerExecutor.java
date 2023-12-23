@@ -48,7 +48,7 @@ public class CrawlerExecutor implements SmartLifecycle {
                 for (SourceConfig config : configs) {
                     if (config.getDisabled() == null || !config.getDisabled()) {
                         try {
-                            // create parser object by name of class using reflection
+                            // create object-parser by name of class using reflection
                             Class<?> cls = Class.forName(PACKAGE + config.getClassName());
                             Constructor<?> constructor = cls.getConstructor();
                             Execute execClass = (Execute) constructor.newInstance();

@@ -37,5 +37,4 @@
                   file="db/data/source_config.csv">
         </loadData>
     </changeSet>
-
 </databaseChangeLog>

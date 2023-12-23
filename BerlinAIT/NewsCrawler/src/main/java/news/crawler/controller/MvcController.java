@@ -30,4 +30,6 @@ public class MvcController {
         model.addAttribute("events", events);
         return "events";
     }
+
+    // TODO get news by pages
 }
