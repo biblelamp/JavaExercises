@@ -15,7 +15,7 @@ Java backend группа cohort29:
 9. Что такое Spring? PostgreSQL, JDBC				[HelloJDBC]
 10. Что такое Spring (продолжение)? DI, IoC
 11. Spring Data, Hibernate, ORM, сущность, Lombok	[HelloHibernate]
-12. Spring Data JPA, слой repository, SwaggerUI?	[HelloJPA]
+12. Spring Data JPA, слой repository, SwaggerUI		[HelloJPA]
 13. Управление структурой БД при помощи Liquibase	[HelloLiquibase]
 14. Проект: логгирование, структура БД, domain		[NewsCrawler]
 15. Проект: структура таблиц, список сайтов, jsoup
@@ -26,25 +26,21 @@ Java backend группа cohort29:
 20. Проект: знакомство с @Controller и Thymeleaf
 21. Проект: параметры из файла свойств, тестирование, database h2
 22. Проект: Validate, возврат статуса, ResponseEntity (eng)
-23. Запуск Spring Boot приложения на Amazon Linux VPS сервере
+23. Запуск Spring Boot App на Amazon Linux VPS сервере
 24. Работа с PostgreSQL на Amazon Linux VPS сервере
-25. Проект: ретроспектива, доработки, оптимизация запросов к сайтам
-26. Spring Security + JWT на основе статьи
+25. Проект: ретроспектива, доработки, оптимизация
+26. Spring Security + JWT на основе статьи			[HelloJWT]
 27. Spring Security + JWT Spring Boot 3 + roles
 28. Spring Security + Swagger (Spring Boot 3)
 29. Проект: добавляем Spring Security, развертывание на сервере
-30. резерв
-31. резерв
+30. Повторяем: ООП, коллекции, многопоточность
+31. Повторяем: Spring Boot, REST, JPA, Liquibase
 
 Занятия:
 	октябрь:	-10,-12,-17,-19,-24,-26,30,31
 	ноябрь:		2,3,7,9,10,14,16,17,21,23,24,28,30
-	декабрь:	1,5,7,8,12,14,15
-	итого:		28
-
-Осталось:
-	декабрь:	19,21,22
-	итого:		3
+	декабрь:	1,5,7,8,12,14,15,19,21,22
+	итого:		31
 
 Студенты:
 
