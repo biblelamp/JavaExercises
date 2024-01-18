@@ -1,4 +1,4 @@
-Java Core группа cohort42.1:
+Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
 Расписание:		янв https://primetimetable.com/publish/?id=be8969dc-95a1-42ea-adda-c32656a57c2e&time=6&skin=3#id=be8969dc-95a1-42ea-adda-c32656a57c2e&view=1&classId=444addcd-33c8-4767-a320-0bf8f21bbcf3
@@ -6,8 +6,8 @@ Java Core группа cohort42.1:
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
 
 1. Введение. Установка JDK, IDEA, git, архитектура компьютера, языки программирования
-2. Технологии выполнения кода. Компиляция, интерпретация, работа в IDEA
-3. Переменные и типы данных.
+2. Технологии выполнения кода. Компиляция, интерпретация, работа в IDEA, Github Desktop
+3. Переменные и типы данных
    - представление информации в компьютере
    - переменные, типизация, типы переменных в Java
    - int, double, char
@@ -33,8 +33,8 @@ Java Core группа cohort42.1:
 20. Повторение пройдённого.
 
 Занятия:
-	январь:		16
-	итого:		1
+	январь:		16,17
+	итого:		2
 
 Консультации:
 	январь:		
@@ -46,7 +46,7 @@ Java Core группа cohort42.1:
 	март:		
 	апрель:		
 	май:		
-	осталось:	49
+	осталось:	48
 
 Осталось консультаций:
 	январь:		25
