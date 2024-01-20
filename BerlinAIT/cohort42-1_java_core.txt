@@ -1,6 +1,7 @@
 Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
+Материалы:		https://drive.google.com/drive/u/0/folders/1ZhAAKG0SVP13F--0NU88_vjxnh-ot2_d
 Расписание:		янв https://primetimetable.com/publish/?id=be8969dc-95a1-42ea-adda-c32656a57c2e&time=6&skin=3#id=be8969dc-95a1-42ea-adda-c32656a57c2e&view=1&classId=444addcd-33c8-4767-a320-0bf8f21bbcf3
 				фев https://primetimetable.com/publish/?id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&time=6&skin=3#id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&view=1&classId=af4df320-9033-4bec-90eb-46fd3abffbf7
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
@@ -33,22 +34,25 @@ Java Basic группа cohort42.1:
 20. Повторение пройдённого.
 
 Занятия:
-	январь:		16,17
-	итого:		2
+	январь:		16,17,19
+	итого:		3
 
 Консультации:
 	январь:		
 	итого:		0
 
 Осталось занятий:
-	январь:		17,19,22,24,26,29,31
+	январь:		22,24,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		
 	апрель:		
 	май:		
-	осталось:	48
+	осталось:	47
 
 Осталось консультаций:
 	январь:		25
 	февраль:	1,8,15,22,29
 	осталось:	6
+
+Студенты:
+
