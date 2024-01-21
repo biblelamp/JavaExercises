@@ -15,8 +15,18 @@ Java Basic группа cohort42.1:
    - объявление, присваивание, вывод, литералы
    - aрифметические операции
    - явное и неявное преобразования
-4. String, консольный ввод-вывод. Тип String, конкатенация, класс Scanner, импорт, пакеты
-5. Тип boolean, логические операции. Операторы сравнения, логические операции
+4. String, консольный ввод-вывод
+   - понятие ввода/вывода
+   - класс Scanner, импорт, пакеты
+   - класс String
+   - конкатенация строк
+   - классы StringBuffer и StringBuilder
+5. Тип boolean, логические операции
+   - тип boolean
+   - логические высказывания
+   - операторы сравнения
+   - логические операции
+   - таблицы истинности
 6. Оператор if, области видимости. Конструкции if-else, if-else-if-else, тернарный оператор
 7. Оператор switch, цикл while.
 8. Массивы, цикл for.
@@ -56,3 +66,13 @@ Java Basic группа cohort42.1:
 
 Студенты:
 
+1. Alexander Anischenkoh	https://github.com/Alexander-Anischenko
+2. Andrey Shishkov			https://github.com/AndreyShishkov2103
+3. Andrii Krasiuk			https://github.com/Krasiuk
+4. Maksym Litokho			https://github.com/MaksLitokho
+5. Anna Lingoth				https://github.com/AnnaFF0000
+6. Vitalii Shevchuk			https://github.com/vjshevchuk1
+7. Alex Postica				https://github.com/AlexPostica
+8. Andrey Hein				https://github.com/AndreyHein
+9. Valerian Kipke			https://github.com/Varaan785
+10. Andrey Shishkov			https://github.com/AndreyShishkov2103
