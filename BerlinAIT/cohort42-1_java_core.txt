@@ -15,7 +15,7 @@ Java Basic группа cohort42.1:
    - объявление, присваивание, вывод, литералы
    - aрифметические операции
    - явное и неявное преобразования
-4. String, консольный ввод-вывод
+4. Класс String, консольный ввод-вывод
    - понятие ввода/вывода
    - класс Scanner, импорт, пакеты
    - класс String
@@ -27,7 +27,11 @@ Java Basic группа cohort42.1:
    - операторы сравнения
    - логические операции
    - таблицы истинности
-6. Оператор if, области видимости. Конструкции if-else, if-else-if-else, тернарный оператор
+6. Оператор if, области видимости
+   - cинтаксис и блок-схема оператора
+   - конструкции if-else, if-else-if-else
+   - области видимости
+   - тернарный оператор
 7. Оператор switch, цикл while.
 8. Массивы, цикл for.
 9. Методы, часть 1.
@@ -44,8 +48,8 @@ Java Basic группа cohort42.1:
 20. Повторение пройдённого.
 
 Занятия:
-	январь:		16,17,19
-	итого:		3
+	январь:		16,17,19,22
+	итого:		4
 
 Консультации:
 	январь:		
@@ -57,7 +61,7 @@ Java Basic группа cohort42.1:
 	март:		
 	апрель:		
 	май:		
-	осталось:	47
+	осталось:	46
 
 Осталось консультаций:
 	январь:		25
@@ -75,4 +79,5 @@ Java Basic группа cohort42.1:
 7. Alex Postica				https://github.com/AlexPostica
 8. Andrey Hein				https://github.com/AndreyHein
 9. Valerian Kipke			https://github.com/Varaan785
-10. Andrey Shishkov			https://github.com/AndreyShishkov2103
+10. Michael Karlei			https://github.com/Michael-Karlei
+11. Yaroslav Boiko			https://github.com/ilofrudd
