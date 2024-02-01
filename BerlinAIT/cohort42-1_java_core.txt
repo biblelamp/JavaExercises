@@ -37,10 +37,11 @@ Java Basic группа cohort42.1:
    - применение: калькулятор на switch
    - синтаксис и блок-схема цикла
    - цикл while и do-while
-   - применение: рассчитать ипотеку
+   - применение: рассчитать погашение кредита
 7. Пишем игру "Угадай число"
    - логика игры
    - какие классы нужны
+   - необходимые переменные
    - цикл для повтора попыток
    - ограничение числа попыток
    - цикл для повтора игры
@@ -140,40 +141,38 @@ Java Basic группа cohort42.1:
 50. -/-
 
 Занятия:
-	январь:		16,17,19,22,23,26
-	итого:		6
+	январь:		16,17,19,22,23,26,29,31
+	февраль:	
+	итого:		8
 
 Консультации:
 	январь:		25
-	итого:		1
+	февраль:	1
+	итого:		2
 
 Осталось занятий:
-	январь:		29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		
 	апрель:		
 	май:		
-	осталось:	44
+	осталось:	42
 
 Осталось консультаций:
-	февраль:	1,8,15,22,29
-	осталось:	6
+	февраль:	8,15,22,29
+	осталось:	4
 
 Студенты:
 
-1. Alexander Anischenko		https://github.com/Alexander-Anischenko
-2. Andrey Shishkov			https://github.com/AndreyShishkov2103
-3. Andrii Krasiuk			https://github.com/Krasiuk
-4. Maksym Litokho			https://github.com/MaksLitokho
-5. Vitalii Shevchuk			https://github.com/vjshevchuk1
-6. Alex Postica				https://github.com/AlexPostica
-7. Andrey Hein				https://github.com/AndreyHein
-8. Valerian Kipke			https://github.com/Varaan785
-9. Michael Karlei			https://github.com/Michael-Karlei
-10. Yaroslav Boiko			https://github.com/ilofrudd
-11. Ruslana Dovganits		https://github.com/RuslanaDovganits
-12. Umuth Kamaeva			https://github.com/umiadore
-13. Mukhlis Hasanov			https://github.com/MukhlisHasanov
-14. Alexander Germanow		https://github.com/AlexanderGermanow
-15. Rodion Shilinski		https://github.com/Zannifeks
-16. Ilja Blind				https://github.com/IljaBlind
+1. Alex Postica				https://github.com/AlexPostica
+2. Andrey Hein				https://github.com/AndreyHein
+3. Rodion Shilinski			https://github.com/Zannifeks
+4. Valerian Kipke			https://github.com/Varaan785
+5. Ilja Blind				https://github.com/IljaBlind
+6. Yaroslav Boiko			https://github.com/ilofrudd
+7. Alexander Anischenko		https://github.com/Alexander-Anischenko
+8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+9. Andrey Shishkov			https://github.com/AndreyShishkov2103
+10. Maksym Litokho			https://github.com/MaksLitokho
+11. Vitalii Shevchuk		https://github.com/vjshevchuk1
+12. Alexander Germanow		https://github.com/AlexanderGermanow
+13. Andrii Krasiuk			https://github.com/Krasiuk
