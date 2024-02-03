@@ -2,8 +2,7 @@ Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
 Материалы:		https://drive.google.com/drive/u/0/folders/1ZhAAKG0SVP13F--0NU88_vjxnh-ot2_d
-Расписание:		янв https://primetimetable.com/publish/?id=be8969dc-95a1-42ea-adda-c32656a57c2e&time=6&skin=3#id=be8969dc-95a1-42ea-adda-c32656a57c2e&view=1&classId=444addcd-33c8-4767-a320-0bf8f21bbcf3
-				фев https://primetimetable.com/publish/?id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&time=6&skin=3#id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&view=1&classId=af4df320-9033-4bec-90eb-46fd3abffbf7
+Расписание:		фев https://primetimetable.com/publish/?id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&time=6&skin=3#id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&view=1&classId=af4df320-9033-4bec-90eb-46fd3abffbf7
 Посещаемость:	https://docs.google.com/spreadsheets/d/1X_tejdErcIeAQzhdym-ef-w5inSb0ycxEn_PDWjUBg8/
 
 1. Введение. Установка JDK, IDEA, git, архитектура компьютера, языки программирования
@@ -142,8 +141,8 @@ Java Basic группа cohort42.1:
 
 Занятия:
 	январь:		16,17,19,22,23,26,29,31
-	февраль:	
-	итого:		8
+	февраль:	2
+	итого:		9
 
 Консультации:
 	январь:		25
@@ -151,11 +150,11 @@ Java Basic группа cohort42.1:
 	итого:		2
 
 Осталось занятий:
-	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
+	февраль:	5,7,9,12,14,16,19,21,23,26,28
 	март:		
 	апрель:		
 	май:		
-	осталось:	42
+	осталось:	41
 
 Осталось консультаций:
 	февраль:	8,15,22,29
@@ -172,7 +171,8 @@ Java Basic группа cohort42.1:
 7. Alexander Anischenko		https://github.com/Alexander-Anischenko
 8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
 9. Andrey Shishkov			https://github.com/AndreyShishkov2103
-10. Maksym Litokho			https://github.com/MaksLitokho
-11. Vitalii Shevchuk		https://github.com/vjshevchuk1
-12. Alexander Germanow		https://github.com/AlexanderGermanow
-13. Andrii Krasiuk			https://github.com/Krasiuk
+10. Vitalii Shevchuk		https://github.com/vjshevchuk1
+11. Alexander Germanow		https://github.com/AlexanderGermanow
+12. Andrii Krasiuk			https://github.com/Krasiuk
+13. Maksym Litokho			https://github.com/MaksLitokho
+14. Bogdan Spak				https://github.com/SpakBogdan
