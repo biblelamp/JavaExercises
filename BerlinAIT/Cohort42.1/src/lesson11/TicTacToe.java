@@ -9,10 +9,15 @@ import java.util.Scanner;
  * @version 7-Feb-24
  */
 public class TicTacToe {
+
+    static char[][] table = new char[3][3];
+    static Scanner scanner = new Scanner(System.in);
+    static Random random = new Random();
+    static final char CHAR_EMPTY = '-';
+    static final char CHAR_X = 'x';
+    static final char CHAR_O = 'o';
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
-        char[][] table = new char[3][3];
         // init table (.)
         initTable();
         // main game loop
@@ -20,7 +25,7 @@ public class TicTacToe {
             // human turn (x)
             turnHuman();
             // is human win? yes - game over
-            if (isWin('x')) {
+            if (isWin(CHAR_X)) {
                 System.out.println("YOU WON!");
                 break;
             }
@@ -32,7 +37,7 @@ public class TicTacToe {
             // AI turn (o)
             turnAI();
             // is AI win? yes - game over
-            if (isWin('o')) {
+            if (isWin(CHAR_O)) {
                 System.out.println("AI WON!");
                 break;
             }
@@ -49,22 +54,71 @@ public class TicTacToe {
     }
 
     static void initTable() {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                table[y][x] = CHAR_EMPTY;
+            }
+        }
     }
 
     static void printTable() {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                System.out.print(table[y][x] + " ");
+            }
+            System.out.println();
+        }
     }
 
     static void turnHuman() {
+        int x, y;
+        do {
+            System.out.println("Enter x & y [0..2]:");
+            x = scanner.nextInt();
+            y = scanner.nextInt();
+        } while(!isCellValid(x, y));
+        table[y][x] = CHAR_X;
     }
 
     static void turnAI() {
+        int x, y;
+        do {
+            x = random.nextInt(3);
+            y = random.nextInt(3);
+        } while(!isCellValid(x, y));
+        table[y][x] = CHAR_O;
+    }
+
+    static boolean isCellValid(int x, int y) {
+        if (x < 0 || y < 0 || x > 2 || y > 2) {
+            return false;
+        }
+        return table[y][x] == CHAR_EMPTY;
     }
 
     static boolean isWin(char chr) {
+        // by x
+        if (table[0][0] == chr && table[0][1] == chr && table[0][2] == chr) return true;
+        if (table[1][0] == chr && table[1][1] == chr && table[1][2] == chr) return true;
+        if (table[2][0] == chr && table[2][1] == chr && table[2][2] == chr) return true;
+        // by y
+        if (table[0][0] == chr && table[1][0] == chr && table[2][0] == chr) return true;
+        if (table[0][1] == chr && table[1][1] == chr && table[2][1] == chr) return true;
+        if (table[0][2] == chr && table[1][2] == chr && table[2][2] == chr) return true;
+        // diagonals
+        if (table[0][0] == chr && table[1][1] == chr && table[2][2] == chr) return true;
+        if (table[0][2] == chr && table[1][1] == chr && table[2][0] == chr) return true;
         return false;
     }
 
     static boolean isTableFill() {
-        return false;
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                if (table[y][x] == CHAR_EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
