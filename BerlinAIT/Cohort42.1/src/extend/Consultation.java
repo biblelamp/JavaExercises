@@ -1,4 +1,4 @@
-package lesson8;
+package extend;
 
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class Consultation {
     public static void main(String[] args) {
-        // hw #8 task #5
+        // hw #8 task #5 ext
         String exp = "16 + 23-123+8";
 
         String[] tokens = new String[10];
