@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class HomeWork9Ext {
     public static void main(String[] args) {
-        String[] tokens = expressionToTokens("16-23-1+18");
+        String[] tokens = expressionToTokens("16-2*3/2+18");
         System.out.println(Arrays.toString(tokens));
         System.out.println("= " + calculate(tokens));
     }
@@ -41,17 +41,40 @@ public class HomeWork9Ext {
     }
 
     static Integer calculate(String[] tokens) {
+        String[] newTokens = new String[tokens.length];
+        newTokens[0] = tokens[0];
+        int length = 1;
+        // calculation of higher priority operations '*','/'
         int result = Integer.valueOf(tokens[0]);
         for (int i = 1; i < tokens.length; i += 2) {
             switch (tokens[i]) {
-                case "+":
-                    result += Integer.valueOf(tokens[i + 1]);
+                case "*":
+                    result *= Integer.valueOf(tokens[i + 1]);
+                    newTokens[length - 1] = String.valueOf(result);
                     break;
-                case "-":
-                    result -= Integer.valueOf(tokens[i + 1]);
+                case "/":
+                    result /= Integer.valueOf(tokens[i + 1]);
+                    newTokens[length - 1] = String.valueOf(result);
                     break;
                 default:
-                    System.out.println("Undefined operation: " + tokens[i]);
+                    newTokens[length] = tokens[i];
+                    newTokens[length + 1] = tokens[i + 1];
+                    result = Integer.valueOf(tokens[i + 1]);
+                    length += 2;
+            }
+        }
+        // calculation of low priority operations '+', '-'
+        result = Integer.valueOf(newTokens[0]);
+        for (int i = 1; i < length; i += 2) {
+            switch (newTokens[i]) {
+                case "+":
+                    result += Integer.valueOf(newTokens[i + 1]);
+                    break;
+                case "-":
+                    result -= Integer.valueOf(newTokens[i + 1]);
+                    break;
+                default:
+                    System.out.println("Undefined operation: " + newTokens[i]);
                     return null;
             }
         }
