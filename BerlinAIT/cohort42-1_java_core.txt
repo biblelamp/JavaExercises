@@ -75,12 +75,16 @@ Java Basic группа cohort42.1:
     - создаём методы
     - тестируем игру
 12. Структуры и алгоритмы. Сортировка и поиск
-    - введение в структуры данных 
+    https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+    https://visualgo.net/en
+    - введение в структуры данных
     - переменная и массив, стек и очередь
     - алгоритм линейного поиска
-    - алгоритмы сортировки
+    - алгоритмы сортировки (exchangeSort & selectionSort)
     - алгоритм бинарного поиска
 13. Алгоритмы и О-нотация
+    https://proglib.io/p/big-o-notaciya-chto-eto-takoe-i-pochemu-ee-obyazatelno-nuzhno-znat-kazhdomu-programmistu-2022-02-17
+    https://habr.com/ru/articles/444594/
     - оценка алгоритма по времени выполнения
     - оценка по количеству операций
     - оценка по порядку количества операций
@@ -141,38 +145,36 @@ Java Basic группа cohort42.1:
 
 Занятия:
 	январь:		16,17,19,22,23,26,29,31
-	февраль:	2
-	итого:		9
+	февраль:	2,5,7,9
+	итого:		12
 
 Консультации:
 	январь:		25
-	февраль:	1
-	итого:		2
+	февраль:	1,8
+	итого:		3
 
 Осталось занятий:
-	февраль:	5,7,9,12,14,16,19,21,23,26,28
+	февраль:	12,14,16,19,21,23,26,28
 	март:		
 	апрель:		
 	май:		
-	осталось:	41
+	осталось:	38
 
 Осталось консультаций:
-	февраль:	8,15,22,29
-	осталось:	4
+	февраль:	15,22,29
+	осталось:	3
 
 Студенты:
 
-1. Alex Postica				https://github.com/AlexPostica
-2. Andrey Hein				https://github.com/AndreyHein
-3. Rodion Shilinski			https://github.com/Zannifeks
-4. Valerian Kipke			https://github.com/Varaan785
-5. Ilja Blind				https://github.com/IljaBlind
-6. Yaroslav Boiko			https://github.com/ilofrudd
-7. Alexander Anischenko		https://github.com/Alexander-Anischenko
-8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
-9. Andrey Shishkov			https://github.com/AndreyShishkov2103
+1. Andrey Hein				https://github.com/AndreyHein
+2. Andrey Shishkov			https://github.com/AndreyShishkov2103
+3. Alexander Anischenko		https://github.com/Alexander-Anischenko
+4. Alex Postica				https://github.com/AlexPostica
+5. Rodion Shilinski			https://github.com/Zannifeks
+6. Valerian Kipke			https://github.com/Varaan785
+7. Ilja Blind				https://github.com/IljaBlind
+8. Yaroslav Boiko			https://github.com/ilofrudd
+9. Mukhlis Hasanov			https://github.com/MukhlisHasanov
 10. Vitalii Shevchuk		https://github.com/vjshevchuk1
 11. Alexander Germanow		https://github.com/AlexanderGermanow
-12. Andrii Krasiuk			https://github.com/Krasiuk
-13. Maksym Litokho			https://github.com/MaksLitokho
-14. Bogdan Spak				https://github.com/SpakBogdan
+12. Maksym Litokho			https://github.com/MaksLitokho
