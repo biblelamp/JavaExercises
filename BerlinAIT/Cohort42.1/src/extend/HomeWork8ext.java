@@ -3,11 +3,11 @@ package extend;
 import java.util.Arrays;
 
 /**
- * AIT-TR, cohort 42.1, Java Basic, Consultation #2
+ * AIT-TR, cohort 42.1, Java Basic, hw #8 ext
  *
  * @version 1-Feb-2024
  */
-public class Consultation {
+public class HomeWork8ext {
     public static void main(String[] args) {
         // hw #8 task #5 ext
         String exp = "16 + 23-123+8";
