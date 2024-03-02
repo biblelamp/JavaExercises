@@ -10,18 +10,11 @@ public class Variables {
         }
         // transform 'a' -> 0
         int idx = varName.charAt(0) - 'a';
+        // return value
         return values[idx];
     }
 
-    public void assignValue(String line) {
-        String[] tokens = line.split("=");
-        String varName = tokens[0].trim();
-        // if right side from '=' is not empty
-        if (tokens.length == 1) {
-            System.out.println("Error: invalid command");
-            return;
-        }
-        String varValue = tokens[1].trim();
+    public void setValue(String varName, String varValue) {
         // check variable name
         if (!validateVarName(varName)) {
             return;
@@ -29,7 +22,13 @@ public class Variables {
         // transform 'a' -> 0
         int idx = varName.charAt(0) - 'a';
         // transform "123" -> 123
-        int value = Integer.valueOf(varValue);
+        int value;
+        try {
+            value = Integer.valueOf(varValue);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: invalid value");
+            return;
+        }
         // assign value
         values[idx] = value;
     }
