@@ -1,4 +1,6 @@
-package lesson19.homework;
+package lesson21.homework;
+
+import java.util.Arrays;
 
 public class RubberArray {
 
