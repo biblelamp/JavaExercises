@@ -17,7 +17,7 @@ public class Lesson24 {
         Statement stmt = connection.createStatement();
 
         //add("Muzafar", "cohort41", stmt);
-        //read(stmt);
+        read(stmt);
 
         // CRUD - create, read, update, delete
 
