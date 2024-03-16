@@ -2,8 +2,8 @@ Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
 Материалы:		https://drive.google.com/drive/u/0/folders/1ZhAAKG0SVP13F--0NU88_vjxnh-ot2_d
-Расписание:		фев https://primetimetable.com/publish/?id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&time=6&skin=3#id=7e3dd7a6-7366-4ca3-a3d7-fae1a442fd3d&view=1&classId=af4df320-9033-4bec-90eb-46fd3abffbf7
-				март https://primetimetable.com/publish/?id=e189aba9-787f-463e-849d-7a372dfd4788&v=1&time=6&skin=3#id=e189aba9-787f-463e-849d-7a372dfd4788&view=2&teacherId=a46b741f-e0ee-44b0-9c9f-56f47b6fc7ee
+Расписание:		март https://primetimetable.com/publish/?id=e189aba9-787f-463e-849d-7a372dfd4788&v=1&time=6&skin=3#id=e189aba9-787f-463e-849d-7a372dfd4788&view=2&teacherId=a46b741f-e0ee-44b0-9c9f-56f47b6fc7ee
+				апрель https://primetimetable.com/publish/?id=d95ab9aa-2f8f-44a4-81b4-39638106e439&time=6&skin=3#id=d95ab9aa-2f8f-44a4-81b4-39638106e439&view=1&classId=fde7511f-2c55-4d06-956d-1dfb1f436d36
 Посещаемость:	https://docs.google.com/spreadsheets/d/18WtyeFcdp6IKOEHH-d-mbFP0C7RwFFuW/edit#gid=557951074
 
 1. Введение. Установка JDK, IDEA, git, архитектура компьютера, языки программирования
@@ -173,50 +173,67 @@ Java Basic группа cohort42.1:
     - доступность членов внешних и внутренних классов
     - создание экземпляров
 29. Список на основе узлов
+    - отличие массива от связного списка
+    - создание внутреннего класса-узла
+    - добавление элемента
+    - удаление элемента
+    - вывод списка
 30. Повторение пройденного
+    - модульное тестирование
+    - введение в SQL базы данных
+    - инкапсуляция
+    - наследование
+    - полиморфизм
 31. Анонимные классы и лямбда выражения
-32. Enums, Generics
-33. -/-
+32. Enums
+33. Generics
 34. Java Collection
 35. -/-
 36. -/-
 37. -/-
-38. Работа с ветками в git
-39. Проектная работа
-40. -/-
+38. Работа с ветками в git (#31)
+39. Проектная работа #1
+    - консольное приложения, используем стандартные коллекции
+    - работа в командах без публичной защиты
+40. Проектная работа #2
 41. Stream API
 42. -/-
 43. Exceptions
 44. Java IO
 45. Архитектура приложений
 46. Работа с датой и временем, повторение
-47. Проектная работа
-48. -/-
-49. -/-
-50. -/-
+47. Проектная работа #1
+    - консольное приложение с трехслойной архитектурой
+    - обеспечить покрытие тестами
+    - хранение информации в текстовых файлах или SQL
+    - работа в командах с возможной публичной защитой
+48. Проектная работа #2
+49. Проектная работа #3
+50. Проектная работа #4
 
 Занятия:
 	январь:		16,17,19,22,23,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
-	март:		1,4,6,7
-	итого:		24
+	март:		1,4,6,7,11,13,15
+	апрель:		
+	итого:		27
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
-	март:		
-	итого:		6
+	март:		14
+	итого:		7
 
 Осталось занятий:
-	март:		11,13,15,18,20,22,25,27
-	апрель:		
+	март:		18,20,22,25,27
+	апрель:		3,5,8,10,12,15,17,19,22,24,26,29
 	май:		
-	осталось:	26
+	осталось:	23
 
 Осталось консультаций:
-	март:		7,14,21,28
-	апрель:		
-	осталось:	4+
+	март:		21,28
+	апрель:		4,11,18,25
+	осталось:	6+
 
 Студенты:
 
@@ -235,3 +252,17 @@ Java Basic группа cohort42.1:
 13. Larysa Petrova			https://github.com/larysa7408
 14. Dmytro Filimonov		https://github.com/DmytroFilimonov
 15. Yastremskiy Nazariy		https://github.com/NazariyYastremskiy
+
+Инфиксные и постфиксные выражения:
+
+Инфиксные, префиксные и постфиксные выражения
+http://aliev.me/runestone/BasicDS/InfixPrefixandPostfixExpressions.html
+
+Преобразование инфиксной нотации в постфиксную
+https://habr.com/ru/articles/489744/
+
+Convert Infix to Postfix Expressions in Java
+https://www.baeldung.com/java-convert-infix-to-postfix-expressions
+
+maven artefact
+https://mvnrepository.com/artifact/org.scijava/parsington/1.0.1
