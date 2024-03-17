@@ -1,6 +1,6 @@
 package lesson12;
 
-import extend.Stack;
+import extend.SimpleStack;
 import lesson9.HomeWork9;
 
 import java.util.Arrays;
@@ -27,12 +27,12 @@ public class HomeWork12 {
         System.out.println(binarySearch(array, 8));
 
         // task #4
-        Stack.push(12);
-        Stack.push(8);
-        Stack.push(-3);
-        System.out.println(Stack.arrayToString());
-        System.out.println(Stack.pop());
-        System.out.println(Stack.arrayToString());
+        SimpleStack.push(12);
+        SimpleStack.push(8);
+        SimpleStack.push(-3);
+        System.out.println(SimpleStack.arrayToString());
+        System.out.println(SimpleStack.pop());
+        System.out.println(SimpleStack.arrayToString());
     }
 
     public static int linearSearch(int[] a, int n) {
