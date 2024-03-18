@@ -16,14 +16,24 @@ public class Warehouse {
     }
 
     public void deleteAll(List<ProductAndCount> products) {
-        // TODO check count etc
         for (ProductAndCount pac : products) {
             Product product = pac.getProduct();
             int count = pac.getCount();
+            boolean found = false;
             for (ProductAndCount whpac : this.products) {
                 if (whpac.getProduct().equals(product)) {
-                    whpac.setCount(whpac.getCount() - count);
+                    // check if we can decrease count of product
+                    if (whpac.getCount() >= count) {
+                        whpac.setCount(whpac.getCount() - count);
+                        found = true;
+                        break;
+                    } else {
+                        // TODO exception: not enought of product
+                    }
                 }
+            }
+            if (!found) {
+                // TODO exception: product not found
             }
         }
     }
