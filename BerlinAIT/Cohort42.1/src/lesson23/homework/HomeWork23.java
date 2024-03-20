@@ -20,6 +20,9 @@ public class HomeWork23 {
         toWarehouse.toWarehouse(warehouse);
         System.out.println(warehouse);
 
+        toWarehouse.toWarehouse(warehouse);
+        System.out.println(warehouse);
+
         Order order = new Order(2);
         order.add(laptop, 60);
         order.add(tv, 5);
