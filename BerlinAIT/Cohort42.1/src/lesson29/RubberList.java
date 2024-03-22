@@ -1,7 +1,5 @@
 package lesson29;
 
-import org.w3c.dom.Node;
-
 public class RubberList {
     private int size = 0;
     private Node first;
@@ -94,13 +92,13 @@ public class RubberList {
     }
 
     private static class Node {
+        Node prev;
         int item;
         Node next;
-        Node prev;
-        public Node(Node prev, int element, Node next) {
-            this.item = element;
-            this.next = next;
+        public Node(Node prev, int item, Node next) {
             this.prev = prev;
+            this.item = item;
+            this.next = next;
         }
     }
 }
