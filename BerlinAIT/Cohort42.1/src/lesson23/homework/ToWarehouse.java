@@ -6,7 +6,11 @@ public class ToWarehouse extends BaseDocument {
         super(id);
     }
 
-    public void toWarehouse(Warehouse warehouse) {
+    public void toWarehouse(Warehouse warehouse, Manager manager) {
+        if (this.manager != null) {
+            return;
+        }
         warehouse.addAll(products);
+        this.manager = manager;
     }
 }
