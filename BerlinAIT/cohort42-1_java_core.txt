@@ -5,6 +5,7 @@ Java Basic группа cohort42.1:
 Расписание:		март https://primetimetable.com/publish/?id=e189aba9-787f-463e-849d-7a372dfd4788&v=1&time=6&skin=3#id=e189aba9-787f-463e-849d-7a372dfd4788&view=2&teacherId=a46b741f-e0ee-44b0-9c9f-56f47b6fc7ee
 				апрель https://primetimetable.com/publish/?id=d95ab9aa-2f8f-44a4-81b4-39638106e439&time=6&skin=3#id=d95ab9aa-2f8f-44a4-81b4-39638106e439&view=1&classId=fde7511f-2c55-4d06-956d-1dfb1f436d36
 Посещаемость:	https://docs.google.com/spreadsheets/d/18WtyeFcdp6IKOEHH-d-mbFP0C7RwFFuW/edit#gid=557951074
+Отзывы:			https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5BzAJJGpXRsLbfBSM_ptCmXzYOmA7Y9HCeK65lfoXoDSHwMKnu5V6R42Qjt4pfh13En8DOBSfONG/pubhtml
 
 1. Введение. Установка JDK, IDEA, git, архитектура компьютера, языки программирования
 2. Технологии выполнения кода. Компиляция, интерпретация, работа в IDEA, Github Desktop
@@ -173,6 +174,8 @@ Java Basic группа cohort42.1:
     - доступность членов внешних и внутренних классов
     - создание экземпляров
 29. Список на основе узлов
+    https://linked-list-visualizer.vercel.app/app
+    https://vonvista.github.io/Linked-List/
     - отличие массива от связного списка
     - создание внутреннего класса-узла
     - добавление элемента
@@ -205,7 +208,7 @@ Java Basic группа cohort42.1:
 47. Проектная работа #1
     - консольное приложение с трехслойной архитектурой
     - обеспечить покрытие тестами
-    - хранение информации в текстовых файлах или SQL
+    - хранение информации в текстовых файлах (или SQL)
     - работа в командах с возможной публичной защитой
 48. Проектная работа #2
 49. Проектная работа #3
@@ -214,24 +217,24 @@ Java Basic группа cohort42.1:
 Занятия:
 	январь:		16,17,19,22,23,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
-	март:		1,4,6,7,11,13,15
+	март:		1,4,6,7,11,13,15,18,20,22
 	апрель:		
-	итого:		27
+	итого:		30
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
-	март:		14
+	март:		14,21
 	итого:		7
 
 Осталось занятий:
-	март:		18,20,22,25,27
+	март:		25,27
 	апрель:		3,5,8,10,12,15,17,19,22,24,26,29
 	май:		
-	осталось:	23
+	осталось:	20
 
 Осталось консультаций:
-	март:		21,28
+	март:		28
 	апрель:		4,11,18,25
 	осталось:	6+
 
@@ -239,19 +242,18 @@ Java Basic группа cohort42.1:
 
 1. Andrey Hein				https://github.com/AndreyHein
 2. Andrey Shishkov			https://github.com/AndreyShishkov2103
-3. Alexander Anischenko		https://github.com/Alexander-Anischenko
-4. Alex Postica				https://github.com/AlexPostica
-5. Rodion Shilinski			https://github.com/Zannifeks
-6. Valerian Kipke			https://github.com/Varaan785
-7. Ilja Blind				https://github.com/IljaBlind
-8. Yaroslav Boiko			https://github.com/ilofrudd
-9. Mukhlis Hasanov			https://github.com/MukhlisHasanov
-10. Alexander Germanow		https://github.com/AlexanderGermanow
-11. Maksym Litokho			https://github.com/MaksLitokho
-12. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
-13. Larysa Petrova			https://github.com/larysa7408
-14. Dmytro Filimonov		https://github.com/DmytroFilimonov
-15. Yastremskiy Nazariy		https://github.com/NazariyYastremskiy
+3. Alex Postica				https://github.com/AlexPostica
+4. Rodion Shilinski			https://github.com/Zannifeks
+5. Valerian Kipke			https://github.com/Varaan785
+6. Ilja Blind				https://github.com/IljaBlind
+7. Yaroslav Boiko			https://github.com/ilofrudd
+8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+9. Alexander Germanow		https://github.com/AlexanderGermanow
+10. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
+11. Larysa Petrova			https://github.com/larysa7408
+12. Gorbovyi Anton			https://github.com/AGorbovyi
+13. ? Dmytro Filimonov		https://github.com/DmytroFilimonov
+14. ? Yastremskiy Nazariy	https://github.com/NazariyYastremskiy
 
 Инфиксные и постфиксные выражения:
 
@@ -266,3 +268,48 @@ https://www.baeldung.com/java-convert-infix-to-postfix-expressions
 
 maven artefact
 https://mvnrepository.com/artifact/org.scijava/parsington/1.0.1
+
+Варианты проектных работ:
+
+1. Система складского учёта:
+   классы: Product, ProductAndCount, Manager, Warehouse, {ToWarehouse, Order, FromWarehouse} <- BaseDocument
+
+2. Библиотечная система. Классы:
+   - Book              - книги в библиотеке
+   - User              - пользователь
+   - Library           - библиотека с книгами
+   - UserList          - книги, которые взял пользователь
+   - FromLibrary       - взять книги из библиотеке почитать
+   - ToLibrary         - вернуть книгу в библиотеку
+   - AddToLibrary      - добавить книги в библиотеку
+   - RemoveFromLibrary - удалить книгу из библиотеки
+
+3. Система зарплата и кадры. Классы:
+   - сотрудник
+   - предприятие где работают сотрудники
+   - приказ о приёме на работу
+   - приказ об увольнении
+   - табель отработанного времени
+   - ведомость выплаты зарплаты
+
+4. Автосервис. Классы:
+   - мастера
+   - клиенты-автомобиль
+   - прейскурант на работы
+   - заказ-наряд по клиенту
+   - материалы-запчасти
+
+5. Пиццерия. Классы:
+   - ингредиенты
+   - основания
+   - пицца в сборе
+   - пиццерия
+   - заказчики
+   - заказ
+   - отчёт по реализации
+
+
+
+
+
+
