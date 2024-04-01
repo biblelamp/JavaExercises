@@ -201,14 +201,14 @@ Java Basic группа cohort42.1:
     - стирание типов
     - обобщенные методы
     - оберточные типы
-33. Java Collection
-    - Collection, Iterable, Iterator
+33. Java Collection (#36,#37,#38,#39)
+    - Collection, Iterable, Iterator (#37)
     - List, LinkedList, ArrayList
     - Хеширование
     - Самостоятельная реализация HashMap (опционально)
-    - Comparator, Comparable
-    - Map, HashMap
-    - Set, HashSet
+    - Comparator, Comparable (#36)
+    - Map, HashMap, LinkedHashMap, TreeMap (#39)
+    - Set, HashSet, LinkedHashSet, TreeSet (#38)
     - класс Collections
 34. -/-
 35. -/-
@@ -236,10 +236,13 @@ Java Basic группа cohort42.1:
     - лучшие практики по обработке исключений
     - try-with-resources
 44. Java IO
+    - InputStream, OutputStream
+    - Reader, Writer, BufferedReader, BufferedWriter
 45. Архитектура приложений
     - многослойная архитектура
     - выделение сервисов, репозиториев, моделей
 46. Работа с датой и временем, повторение
+    - LocalDate, LocalDateTime, DateFormatter
 47. Проектная работа #1
     - консольное приложение с трехслойной архитектурой
     - обеспечить покрытие тестами
