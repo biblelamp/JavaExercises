@@ -201,18 +201,15 @@ Java Basic группа cohort42.1:
     - стирание типов
     - обобщенные методы
     - оберточные типы
-33. Java Collection (#36,#37,#38,#39)
+33. JCF #1: Java Collection (#36,#37,#38,#39)
     - Collection, Iterable, Iterator (#37)
     - List, LinkedList, ArrayList
     - Хеширование
     - Самостоятельная реализация HashMap (опционально)
-    - Comparator, Comparable (#36)
-    - Map, HashMap, LinkedHashMap, TreeMap (#39)
-    - Set, HashSet, LinkedHashSet, TreeSet (#38)
     - класс Collections
-34. -/-
-35. -/-
-36. -/-
+34. JCF #2: Comparator, Comparable (#36)
+35. JCF #3: Set, HashSet, LinkedHashSet, TreeSet (#38)
+36. JCF #4: Map, HashMap, LinkedHashMap, TreeMap (#39)
 37. Работа с ветками в git (#31)
     - необходимость ветвления
     - Fork
@@ -256,20 +253,22 @@ Java Basic группа cohort42.1:
 	январь:		16,17,19,22,23,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		1,4,6,7,11,13,15,18,20,22,25,27
-	апрель:		
+	апрель:		3,5
 	май:		
-	итого:		32
+	итого:		34
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
 	март:		14,21,28
-	итого:		9
+	апрель:		4
+	май:		
+	итого:		10
 
 Осталось занятий:
-	апрель:		3,5,8,10,12,15,17,19,22,24,26,29
-	май:		
-	осталось:	18
+	апрель:		8,10,12,15,17,19,22,24,26,29
+	май:		+6
+	осталось:	16
 
 Осталось консультаций:
 	апрель:		4,11,18,25
@@ -279,16 +278,16 @@ Java Basic группа cohort42.1:
 
 1. Andrey Hein				https://github.com/AndreyHein
 2. Andrey Shishkov			https://github.com/AndreyShishkov2103
-3. Alex Postica				https://github.com/AlexPostica
-4. Rodion Shilinski			https://github.com/Zannifeks
-5. Valerian Kipke			https://github.com/Varaan785
-6. Ilja Blind				https://github.com/IljaBlind
-7. Yaroslav Boiko			https://github.com/ilofrudd
-8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
-9. Alexander Germanow		https://github.com/AlexanderGermanow
-10. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
-11. Larysa Petrova			https://github.com/larysa7408
-12. Gorbovyi Anton			https://github.com/AGorbovyi
+3. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
+4. Larysa Petrova			https://github.com/larysa7408
+5. Alex Postica				https://github.com/AlexPostica
+6. Rodion Shilinski			https://github.com/Zannifeks
+7. Valerian Kipke			https://github.com/Varaan785
+8. Yaroslav Boiko			https://github.com/ilofrudd
+9. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+10. Alexander Germanow		https://github.com/AlexanderGermanow
+11. Gorbovyi Anton			https://github.com/AGorbovyi
+12. Ilja Blind				https://github.com/IljaBlind
 13. ? Yastremskiy Nazariy	https://github.com/NazariyYastremskiy
 
 Инфиксные и постфиксные выражения:
