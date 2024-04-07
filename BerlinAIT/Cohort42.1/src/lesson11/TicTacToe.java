@@ -6,16 +6,16 @@ import java.util.Scanner;
 /**
  * AIT-TR, cohort 42.1, Java Basic, Lesson #11
  *
- * @version 7-Feb-24
+ * @version 7-Feb,3-Apr-24
  */
 public class TicTacToe {
 
-    static char[][] table = new char[3][3];
+    public static char[][] table = new char[3][3];
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
     static final char CHAR_EMPTY = '-';
-    static final char CHAR_X = 'x';
-    static final char CHAR_O = 'o';
+    public static final char CHAR_X = 'x';
+    public static final char CHAR_O = 'o';
 
     public static void main(String[] args) {
         // init table (.)
@@ -53,7 +53,7 @@ public class TicTacToe {
         printTable();
     }
 
-    static void initTable() {
+    public static void initTable() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 table[y][x] = CHAR_EMPTY;
@@ -61,7 +61,7 @@ public class TicTacToe {
         }
     }
 
-    static void printTable() {
+    public static void printTable() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 System.out.print(table[y][x] + " ");
@@ -70,7 +70,15 @@ public class TicTacToe {
         }
     }
 
-    static void turnHuman() {
+    public static boolean turnHuman(int x, int y) {
+        if (isCellValid(x, y)) {
+            table[y][x] = CHAR_X;
+            return true;
+        }
+        return false;
+    }
+
+    public static void turnHuman() {
         int x, y;
         do {
             System.out.println("Enter x & y [0..2]:");
@@ -80,7 +88,7 @@ public class TicTacToe {
         table[y][x] = CHAR_X;
     }
 
-    static void turnAI() {
+    public static void turnAI() {
         int x, y;
         do {
             x = random.nextInt(3);
@@ -89,14 +97,14 @@ public class TicTacToe {
         table[y][x] = CHAR_O;
     }
 
-    static boolean isCellValid(int x, int y) {
+    public static boolean isCellValid(int x, int y) {
         if (x < 0 || y < 0 || x > 2 || y > 2) {
             return false;
         }
         return table[y][x] == CHAR_EMPTY;
     }
 
-    static boolean isWin(char chr) {
+    public static boolean isWin(char chr) {
         // by x
         if (table[0][0] == chr && table[0][1] == chr && table[0][2] == chr) return true;
         if (table[1][0] == chr && table[1][1] == chr && table[1][2] == chr) return true;
@@ -111,7 +119,7 @@ public class TicTacToe {
         return false;
     }
 
-    static boolean isTableFill() {
+    public static boolean isTableFill() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 if (table[y][x] == CHAR_EMPTY) {
