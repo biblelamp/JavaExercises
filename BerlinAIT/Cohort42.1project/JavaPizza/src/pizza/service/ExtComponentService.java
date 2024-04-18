@@ -1,6 +1,6 @@
 package pizza.service;
 
-import pizza.base.ExtСomponent;
+import pizza.data.ExtСomponent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,18 +13,17 @@ import java.util.stream.Collectors;
  * Encapsulates the list of extra components & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 17-Apr-24
  */
 public class ExtComponentService {
-    private List<ExtСomponent> components;
     private Map<Integer, ExtСomponent> componentMap;
 
     public ExtComponentService() {
-        components = new ArrayList<>();
         componentMap = new HashMap<>();
     }
 
     public void init() {
+        List<ExtСomponent> components = new ArrayList<>();
         components.addAll(List.of(
                 new ExtСomponent("ham", 25),
                 new ExtСomponent("mozzarella", 25),
@@ -37,7 +36,6 @@ public class ExtComponentService {
 
     public void add(String name, int price) {
         ExtСomponent component = new ExtСomponent(name, price);
-        components.add(component);
         componentMap.put(component.getId(), component);
     }
 
@@ -53,7 +51,6 @@ public class ExtComponentService {
     public boolean delete(int id) {
         ExtСomponent delComponent = componentMap.get(id);
         if (delComponent != null) {
-            components.remove(delComponent);
             componentMap.remove(id);
             return true;
         }
@@ -61,6 +58,6 @@ public class ExtComponentService {
     }
 
     public void print() {
-        components.forEach(System.out::println);
+        componentMap.values().forEach(System.out::println);
     }
 }

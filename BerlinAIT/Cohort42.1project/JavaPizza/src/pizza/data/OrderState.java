@@ -1,4 +1,4 @@
-package pizza.base;
+package pizza.data;
 
 /**
  * Order states

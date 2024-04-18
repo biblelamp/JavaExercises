@@ -1,6 +1,6 @@
 package pizza.service;
 
-import pizza.base.Pizza;
+import pizza.data.Pizza;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,18 +13,17 @@ import java.util.stream.Collectors;
  * Encapsulates the list of pizzas & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 17-Apr-24
  */
 public class PizzaService {
-    private List<Pizza> pizzas;
     private Map<Integer, Pizza> pizzaMap;
 
     public PizzaService() {
-        pizzas = new ArrayList<>();
         pizzaMap = new HashMap<>();
     }
 
     public void init() {
+        List<Pizza> pizzas = new ArrayList<>();
         pizzas.addAll(List.of(
                 new Pizza("Margherita", "tomato base, mozzarella, basil", 174),
                 new Pizza("Capriciosa", "tomato base, mozzarella, ham, champignons, olives", 190),
@@ -37,7 +36,6 @@ public class PizzaService {
 
     public void add(String name, String composition, int price) {
         Pizza pizza = new Pizza(name, composition, price);
-        pizzas.add(pizza);
         pizzaMap.put(pizza.getId(), pizza);
     }
 
@@ -53,7 +51,6 @@ public class PizzaService {
     public boolean delete(int id) {
         Pizza delPizza = pizzaMap.get(id);
         if (delPizza != null) {
-            pizzas.remove(delPizza);
             pizzaMap.remove(id);
             return true;
         }
@@ -61,6 +58,6 @@ public class PizzaService {
     }
 
     public void print() {
-        pizzas.forEach(System.out::println);
+        pizzaMap.values().forEach(System.out::println);
     }
 }

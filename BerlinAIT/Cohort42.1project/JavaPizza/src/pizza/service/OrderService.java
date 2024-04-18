@@ -1,6 +1,6 @@
 package pizza.service;
 
-import pizza.base.Order;
+import pizza.data.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,14 +12,12 @@ import java.util.Map;
  * Encapsulates the list of orders & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 17-Apr-24
  */
 public class OrderService {
-    private List<Order> orders;
     private Map<Integer, Order> orderMap;
 
     public OrderService() {
-        orders = new ArrayList<>();
         orderMap = new HashMap<>();
     }
 
