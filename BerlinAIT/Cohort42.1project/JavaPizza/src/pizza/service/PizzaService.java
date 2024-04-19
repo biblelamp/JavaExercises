@@ -1,6 +1,7 @@
 package pizza.service;
 
 import pizza.data.Pizza;
+import pizza.repository.PizzaRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,34 +14,22 @@ import java.util.stream.Collectors;
  * Encapsulates the list of pizzas & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 17-Apr-24
+ * @version 18-Apr-24
  */
 public class PizzaService {
-    private Map<Integer, Pizza> pizzaMap;
+    private PizzaRepository repository;
 
-    public PizzaService() {
-        pizzaMap = new HashMap<>();
-    }
-
-    public void init() {
-        List<Pizza> pizzas = new ArrayList<>();
-        pizzas.addAll(List.of(
-                new Pizza("Margherita", "tomato base, mozzarella, basil", 174),
-                new Pizza("Capriciosa", "tomato base, mozzarella, ham, champignons, olives", 190),
-                new Pizza("Hawai", "tomato base, mozzarella, ham, pineapple", 190),
-                new Pizza("Salami", "tomato base, mozzarella, salami, grana padano", 194),
-                new Pizza("Quattro Formaggi", "cream base, mozzarella, grana padano, gorgonzola, smoked cheese", 204)
-        ));
-        pizzaMap = pizzas.stream().collect(Collectors.toMap(Pizza::getId, p -> p));
+    public PizzaService(PizzaRepository repository) {
+        this.repository = repository;
     }
 
     public void add(String name, String composition, int price) {
         Pizza pizza = new Pizza(name, composition, price);
-        pizzaMap.put(pizza.getId(), pizza);
+        repository.put(pizza);
     }
 
     public boolean update(int id, String name, String composition, int price) {
-        Pizza updPizza = pizzaMap.get(id);
+        Pizza updPizza = repository.get(id);
         if (updPizza != null) {
             updPizza.update(name, composition, price);
             return true;
@@ -49,15 +38,15 @@ public class PizzaService {
     }
 
     public boolean delete(int id) {
-        Pizza delPizza = pizzaMap.get(id);
+        Pizza delPizza = repository.get(id);
         if (delPizza != null) {
-            pizzaMap.remove(id);
+            repository.remove(id);
             return true;
         }
         return false;
     }
 
     public void print() {
-        pizzaMap.values().forEach(System.out::println);
+        repository.values().forEach(System.out::println);
     }
 }

@@ -1,7 +1,7 @@
 package pizza.data;
 
 /**
- * Standard pizza class
+ * Pizza class
  *
  * @author Sergey Iryupin
  * @version 15-Apr-24

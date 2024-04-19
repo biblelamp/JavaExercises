@@ -26,4 +26,9 @@ public class OrderPizza {
         }
         components.add(component);
     }
+    public void deleteComponent(ExtСomponent component) {
+        if (components != null) {
+            components.remove(component);
+        }
+    }
 }

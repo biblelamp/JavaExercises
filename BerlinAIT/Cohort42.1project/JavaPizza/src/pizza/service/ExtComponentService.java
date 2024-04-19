@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Encapsulates the list of extra components & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 17-Apr-24
+ * @version 18-Apr-24
  */
 public class ExtComponentService {
     private Map<Integer, ExtСomponent> componentMap;
@@ -31,7 +31,8 @@ public class ExtComponentService {
                 new ExtСomponent("pepper salami", 25),
                 new ExtСomponent("rukola", 10)
         ));
-        componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
+        //componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
+        components.forEach(component -> componentMap.put(component.getId(), component));
     }
 
     public void add(String name, int price) {

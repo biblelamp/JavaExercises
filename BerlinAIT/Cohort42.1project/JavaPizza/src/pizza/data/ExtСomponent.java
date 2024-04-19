@@ -1,7 +1,7 @@
 package pizza.data;
 
 /**
- * Extra (additional) component to standard pizza
+ * Extra (additional) component to pizza
  *
  * @author Sergey Iryupin
  * @version 15-Apr-24
@@ -30,7 +30,7 @@ public class ExtСomponent {
     @Override
     public String toString() {
         return "{id=" + id +
-                ", (" + name + ")" +
+                ", name=" + name +
                 ", price=" + price +
                 '}';
     }

@@ -7,17 +7,24 @@ import pizza.service.PizzaService;
 
 import java.util.Scanner;
 
+/**
+ * Application controller
+ * Implements a menu for working with the application
+ *
+ * @author Sergey Iryupin
+ * @version 18-Apr-24
+ */
 public class AppController {
-    private PizzaService pizzaService;
-    private ExtComponentService extСomponentService;
-    private CustomerService customerService;
-    private OrderService orderService;
-    private Scanner scanner;
+    private final PizzaService pizzaService;
+    private final ExtComponentService extСomponentService;
+    private final CustomerService customerService;
+    private final OrderService orderService;
+    private final Scanner scanner;
 
-    public AppController(PizzaService pizzaService,
-                         ExtComponentService extСomponentService,
-                         CustomerService customerService,
-                         OrderService orderService) {
+    public AppController(final PizzaService pizzaService,
+                         final ExtComponentService extСomponentService,
+                         final CustomerService customerService,
+                         final OrderService orderService) {
         this.pizzaService = pizzaService;
         this.extСomponentService = extСomponentService;
         this.customerService = customerService;
@@ -27,21 +34,26 @@ public class AppController {
 
     public void run() {
         char cmd;
+        // create all controllers
+        PizzaController pizzaController = new PizzaController(pizzaService, scanner);
+        ExtComponentController extComponentController = new ExtComponentController(extСomponentService, scanner);
+        CustomerController customerController = new CustomerController(customerService, scanner);
+        OrderController orderController = new OrderController(orderService, scanner);
         do {
             System.out.print("Choose service: [p]izza, [e]xtcomponent, [c]ustomer, [o]rder, e[x]it: ");
             cmd = scanner.nextLine().charAt(0);
             switch (cmd) {
                 case 'p':
-                    pizzaServiceMenu();
+                    pizzaController.run();
                     break;
                 case 'e':
-                    // TODO Call ExtComponentService
+                    extComponentController.run();
                     break;
                 case 'c':
-                    // TODO Call CustomerService
+                    customerController.run();
                     break;
                 case 'o':
-                    // TODO Call OrderService
+                    orderController.run();
                     break;
                 case 'x':
                     break;
@@ -50,47 +62,5 @@ public class AppController {
             }
         } while (cmd != 'x');
         System.out.println("Exit.");
-    }
-
-    private void pizzaServiceMenu() {
-        char cmd;
-        String[] input;
-        String name, composition;
-        int id, price;
-        do {
-            System.out.print("Pizza service: [a]dd, [u]pdate, [d]elete, [p]rint, [b]ack: ");
-            cmd = scanner.nextLine().charAt(0);
-            switch (cmd) {
-                case 'a':
-                    System.out.print("Pizza service: add: name & composition & price: ");
-                    input = scanner.nextLine().split("&");
-                    name = input[0].trim();
-                    composition = input[1].trim();
-                    price = Integer.valueOf(input[2].trim());
-                    pizzaService.add(name, composition, price);
-                    break;
-                case 'u':
-                    System.out.print("Pizza service: update: id & name & composition & price: ");
-                    input = scanner.nextLine().split("&");
-                    id = Integer.valueOf(input[0].trim());
-                    name = input[1].trim();
-                    composition = input[2].trim();
-                    price = Integer.valueOf(input[3].trim());
-                    pizzaService.update(id, name, composition, price);
-                    break;
-                case 'd':
-                    System.out.print("Pizza service: delete: id: ");
-                    id = Integer.valueOf(scanner.nextLine());
-                    pizzaService.delete(id);
-                    break;
-                case 'p':
-                    pizzaService.print();
-                    break;
-                case 'b':
-                    break;
-                default:
-                    System.out.println("Unrecognized command: " + cmd);
-            }
-        } while (cmd != 'b');
     }
 }
