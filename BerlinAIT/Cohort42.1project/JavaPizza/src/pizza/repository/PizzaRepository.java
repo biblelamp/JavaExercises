@@ -13,27 +13,31 @@ import java.util.Map;
  * Implementation of access methods to the Pizza data source
  *
  * @author Sergey Iryupin
- * @version 18-Apr-24
+ * @version 19-Apr-24
  */
-public class PizzaRepository {
+public class PizzaRepository implements CrudRepository<Integer, Pizza> {
     private Map<Integer, Pizza> pizzaMap;
 
     public PizzaRepository() {
         pizzaMap = new HashMap<>();
     }
 
+    @Override
     public void put(Pizza pizza) {
         pizzaMap.put(pizza.getId(), pizza);
     }
 
-    public Pizza get(int id) {
+    @Override
+    public Pizza get(Integer id) {
         return pizzaMap.get(id);
     }
 
-    public void remove(int id) {
+    @Override
+    public void remove(Integer id) {
         pizzaMap.remove(id);
     }
 
+    @Override
     public Collection<Pizza> values() {
         return pizzaMap.values();
     }

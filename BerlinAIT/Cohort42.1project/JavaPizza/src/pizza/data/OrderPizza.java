@@ -20,15 +20,29 @@ public class OrderPizza {
         this.pizza = pizza;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void addComponent(ExtСomponent component) {
         if (components == null) {
             components = new ArrayList<>();
         }
         components.add(component);
     }
-    public void deleteComponent(ExtСomponent component) {
+    public boolean deleteComponent(ExtСomponent component) {
         if (components != null) {
-            components.remove(component);
+            return components.remove(component);
         }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderPizza{" +
+                "id=" + id +
+                ", pizza=" + pizza +
+                "\n, components=" + components +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package pizza.service;
 
 import pizza.data.ExtСomponent;
+import pizza.repository.ExtComponentRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,35 +14,26 @@ import java.util.stream.Collectors;
  * Encapsulates the list of extra components & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 18-Apr-24
+ * @version 19-Apr-24
  */
 public class ExtComponentService {
-    private Map<Integer, ExtСomponent> componentMap;
+    private ExtComponentRepository repository;
 
-    public ExtComponentService() {
-        componentMap = new HashMap<>();
+    public ExtComponentService(ExtComponentRepository repository) {
+        this.repository = repository;
     }
 
-    public void init() {
-        List<ExtСomponent> components = new ArrayList<>();
-        components.addAll(List.of(
-                new ExtСomponent("ham", 25),
-                new ExtСomponent("mozzarella", 25),
-                new ExtСomponent("champignons", 10),
-                new ExtСomponent("pepper salami", 25),
-                new ExtСomponent("rukola", 10)
-        ));
-        //componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
-        components.forEach(component -> componentMap.put(component.getId(), component));
+    public ExtСomponent get(int id) {
+        return repository.get(id);
     }
 
     public void add(String name, int price) {
         ExtСomponent component = new ExtСomponent(name, price);
-        componentMap.put(component.getId(), component);
+        repository.put(component);
     }
 
     public boolean update(int id, String name, int price) {
-        ExtСomponent updComponent = componentMap.get(id);
+        ExtСomponent updComponent = repository.get(id);
         if (updComponent != null) {
             updComponent.update(name, price);
             return true;
@@ -50,15 +42,15 @@ public class ExtComponentService {
     }
 
     public boolean delete(int id) {
-        ExtСomponent delComponent = componentMap.get(id);
+        ExtСomponent delComponent = repository.get(id);
         if (delComponent != null) {
-            componentMap.remove(id);
+            repository.remove(id);
             return true;
         }
         return false;
     }
 
     public void print() {
-        componentMap.values().forEach(System.out::println);
+        repository.values().forEach(System.out::println);
     }
 }

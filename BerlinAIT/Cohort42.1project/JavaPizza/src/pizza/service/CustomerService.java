@@ -1,6 +1,7 @@
 package pizza.service;
 
 import pizza.data.Customer;
+import pizza.repository.CustomerRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,24 +16,23 @@ import java.util.Map;
  * @version 17-Apr-24
  */
 public class CustomerService {
-    private Map<Integer, Customer> customerMap;
+    private CustomerRepository repository;
 
-    public CustomerService() {
-        customerMap = new HashMap<>();
-    }
-
-    public void init() {
-        Customer customer = new Customer("Anonymous", null, null);
-        customerMap.put(customer.getId(), customer);
+    public CustomerService(CustomerRepository repository) {
+        this.repository = repository;
     }
 
     public void add(String name, String address, String phone) {
         Customer customer = new Customer(name, address, phone);
-        customerMap.put(customer.getId(), customer);
+        repository.put(customer);
+    }
+
+    public Customer get(int id) {
+        return repository.get(id);
     }
 
     public boolean update(int id, String name, String address, String phone) {
-        Customer updCustomer = customerMap.get(id);
+        Customer updCustomer = repository.get(id);
         if (updCustomer != null) {
             updCustomer.update(name, address, phone);
             return true;
@@ -41,15 +41,15 @@ public class CustomerService {
     }
 
     public boolean delete(int id) {
-        Customer delCustomer = customerMap.get(id);
+        Customer delCustomer = repository.get(id);
         if (delCustomer != null) {
-            customerMap.remove(id);
+            repository.remove(id);
             return true;
         }
         return false;
     }
 
     public void print() {
-        customerMap.values().forEach(System.out::println);
+        repository.values().forEach(System.out::println);
     }
 }

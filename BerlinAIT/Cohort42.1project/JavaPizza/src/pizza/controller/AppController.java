@@ -38,7 +38,7 @@ public class AppController {
         PizzaController pizzaController = new PizzaController(pizzaService, scanner);
         ExtComponentController extComponentController = new ExtComponentController(extСomponentService, scanner);
         CustomerController customerController = new CustomerController(customerService, scanner);
-        OrderController orderController = new OrderController(orderService, scanner);
+        OrderController orderController = new OrderController(orderService, customerService, pizzaService, extСomponentService, scanner);
         do {
             System.out.print("Choose service: [p]izza, [e]xtcomponent, [c]ustomer, [o]rder, e[x]it: ");
             cmd = scanner.nextLine().charAt(0);

@@ -3,12 +3,6 @@ package pizza.service;
 import pizza.data.Pizza;
 import pizza.repository.PizzaRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 /**
  * Pizza service class
  * Encapsulates the list of pizzas & CRUD operations with them
@@ -26,6 +20,10 @@ public class PizzaService {
     public void add(String name, String composition, int price) {
         Pizza pizza = new Pizza(name, composition, price);
         repository.put(pizza);
+    }
+
+    public Pizza get(int id) {
+        return repository.get(id);
     }
 
     public boolean update(int id, String name, String composition, int price) {
