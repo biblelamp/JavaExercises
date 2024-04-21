@@ -2,8 +2,8 @@ Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
 Материалы:		https://drive.google.com/drive/u/0/folders/1ZhAAKG0SVP13F--0NU88_vjxnh-ot2_d
-Расписание:		март https://primetimetable.com/publish/?id=e189aba9-787f-463e-849d-7a372dfd4788&v=1&time=6&skin=3#id=e189aba9-787f-463e-849d-7a372dfd4788&view=2&teacherId=a46b741f-e0ee-44b0-9c9f-56f47b6fc7ee
-				апрель https://primetimetable.com/publish/?id=d95ab9aa-2f8f-44a4-81b4-39638106e439&time=6&skin=3#id=d95ab9aa-2f8f-44a4-81b4-39638106e439&view=1&classId=fde7511f-2c55-4d06-956d-1dfb1f436d36
+Расписание:		апрель https://primetimetable.com/publish/?id=d95ab9aa-2f8f-44a4-81b4-39638106e439&time=6&skin=3#id=d95ab9aa-2f8f-44a4-81b4-39638106e439&view=1&classId=fde7511f-2c55-4d06-956d-1dfb1f436d36
+				май https://primetimetable.com/publish/?id=fdc96359-54bc-4797-8704-699db041c969&time=6&skin=3#id=fdc96359-54bc-4797-8704-699db041c969&view=1&classId=8cff655b-f2de-443b-946b-4549f9c08764
 Посещаемость:	https://docs.google.com/spreadsheets/d/18WtyeFcdp6IKOEHH-d-mbFP0C7RwFFuW/edit#gid=557951074
 Отзывы:			https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5BzAJJGpXRsLbfBSM_ptCmXzYOmA7Y9HCeK65lfoXoDSHwMKnu5V6R42Qjt4pfh13En8DOBSfONG/pubhtml
 
@@ -221,12 +221,12 @@ Java Basic группа cohort42.1:
     - работа в командах без публичной защиты
 39. Проектная работа день #2
 40. Проектная работа день #3
-41. Stream API
+41. Введение в Stream API
+42. Stream API
     - интерфейс Stream
     - специализированные функциональные интерфейсы
     - промежуточные и терминальные методы
     - обработка данных с помощью Stream API
-42. -/-
 43. Исключения (Exceptions)
     - ключевые слова для работы с исключениями
     - создание собственных классов исключений
@@ -253,26 +253,27 @@ Java Basic группа cohort42.1:
 	январь:		16,17,19,22,23,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		1,4,6,7,11,13,15,18,20,22,25,27
-	апрель:		3,5,8,10,12
+	апрель:		3,5,8,10,12,15,17,19
 	май:		
-	итого:		37
+	итого:		40
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
 	март:		14,21,28
-	апрель:		4,11
+	апрель:		4,11,18
 	май:		
-	итого:		11
+	итого:		12
 
 Осталось занятий:
-	апрель:		15,17,19,22,24,26,29
-	май:		+6
-	осталось:	13
+	апрель:		22,24,26,29
+	май:		3,6,8,10,13,15
+	осталось:	10
 
 Осталось консультаций:
-	апрель:		18,25
-	осталось:	2+
+	апрель:		25
+	май:		2,7,16
+	осталось:	4
 
 Студенты:
 
@@ -280,14 +281,14 @@ Java Basic группа cohort42.1:
 2. Andrey Shishkov			https://github.com/AndreyShishkov2103
 3. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
 4. Larysa Petrova			https://github.com/larysa7408
-5. Alex Postica				https://github.com/AlexPostica
-6. Rodion Shilinski			https://github.com/Zannifeks
-7. Valerian Kipke			https://github.com/Varaan785
-8. Yaroslav Boiko			https://github.com/ilofrudd
-9. Mukhlis Hasanov			https://github.com/MukhlisHasanov
-10. Alexander Germanow		https://github.com/AlexanderGermanow
-11. Gorbovyi Anton			https://github.com/AGorbovyi
-12. Ilja Blind				https://github.com/IljaBlind
+5. Rodion Shilinski			https://github.com/Zannifeks
+6. Valerian Kipke			https://github.com/Varaan785
+7. Yaroslav Boiko			https://github.com/ilofrudd
+8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+9. Alexander Germanow		https://github.com/AlexanderGermanow
+10. Gorbovyi Anton			https://github.com/AGorbovyi
+11. Alex Postica			https://github.com/AlexPostica
+12. Ilja Blind?				https://github.com/IljaBlind
 
 Инфиксные и постфиксные выражения:
 
