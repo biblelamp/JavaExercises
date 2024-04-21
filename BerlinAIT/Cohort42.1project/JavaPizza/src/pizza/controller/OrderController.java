@@ -73,12 +73,12 @@ public class OrderController {
         String[] input;
         char cmd;
         do {
-            System.out.print("Order update: [a]dd pizza, add [c]omp, [d]el pizza, d[e]l comp, set deli[v]ery price, [s]et state, [p]rint, [b]ack: ");
+            System.out.print("Order update: add p[i]zza | [c]omponent, delete pi[z]za | c[o]mponent, [s]et state, s[e]t delivery price, [p]rint, [b]ack: ");
             cmd = scanner.nextLine().charAt(0);
             switch (cmd) {
-                case 'a':
+                case 'i':
                     System.out.print("Order update: add pizza: pizzaId: ");
-                    pizzaId = Integer.valueOf(scanner.nextLine());
+                    pizzaId = Integer.valueOf(scanner.nextLine().trim());
                     Pizza pizza = pizzaService.get(pizzaId);
                     orderService.addOrderPizza(order, pizza);
                     break;
@@ -90,12 +90,12 @@ public class OrderController {
                     component = extComponentService.get(componentId);
                     orderService.addExtСomponent(order, orderPizzaId, component);
                     break;
-                case 'd':
+                case 'z':
                     System.out.print("Order update: delete order pizza: orderPizzaId: ");
-                    orderPizzaId = Integer.valueOf(scanner.nextLine());
+                    orderPizzaId = Integer.valueOf(scanner.nextLine().trim());
                     orderService.deleteOrderPizza(order, orderPizzaId);
                     break;
-                case 'e':
+                case 'o':
                     System.out.print("Order update: delete component: orderPizzaId & componentId: ");
                     input = scanner.nextLine().split("&");
                     orderPizzaId = Integer.valueOf(input[0].trim());
@@ -103,15 +103,15 @@ public class OrderController {
                     component = extComponentService.get(componentId);
                     orderService.deleteExtСomponent(order, orderPizzaId, component);
                     break;
-                case 'v':
+                case 'e':
                     System.out.print("Order update: set delivery price: price: ");
-                    price = Integer.valueOf(scanner.nextLine());
+                    price = Integer.valueOf(scanner.nextLine().trim());
                     orderService.setDeliveryPrice(order, price);
                     break;
                 case 's':
-                    System.out.print("Order update: set order status: status: ");
-                    OrderState state = OrderState.valueOf(scanner.nextLine());
-                    orderService.setState(order, state);
+                    System.out.print("Order update: set order status: [n]ew, [p]aid, [r]eceived, [c]anceled: ");
+                    char charState = scanner.nextLine().trim().charAt(0);
+                    orderService.setState(order, charState);
                     break;
                 case 'p':
                     System.out.println(order);

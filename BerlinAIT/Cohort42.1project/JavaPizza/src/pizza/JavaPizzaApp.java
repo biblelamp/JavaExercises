@@ -3,6 +3,7 @@ package pizza;
 import pizza.controller.AppController;
 import pizza.repository.CustomerRepository;
 import pizza.repository.ExtComponentRepository;
+import pizza.repository.OrderRepository;
 import pizza.repository.PizzaRepository;
 import pizza.service.CustomerService;
 import pizza.service.ExtComponentService;
@@ -14,7 +15,7 @@ import pizza.service.PizzaService;
  * JavaPizza based on https://www.foodora.cz/en/restaurant/uyou/saporito-pizza-and-pasta
  *
  * @author Sergey Iryupin
- * @version 19-Apr-24
+ * @version 21-Apr-24
  */
 public class JavaPizzaApp {
     public static void main(String[] args) {
@@ -22,17 +23,17 @@ public class JavaPizzaApp {
         PizzaRepository pizzaRepository = new PizzaRepository();
         ExtComponentRepository extComponentRepository = new ExtComponentRepository();
         CustomerRepository customerRepository = new CustomerRepository();
+        OrderRepository orderRepository = new OrderRepository();
         // create all services
         PizzaService pizzaService = new PizzaService(pizzaRepository);
         ExtComponentService extComponentService = new ExtComponentService(extComponentRepository);
         CustomerService customerService = new CustomerService(customerRepository);
-        OrderService orderService = new OrderService();
+        OrderService orderService = new OrderService(orderRepository);
         // init all data
         pizzaRepository.init();
         extComponentRepository.init();
         customerRepository.init();
         // create & run controller
-        new AppController(pizzaService, extComponentService, customerService, orderService)
-                .run();
+        new AppController(pizzaService, extComponentService, customerService, orderService).run();
     }
 }

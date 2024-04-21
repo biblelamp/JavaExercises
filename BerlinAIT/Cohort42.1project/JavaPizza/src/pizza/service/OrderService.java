@@ -1,37 +1,39 @@
 package pizza.service;
 
-import pizza.data.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import pizza.data.Customer;
+import pizza.data.ExtСomponent;
+import pizza.data.Order;
+import pizza.data.OrderState;
+import pizza.data.Pizza;
+import pizza.repository.OrderRepository;
 
 /**
  * Order service class
  * Encapsulates the list of orders & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 19-Apr-24
+ * @version 21-Apr-24
  */
 public class OrderService {
-    private Map<Integer, Order> orderMap;
+    private OrderRepository repository;
 
-    public OrderService() {
-        orderMap = new HashMap<>();
+    public OrderService(OrderRepository repository) {
+        this.repository = repository;
     }
 
     public void add(Customer customer) {
         Order order = new Order(customer);
-        orderMap.put(order.getId(), order);
+        repository.put(order);
     }
 
     public Order get(int id) {
-        return orderMap.get(id);
+        return repository.get(id);
     }
 
     public boolean delete(int id) {
-        Order deleleOrder = orderMap.get(id);
+        Order deleleOrder = repository.get(id);
         if (deleleOrder != null) {
-            orderMap.remove(deleleOrder);
+            repository.remove(id);
             return true;
         }
         return false;
@@ -57,11 +59,28 @@ public class OrderService {
         order.setDeliveryPrice(deliveryPrice);
     }
 
-    public void setState(Order order, OrderState state) {
-        order.setState(state);
+    public void setState(Order order, char charState) {
+        OrderState state = null;
+        switch (charState) {
+            case 'n':
+                state = OrderState.NEW;
+                break;
+            case 'p':
+                state = OrderState.PAID;
+                break;
+            case 'r':
+                state = OrderState.RECEIVED;
+                break;
+            case 'c':
+                state = OrderState.CANCELED;
+                break;
+        }
+        if (state != null) {
+            order.setState(state);
+        }
     }
 
     public void print() {
-        orderMap.values().forEach(System.out::println);
+        repository.values().forEach(System.out::println);
     }
 }

@@ -42,7 +42,7 @@ public class OrderPizza {
         return "OrderPizza{" +
                 "id=" + id +
                 ", pizza=" + pizza +
-                "\n, components=" + components +
+                ",\n components=" + components +
                 '}';
     }
 }
