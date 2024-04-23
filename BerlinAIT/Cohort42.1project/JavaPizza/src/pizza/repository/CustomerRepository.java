@@ -1,6 +1,6 @@
 package pizza.repository;
 
-import pizza.data.Customer;
+import pizza.domain.Customer;
 
 import java.util.Collection;
 import java.util.HashMap;

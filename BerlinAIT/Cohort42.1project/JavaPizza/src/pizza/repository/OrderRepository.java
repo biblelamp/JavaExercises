@@ -1,6 +1,6 @@
 package pizza.repository;
 
-import pizza.data.Order;
+import pizza.domain.Order;
 
 import java.util.Collection;
 import java.util.HashMap;

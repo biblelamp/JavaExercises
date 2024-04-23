@@ -1,6 +1,6 @@
 package pizza.service;
 
-import pizza.data.Pizza;
+import pizza.domain.Pizza;
 import pizza.repository.PizzaRepository;
 
 /**

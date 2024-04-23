@@ -1,4 +1,4 @@
-package pizza.data;
+package pizza.domain;
 
 /**
  * Extra (additional) component to pizza

@@ -1,4 +1,4 @@
-package pizza.data;
+package pizza.domain;
 
 import java.util.*;
 

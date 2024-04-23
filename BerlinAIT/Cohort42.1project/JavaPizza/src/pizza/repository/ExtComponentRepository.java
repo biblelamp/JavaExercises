@@ -1,6 +1,6 @@
 package pizza.repository;
 
-import pizza.data.ExtСomponent;
+import pizza.domain.ExtСomponent;
 
 import java.util.ArrayList;
 import java.util.Collection;

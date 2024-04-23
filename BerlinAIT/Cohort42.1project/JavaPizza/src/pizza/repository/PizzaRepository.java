@@ -1,6 +1,6 @@
 package pizza.repository;
 
-import pizza.data.Pizza;
+import pizza.domain.Pizza;
 
 import java.util.ArrayList;
 import java.util.Collection;

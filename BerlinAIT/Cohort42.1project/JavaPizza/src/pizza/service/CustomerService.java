@@ -1,12 +1,7 @@
 package pizza.service;
 
-import pizza.data.Customer;
+import pizza.domain.Customer;
 import pizza.repository.CustomerRepository;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Customer service class

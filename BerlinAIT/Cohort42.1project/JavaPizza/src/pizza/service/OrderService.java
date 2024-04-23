@@ -1,10 +1,10 @@
 package pizza.service;
 
-import pizza.data.Customer;
-import pizza.data.ExtСomponent;
-import pizza.data.Order;
-import pizza.data.OrderState;
-import pizza.data.Pizza;
+import pizza.domain.Customer;
+import pizza.domain.ExtСomponent;
+import pizza.domain.Order;
+import pizza.domain.OrderState;
+import pizza.domain.Pizza;
 import pizza.repository.OrderRepository;
 
 /**
