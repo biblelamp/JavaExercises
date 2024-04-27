@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * AIT-TR, cohort 42.1, Java Basic, Lesson #24
+ * AIT-TR, cohort 42.1, Java Basic, Lesson #42
  *
  * @version 24-Apr-24
  */
