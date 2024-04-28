@@ -23,12 +23,12 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void put(Pizza pizza) {
+    public void save(Pizza pizza) {
         pizzaMap.put(pizza.getId(), pizza);
     }
 
     @Override
-    public Pizza get(Integer id) {
+    public Pizza findById(Integer id) {
         return pizzaMap.get(id);
     }
 
@@ -38,7 +38,7 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public Collection<Pizza> values() {
+    public Collection<Pizza> findAll() {
         return pizzaMap.values();
     }
 
@@ -51,6 +51,6 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
                 new Pizza("Quattro Formaggi", "cream base, mozzarella, grana padano, gorgonzola, smoked cheese", 204)
         ));
         //pizzaMap = pizzas.stream().collect(Collectors.toMap(Pizza::getId, p -> p));
-        pizzas.forEach(pizza -> put(pizza));
+        pizzas.forEach(pizza -> save(pizza));
     }
 }

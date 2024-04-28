@@ -18,16 +18,16 @@ public class ExtComponentService {
     }
 
     public ExtСomponent get(int id) {
-        return repository.get(id);
+        return repository.findById(id);
     }
 
     public void add(String name, int price) {
         ExtСomponent component = new ExtСomponent(name, price);
-        repository.put(component);
+        repository.save(component);
     }
 
     public boolean update(int id, String name, int price) {
-        ExtСomponent updComponent = repository.get(id);
+        ExtСomponent updComponent = repository.findById(id);
         if (updComponent != null) {
             updComponent.update(name, price);
             return true;
@@ -36,7 +36,7 @@ public class ExtComponentService {
     }
 
     public boolean delete(int id) {
-        ExtСomponent delComponent = repository.get(id);
+        ExtСomponent delComponent = repository.findById(id);
         if (delComponent != null) {
             repository.remove(id);
             return true;
@@ -45,6 +45,6 @@ public class ExtComponentService {
     }
 
     public void print() {
-        repository.values().forEach(System.out::println);
+        repository.findAll().forEach(System.out::println);
     }
 }

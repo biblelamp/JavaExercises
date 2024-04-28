@@ -21,12 +21,12 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
     }
 
     @Override
-    public void put(Customer value) {
+    public void save(Customer value) {
         customerMap.put(value.getId(), value);
     }
 
     @Override
-    public Customer get(Integer key) {
+    public Customer findById(Integer key) {
         return customerMap.get(key);
     }
 
@@ -36,7 +36,7 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
     }
 
     @Override
-    public Collection<Customer> values() {
+    public Collection<Customer> findAll() {
         return customerMap.values();
     }
 

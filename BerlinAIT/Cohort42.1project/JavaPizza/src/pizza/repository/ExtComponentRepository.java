@@ -23,12 +23,12 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtСompo
     }
 
     @Override
-    public void put(ExtСomponent value) {
+    public void save(ExtСomponent value) {
         componentMap.put(value.getId(), value);
     }
 
     @Override
-    public ExtСomponent get(Integer key) {
+    public ExtСomponent findById(Integer key) {
         return componentMap.get(key);
     }
 
@@ -38,7 +38,7 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtСompo
     }
 
     @Override
-    public Collection<ExtСomponent> values() {
+    public Collection<ExtСomponent> findAll() {
         return componentMap.values();
     }
 
@@ -51,6 +51,6 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtСompo
                 new ExtСomponent("rukola", 10)
         ));
         //componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
-        components.forEach(component -> put(component));
+        components.forEach(component -> save(component));
     }
 }

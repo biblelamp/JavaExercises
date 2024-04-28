@@ -19,15 +19,15 @@ public class PizzaService {
 
     public void add(String name, String composition, int price) {
         Pizza pizza = new Pizza(name, composition, price);
-        repository.put(pizza);
+        repository.save(pizza);
     }
 
     public Pizza get(int id) {
-        return repository.get(id);
+        return repository.findById(id);
     }
 
     public boolean update(int id, String name, String composition, int price) {
-        Pizza updPizza = repository.get(id);
+        Pizza updPizza = repository.findById(id);
         if (updPizza != null) {
             updPizza.update(name, composition, price);
             return true;
@@ -36,7 +36,7 @@ public class PizzaService {
     }
 
     public boolean delete(int id) {
-        Pizza delPizza = repository.get(id);
+        Pizza delPizza = repository.findById(id);
         if (delPizza != null) {
             repository.remove(id);
             return true;
@@ -45,6 +45,6 @@ public class PizzaService {
     }
 
     public void print() {
-        repository.values().forEach(System.out::println);
+        repository.findAll().forEach(System.out::println);
     }
 }

@@ -21,12 +21,12 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void put(Order order) {
+    public void save(Order order) {
         orderMap.put(order.getId(), order);
     }
 
     @Override
-    public Order get(Integer key) {
+    public Order findById(Integer key) {
         return orderMap.get(key);
     }
 
@@ -36,7 +36,7 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public Collection<Order> values() {
+    public Collection<Order> findAll() {
         return orderMap.values();
     }
 }

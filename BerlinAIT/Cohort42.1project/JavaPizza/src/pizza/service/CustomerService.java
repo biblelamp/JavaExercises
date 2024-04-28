@@ -19,15 +19,15 @@ public class CustomerService {
 
     public void add(String name, String address, String phone) {
         Customer customer = new Customer(name, address, phone);
-        repository.put(customer);
+        repository.save(customer);
     }
 
     public Customer get(int id) {
-        return repository.get(id);
+        return repository.findById(id);
     }
 
     public boolean update(int id, String name, String address, String phone) {
-        Customer updCustomer = repository.get(id);
+        Customer updCustomer = repository.findById(id);
         if (updCustomer != null) {
             updCustomer.update(name, address, phone);
             return true;
@@ -36,7 +36,7 @@ public class CustomerService {
     }
 
     public boolean delete(int id) {
-        Customer delCustomer = repository.get(id);
+        Customer delCustomer = repository.findById(id);
         if (delCustomer != null) {
             repository.remove(id);
             return true;
@@ -45,6 +45,6 @@ public class CustomerService {
     }
 
     public void print() {
-        repository.values().forEach(System.out::println);
+        repository.findAll().forEach(System.out::println);
     }
 }

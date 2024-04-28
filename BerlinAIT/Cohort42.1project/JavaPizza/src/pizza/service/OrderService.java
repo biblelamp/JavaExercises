@@ -23,15 +23,15 @@ public class OrderService {
 
     public void add(Customer customer) {
         Order order = new Order(customer);
-        repository.put(order);
+        repository.save(order);
     }
 
     public Order get(int id) {
-        return repository.get(id);
+        return repository.findById(id);
     }
 
     public boolean delete(int id) {
-        Order deleleOrder = repository.get(id);
+        Order deleleOrder = repository.findById(id);
         if (deleleOrder != null) {
             repository.remove(id);
             return true;
@@ -81,6 +81,6 @@ public class OrderService {
     }
 
     public void print() {
-        repository.values().forEach(System.out::println);
+        repository.findAll().forEach(System.out::println);
     }
 }
