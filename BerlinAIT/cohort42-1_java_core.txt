@@ -225,70 +225,67 @@ Java Basic группа cohort42.1:
     - многослойная архитектура
     - выделение сервисов, репозиториев, моделей
 42. Введение в Stream API
-43. Применение Stream API
     - интерфейс Stream
     - специализированные функциональные интерфейсы
     - промежуточные и терминальные методы
     - обработка данных с помощью Stream API
-44. Исключения (Exceptions)
+43. Исключения (Exceptions)
     - ключевые слова для работы с исключениями
     - создание собственных классов исключений
     - лучшие практики по обработке исключений
     - try-with-resources
-45. Java IO
+44. Java IO
     - InputStream, OutputStream
     - Reader, Writer, BufferedReader, BufferedWriter
     - LocalDate, LocalDateTime, DateFormatter
-46. Проектная работа #1
+45. Проектная работа #2 день #0
+46. Проектная работа #2 день #1
     - консольное приложение с трехслойной архитектурой
     - обеспечить покрытие тестами
     - хранение информации в текстовых файлах (или SQL)
     - работа в командах с возможной публичной защитой
-47. Проектная работа #2
-48. Проектная работа #3
-49. Проектная работа #4
-50. Проектная работа #5
+47. Проектная работа #2 день #2
+48. Проектная работа #2 день #3
+49. Проектная работа #2 день #4
+50. Проектная работа #2 день #5
 
 Занятия:
 	январь:		16,17,19,22,23,26,29,31
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		1,4,6,7,11,13,15,18,20,22,25,27
-	апрель:		3,5,8,10,12,15,17,19,22
+	апрель:		3,5,8,10,12,15,17,19,22,24,26,29
 	май:		
-	итого:		41
+	итого:		44
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
 	март:		14,21,28
-	апрель:		4,11,18
+	апрель:		4,11,18,25
 	май:		
-	итого:		12
+	итого:		13
 
 Осталось занятий:
-	апрель:		24,26,29
 	май:		3,6,8,10,13,15
-	осталось:	9
+	осталось:	6
 
 Осталось консультаций:
-	апрель:		25
 	май:		2,7,16
-	осталось:	4
+	осталось:	3
 
 Студенты:
 
-1. Andrey Hein				https://github.com/AndreyHein
-2. Andrey Shishkov			https://github.com/AndreyShishkov2103
-3. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
-4. Larysa Petrova			https://github.com/larysa7408
-5. Rodion Shilinski			https://github.com/Zannifeks
-6. Valerian Kipke			https://github.com/Varaan785
-7. Yaroslav Boiko			https://github.com/ilofrudd
-8. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+1. Mukhlis Hasanov			https://github.com/MukhlisHasanov
+2. Andrey Hein				https://github.com/AndreyHein
+3. Gorbovyi Anton			https://github.com/AGorbovyi
+4. Poryvaieva Halyna		https://github.com/HalynaPoryvaieva
+5. Larysa Petrova			https://github.com/larysa7408
+6. Rodion Shilinski			https://github.com/Zannifeks
+7. Valerian Kipke			https://github.com/Varaan785
+8. Yaroslav Boiko			https://github.com/ilofrudd
 9. Alexander Germanow		https://github.com/AlexanderGermanow
-10. Gorbovyi Anton			https://github.com/AGorbovyi
-11. Alex Postica			https://github.com/AlexPostica
-12. Ilja Blind?				https://github.com/IljaBlind
+10. Alex Postica			https://github.com/AlexPostica
+11. Ilja Blind?				https://github.com/IljaBlind
 
 Инфиксные и постфиксные выражения:
 
