@@ -1,0 +1,7 @@
+user1:2050
+user2:1200
+user1:1700
+user3:1800
+user1:1300
+user4:2100
+user2:750
