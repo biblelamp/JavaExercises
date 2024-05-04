@@ -4,6 +4,7 @@
 *.ctxt
 *.bluej
 target
+out
 build
 *.iml
 .idea
