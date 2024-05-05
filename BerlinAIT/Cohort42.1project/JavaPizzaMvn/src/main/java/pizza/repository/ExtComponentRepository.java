@@ -1,0 +1,52 @@
+package pizza.repository;
+
+import pizza.domain.ExtСomponent;
+
+import java.util.*;
+
+/**
+ * ExtComponent repository
+ * Implementation of access methods to the ExtComponent data source
+ *
+ * @author Sergey Iryupin
+ * @version 19-Apr-24
+ */
+public class ExtComponentRepository implements CrudRepository<Integer, ExtСomponent> {
+    private Map<Integer, ExtСomponent> componentMap;
+
+    public ExtComponentRepository() {
+        this.componentMap = new HashMap<>();
+    }
+
+    @Override
+    public void save(ExtСomponent value) {
+        componentMap.put(value.getId(), value);
+    }
+
+    @Override
+    public ExtСomponent findById(Integer key) {
+        return componentMap.get(key);
+    }
+
+    @Override
+    public void remove(Integer key) {
+        componentMap.remove(key);
+    }
+
+    @Override
+    public Collection<ExtСomponent> findAll() {
+        return componentMap.values();
+    }
+
+    public void init() {
+        List<ExtСomponent> components = new ArrayList<>(List.of(
+                new ExtСomponent("ham", 25),
+                new ExtСomponent("mozzarella", 25),
+                new ExtСomponent("champignons", 10),
+                new ExtСomponent("pepper salami", 25),
+                new ExtСomponent("rukola", 10)
+        ));
+        //componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
+        components.forEach(component -> save(component));
+    }
+}
