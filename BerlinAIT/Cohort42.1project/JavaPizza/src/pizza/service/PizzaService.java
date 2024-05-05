@@ -30,6 +30,7 @@ public class PizzaService {
         Pizza updPizza = repository.findById(id);
         if (updPizza != null) {
             updPizza.update(name, composition, price);
+            repository.save(updPizza); // optional for collections
             return true;
         }
         return false;

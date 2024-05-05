@@ -20,15 +20,15 @@ public class Lesson45 {
         System.out.println(dateTimeNow);
 
         LocalDate okudzava = LocalDate.of(1924, 5, 9);
-        LocalDate theSame = LocalDate.of(1924, 5, 9);
         System.out.println(okudzava);
-        System.out.println(okudzava.equals(theSame));
+        System.out.println(okudzava.equals(LocalDate.of(1924, 5, 9)));
         System.out.println(timeNow.plusHours(3));
         System.out.println(dateNow.plusWeeks(1));
         System.out.println(dateNow.minusYears(1));
         System.out.println(dateNow.plusYears(1));
 
         Period period = Period.between(okudzava, dateNow);
+        System.out.println(period);
         System.out.println(period.getYears());
     }
 }
