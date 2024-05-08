@@ -81,7 +81,7 @@ public class OrderController {
                 case 'i':
                     System.out.print("Order update: add pizza: pizzaId: ");
                     pizzaId = Integer.valueOf(scanner.nextLine().trim());
-                    Pizza pizza = pizzaService.get(pizzaId);
+                    Pizza pizza = pizzaService.findById(pizzaId);
                     orderService.addOrderPizza(order, pizza);
                     break;
                 case 'c':

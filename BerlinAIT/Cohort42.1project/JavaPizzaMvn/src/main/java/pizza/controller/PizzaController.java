@@ -26,7 +26,7 @@ public class PizzaController {
         String name, composition;
         int id, price;
         do {
-            System.out.print("Pizza service: [a]dd, [u]pdate, [d]elete, [p]rint, [b]ack: ");
+            System.out.print("Pizza service: [a]dd, [u]pdate, [d]elete, [f]ind, [p]rint, [b]ack: ");
             cmd = scanner.nextLine().charAt(0);
             switch (cmd) {
                 case 'a':
@@ -50,6 +50,11 @@ public class PizzaController {
                     System.out.print("Pizza service: delete: id: ");
                     id = Integer.valueOf(scanner.nextLine());
                     service.delete(id);
+                    break;
+                case 'f':
+                    System.out.print("Pizza service: find: id: ");
+                    id = Integer.valueOf(scanner.nextLine());
+                    System.out.println(service.findById(id));
                     break;
                 case 'p':
                     service.print();

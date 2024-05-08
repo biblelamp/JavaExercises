@@ -20,7 +20,7 @@ import pizza.service.PizzaService;
 public class JavaPizzaApp {
     public static void main(String[] args) {
         // create all repositories
-        PizzaRepository pizzaRepository = new PizzaRepository();
+        PizzaRepository pizzaRepository = new PizzaRepository("jdbc:sqlite:C:/temp/java_pizza.db");
         ExtComponentRepository extComponentRepository = new ExtComponentRepository();
         CustomerRepository customerRepository = new CustomerRepository();
         OrderRepository orderRepository = new OrderRepository();
@@ -30,7 +30,7 @@ public class JavaPizzaApp {
         CustomerService customerService = new CustomerService(customerRepository);
         OrderService orderService = new OrderService(orderRepository);
         // init all data
-        pizzaRepository.init();
+        //pizzaRepository.init();
         extComponentRepository.init();
         customerRepository.init();
         // create & run controller

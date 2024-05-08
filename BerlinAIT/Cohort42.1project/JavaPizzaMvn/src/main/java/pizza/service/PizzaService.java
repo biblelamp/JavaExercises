@@ -18,11 +18,11 @@ public class PizzaService {
     }
 
     public void add(String name, String composition, int price) {
-        Pizza pizza = new Pizza(name, composition, price);
+        Pizza pizza = new Pizza(null, name, composition, price);
         repository.save(pizza);
     }
 
-    public Pizza get(int id) {
+    public Pizza findById(int id) {
         return repository.findById(id);
     }
 
@@ -30,7 +30,7 @@ public class PizzaService {
         Pizza updPizza = repository.findById(id);
         if (updPizza != null) {
             updPizza.update(name, composition, price);
-            repository.save(updPizza); // optional for collections
+            repository.save(updPizza);
             return true;
         }
         return false;

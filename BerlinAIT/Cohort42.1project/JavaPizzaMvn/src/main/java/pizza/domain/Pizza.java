@@ -7,7 +7,7 @@ package pizza.domain;
  * @version 15-Apr-24
  */
 public class Pizza {
-    private int id;
+    private Integer id;
     private String name;
     private String composition;
     private int price;
@@ -20,8 +20,31 @@ public class Pizza {
         this.price = price;
     }
 
-    public int getId() {
+    public Pizza(Integer id, String name, String composition, int price) {
+        this.id = id;
+        this.name = name;
+        this.composition = composition;
+        this.price = price;
+    }
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public void update(String name, String composition, int price) {
