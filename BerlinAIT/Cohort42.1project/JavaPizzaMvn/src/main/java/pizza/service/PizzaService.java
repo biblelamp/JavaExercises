@@ -1,6 +1,7 @@
 package pizza.service;
 
 import pizza.domain.Pizza;
+import pizza.repository.CrudRepository;
 import pizza.repository.PizzaRepository;
 
 /**
@@ -11,9 +12,9 @@ import pizza.repository.PizzaRepository;
  * @version 18-Apr-24
  */
 public class PizzaService {
-    private PizzaRepository repository;
+    private CrudRepository<Integer, Pizza> repository;
 
-    public PizzaService(PizzaRepository repository) {
+    public PizzaService(CrudRepository<Integer, Pizza> repository) {
         this.repository = repository;
     }
 

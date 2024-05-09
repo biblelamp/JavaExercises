@@ -30,9 +30,9 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
         this.dbName = dbName;
     }
 
-    public PizzaRepository() {
-        //pizzaMap = new HashMap<>();
-    }
+//    public PizzaRepository() {
+//        pizzaMap = new HashMap<>();
+//    }
 
     @Override
     public void save(Pizza pizza) {
