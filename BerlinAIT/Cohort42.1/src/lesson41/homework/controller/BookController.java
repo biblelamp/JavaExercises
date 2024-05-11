@@ -33,7 +33,9 @@ public class BookController {
                     input = scanner.nextLine().split("&");
                     id = Integer.valueOf(input[0].trim());
                     name = input[1].trim();
-                    bookService.update(id, name);
+                    if (!bookService.update(id, name)) {
+                        System.out.println("Book not found, book id: " + id);
+                    }
                     break;
                 case 'd':
                     System.out.print("Delete: book id: ");

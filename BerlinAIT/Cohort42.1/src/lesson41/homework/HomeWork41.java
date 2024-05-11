@@ -8,7 +8,7 @@ import lesson41.homework.service.BookService;
  * AIT-TR, cohort 42.1, Java Basic, hw #41
  *
  * @author Sergey Iryupin
- * @version 24-Apr-24
+ * @version 24-Apr,11-May-24
  */
 public class HomeWork41 {
     public static void main(String[] args) {

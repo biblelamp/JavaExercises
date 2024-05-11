@@ -1,17 +1,24 @@
 package lesson41.homework.domain;
 
 public class Book {
-    private int id;
+    private Integer id;
     private String name;
-    private static int idCounter = 0;
 
-    public Book(String name) {
-        this.id = ++idCounter;
+    public Book(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

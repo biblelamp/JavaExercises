@@ -10,17 +10,19 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public void add(String name) {
-        Book book = new Book(name);
-        bookRepository.save(book);
+    public Book add(String name) {
+        Book book = new Book(null, name);
+        return bookRepository.save(book);
     }
 
-    public void update(int id, String name) {
+    public boolean update(int id, String name) {
         Book book = bookRepository.findById(id);
         if (book != null) {
             book.setName(name);
             bookRepository.save(book);
+            return true;
         }
+        return false;
     }
 
     public boolean delete(int id) {
