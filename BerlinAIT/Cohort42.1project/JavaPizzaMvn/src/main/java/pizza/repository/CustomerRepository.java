@@ -40,6 +40,11 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
         return customerMap.values();
     }
 
+    @Override
+    public void initTable() {
+        // TODO
+    }
+
     public void init() {
         Customer customer = new Customer("Anonymous", null, null);
         customerMap.put(customer.getId(), customer);

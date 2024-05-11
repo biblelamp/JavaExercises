@@ -7,4 +7,5 @@ public interface CrudRepository<K, V> {
     V findById(K key);
     void save(V value);
     void remove(K key);
+    void initTable();
 }

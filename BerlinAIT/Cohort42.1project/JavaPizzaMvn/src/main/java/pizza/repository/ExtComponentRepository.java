@@ -38,6 +38,11 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtСompo
         return componentMap.values();
     }
 
+    @Override
+    public void initTable() {
+        // TODO
+    }
+
     public void init() {
         List<ExtСomponent> components = new ArrayList<>(List.of(
                 new ExtСomponent("ham", 25),

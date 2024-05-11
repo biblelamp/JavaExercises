@@ -10,10 +10,9 @@ import java.util.*;
  * Implementation of access methods to the Pizza data source
  *
  * @author Sergey Iryupin
- * @version 08-May-24
+ * @version 10-May-24
  */
-public class PizzaRepository implements CrudRepository<Integer, Pizza> {
-    //private Map<Integer, Pizza> pizzaMap;
+public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
     private String dbName;
 
     private final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS pizza (" +
@@ -21,22 +20,18 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
                     " name        TEXT NOT NULL," +
                     " composition TEXT NOT NULL," +
                     " price       INTEGER NOT NULL)";
+    private final String SQL_DELETE_TABLE = "DELETE FROM pizza";
     private final String SQL_INSERT = "INSERT INTO pizza (name,composition,price) VALUES (?,?,?)";
     private final String SQL_UPDATE = "UPDATE pizza SET name = ?, composition = ?, price = ? WHERE id = ?";
     private final String SQL_FIND_BY_ID = "SELECT * FROM pizza WHERE id = ?";
     private final String SQL_FIND_ALL = "SELECT * FROM pizza";
     private final String SQL_DELETE_BY_ID = "DELETE FROM pizza WHERE id = ?";
-    public PizzaRepository(String dbName) {
+    public PizzaSqlRepository(String dbName) {
         this.dbName = dbName;
     }
 
-//    public PizzaRepository() {
-//        pizzaMap = new HashMap<>();
-//    }
-
     @Override
     public void save(Pizza pizza) {
-        //pizzaMap.put(pizza.getId(), pizza);
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement psi = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement psu = connection.prepareStatement(SQL_UPDATE)) {
@@ -66,7 +61,6 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
 
     @Override
     public Pizza findById(Integer id) {
-        //return pizzaMap.get(id);
         Pizza pizza = null;
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement ps = connection.prepareStatement(SQL_FIND_BY_ID)) {
@@ -86,7 +80,6 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
 
     @Override
     public void remove(Integer id) {
-        //pizzaMap.remove(id);
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
             ps.setInt(1, id);
@@ -98,7 +91,6 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
 
     @Override
     public Collection<Pizza> findAll() {
-        //return pizzaMap.values();
         Collection<Pizza> pizzas = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(dbName);
              Statement stmt = connection.createStatement()) {
@@ -114,6 +106,17 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
             throw new RuntimeException(e);
         }
         return pizzas;
+    }
+
+    @Override
+    public void initTable() {
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(SQL_CREATE_TABLE);
+            stmt.executeUpdate(SQL_DELETE_TABLE);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void init() {

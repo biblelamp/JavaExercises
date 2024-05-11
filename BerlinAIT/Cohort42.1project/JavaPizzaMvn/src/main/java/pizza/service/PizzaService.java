@@ -2,7 +2,6 @@ package pizza.service;
 
 import pizza.domain.Pizza;
 import pizza.repository.CrudRepository;
-import pizza.repository.PizzaRepository;
 
 /**
  * Pizza service class

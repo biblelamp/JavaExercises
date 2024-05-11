@@ -39,4 +39,9 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     public Collection<Order> findAll() {
         return orderMap.values();
     }
+
+    @Override
+    public void initTable() {
+        // TODO
+    }
 }

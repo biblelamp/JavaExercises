@@ -92,6 +92,11 @@ public class PizzaFileRepository implements CrudRepository<Integer, Pizza> {
         }
     }
 
+    @Override
+    public void initTable() {
+        // TODO
+    }
+
     private void rewiteFile(Collection<Pizza> pizzas) {
         try (FileWriter writer = new FileWriter(fileName)) { // TODO Buffered
             for (Pizza p : pizzas) {
