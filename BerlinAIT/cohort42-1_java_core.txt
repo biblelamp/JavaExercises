@@ -2,8 +2,7 @@ Java Basic группа cohort42.1:
 
 Программа:		https://docs.google.com/spreadsheets/d/1-F8A71NYdhI8I0wY79DZAJ0KI5GUxGcj7MOHQjh6nn8/
 Материалы:		https://drive.google.com/drive/u/0/folders/1ZhAAKG0SVP13F--0NU88_vjxnh-ot2_d
-Расписание:		апрель https://primetimetable.com/publish/?id=d95ab9aa-2f8f-44a4-81b4-39638106e439&time=6&skin=3#id=d95ab9aa-2f8f-44a4-81b4-39638106e439&view=1&classId=fde7511f-2c55-4d06-956d-1dfb1f436d36
-				май https://primetimetable.com/publish/?id=fdc96359-54bc-4797-8704-699db041c969&time=6&skin=3#id=fdc96359-54bc-4797-8704-699db041c969&view=1&classId=8cff655b-f2de-443b-946b-4549f9c08764
+Расписание:		май https://primetimetable.com/publish/?id=fdc96359-54bc-4797-8704-699db041c969&time=6&skin=3#id=fdc96359-54bc-4797-8704-699db041c969&view=1&classId=8cff655b-f2de-443b-946b-4549f9c08764
 Посещаемость:	https://docs.google.com/spreadsheets/d/18WtyeFcdp6IKOEHH-d-mbFP0C7RwFFuW/edit#gid=557951074
 Отзывы:			https://docs.google.com/spreadsheets/d/e/2PACX-1vTD5BzAJJGpXRsLbfBSM_ptCmXzYOmA7Y9HCeK65lfoXoDSHwMKnu5V6R42Qjt4pfh13En8DOBSfONG/pubhtml
 
@@ -238,9 +237,10 @@ Java Basic группа cohort42.1:
     - InputStream, OutputStream
     - Reader, Writer, BufferedReader, BufferedWriter
     - LocalDate, LocalDateTime, DateFormatter
-45. Проектная работа #2 день #0
+45. Java Time API
+    - LocalDate, LocalDateTime, DateFormatter
 46. Проектная работа #2 день #1
-    - консольное приложение с трехслойной архитектурой
+    - консольное приложение с многослойной MVC архитектурой
     - обеспечить покрытие тестами
     - хранение информации в текстовых файлах (или SQL)
     - работа в командах с возможной публичной защитой
@@ -254,27 +254,27 @@ Java Basic группа cohort42.1:
 	февраль:	2,5,7,9,12,14,16,19,21,23,26,28
 	март:		1,4,6,7,11,13,15,18,20,22,25,27
 	апрель:		3,5,8,10,12,15,17,19,22,24,26,29
-	май:		
-	итого:		44
+	май:		3,6,8
+	итого:		47
 
 Консультации:
 	январь:		25
 	февраль:	1,8,15,22,29
 	март:		14,21,28
 	апрель:		4,11,18,25
-	май:		
-	итого:		13
+	май:		2
+	итого:		14
 
 Осталось занятий:
-	май:		3,6,8,10,13,15
-	осталось:	6
-
-Осталось консультаций:
-	май:		2,7,16
+	май:		10,13,15
 	осталось:	3
 
-Студенты:
+Осталось консультаций:
+	май:		7?,16
+	осталось:	2
 
+Студенты:
+ 
 1. Mukhlis Hasanov			https://github.com/MukhlisHasanov
 2. Andrey Hein				https://github.com/AndreyHein
 3. Gorbovyi Anton			https://github.com/AGorbovyi
@@ -285,7 +285,6 @@ Java Basic группа cohort42.1:
 8. Yaroslav Boiko			https://github.com/ilofrudd
 9. Alexander Germanow		https://github.com/AlexanderGermanow
 10. Alex Postica			https://github.com/AlexPostica
-11. Ilja Blind?				https://github.com/IljaBlind
 
 Инфиксные и постфиксные выражения:
 
