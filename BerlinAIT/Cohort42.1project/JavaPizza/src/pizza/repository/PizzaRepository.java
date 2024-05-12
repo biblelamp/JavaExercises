@@ -13,7 +13,7 @@ import java.util.Map;
  * Implementation of access methods to the Pizza data source
  *
  * @author Sergey Iryupin
- * @version 19-Apr-24
+ * @version 12-May-24
  */
 public class PizzaRepository implements CrudRepository<Integer, Pizza> {
     private Map<Integer, Pizza> pizzaMap;
@@ -24,6 +24,15 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
 
     @Override
     public void save(Pizza pizza) {
+        if (pizza.getId() == null) {
+            int pizzaId = 0;
+            for (Integer id : pizzaMap.keySet()) {
+                if (pizzaId < id) {
+                    pizzaId = id;
+                }
+            }
+            pizza.setId(pizzaId + 1);
+        }
         pizzaMap.put(pizza.getId(), pizza);
     }
 

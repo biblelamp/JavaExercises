@@ -1,58 +1,40 @@
 package pizza.domain;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Pizza order class
  *
  * @author Sergey Iryupin
- * @version 19-Apr-24
+ * @version 12-May-24
  */
 public class Order {
-    private int id;
-    private Map<Integer, OrderPizza> orderPizzaMap;
+    private Integer id;
+    private List<OrderPizza> orderPizzas;
     private Customer customer;
     private OrderState state;
     private int deliveryPrice;
     private Date createDate;
     private Date receivedDate;
-    private static int idCounter = 0;
 
     public Order(Customer customer) {
-        this.id = ++idCounter;
-        this.orderPizzaMap = new HashMap();
+        this.id = null;
+        this.orderPizzas = new ArrayList<>();
         this.customer = customer;
         this.state = OrderState.NEW;
         this.createDate = new Date();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public OrderPizza getOrderPizza(int orderPizzaId) {
-        return orderPizzaMap.get(orderPizzaId);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void addOrderPizza(Pizza pizza) {
-        OrderPizza orderPizza = new OrderPizza(pizza);
-        orderPizzaMap.put(orderPizza.getId(), orderPizza);
-    }
-
-    public void addExtСomponent(int orderPizzaId, ExtСomponent extComponent) {
-        OrderPizza orderPizza = orderPizzaMap.get(orderPizzaId);
-        orderPizza.addComponent(extComponent);
-    }
-
-    public void deleteOrderPizza(int orderPizzaId) {
-        orderPizzaMap.remove(orderPizzaId);
-    }
-
-    public void deleteExtСomponent(int orderPizzaId, ExtСomponent extComponent) {
-        OrderPizza orderPizza = orderPizzaMap.get(orderPizzaId);
-        orderPizza.deleteComponent(extComponent);
+    public List<OrderPizza> getOrderPizzas() {
+        return orderPizzas;
     }
 
     public void setState(OrderState state) {
@@ -67,7 +49,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ",\n orderPizzas=" + orderPizzaMap +
+                ",\n orderPizzas=" + orderPizzas +
                 ",\n customer=" + customer +
                 ",\n state=" + state +
                 ", deliveryPrice=" + deliveryPrice +

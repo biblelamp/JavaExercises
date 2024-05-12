@@ -7,34 +7,29 @@ import java.util.List;
  * Pizza class to order: standard pizza + extras
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 12-May-24
  */
 public class OrderPizza {
-    private int id;
+    private Integer id;
     private Pizza pizza;
     private List<ExtСomponent> components;
-    private static int idCounter = 0;
 
     public OrderPizza(Pizza pizza) {
-        this.id = ++idCounter;
+        this.id = null;
         this.pizza = pizza;
+        this.components = new ArrayList<>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void addComponent(ExtСomponent component) {
-        if (components == null) {
-            components = new ArrayList<>();
-        }
-        components.add(component);
+    public void setId(Integer id) {
+        this.id = id;
     }
-    public boolean deleteComponent(ExtСomponent component) {
-        if (components != null) {
-            return components.remove(component);
-        }
-        return false;
+
+    public List<ExtСomponent> getComponents() {
+        return components;
     }
 
     @Override

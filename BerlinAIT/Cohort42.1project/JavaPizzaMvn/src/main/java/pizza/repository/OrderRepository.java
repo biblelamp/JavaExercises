@@ -11,7 +11,7 @@ import java.util.Map;
  * Implementation of access methods to the Order data source
  *
  * @author Sergey Iryupin
- * @version 20-Apr-24
+ * @version 12-May-24
  */
 public class OrderRepository implements CrudRepository<Integer, Order> {
     private Map<Integer, Order> orderMap;
@@ -22,6 +22,15 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
 
     @Override
     public void save(Order order) {
+        if (order.getId() == null) {
+            int orderId = 0;
+            for(Integer id : orderMap.keySet()) {
+                if (orderId < id) {
+                    orderId = id;
+                }
+            }
+            order.setId(orderId + 1);
+        }
         orderMap.put(order.getId(), order);
     }
 

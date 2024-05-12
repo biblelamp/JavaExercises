@@ -3,7 +3,6 @@ package pizza.controller;
 import pizza.domain.Customer;
 import pizza.domain.ExtСomponent;
 import pizza.domain.Order;
-import pizza.domain.Pizza;
 import pizza.service.CustomerService;
 import pizza.service.ExtComponentService;
 import pizza.service.OrderService;
@@ -16,7 +15,7 @@ import java.util.Scanner;
  * Implements a menu for working with order service
  *
  * @author Sergey Iryupin
- * @version 18-Apr-24
+ * @version 12-May-24
  */
 public class OrderController {
     private OrderService orderService;
@@ -69,7 +68,6 @@ public class OrderController {
     }
 
     private void orderControllerUpdate(int orderId) {
-        Order order = orderService.get(orderId);
         int pizzaId, orderPizzaId, componentId, price;
         ExtСomponent component;
         String[] input;
@@ -81,41 +79,39 @@ public class OrderController {
                 case 'i':
                     System.out.print("Order update: add pizza: pizzaId: ");
                     pizzaId = Integer.valueOf(scanner.nextLine().trim());
-                    Pizza pizza = pizzaService.findById(pizzaId);
-                    orderService.addOrderPizza(order, pizza);
+                    orderService.addOrderPizza(orderId, pizzaId);
                     break;
                 case 'c':
                     System.out.print("Order update: add component: orderPizzaId & componentId: ");
                     input = scanner.nextLine().split("&");
                     orderPizzaId = Integer.valueOf(input[0].trim());
                     componentId = Integer.valueOf(input[1].trim());
-                    component = extComponentService.get(componentId);
-                    orderService.addExtСomponent(order, orderPizzaId, component);
+                    orderService.addExtСomponent(orderId, orderPizzaId, componentId);
                     break;
                 case 'z':
                     System.out.print("Order update: delete order pizza: orderPizzaId: ");
                     orderPizzaId = Integer.valueOf(scanner.nextLine().trim());
-                    orderService.deleteOrderPizza(order, orderPizzaId);
+                    orderService.deleteOrderPizza(orderId, orderPizzaId);
                     break;
                 case 'o':
                     System.out.print("Order update: delete component: orderPizzaId & componentId: ");
                     input = scanner.nextLine().split("&");
                     orderPizzaId = Integer.valueOf(input[0].trim());
                     componentId = Integer.valueOf(input[1].trim());
-                    component = extComponentService.get(componentId);
-                    orderService.deleteExtСomponent(order, orderPizzaId, component);
+                    orderService.deleteExtСomponent(orderId, orderPizzaId, componentId);
                     break;
                 case 'e':
                     System.out.print("Order update: set delivery price: price: ");
                     price = Integer.valueOf(scanner.nextLine().trim());
-                    orderService.setDeliveryPrice(order, price);
+                    orderService.setDeliveryPrice(orderId, price);
                     break;
                 case 's':
                     System.out.print("Order update: set order status: [n]ew, [p]aid, [r]eceived, [c]anceled: ");
                     char charState = scanner.nextLine().trim().charAt(0);
-                    orderService.setState(order, charState);
+                    orderService.setState(orderId, charState);
                     break;
                 case 'p':
+                    Order order = orderService.get(orderId);
                     System.out.println(order);
                     break;
                 case 'b':
