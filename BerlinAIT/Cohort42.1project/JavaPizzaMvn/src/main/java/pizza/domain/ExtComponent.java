@@ -4,22 +4,25 @@ package pizza.domain;
  * Extra (additional) component to pizza
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 13-May-24
  */
-public class ExtСomponent {
-    private int id;
+public class ExtComponent {
+    private Integer id;
     private String name;
     private int price;
-    private static int idCounter = 0;
 
-    public ExtСomponent(String name, int price) {
-        this.id = ++idCounter;
+    public ExtComponent(String name, int price) {
+        this.id = null;
         this.name = name;
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void update(String name, int price) {

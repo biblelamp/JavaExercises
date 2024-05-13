@@ -40,7 +40,7 @@ public class AppController {
         CustomerController customerController = new CustomerController(customerService, scanner);
         OrderController orderController = new OrderController(orderService, customerService, pizzaService, extСomponentService, scanner);
         do {
-            System.out.print("Choose service: [p]izza, [e]xtcomponent, [c]ustomer, [o]rder, e[x]it: ");
+            System.out.print("Choose service: [p]izza, [e]xtComponent, [c]ustomer, [o]rder, e[x]it: ");
             cmd = scanner.nextLine().charAt(0);
             switch (cmd) {
                 case 'p':

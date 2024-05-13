@@ -1,7 +1,7 @@
 package pizza;
 
 import pizza.controller.AppController;
-import pizza.domain.Pizza;
+import pizza.domain.*;
 import pizza.repository.*;
 import pizza.service.CustomerService;
 import pizza.service.ExtComponentService;
@@ -21,20 +21,16 @@ public class JavaPizzaApp {
         final String SQLITE_DB_NAME = "jdbc:sqlite:C:/temp/java_pizza.db";
         final String PIZZA_FILE = "C:\\temp\\java_pizza_pizza.txt";
         // create all repositories
-        PizzaFileRepository pizzaRepository = new PizzaFileRepository(PIZZA_FILE);//new PizzaRepository(SQLITE_DB_NAME);
-        ExtComponentRepository extComponentRepository = new ExtComponentRepository();
-        CustomerRepository customerRepository = new CustomerRepository();
-        OrderPizzaRepozitory orderPizzaRepozitory = new OrderPizzaRepozitory();
-        OrderRepository orderRepository = new OrderRepository();
+        CrudRepository<Integer, Pizza> pizzaRepository = new PizzaRepository();
+        CrudRepository<Integer, ExtComponent> extComponentRepository = new ExtComponentRepository();
+        CrudRepository<Integer, Customer> customerRepository = new CustomerRepository();
+        CrudRepository<Integer, OrderPizza> orderPizzaRepozitory = new OrderPizzaRepozitory();
+        CrudRepository<Integer, Order> orderRepository = new OrderRepository();
         // create all services
         PizzaService pizzaService = new PizzaService(pizzaRepository);
         ExtComponentService extComponentService = new ExtComponentService(extComponentRepository);
         CustomerService customerService = new CustomerService(customerRepository);
         OrderService orderService = new OrderService(orderRepository, pizzaRepository, orderPizzaRepozitory, extComponentRepository);
-        // init all data
-        //pizzaRepository.init();
-        extComponentRepository.init();
-        customerRepository.init();
         // create & run controller
         new AppController(pizzaService, extComponentService, customerService, orderService).run();
     }

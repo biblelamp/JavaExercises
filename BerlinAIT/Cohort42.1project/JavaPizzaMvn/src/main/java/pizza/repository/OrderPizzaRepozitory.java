@@ -14,16 +14,6 @@ public class OrderPizzaRepozitory implements CrudRepository<Integer, OrderPizza>
     }
 
     @Override
-    public Collection<OrderPizza> findAll() {
-        return orderPizzaMap.values();
-    }
-
-    @Override
-    public OrderPizza findById(Integer id) {
-        return orderPizzaMap.get(id);
-    }
-
-    @Override
     public void save(OrderPizza orderPizza) {
         if (orderPizza.getId() == null) {
             int orderPizzaId = 0;
@@ -38,11 +28,22 @@ public class OrderPizzaRepozitory implements CrudRepository<Integer, OrderPizza>
     }
 
     @Override
-    public void remove(Integer id) {
+    public Collection<OrderPizza> findAll() {
+        return orderPizzaMap.values();
+    }
+
+    @Override
+    public OrderPizza findById(Integer id) {
+        return orderPizzaMap.get(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
         orderPizzaMap.remove(id);
     }
 
     @Override
-    public void initTable() {
+    public void deleteAll() {
+        throw new NullPointerException("Method not implemented");
     }
 }

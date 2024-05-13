@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderPizza {
     private Integer id;
     private Pizza pizza;
-    private List<ExtСomponent> components;
+    private List<ExtComponent> components;
 
     public OrderPizza(Pizza pizza) {
         this.id = null;
@@ -28,7 +28,7 @@ public class OrderPizza {
         this.id = id;
     }
 
-    public List<ExtСomponent> getComponents() {
+    public List<ExtComponent> getComponents() {
         return components;
     }
 

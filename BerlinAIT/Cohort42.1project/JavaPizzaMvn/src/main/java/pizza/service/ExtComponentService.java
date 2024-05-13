@@ -1,7 +1,7 @@
 package pizza.service;
 
-import pizza.domain.ExtСomponent;
-import pizza.repository.ExtComponentRepository;
+import pizza.domain.ExtComponent;
+import pizza.repository.CrudRepository;
 
 /**
  * Extras (additional) components service class
@@ -11,23 +11,23 @@ import pizza.repository.ExtComponentRepository;
  * @version 19-Apr-24
  */
 public class ExtComponentService {
-    private ExtComponentRepository repository;
+    private CrudRepository<Integer, ExtComponent> repository;
 
-    public ExtComponentService(ExtComponentRepository repository) {
+    public ExtComponentService(CrudRepository<Integer, ExtComponent> repository) {
         this.repository = repository;
     }
 
-    public ExtСomponent get(int id) {
+    public ExtComponent get(int id) {
         return repository.findById(id);
     }
 
     public void add(String name, int price) {
-        ExtСomponent component = new ExtСomponent(name, price);
+        ExtComponent component = new ExtComponent(name, price);
         repository.save(component);
     }
 
     public boolean update(int id, String name, int price) {
-        ExtСomponent updComponent = repository.findById(id);
+        ExtComponent updComponent = repository.findById(id);
         if (updComponent != null) {
             updComponent.update(name, price);
             return true;
@@ -36,9 +36,9 @@ public class ExtComponentService {
     }
 
     public boolean delete(int id) {
-        ExtСomponent delComponent = repository.findById(id);
+        ExtComponent delComponent = repository.findById(id);
         if (delComponent != null) {
-            repository.remove(id);
+            repository.deleteById(id);
             return true;
         }
         return false;

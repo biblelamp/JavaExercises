@@ -1,7 +1,7 @@
 package pizza.controller;
 
 import pizza.domain.Customer;
-import pizza.domain.ExtСomponent;
+import pizza.domain.ExtComponent;
 import pizza.domain.Order;
 import pizza.service.CustomerService;
 import pizza.service.ExtComponentService;
@@ -69,7 +69,7 @@ public class OrderController {
 
     private void orderControllerUpdate(int orderId) {
         int pizzaId, orderPizzaId, componentId, price;
-        ExtСomponent component;
+        ExtComponent component;
         String[] input;
         char cmd;
         do {

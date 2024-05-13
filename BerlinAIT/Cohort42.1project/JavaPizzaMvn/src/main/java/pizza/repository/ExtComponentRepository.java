@@ -1,8 +1,12 @@
 package pizza.repository;
 
-import pizza.domain.ExtСomponent;
+import pizza.domain.ExtComponent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ExtComponent repository
@@ -11,47 +15,56 @@ import java.util.*;
  * @author Sergey Iryupin
  * @version 19-Apr-24
  */
-public class ExtComponentRepository implements CrudRepository<Integer, ExtСomponent> {
-    private Map<Integer, ExtСomponent> componentMap;
+public class ExtComponentRepository implements CrudRepository<Integer, ExtComponent> {
+    private Map<Integer, ExtComponent> componentMap;
 
     public ExtComponentRepository() {
         this.componentMap = new HashMap<>();
+        init();
     }
 
     @Override
-    public void save(ExtСomponent value) {
-        componentMap.put(value.getId(), value);
+    public void save(ExtComponent component) {
+        if (component.getId() == null) {
+            int componentId = 0;
+            for (Integer id : componentMap.keySet()) {
+                if (componentId < id) {
+                    componentId = id;
+                }
+            }
+            component.setId(componentId + 1);
+        }
+        componentMap.put(component.getId(), component);
     }
 
     @Override
-    public ExtСomponent findById(Integer key) {
+    public ExtComponent findById(Integer key) {
         return componentMap.get(key);
     }
 
     @Override
-    public void remove(Integer key) {
+    public void deleteById(Integer key) {
         componentMap.remove(key);
     }
 
     @Override
-    public Collection<ExtСomponent> findAll() {
+    public Collection<ExtComponent> findAll() {
         return componentMap.values();
     }
 
     @Override
-    public void initTable() {
-        // TODO
+    public void deleteAll() {
+        throw new NullPointerException("Method not implemented");
     }
 
-    public void init() {
-        List<ExtСomponent> components = new ArrayList<>(List.of(
-                new ExtСomponent("ham", 25),
-                new ExtСomponent("mozzarella", 25),
-                new ExtСomponent("champignons", 10),
-                new ExtСomponent("pepper salami", 25),
-                new ExtСomponent("rukola", 10)
+    private void init() {
+        List<ExtComponent> components = new ArrayList<>(List.of(
+                new ExtComponent("ham", 25),
+                new ExtComponent("mozzarella", 25),
+                new ExtComponent("champignons", 10),
+                new ExtComponent("pepper salami", 25),
+                new ExtComponent("rukola", 10)
         ));
-        //componentMap = components.stream().collect(Collectors.toMap(ExtСomponent::getId, с -> с));
         components.forEach(component -> save(component));
     }
 }

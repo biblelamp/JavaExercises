@@ -75,7 +75,7 @@ public class PizzaFileRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void deleteById(Integer id) {
         Collection<Pizza> pizzas = findAll();
         Pizza deletedPizza = null;
         for (Pizza pizza : pizzas) {
@@ -93,7 +93,7 @@ public class PizzaFileRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void initTable() {
+    public void deleteAll() {
         // TODO
     }
 

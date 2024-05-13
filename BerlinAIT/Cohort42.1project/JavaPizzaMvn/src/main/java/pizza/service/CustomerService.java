@@ -1,7 +1,7 @@
 package pizza.service;
 
 import pizza.domain.Customer;
-import pizza.repository.CustomerRepository;
+import pizza.repository.CrudRepository;
 
 /**
  * Customer service class
@@ -11,9 +11,9 @@ import pizza.repository.CustomerRepository;
  * @version 17-Apr-24
  */
 public class CustomerService {
-    private CustomerRepository repository;
+    private CrudRepository<Integer, Customer> repository;
 
-    public CustomerService(CustomerRepository repository) {
+    public CustomerService(CrudRepository<Integer, Customer> repository) {
         this.repository = repository;
     }
 
@@ -38,7 +38,7 @@ public class CustomerService {
     public boolean delete(int id) {
         Customer delCustomer = repository.findById(id);
         if (delCustomer != null) {
-            repository.remove(id);
+            repository.deleteById(id);
             return true;
         }
         return false;

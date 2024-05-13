@@ -4,24 +4,27 @@ package pizza.domain;
  * Pizza customer class
  *
  * @author Sergey Iryupin
- * @version 15-Apr-24
+ * @version 13-May-24
  */
 public class Customer {
-    private int id;
+    private Integer id;
     private String name;
     private String address;
     private String phone;
-    private static int idCounter = 0;
 
     public Customer(String name, String address, String phone) {
-        this.id = ++idCounter;
+        this.id = null;
         this.name = name;
         this.address = address;
         this.phone = phone;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void update(String name, String address, String phone) {

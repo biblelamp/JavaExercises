@@ -40,7 +40,7 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void remove(Integer key) {
+    public void deleteById(Integer key) {
         orderMap.remove(key);
     }
 
@@ -50,7 +50,7 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void initTable() {
-        // TODO
+    public void deleteAll() {
+        throw new NullPointerException("Method not implemented");
     }
 }

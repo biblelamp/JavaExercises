@@ -39,7 +39,7 @@ public class PizzaService {
     public boolean delete(int id) {
         Pizza delPizza = repository.findById(id);
         if (delPizza != null) {
-            repository.remove(id);
+            repository.deleteById(id);
             return true;
         }
         return false;

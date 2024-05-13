@@ -18,21 +18,31 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
 
     public CustomerRepository() {
         customerMap = new HashMap<>();
+        init();
     }
 
     @Override
-    public void save(Customer value) {
-        customerMap.put(value.getId(), value);
+    public void save(Customer customer) {
+        if (customer.getId() == null) {
+            int customerId = 0;
+            for (Integer id : customerMap.keySet()) {
+                if (customerId < id) {
+                    customerId = id;
+                }
+            }
+            customer.setId(customerId + 1);
+        }
+        customerMap.put(customer.getId(), customer);
     }
 
     @Override
-    public Customer findById(Integer key) {
-        return customerMap.get(key);
+    public Customer findById(Integer id) {
+        return customerMap.get(id);
     }
 
     @Override
-    public void remove(Integer key) {
-        customerMap.remove(key);
+    public void deleteById(Integer id) {
+        customerMap.remove(id);
     }
 
     @Override
@@ -41,12 +51,12 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
     }
 
     @Override
-    public void initTable() {
-        // TODO
+    public void deleteAll() {
+        throw new NullPointerException("Method not implemented");
     }
 
-    public void init() {
+    private void init() {
         Customer customer = new Customer("Anonymous", null, null);
-        customerMap.put(customer.getId(), customer);
+        save(customer);
     }
 }

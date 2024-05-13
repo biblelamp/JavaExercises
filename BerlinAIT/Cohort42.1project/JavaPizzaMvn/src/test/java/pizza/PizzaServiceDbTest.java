@@ -8,22 +8,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import pizza.domain.Pizza;
 import pizza.repository.CrudRepository;
-import pizza.repository.PizzaSqlRepository;
+import pizza.repository.PizzaDbRepository;
 import pizza.service.PizzaService;
 
 import java.util.Collection;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PizzaServiceSqlTest {
+public class PizzaServiceDbTest {
     final static String PIZZA_SQLITE_NAME = "jdbc:sqlite:C:/temp/java_pizza_test.db";
     private static CrudRepository<Integer, Pizza> pizzaRepository;
     private static PizzaService pizzaService;
 
     @BeforeAll
     public static void init() {
-        pizzaRepository = new PizzaSqlRepository(PIZZA_SQLITE_NAME);
+        pizzaRepository = new PizzaDbRepository(PIZZA_SQLITE_NAME);
         pizzaService = new PizzaService(pizzaRepository);
-        pizzaRepository.initTable();
+        pizzaRepository.deleteAll();
     }
 
     @Test

@@ -12,7 +12,7 @@ import java.util.*;
  * @author Sergey Iryupin
  * @version 10-May-24
  */
-public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
+public class PizzaDbRepository implements CrudRepository<Integer, Pizza> {
     private String dbName;
 
     private final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS pizza (" +
@@ -26,7 +26,8 @@ public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
     private final String SQL_FIND_BY_ID = "SELECT * FROM pizza WHERE id = ?";
     private final String SQL_FIND_ALL = "SELECT * FROM pizza";
     private final String SQL_DELETE_BY_ID = "DELETE FROM pizza WHERE id = ?";
-    public PizzaSqlRepository(String dbName) {
+
+    public PizzaDbRepository(String dbName) {
         this.dbName = dbName;
     }
 
@@ -79,7 +80,7 @@ public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void deleteById(Integer id) {
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
             ps.setInt(1, id);
@@ -109,7 +110,7 @@ public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void initTable() {
+    public void deleteAll() {
         try (Connection connection = DriverManager.getConnection(dbName);
              Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(SQL_CREATE_TABLE);
@@ -117,17 +118,5 @@ public class PizzaSqlRepository implements CrudRepository<Integer, Pizza> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void init() {
-        List<Pizza> pizzas = new ArrayList<>(List.of(
-                new Pizza("Margherita", "tomato base, mozzarella, basil", 174),
-                new Pizza("Capriciosa", "tomato base, mozzarella, ham, champignons, olives", 190),
-                new Pizza("Hawai", "tomato base, mozzarella, ham, pineapple", 190),
-                new Pizza("Salami", "tomato base, mozzarella, salami, grana padano", 194),
-                new Pizza("Quattro Formaggi", "cream base, mozzarella, grana padano, gorgonzola, smoked cheese", 204)
-        ));
-        //pizzaMap = pizzas.stream().collect(Collectors.toMap(Pizza::getId, p -> p));
-        pizzas.forEach(pizza -> save(pizza));
     }
 }
