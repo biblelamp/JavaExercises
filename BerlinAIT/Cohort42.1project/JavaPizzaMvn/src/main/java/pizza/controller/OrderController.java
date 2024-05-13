@@ -73,7 +73,7 @@ public class OrderController {
         String[] input;
         char cmd;
         do {
-            System.out.print("Order update: add p[i]zza | [c]omponent, delete pi[z]za | c[o]mponent, [s]et state, s[e]t delivery price, [p]rint, [b]ack: ");
+            System.out.print("Order update: add p[i]zza | [c]omponent, delete pi[z]za | c[o]mponent, [s]et state, [p]rint, [b]ack: ");
             cmd = scanner.nextLine().charAt(0);
             switch (cmd) {
                 case 'i':
@@ -89,9 +89,9 @@ public class OrderController {
                     orderService.addExtСomponent(orderId, orderPizzaId, componentId);
                     break;
                 case 'z':
-                    System.out.print("Order update: delete order pizza: orderPizzaId: ");
-                    orderPizzaId = Integer.valueOf(scanner.nextLine().trim());
-                    orderService.deleteOrderPizza(orderId, orderPizzaId);
+                    System.out.print("Order update: delete pizza: pizzaId: ");
+                    pizzaId = Integer.valueOf(scanner.nextLine().trim());
+                    orderService.deleteOrderPizza(orderId, pizzaId);
                     break;
                 case 'o':
                     System.out.print("Order update: delete component: orderPizzaId & componentId: ");
@@ -99,11 +99,6 @@ public class OrderController {
                     orderPizzaId = Integer.valueOf(input[0].trim());
                     componentId = Integer.valueOf(input[1].trim());
                     orderService.deleteExtСomponent(orderId, orderPizzaId, componentId);
-                    break;
-                case 'e':
-                    System.out.print("Order update: set delivery price: price: ");
-                    price = Integer.valueOf(scanner.nextLine().trim());
-                    orderService.setDeliveryPrice(orderId, price);
                     break;
                 case 's':
                     System.out.print("Order update: set order status: [n]ew, [p]aid, [r]eceived, [c]anceled: ");

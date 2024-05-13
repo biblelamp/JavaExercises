@@ -8,15 +8,15 @@ import pizza.repository.*;
  * Encapsulates the list of orders & CRUD operations with them
  *
  * @author Sergey Iryupin
- * @version 21-Apr-24
+ * @version 13-May-24
  */
 public class OrderService {
-    private CrudRepository<Integer, Order> repository;
+    private OrderDbRepository repository;
     private CrudRepository<Integer, Pizza> pizzaRepository;
     private CrudRepository<Integer, OrderPizza> orderPizzaRepozitory;
     private CrudRepository<Integer, ExtComponent> extComponentRepository;
 
-    public OrderService(CrudRepository<Integer, Order> repository,
+    public OrderService(OrderDbRepository repository,
                         CrudRepository<Integer, Pizza> pizzaRepository,
                         CrudRepository<Integer, OrderPizza> orderPizzaRepozitory,
                         CrudRepository<Integer, ExtComponent> extComponentRepository) {
@@ -47,18 +47,17 @@ public class OrderService {
     public void addOrderPizza(int orderId, int pizzaId) {
         Order order = get(orderId);
         Pizza pizza = pizzaRepository.findById(pizzaId);
-        OrderPizza orderPizza = new OrderPizza(pizza);
-        orderPizzaRepozitory.save(orderPizza);
-        order.getOrderPizzas().add(orderPizza);
-        repository.save(order);
+        //OrderPizza orderPizza = new OrderPizza(pizza);
+        order.getOrderPizzas().add(pizza);
+        repository.addPizza(order, pizza);
     }
 
-    public void deleteOrderPizza(int orderId, int orderPizzaId) {
+    public void deleteOrderPizza(int orderId, int pizzaId) {
         Order order = get(orderId);
-        OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
-        order.getOrderPizzas().remove(orderPizza);
-        repository.save(order);
-        orderPizzaRepozitory.deleteById(orderPizzaId);
+        Pizza pizza = pizzaRepository.findById(pizzaId);
+        //OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
+        order.getOrderPizzas().remove(pizza);
+        repository.deletePizza(order, pizza);
     }
 
     public void addExtСomponent(int orderId, int orderPizzaId, int extСomponentId) {
@@ -75,11 +74,6 @@ public class OrderService {
         ExtComponent extСomponent = extComponentRepository.findById(extСomponentId);
         orderPizza.getComponents().remove(extСomponent);
         orderPizzaRepozitory.save(orderPizza);
-    }
-
-    public void setDeliveryPrice(int orderId, int deliveryPrice) {
-        Order order = get(orderId);
-        order.setDeliveryPrice(deliveryPrice);
     }
 
     public void setState(int orderId, char charState) {

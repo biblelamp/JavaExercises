@@ -1,5 +1,7 @@
 package pizza.repository;
 
+import pizza.domain.Pizza;
+
 import java.util.Collection;
 
 public interface CrudRepository<K, V> {

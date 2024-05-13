@@ -1,28 +1,32 @@
 package pizza.domain;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pizza order class
  *
  * @author Sergey Iryupin
- * @version 12-May-24
+ * @version 13-May-24
  */
 public class Order {
     private Integer id;
-    private List<OrderPizza> orderPizzas;
+    private List<Pizza> orderPizzas; // TODO Pizza -> OrderPizza
     private Customer customer;
     private OrderState state;
-    private int deliveryPrice;
-    private Date createDate;
-    private Date receivedDate;
+    private LocalDateTime createDate;
+    private LocalDateTime closeDate;
+
+    public Order() {
+    }
 
     public Order(Customer customer) {
         this.id = null;
         this.orderPizzas = new ArrayList<>();
         this.customer = customer;
         this.state = OrderState.NEW;
-        this.createDate = new Date();
+        this.createDate = LocalDateTime.now();
     }
 
     public Integer getId() {
@@ -33,16 +37,39 @@ public class Order {
         this.id = id;
     }
 
-    public List<OrderPizza> getOrderPizzas() {
+    public List<Pizza> getOrderPizzas() {
+        if (orderPizzas == null) {
+            orderPizzas = new ArrayList<>();
+        }
         return orderPizzas;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public OrderState getState() {
+        return state;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setCloseDate(LocalDateTime closeDate) {
+        this.closeDate = closeDate;
     }
 
     public void setState(OrderState state) {
         this.state = state;
-    }
-
-    public void setDeliveryPrice(int deliveryPrice) {
-        this.deliveryPrice = deliveryPrice;
     }
 
     @Override
@@ -52,9 +79,8 @@ public class Order {
                 ",\n orderPizzas=" + orderPizzas +
                 ",\n customer=" + customer +
                 ",\n state=" + state +
-                ", deliveryPrice=" + deliveryPrice +
                 ", createDate=" + createDate +
-                ", receivedDate=" + receivedDate +
+                ", closeDate=" + closeDate +
                 '}';
     }
 }

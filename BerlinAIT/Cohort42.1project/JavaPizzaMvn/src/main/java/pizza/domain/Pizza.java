@@ -11,10 +11,9 @@ public class Pizza {
     private String name;
     private String composition;
     private int price;
-    private static int idCounter = 0;
 
     public Pizza(String name, String composition, int price) {
-        this.id = ++idCounter;
+        this.id = null;
         this.name = name;
         this.composition = composition;
         this.price = price;
