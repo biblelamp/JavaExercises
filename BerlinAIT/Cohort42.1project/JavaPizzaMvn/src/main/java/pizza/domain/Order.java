@@ -56,6 +56,10 @@ public class Order {
         return createDate;
     }
 
+    public LocalDateTime getCloseDate() {
+        return closeDate;
+    }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }

@@ -69,7 +69,13 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
                 }
             } else {
                 // update record
-                //psu.executeUpdate();
+                psi.setInt(1, order.getCustomer().getId());
+                psi.setString(2, order.getState().name());
+                if (order.getCloseDate() != null) {
+                    psi.setString(3, order.getCloseDate().toString());
+                }
+                psi.setInt(4, order.getId());
+                psu.executeUpdate();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
