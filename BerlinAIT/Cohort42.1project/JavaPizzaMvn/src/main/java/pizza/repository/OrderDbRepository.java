@@ -102,14 +102,14 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
                 if (rs.getString("close_date") != null) {
                     order.setCloseDate(LocalDateTime.parse(rs.getString("close_date")));
                 }
-            }
-            // read pizzas
-            psp.setInt(1, order.getId());
-            ResultSet rsp = psp.executeQuery();
-            while (rsp.next()) {
-                Integer pizzaId = rsp.getInt("pizza_id");
-                Pizza pizza = pizzaRepository.findById(pizzaId);
-                order.getOrderPizzas().add(pizza);
+                // read pizzas
+                psp.setInt(1, order.getId());
+                ResultSet rsp = psp.executeQuery();
+                while (rsp.next()) {
+                    Integer pizzaId = rsp.getInt("pizza_id");
+                    Pizza pizza = pizzaRepository.findById(pizzaId);
+                    order.getOrderPizzas().add(pizza);
+                }
             }
             return order;
         } catch (SQLException e) {
@@ -125,7 +125,13 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
 
     @Override
     public void deleteById(Integer id) {
-        // TODO
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
