@@ -2,8 +2,8 @@ package pizza.repository;
 
 import pizza.domain.Customer;
 import pizza.domain.Order;
+import pizza.domain.OrderPizza;
 import pizza.domain.OrderState;
-import pizza.domain.Pizza;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,19 +19,21 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
 
     private String dbName;
     private CrudRepository<Integer, Customer> customerRepository;
-    private CrudRepository<Integer, Pizza> pizzaRepository;
+    private OrderPizzaDbRepository orderPizzaRepository;
 
-    /* CREATE TABLE IF NOT EXISTS `order` (
+    /*
+    CREATE TABLE IF NOT EXISTS `order` (
         id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         customer_id INTEGER NOT NULL,
         state       TEXT NOT NULL,
         create_date TEXT NOT NULL,
         close_date  TEXT
-    ) */
-    /* CREATE TABLE IF NOT EXISTS order_pizza (
-        order_id    INTEGER NOT NULL,
-        pizza_id    INTEGER NOT NULL
-     ) */
+    )
+    CREATE TABLE IF NOT EXISTS order_order_pizza (
+        order_id       INTEGER NOT NULL,
+        order_pizza_id INTEGER NOT NULL
+     )
+     */
 
     private final String SQL_INSERT = "INSERT INTO `order` (customerId,state,create_date) VALUES (?,?,?)";
     private final String SQL_UPDATE = "UPDATE `order` SET customer_id = ?, state = ?, close_date = ? WHERE id = ?";
@@ -39,16 +41,16 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
     private final String SQL_DELETE_BY_ID = "DELETE FROM `order` WHERE id = ?";
     private final String SQL_FIND_ALL = "SELECT * FROM `order`";
 
-    private final String SQL_PIZZA_INSERT = "INSERT INTO order_pizza (order_id,pizza_id) VALUES (?,?)";
-    private final String SQL_PIZZA_DELETE = "DELETE FROM order_pizza WHERE order_id = ? AND pizza_id = ?";
-    private final String SQL_FIND_BY_ORDER_ID = "SELECT * FROM order_pizza WHERE order_id = ?";
+    private final String SQL_PIZZA_INSERT = "INSERT INTO order_order_pizza (order_id,order_pizza_id) VALUES (?,?)";
+    private final String SQL_PIZZA_DELETE = "DELETE FROM order_order_pizza WHERE order_id = ? AND order_pizza_id = ?";
+    private final String SQL_FIND_BY_ORDER_ID = "SELECT * FROM order_order_pizza WHERE order_id = ?";
 
     public OrderDbRepository(final String dbName,
                              final CrudRepository<Integer, Customer> customerRepository,
-                             CrudRepository<Integer, Pizza> pizzaRepository) {
+                             final OrderPizzaDbRepository orderPizzaRepository) {
         this.dbName = dbName;
         this.customerRepository = customerRepository;
-        this.pizzaRepository = pizzaRepository;
+        this.orderPizzaRepository = orderPizzaRepository;
     }
 
     @Override
@@ -106,9 +108,9 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
                 psp.setInt(1, order.getId());
                 ResultSet rsp = psp.executeQuery();
                 while (rsp.next()) {
-                    Integer pizzaId = rsp.getInt("pizza_id");
-                    Pizza pizza = pizzaRepository.findById(pizzaId);
-                    order.getOrderPizzas().add(pizza);
+                    Integer orderPizzaId = rsp.getInt("order_pizza_id");
+                    OrderPizza orderPizza = orderPizzaRepository.findById(orderPizzaId);
+                    order.getOrderPizzas().add(orderPizza);
                 }
             }
             return order;
@@ -139,22 +141,22 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
         throw new NullPointerException("Method not implemented");
     }
 
-    public void addPizza(Order order, Pizza pizza) {
+    public void addPizza(Order order, OrderPizza orderPizza) {
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement psi = connection.prepareStatement(SQL_PIZZA_INSERT)) {
             psi.setInt(1, order.getId());
-            psi.setInt(2, pizza.getId());
+            psi.setInt(2, orderPizza.getId());
             psi.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deletePizza(Order order, Pizza pizza) {
+    public void deletePizza(Order order, OrderPizza orderPizza) {
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement psd = connection.prepareStatement(SQL_PIZZA_DELETE)) {
             psd.setInt(1, order.getId());
-            psd.setInt(2, pizza.getId());
+            psd.setInt(2, orderPizza.getId());
             psd.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

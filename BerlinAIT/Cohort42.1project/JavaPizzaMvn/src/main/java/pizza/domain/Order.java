@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Order {
     private Integer id;
-    private List<Pizza> orderPizzas; // TODO Pizza -> OrderPizza
+    private List<OrderPizza> orderPizzas;
     private Customer customer;
     private OrderState state;
     private LocalDateTime createDate;
@@ -37,7 +37,7 @@ public class Order {
         this.id = id;
     }
 
-    public List<Pizza> getOrderPizzas() {
+    public List<OrderPizza> getOrderPizzas() {
         if (orderPizzas == null) {
             orderPizzas = new ArrayList<>();
         }
