@@ -24,13 +24,13 @@ public class JavaPizzaApp {
         CrudRepository<Integer, Pizza> pizzaRepository = new PizzaRepository();
         CrudRepository<Integer, ExtComponent> extComponentRepository = new ExtComponentRepository();
         CrudRepository<Integer, Customer> customerRepository = new CustomerRepository();
-        CrudRepository<Integer, OrderPizza> orderPizzaRepozitory = new OrderPizzaRepozitory();
-        OrderDbRepository orderRepository = new OrderDbRepository(SQLITE_DB_NAME, customerRepository, pizzaRepository);
+        OrderPizzaDbRepository orderPizzaRepository = new OrderPizzaDbRepository(SQLITE_DB_NAME);
+        OrderDbRepository orderRepository = new OrderDbRepository(SQLITE_DB_NAME, customerRepository, orderPizzaRepository);
         // create all services
         PizzaService pizzaService = new PizzaService(pizzaRepository);
         ExtComponentService extComponentService = new ExtComponentService(extComponentRepository);
         CustomerService customerService = new CustomerService(customerRepository);
-        OrderService orderService = new OrderService(orderRepository, pizzaRepository, orderPizzaRepozitory, extComponentRepository);
+        OrderService orderService = new OrderService(orderRepository, pizzaRepository, orderPizzaRepository, extComponentRepository);
         // create & run controller
         new AppController(pizzaService, extComponentService, customerService, orderService).run();
     }

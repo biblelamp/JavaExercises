@@ -35,7 +35,7 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
      )
      */
 
-    private final String SQL_INSERT = "INSERT INTO `order` (customerId,state,create_date) VALUES (?,?,?)";
+    private final String SQL_INSERT = "INSERT INTO `order` (customer_id,state,create_date) VALUES (?,?,?)";
     private final String SQL_UPDATE = "UPDATE `order` SET customer_id = ?, state = ?, close_date = ? WHERE id = ?";
     private final String SQL_FIND_BY_ID = "SELECT * FROM `order` WHERE id = ?";
     private final String SQL_DELETE_BY_ID = "DELETE FROM `order` WHERE id = ?";

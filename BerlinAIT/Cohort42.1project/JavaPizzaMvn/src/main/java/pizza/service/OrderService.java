@@ -13,12 +13,12 @@ import pizza.repository.*;
 public class OrderService {
     private OrderDbRepository repository;
     private CrudRepository<Integer, Pizza> pizzaRepository;
-    private CrudRepository<Integer, OrderPizza> orderPizzaRepozitory;
+    private OrderPizzaDbRepository orderPizzaRepozitory;
     private CrudRepository<Integer, ExtComponent> extComponentRepository;
 
     public OrderService(OrderDbRepository repository,
                         CrudRepository<Integer, Pizza> pizzaRepository,
-                        CrudRepository<Integer, OrderPizza> orderPizzaRepozitory,
+                        OrderPizzaDbRepository orderPizzaRepozitory,
                         CrudRepository<Integer, ExtComponent> extComponentRepository) {
         this.repository = repository;
         this.pizzaRepository = pizzaRepository;
@@ -44,20 +44,18 @@ public class OrderService {
         return false;
     }
 
-    public void addOrderPizza(int orderId, int pizzaId) {
+    public void addOrderPizza(int orderId, int orderPizzaId) {
         Order order = get(orderId);
-        Pizza pizza = pizzaRepository.findById(pizzaId);
-        //OrderPizza orderPizza = new OrderPizza(pizza);
-        order.getOrderPizzas().add(pizza);
-        repository.addPizza(order, pizza);
+        OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
+        order.getOrderPizzas().add(orderPizza);
+        repository.addPizza(order, orderPizza);
     }
 
-    public void deleteOrderPizza(int orderId, int pizzaId) {
+    public void deleteOrderPizza(int orderId, int orderPizzaId) {
         Order order = get(orderId);
-        Pizza pizza = pizzaRepository.findById(pizzaId);
-        //OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
-        order.getOrderPizzas().remove(pizza);
-        repository.deletePizza(order, pizza);
+        OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
+        order.getOrderPizzas().remove(orderPizza);
+        repository.deletePizza(order, orderPizza);
     }
 
     public void addExtСomponent(int orderId, int orderPizzaId, int extСomponentId) {
