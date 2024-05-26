@@ -13,7 +13,7 @@ import pizza.service.PizzaService;
  * JavaPizza based on https://www.foodora.cz/en/restaurant/uyou/saporito-pizza-and-pasta
  *
  * @author Sergey Iryupin
- * @version 21-Apr-24
+ * @version 25-May-24
  */
 public class JavaPizzaApp {
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class JavaPizzaApp {
         CrudRepository<Integer, Pizza> pizzaRepository = new PizzaRepository();
         CrudRepository<Integer, ExtComponent> extComponentRepository = new ExtComponentRepository();
         CrudRepository<Integer, Customer> customerRepository = new CustomerRepository();
-        OrderPizzaDbRepository orderPizzaRepository = new OrderPizzaDbRepository(SQLITE_DB_NAME);
+        OrderPizzaDbRepository orderPizzaRepository = new OrderPizzaDbRepository(SQLITE_DB_NAME, pizzaRepository);
         OrderDbRepository orderRepository = new OrderDbRepository(SQLITE_DB_NAME, customerRepository, orderPizzaRepository);
         // create all services
         PizzaService pizzaService = new PizzaService(pizzaRepository);

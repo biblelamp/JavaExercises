@@ -28,6 +28,10 @@ public class OrderPizza {
         this.id = id;
     }
 
+    public Pizza getPizza() {
+        return pizza;
+    }
+
     public List<ExtComponent> getComponents() {
         return components;
     }

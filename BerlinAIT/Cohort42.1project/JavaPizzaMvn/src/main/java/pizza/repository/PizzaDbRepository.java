@@ -32,7 +32,7 @@ public class PizzaDbRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void save(Pizza pizza) {
+    public Pizza save(Pizza pizza) {
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement psi = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement psu = connection.prepareStatement(SQL_UPDATE)) {
@@ -58,6 +58,7 @@ public class PizzaDbRepository implements CrudRepository<Integer, Pizza> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return pizza;
     }
 
     @Override

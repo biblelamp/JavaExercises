@@ -20,7 +20,7 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void save(Pizza pizza) {
+    public Pizza save(Pizza pizza) {
         if (pizza.getId() == null) {
             int pizzaId = 0;
             for (Integer id : pizzaMap.keySet()) {
@@ -31,6 +31,7 @@ public class PizzaRepository implements CrudRepository<Integer, Pizza> {
             pizza.setId(pizzaId + 1);
         }
         pizzaMap.put(pizza.getId(), pizza);
+        return pizza;
     }
 
     @Override

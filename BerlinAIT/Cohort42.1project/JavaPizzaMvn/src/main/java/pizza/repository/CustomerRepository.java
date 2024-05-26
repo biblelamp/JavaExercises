@@ -22,7 +22,7 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
     }
 
     @Override
-    public void save(Customer customer) {
+    public Customer save(Customer customer) {
         if (customer.getId() == null) {
             int customerId = 0;
             for (Integer id : customerMap.keySet()) {
@@ -33,6 +33,7 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
             customer.setId(customerId + 1);
         }
         customerMap.put(customer.getId(), customer);
+        return customer;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class PizzaFileRepository implements CrudRepository<Integer, Pizza> {
     }
 
     @Override
-    public void save(Pizza pizza) {
+    public Pizza save(Pizza pizza) {
         // read all records from file
         Collection<Pizza> pizzas = findAll();
         if (pizza.getId() == null) {
@@ -72,6 +72,7 @@ public class PizzaFileRepository implements CrudRepository<Integer, Pizza> {
         }
         // rewrite all records to file
         rewiteFile(pizzas);
+        return pizza;
     }
 
     @Override

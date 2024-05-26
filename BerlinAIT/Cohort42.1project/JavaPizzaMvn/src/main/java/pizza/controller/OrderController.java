@@ -89,9 +89,9 @@ public class OrderController {
                     orderService.addExtСomponent(orderId, orderPizzaId, componentId);
                     break;
                 case 'z':
-                    System.out.print("Order update: delete pizza: pizzaId: ");
-                    pizzaId = Integer.valueOf(scanner.nextLine().trim());
-                    orderService.deleteOrderPizza(orderId, pizzaId);
+                    System.out.print("Order update: delete pizza: orderPizzaId: ");
+                    orderPizzaId = Integer.valueOf(scanner.nextLine().trim());
+                    orderService.deleteOrderPizza(orderId, orderPizzaId);
                     break;
                 case 'o':
                     System.out.print("Order update: delete component: orderPizzaId & componentId: ");

@@ -44,9 +44,10 @@ public class OrderService {
         return false;
     }
 
-    public void addOrderPizza(int orderId, int orderPizzaId) {
+    public void addOrderPizza(int orderId, int pizzaId) {
         Order order = get(orderId);
-        OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
+        Pizza pizza = pizzaRepository.findById(pizzaId);
+        OrderPizza orderPizza = orderPizzaRepozitory.save(new OrderPizza(pizza));
         order.getOrderPizzas().add(orderPizza);
         repository.addPizza(order, orderPizza);
     }

@@ -24,7 +24,7 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtCompon
     }
 
     @Override
-    public void save(ExtComponent component) {
+    public ExtComponent save(ExtComponent component) {
         if (component.getId() == null) {
             int componentId = 0;
             for (Integer id : componentMap.keySet()) {
@@ -35,6 +35,7 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtCompon
             component.setId(componentId + 1);
         }
         componentMap.put(component.getId(), component);
+        return component;
     }
 
     @Override

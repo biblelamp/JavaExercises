@@ -21,7 +21,7 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void save(Order order) {
+    public Order save(Order order) {
         if (order.getId() == null) {
             int orderId = 0;
             for(Integer id : orderMap.keySet()) {
@@ -32,6 +32,7 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
             order.setId(orderId + 1);
         }
         orderMap.put(order.getId(), order);
+        return order;
     }
 
     @Override

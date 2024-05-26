@@ -12,10 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class OrderDbRepository implements CrudRepository<Integer, Order> {
+/**
+ * Order repository
+ * Implementation of access methods to the Order data source
+ *
+ * @author Sergey Iryupin
+ * @version 25-May-24
+ */public class OrderDbRepository implements CrudRepository<Integer, Order> {
 
     private String dbName;
     private CrudRepository<Integer, Customer> customerRepository;
@@ -54,7 +61,7 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void save(Order order) {
+    public Order save(Order order) {
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement psi = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement psu = connection.prepareStatement(SQL_UPDATE)) {
@@ -82,11 +89,11 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return order;
     }
 
     @Override
     public Order findById(Integer id) {
-        Order order = null;
         try (Connection connection = DriverManager.getConnection(dbName);
              PreparedStatement ps = connection.prepareStatement(SQL_FIND_BY_ID);
              PreparedStatement psp = connection.prepareStatement(SQL_FIND_BY_ORDER_ID)) {
@@ -94,35 +101,51 @@ public class OrderDbRepository implements CrudRepository<Integer, Order> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                order = new Order();
-                order.setId(rs.getInt("id"));
-                Integer customerId = rs.getInt("customer_id");
-                Customer customer = customerRepository.findById(customerId);
-                order.setCustomer(customer);
-                order.setState(OrderState.valueOf(rs.getString("state")));
-                order.setCreateDate(LocalDateTime.parse(rs.getString("create_date")));
-                if (rs.getString("close_date") != null) {
-                    order.setCloseDate(LocalDateTime.parse(rs.getString("close_date")));
-                }
-                // read pizzas
-                psp.setInt(1, order.getId());
-                ResultSet rsp = psp.executeQuery();
-                while (rsp.next()) {
-                    Integer orderPizzaId = rsp.getInt("order_pizza_id");
-                    OrderPizza orderPizza = orderPizzaRepository.findById(orderPizzaId);
-                    order.getOrderPizzas().add(orderPizza);
-                }
+                return getOrderFromResultSet(rs, psp);
             }
-            return order;
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private Order getOrderFromResultSet(ResultSet rs, PreparedStatement psp) throws SQLException {
+        Order order = new Order();
+        order.setId(rs.getInt("id"));
+        Integer customerId = rs.getInt("customer_id");
+        Customer customer = customerRepository.findById(customerId);
+        order.setCustomer(customer);
+        order.setState(OrderState.valueOf(rs.getString("state")));
+        order.setCreateDate(LocalDateTime.parse(rs.getString("create_date")));
+        if (rs.getString("close_date") != null) {
+            order.setCloseDate(LocalDateTime.parse(rs.getString("close_date")));
+        }
+        // read order pizzas
+        psp.setInt(1, order.getId());
+        ResultSet rsp = psp.executeQuery();
+        while (rsp.next()) {
+            Integer orderPizzaId = rsp.getInt("order_pizza_id");
+            OrderPizza orderPizza = orderPizzaRepository.findById(orderPizzaId);
+            order.getOrderPizzas().add(orderPizza);
+        }
+        return order;
+    }
+
     @Override
     public Collection<Order> findAll() {
-        // TODO
-        return Collections.emptyList();
+        Collection<Order> orders = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement();
+             PreparedStatement psp = connection.prepareStatement(SQL_FIND_BY_ORDER_ID)) {
+            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
+            while (rs.next()) {
+                Order order = getOrderFromResultSet(rs, psp);
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
     }
 
     @Override

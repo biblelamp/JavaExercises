@@ -14,7 +14,7 @@ public class OrderPizzaRepozitory implements CrudRepository<Integer, OrderPizza>
     }
 
     @Override
-    public void save(OrderPizza orderPizza) {
+    public OrderPizza save(OrderPizza orderPizza) {
         if (orderPizza.getId() == null) {
             int orderPizzaId = 0;
             for(Integer id : orderPizzaMap.keySet()) {
@@ -25,6 +25,7 @@ public class OrderPizzaRepozitory implements CrudRepository<Integer, OrderPizza>
             orderPizza.setId(orderPizzaId + 1);
         }
         orderPizzaMap.put(orderPizza.getId(), orderPizza);
+        return orderPizza;
     }
 
     @Override
