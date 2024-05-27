@@ -1,8 +1,10 @@
-package pizza.repository;
+package pizza.repository.db;
 
 import pizza.domain.Customer;
+import pizza.domain.ExtComponent;
 import pizza.domain.OrderPizza;
 import pizza.domain.Pizza;
+import pizza.repository.CrudRepository;
 
 import java.sql.*;
 import java.util.Collection;
@@ -47,7 +49,7 @@ public class OrderPizzaDbRepository implements CrudRepository<Integer, OrderPizz
                     orderPizza.setId(rs.getInt(1));
                 }
             } else {
-                // TODO
+                // TODO update?
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -68,6 +70,7 @@ public class OrderPizzaDbRepository implements CrudRepository<Integer, OrderPizz
                 Pizza pizza = pizzaRepository.findById(pizzaId);
                 orderPizza = new OrderPizza(pizza);
                 orderPizza.setId(id);
+                // TODO read components
             }
             return orderPizza;
         } catch (SQLException e) {
@@ -82,10 +85,25 @@ public class OrderPizzaDbRepository implements CrudRepository<Integer, OrderPizz
 
     @Override
     public void deleteById(Integer id) {
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void deleteAll() {
         throw new NullPointerException("Method not implemented");
+    }
+
+    public void addComponent(OrderPizza orderPizza, ExtComponent extComponent) {
+        // TODO
+    }
+
+    public void deleteComponents(OrderPizza orderPizza, ExtComponent extСomponent) {
+        // TODO
     }
 }

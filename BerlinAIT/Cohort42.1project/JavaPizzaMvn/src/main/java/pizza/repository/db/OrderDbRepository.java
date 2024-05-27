@@ -1,9 +1,10 @@
-package pizza.repository;
+package pizza.repository.db;
 
 import pizza.domain.Customer;
 import pizza.domain.Order;
 import pizza.domain.OrderPizza;
 import pizza.domain.OrderState;
+import pizza.repository.CrudRepository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +15,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Order repository

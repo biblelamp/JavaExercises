@@ -1,6 +1,7 @@
-package pizza.repository;
+package pizza.repository.db;
 
 import pizza.domain.Pizza;
+import pizza.repository.CrudRepository;
 
 import java.sql.*;
 import java.util.*;

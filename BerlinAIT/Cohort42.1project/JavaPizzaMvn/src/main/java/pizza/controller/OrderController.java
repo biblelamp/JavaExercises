@@ -86,7 +86,7 @@ public class OrderController {
                     input = scanner.nextLine().split("&");
                     orderPizzaId = Integer.valueOf(input[0].trim());
                     componentId = Integer.valueOf(input[1].trim());
-                    orderService.addExtСomponent(orderId, orderPizzaId, componentId);
+                    orderService.addExtСomponent(orderPizzaId, componentId);
                     break;
                 case 'z':
                     System.out.print("Order update: delete pizza: orderPizzaId: ");
@@ -98,7 +98,7 @@ public class OrderController {
                     input = scanner.nextLine().split("&");
                     orderPizzaId = Integer.valueOf(input[0].trim());
                     componentId = Integer.valueOf(input[1].trim());
-                    orderService.deleteExtСomponent(orderId, orderPizzaId, componentId);
+                    orderService.deleteExtСomponent(orderPizzaId, componentId);
                     break;
                 case 's':
                     System.out.print("Order update: set order status: [n]ew, [p]aid, [r]eceived, [c]anceled: ");

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import pizza.domain.Pizza;
 import pizza.repository.CrudRepository;
-import pizza.repository.PizzaDbRepository;
+import pizza.repository.db.PizzaDbRepository;
 import pizza.service.PizzaService;
 
 import java.util.Collection;

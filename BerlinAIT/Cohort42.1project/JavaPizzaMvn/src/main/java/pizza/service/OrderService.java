@@ -2,6 +2,8 @@ package pizza.service;
 
 import pizza.domain.*;
 import pizza.repository.*;
+import pizza.repository.db.OrderDbRepository;
+import pizza.repository.db.OrderPizzaDbRepository;
 
 /**
  * Order service class
@@ -59,20 +61,18 @@ public class OrderService {
         repository.deletePizza(order, orderPizza);
     }
 
-    public void addExtСomponent(int orderId, int orderPizzaId, int extСomponentId) {
-        Order order = get(orderId);
+    public void addExtСomponent(int orderPizzaId, int extСomponentId) {
         OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
         ExtComponent extComponent = extComponentRepository.findById(extСomponentId);
         orderPizza.getComponents().add(extComponent);
-        orderPizzaRepozitory.save(orderPizza);
+        orderPizzaRepozitory.addComponent(orderPizza, extComponent);
     }
 
-    public void deleteExtСomponent(int orderId, int orderPizzaId, int extСomponentId) {
-        Order order = get(orderId);
+    public void deleteExtСomponent(int orderPizzaId, int extСomponentId) {
         OrderPizza orderPizza = orderPizzaRepozitory.findById(orderPizzaId);
         ExtComponent extСomponent = extComponentRepository.findById(extСomponentId);
         orderPizza.getComponents().remove(extСomponent);
-        orderPizzaRepozitory.save(orderPizza);
+        orderPizzaRepozitory.deleteComponents(orderPizza, extСomponent);
     }
 
     public void setState(int orderId, char charState) {
