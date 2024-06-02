@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Collection;
  * Implementation of access methods to the Order pizza data source
  *
  * @author Sergey Iryupin
- * @version 29-May-24
+ * @version 02-Jun-24
  */
 public class OrderPizzaDbRepository implements CrudRepository<Integer, OrderPizza> {
 
@@ -107,8 +108,19 @@ public class OrderPizzaDbRepository implements CrudRepository<Integer, OrderPizz
 
     @Override
     public Collection<OrderPizza> findAll() {
-        // TODO
-        return null;
+        Collection<OrderPizza> orderPizzas = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement();
+             PreparedStatement psp = connection.prepareStatement(SQL_FIND_BY_ORDER_PIZZA_ID)) {
+            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
+            while (rs.next()) {
+                //OrderPizza orderPizza = getOrderFromResultSet(rs, psp);
+                //orderPizzas.add(order);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderPizzas;
     }
 
     @Override

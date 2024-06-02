@@ -109,6 +109,23 @@ import java.util.Collection;
         }
     }
 
+    @Override
+    public Collection<Order> findAll() {
+        Collection<Order> orders = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement();
+             PreparedStatement psp = connection.prepareStatement(SQL_FIND_BY_ORDER_ID)) {
+            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
+            while (rs.next()) {
+                Order order = getOrderFromResultSet(rs, psp);
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
+
     private Order getOrderFromResultSet(ResultSet rs, PreparedStatement psp) throws SQLException {
         Order order = new Order();
         order.setId(rs.getInt("id"));
@@ -129,23 +146,6 @@ import java.util.Collection;
             order.getOrderPizzas().add(orderPizza);
         }
         return order;
-    }
-
-    @Override
-    public Collection<Order> findAll() {
-        Collection<Order> orders = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(dbName);
-             Statement stmt = connection.createStatement();
-             PreparedStatement psp = connection.prepareStatement(SQL_FIND_BY_ORDER_ID)) {
-            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
-            while (rs.next()) {
-                Order order = getOrderFromResultSet(rs, psp);
-                orders.add(order);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return orders;
     }
 
     @Override
