@@ -21,8 +21,9 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
     }
 
     @Override
-    public void save(Customer value) {
-        customerMap.put(value.getId(), value);
+    public Customer save(Customer customer) {
+        customerMap.put(customer.getId(), customer);
+        return customer;
     }
 
     @Override

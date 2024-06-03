@@ -21,8 +21,9 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
     }
 
     @Override
-    public void save(Order order) {
+    public Order save(Order order) {
         orderMap.put(order.getId(), order);
+        return order;
     }
 
     @Override
