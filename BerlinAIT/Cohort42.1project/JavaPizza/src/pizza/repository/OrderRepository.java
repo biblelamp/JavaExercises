@@ -22,6 +22,15 @@ public class OrderRepository implements CrudRepository<Integer, Order> {
 
     @Override
     public Order save(Order order) {
+        if (order.getId() == null) {
+            int orderId = 0;
+            for (Integer id : orderMap.keySet()) {
+                if (orderId < id) {
+                    orderId = id;
+                }
+            }
+            order.setId(orderId + 1);
+        }
         orderMap.put(order.getId(), order);
         return order;
     }

@@ -9,25 +9,28 @@ import java.util.*;
  * @version 19-Apr-24
  */
 public class Order {
-    private int id;
+    private Integer id;
     private Map<Integer, OrderPizza> orderPizzaMap;
     private Customer customer;
     private OrderState state;
     private int deliveryPrice;
     private Date createDate;
     private Date receivedDate;
-    private static int idCounter = 0;
 
     public Order(Customer customer) {
-        this.id = ++idCounter;
+        this.id = null;
         this.orderPizzaMap = new HashMap();
         this.customer = customer;
         this.state = OrderState.NEW;
         this.createDate = new Date();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public OrderPizza getOrderPizza(int orderPizzaId) {
