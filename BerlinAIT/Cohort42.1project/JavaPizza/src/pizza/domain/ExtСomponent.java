@@ -7,19 +7,23 @@ package pizza.domain;
  * @version 15-Apr-24
  */
 public class ExtСomponent {
-    private int id;
+    private Integer id;
     private String name;
     private int price;
     private static int idCounter = 0;
 
     public ExtСomponent(String name, int price) {
-        this.id = ++idCounter;
+        this.id = null;
         this.name = name;
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void update(String name, int price) {

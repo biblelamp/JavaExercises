@@ -24,6 +24,15 @@ public class ExtComponentRepository implements CrudRepository<Integer, ExtСompo
 
     @Override
     public ExtСomponent save(ExtСomponent component) {
+        if (component.getId() == null) {
+            int componentId = 0;
+            for (Integer id : componentMap.keySet()) {
+                if (componentId < id) {
+                    componentId = id;
+                }
+            }
+            component.setId(componentId + 1);
+        }
         componentMap.put(component.getId(), component);
         return component;
     }
