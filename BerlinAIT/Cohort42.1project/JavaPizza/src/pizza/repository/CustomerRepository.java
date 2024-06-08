@@ -22,6 +22,15 @@ public class CustomerRepository implements CrudRepository<Integer, Customer> {
 
     @Override
     public Customer save(Customer customer) {
+        if (customer.getId() == null) {
+            int orderId = 0;
+            for (Integer id : customerMap.keySet()) {
+                if (orderId < id) {
+                    orderId = id;
+                }
+            }
+            customer.setId(orderId + 1);
+        }
         customerMap.put(customer.getId(), customer);
         return customer;
     }
