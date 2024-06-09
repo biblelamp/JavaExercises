@@ -22,7 +22,8 @@ import java.util.Collection;
  *
  * @author Sergey Iryupin
  * @version 25-May-24
- */public class OrderDbRepository implements CrudRepository<Integer, Order> {
+ */
+public class OrderDbRepository implements CrudRepository<Integer, Order> {
 
     private String dbName;
     private CrudRepository<Integer, Customer> customerRepository;
