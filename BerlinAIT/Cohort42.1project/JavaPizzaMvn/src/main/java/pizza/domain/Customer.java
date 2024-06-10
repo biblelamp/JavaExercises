@@ -4,7 +4,7 @@ package pizza.domain;
  * Pizza customer class
  *
  * @author Sergey Iryupin
- * @version 13-May-24
+ * @version 10-Jun-24
  */
 public class Customer {
     private Integer id;
@@ -25,6 +25,18 @@ public class Customer {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public void update(String name, String address, String phone) {
