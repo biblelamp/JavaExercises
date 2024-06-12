@@ -3,7 +3,12 @@ package pizza.repository.db;
 import pizza.domain.Customer;
 import pizza.repository.CrudRepository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 
 /**
@@ -11,7 +16,7 @@ import java.util.Collection;
  * Implementation of access methods to the Customer data source
  *
  * @author Sergey Iryupin
- * @version 10-Jun-24
+ * @version 12-Jun-24
  */
 public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
@@ -68,7 +73,21 @@ public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
     @Override
     public Customer findById(Integer id) {
-        return null;
+        Customer customer = null;
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_FIND_BY_ID)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customer = new Customer(rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phone"));
+                customer.setId(rs.getInt("id"));
+            }
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
