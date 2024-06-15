@@ -16,7 +16,7 @@ import java.util.Collection;
  * Implementation of access methods to the Customer data source
  *
  * @author Sergey Iryupin
- * @version 12-Jun-24
+ * @version 15-Jun-24
  */
 public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
@@ -97,7 +97,13 @@ public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
     @Override
     public void deleteById(Integer id) {
-
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
