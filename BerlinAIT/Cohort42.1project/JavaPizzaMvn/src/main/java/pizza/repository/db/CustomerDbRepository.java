@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Collection;
  * Implementation of access methods to the Customer data source
  *
  * @author Sergey Iryupin
- * @version 15-Jun-24
+ * @version 16-Jun-24
  */
 public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
@@ -92,7 +93,21 @@ public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
     @Override
     public Collection<Customer> findAll() {
-        return null;
+        Collection<Customer> customers = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
+            while (rs.next()) {
+                Customer customer = new Customer(rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("phone"));
+                customer.setId(rs.getInt("id"));
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customers;
     }
 
     @Override
