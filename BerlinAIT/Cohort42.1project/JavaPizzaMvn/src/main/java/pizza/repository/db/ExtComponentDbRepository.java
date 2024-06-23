@@ -10,9 +10,24 @@ import java.util.Collection;
  * Implementation of access methods to the ExtComponent data source
  *
  * @author Sergey Iryupin
- * @version 22-Jun-24
+ * @version 23-Jun-24
  */
 public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComponent> {
+
+    private String dbName;
+
+    /*
+        CREATE TABLE IF NOT EXISTS ext_component (
+            id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            name    TEXT NOT NULL,
+            price   INTEGER
+        )
+    */
+
+    public ExtComponentDbRepository(String dbName) {
+        this.dbName = dbName;
+    }
+
     @Override
     public ExtComponent save(ExtComponent value) {
         return null;

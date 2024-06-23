@@ -25,10 +25,10 @@ public class CustomerDbRepository implements CrudRepository<Integer, Customer> {
 
     /*
     CREATE TABLE IF NOT EXISTS customer (
-        id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        name       TEXT NOT NULL,
-        address    TEXT,
-        phone      TEXT
+        id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        name    TEXT NOT NULL,
+        address TEXT,
+        phone   TEXT
     )
     */
 
