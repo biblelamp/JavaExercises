@@ -24,6 +24,12 @@ public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComp
         )
     */
 
+    private final String SQL_INSERT = "INSERT INTO ext_component (name, price) VALUES (?,?)";
+    private final String SQL_UPDATE = "UPDATE ext_component SET name = ?, price = ? WHERE id = ?";
+    private final String SQL_FIND_BY_ID = "SELECT * FROM ext_component WHERE id = ?";
+    private final String SQL_DELETE_BY_ID = "DELETE FROM ext_component WHERE id = ?";
+    private final String SQL_FIND_ALL = "SELECT * FROM ext_component";
+
     public ExtComponentDbRepository(String dbName) {
         this.dbName = dbName;
     }
