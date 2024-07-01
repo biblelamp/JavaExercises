@@ -1,5 +1,6 @@
 package pizza.repository.db;
 
+import pizza.domain.Customer;
 import pizza.domain.ExtComponent;
 import pizza.repository.CrudRepository;
 
@@ -70,7 +71,19 @@ public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComp
 
     @Override
     public ExtComponent findById(Integer id) {
-        return null;
+        ExtComponent component = null;
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_FIND_BY_ID)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                component = new ExtComponent(rs.getString("name"), rs.getInt("price"));
+                component.setId(rs.getInt("id"));
+            }
+            return component;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
