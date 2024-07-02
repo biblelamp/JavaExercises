@@ -1,6 +1,5 @@
 package pizza.repository.db;
 
-import pizza.domain.Customer;
 import pizza.domain.ExtComponent;
 import pizza.repository.CrudRepository;
 
@@ -17,7 +16,7 @@ import java.util.Collection;
  * Implementation of access methods to the ExtComponent data source
  *
  * @author Sergey Iryupin
- * @version 30-Jun-24
+ * @version 01-Jul-24
  */
 public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComponent> {
 
