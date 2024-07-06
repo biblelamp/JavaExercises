@@ -92,7 +92,13 @@ public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComp
 
     @Override
     public void deleteById(Integer id) {
-
+        try (Connection connection = DriverManager.getConnection(dbName);
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
