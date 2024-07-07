@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Collection;
  * Implementation of access methods to the ExtComponent data source
  *
  * @author Sergey Iryupin
- * @version 01-Jul-24
+ * @version 07-Jul-24
  */
 public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComponent> {
 
@@ -87,7 +88,19 @@ public class ExtComponentDbRepository implements CrudRepository<Integer, ExtComp
 
     @Override
     public Collection<ExtComponent> findAll() {
-        return null;
+        Collection<ExtComponent> components = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(dbName);
+             Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL_FIND_ALL);
+            while (rs.next()) {
+                ExtComponent component = new ExtComponent(rs.getString("name"), rs.getInt("price"));
+                component.setId(rs.getInt("id"));
+                components.add(component);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return components;
     }
 
     @Override
