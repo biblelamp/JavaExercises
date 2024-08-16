@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event
+    username: postgres
+    password: root
+
+#logging:
+#  file:
+#    name: log/hello-liquibase.log
