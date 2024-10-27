@@ -6,4 +6,4 @@ spring:
 
 #logging:
 #  file:
-#    name: hello-liquibase.log
+#    name: log/hello-liquibase.log
