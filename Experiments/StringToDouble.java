@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 /**
  * StrToDouble: converts a string like "123.456" to a double
  *
@@ -12,6 +13,7 @@ class StringToDouble {
         System.out.println(StrToDouble(".567"));
 
         System.out.println("123456789".substring(8 - 7, 8));
+        System.out.println(BigInteger.valueOf(123456).toString());
     }
 
     static double StrToDouble(String str) {
