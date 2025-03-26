@@ -146,8 +146,7 @@ DELETE students;
 
 @Question
 Какой класс не входит в пакет java.lang.reflect?
-@Options @OnlyOne @Key=1
-Package
+@Options @OnlyOne @Key=4
 Constructor
 Method
 Object
@@ -186,7 +185,7 @@ DELETE FROM students;
 
 @Question
 Выберите неверное утверждение
-@Options @OnlyOne @Key=2
+@Options @OnlyOne @Key=4
 RandomAccessFile реализует интерфейсы DataInput и DataOutput
 RandomAccessFile реализует интерфейс Closeable
 RandomAccessFile предоставляет одновременный доступ на чтение и запись
@@ -202,7 +201,7 @@ void run(int priority)
 
 @Question
 Какой класс или интерфейс позволяет отсылать запросы в БД?
-@Options @OnlyOne @Key=4
+@Options @OnlyOne @Key=5
 SecureStatement
 PrecompiledStatement
 RollableStatement
@@ -217,7 +216,7 @@ PreparedStatement
 
 @Question
 В чем особенность SequenceInputStream?
-@Options @OnlyOne @Key=3
+@Options @OnlyOne @Key=2
 позволяет зацикленно читать один и тот же файл
 позволяет работать с несколькими потоками ввода, как с одним
 позволяет выбрать направление чтения файла, от начала к концу, либо с конца в начало
