@@ -40,7 +40,7 @@ IllegalArgumentException
 
 @Question
 Может ли блок try существовать без блока catch?
-@Options @OnlyOne @Key=1
+@Options @OnlyOne @Key=2 - исправлено
 нет
 да
 
